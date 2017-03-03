@@ -24,6 +24,7 @@ Publishing
   (setq org-publish-project-alist
         '(("orgfiles"
             :base-directory "."
+            :recursive t
             :base-extension "org"
             :exclude "xsede-jetstream.org"
             :publishing-directory ".."

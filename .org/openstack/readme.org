@@ -1,0 +1,177 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+
+#+TITLE: readme
+#+DATE: <2017-03-02 Thu>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+* Running VMs on Jetstream with OpenStack
+  :PROPERTIES:
+  :CUSTOM_ID: h:90A8A74D
+  :END:
+** Install Docker
+   :PROPERTIES:
+   :CUSTOM_ID: h:DE5B47F1
+   :END:
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][Install Docker]] in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
+
+** Clone the xsede-jetstream Repository
+   :PROPERTIES:
+   :CUSTOM_ID: h:968FA51C
+   :END:
+
+We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+
+#+BEGIN_SRC sh :eval no
+  git clone https://github.com/Unidata/xsede-jetstream
+#+END_SRC
+
+** Build Docker Container
+   :PROPERTIES:
+   :CUSTOM_ID: h:4A9632CC
+   :END:
+
+#+BEGIN_SRC sh :eval no
+  cd xsede-jetstream/openstack
+  docker build -t openstack-client .
+#+END_SRC
+
+** API Setup
+   :PROPERTIES:
+   :CUSTOM_ID: h:CBD5EC54
+   :END:
+
+We will be using the Jetstream API directly and via convenience scripts. 
+
+*** Create ssh Keys
+    :PROPERTIES:
+    :CUSTOM_ID: h:EE48476C
+    :END:
+
+Create an =.ssh= directory for your ssh keys:
+
+#+BEGIN_SRC sh :eval no
+  mkdir -p .ssh && ssh-keygen -b 2048 -t rsa -f .ssh/id_rsa -P ""
+#+END_SRC
+
+*** Download openrc.sh
+    :PROPERTIES:
+    :CUSTOM_ID: h:8B3E8EEE
+    :END:
+
+Download the =openrc.sh= file into the =xsede-jetstream/openstack= directory [[https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh][according to the Jetstream API instructions]]. See "Use the Horizon dashboard to generate openrc.sh". In the Jetstream Dashboard, navigate to ~Access & Security~, ~API Access~ to download =openrc.sh= (v3).
+
+Edit the =openrc.sh= file and the supply the TACC resource ~OS_PASSWORD~:
+
+#+BEGIN_SRC sh :eval no
+  export OS_PASSWORD="changeme!"
+#+END_SRC
+
+Comment out
+
+#+BEGIN_SRC sh :eval no
+# echo "Please enter your OpenStack Password: "
+# read -sr OS_PASSWORD_INPUT
+#+END_SRC
+
+*** Fire Up Container and More Setup
+    :PROPERTIES:
+    :CUSTOM_ID: h:30B73273
+    :END:
+
+Start the ~openstack-client~ container with
+
+#+BEGIN_SRC sh :eval no
+  sh os.sh
+#+END_SRC
+
+You should be inside the container which has been configured to run openstack ~nova~ and ~neutron~ commands. [[https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line][Go though the following Jetstream API sections]]:
+
+- Create security group
+- Upload SSH key
+- Setup the network
+
+At this point, you should be able to run ~glance image-list~ which should yield something like: 
+
+#+TBLNAME: image-list
+| ID                                   | Name                               |
+|--------------------------------------+------------------------------------|
+| fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
+| 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
+| b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
+|--------------------------------------+------------------------------------|
+
+If not, check your setup.
+
+** Working with Jetstream API to Create VMs
+   :PROPERTIES:
+   :CUSTOM_ID: h:03303143
+   :END:
+*** IP Numbers
+    :PROPERTIES:
+    :CUSTOM_ID: h:5E7A7E65
+    :END:
+
+We are ready to fire up VMs. First create an IP number which we will be using shortly:
+
+#+BEGIN_SRC sh :eval no
+  nova floating-ip-create public
+  nova floating-ip-list
+#+END_SRC
+
+or you can just ~nova floating-ip-list~ if you have IP numbers left around from previous VMs.
+
+*** Boot VM
+    :PROPERTIES:
+    :CUSTOM_ID: h:EA17C2D9
+    :END:
+
+Now you can boot up a VM with something like the following command:
+
+#+BEGIN_SRC sh :eval no
+  boot.sh -n unicloud -s m1.medium -ip 149.165.157.137
+#+END_SRC
+
+The ~boot.sh~ command takes a VM name, size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
+
+*** Create and Attach Data Volumes
+    :PROPERTIES:
+    :CUSTOM_ID: h:9BEEAB97
+    :END:
+
+You can create data volumes via the open stack ~cinder~ interface. As an example, here, we will be creating a 750GB ~data~ volume. You will subsequently attach the data volume to your VM with ~nova~ commands:
+ 
+#+BEGIN_SRC sh :eval no
+  cinder create 750 --display-name data
+
+  cinder list && nova list
+
+  nova volume-attach <vm-uid-number> <volume-uid-number> auto
+#+END_SRC
+
+You will then be able to log in to your VM and mount your data volume with typical Unix ~mount~, ~umount~, and ~df~ commands.
+
+There is a ~mount.sh~ convenience script to mount *uninitialized* data volumes.
+
+*** ssh Into New VM
+    :PROPERTIES:
+    :CUSTOM_ID: h:D961F6F8
+    :END:
+
+~ssh~ into that newly minted VM:
+
+#+BEGIN_SRC :eval no
+  ssh ubuntu@149.165.157.137
+#+END_SRC
+
+If you are having trouble logging in, you may try to delete the =~/.ssh/known_hosts= file. If you still have trouble, try ~nova stop <vm-uid-number>~ followed by ~nova start <vm-uid-number>~.
+
