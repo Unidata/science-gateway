@@ -1,0 +1,33 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+TITLE: xsede-jetstream
+#+DATE: <2017-03-03 Fri>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+The markdown documentation of this project is automatically generated from ~org~.
+
+#+BEGIN_SRC emacs-lisp :results silent
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-export-babel-evaluate nil)
+#+END_SRC
+
+Publishing
+
+#+BEGIN_SRC emacs-lisp :results silent
+  (setq org-publish-project-alist
+        '(("orgfiles"
+            :base-directory "."
+            :base-extension "org"
+            :exclude "xsede-jetstream.org"
+            :publishing-directory ".."
+            :publishing-function org-gfm-publish-to-gfm)))
+#+END_SRC
+
+
