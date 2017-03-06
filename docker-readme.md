@@ -1,23 +1,32 @@
-- [Docker Installation](#orgheadline11)
-  - [Linux VM or Bare Metal Linux](#orgheadline9)
-    - [System Maintenance](#orgheadline3)
-    - [Install Docker](#orgheadline4)
-    - [Install docker-compose](#orgheadline5)
-    - [Start Docker Daemon](#orgheadline6)
-    - [Reboot](#orgheadline7)
-    - [Docker Hello World](#orgheadline8)
-  - [Other Environments (e.g., macOS, Windows)](#orgheadline10)
+- [Docker Installation](#h:BA11A408)
+  - [Linux VM or Bare Metal Linux](#h:FF95E7EC)
+    - [System Maintenance](#h:AE788331)
+    - [Install Docker](#h:786799C4)
+    - [Install docker-compose](#h:02EF6BAD)
+    - [Start Docker Daemon](#h:B6F088A3)
+    - [Reboot](#h:6D94F8D5)
+    - [Docker Hello World](#h:F3633FE6)
+  - [Other Environments (e.g., macOS, Windows)](#h:D1009153)
 
 
-# Docker Installation<a id="orgheadline11"></a>
+
+<a id="h:BA11A408"></a>
+
+# Docker Installation
 
 The `xsede-jetstream` project is heavily dependent on Docker. Herein are some instructions to help you get going with Docker.
 
-## Linux VM or Bare Metal Linux<a id="orgheadline9"></a>
+
+<a id="h:FF95E7EC"></a>
+
+## Linux VM or Bare Metal Linux
 
 Always think before typing the following commands as `root` user!
 
-### System Maintenance<a id="orgheadline3"></a>
+
+<a id="h:AE788331"></a>
+
+### System Maintenance
 
 Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good measure.
 
@@ -34,7 +43,10 @@ Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good mea
     yum -y update && yum -y install git
     ```
 
-### Install Docker<a id="orgheadline4"></a>
+
+<a id="h:786799C4"></a>
+
+### Install Docker
 
 Again, think before you type.
 
@@ -43,7 +55,10 @@ curl -sSL get.docker.com | sh
 usermod -aG docker <username>
 ```
 
-### Install docker-compose<a id="orgheadline5"></a>
+
+<a id="h:02EF6BAD"></a>
+
+### Install docker-compose
 
 ```sh
 curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -51,12 +66,15 @@ curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compos
 chmod +x /usr/local/bin/docker-compose
 ```
 
-### Start Docker Daemon<a id="orgheadline6"></a>
+
+<a id="h:B6F088A3"></a>
+
+### Start Docker Daemon
 
 As `root` user, make sure Docker is available as a daemon. You can issue one of the following commands depending on your flavor of Linux.
 
 ```sh
-service start docker
+service docker start
 ```
 
 or
@@ -66,7 +84,10 @@ systemctl enable docker.service
 systemctl start docker.service
 ```
 
-### Reboot<a id="orgheadline7"></a>
+
+<a id="h:6D94F8D5"></a>
+
+### Reboot
 
 Now reboot the machine:
 
@@ -76,7 +97,10 @@ reboot now
 
 Log back into Linux machine or VM.
 
-### Docker Hello World<a id="orgheadline8"></a>
+
+<a id="h:F3633FE6"></a>
+
+### Docker Hello World
 
 Run this container to make sure the docker install has gone smoothly:
 
@@ -84,6 +108,9 @@ Run this container to make sure the docker install has gone smoothly:
 docker run hello-world
 ```
 
-## Other Environments (e.g., macOS, Windows)<a id="orgheadline10"></a>
+
+<a id="h:D1009153"></a>
+
+## Other Environments (e.g., macOS, Windows)
 
 For other environments, see [the official docker installation documentation](https://docs.docker.com/engine/installation/).
