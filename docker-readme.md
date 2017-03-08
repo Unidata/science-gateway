@@ -14,7 +14,7 @@
 
 # Docker Installation
 
-The `xsede-jetstream` project is heavily dependent on Docker. Herein are some instructions to help you get going with Docker.
+The `xsede-jetstream` project is heavily dependent on Docker. Herein are some instructions to help you get going with Docker. Or if you prefer, you can run the `docker-install.sh` script collocated with this readme (e.g., `chmod +x docker-install.sh; ./docker-install.sh -u jane`).
 
 
 <a id="h:FF95E7EC"></a>
@@ -32,14 +32,14 @@ Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good mea
 
 1.  apt-get
 
-    ```sh
-    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && \
-        apt-get -y install git
+    ```shell
+    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+        && apt-get -y install git
     ```
 
 2.  yum
 
-    ```sh
+    ```shell
     yum -y update && yum -y install git
     ```
 
@@ -48,11 +48,11 @@ Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good mea
 
 ### Install Docker
 
-Again, think before you type.
+Define a `DOCKER_USER`. Again, think before you type.
 
-```sh
+```shell
 curl -sSL get.docker.com | sh
-usermod -aG docker <username>
+usermod -aG docker ${DOCKER_USER}
 ```
 
 
@@ -60,7 +60,7 @@ usermod -aG docker <username>
 
 ### Install docker-compose
 
-```sh
+```shell
 curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
@@ -73,13 +73,13 @@ chmod +x /usr/local/bin/docker-compose
 
 As `root` user, make sure Docker is available as a daemon. You can issue one of the following commands depending on your flavor of Linux.
 
-```sh
+```shell
 service docker start
 ```
 
 or
 
-```sh
+```shell
 systemctl enable docker.service
 systemctl start docker.service
 ```
@@ -91,7 +91,7 @@ systemctl start docker.service
 
 Now reboot the machine:
 
-```sh
+```shell
 reboot now
 ```
 
@@ -104,7 +104,7 @@ Log back into Linux machine or VM.
 
 Run this container to make sure the docker install has gone smoothly:
 
-```sh
+```shell
 docker run hello-world
 ```
 
