@@ -12,24 +12,19 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
 
-#+PROPERTY: header-args :noweb yes :tangle no
+#+PROPERTY: header-args :noweb yes :tangle ../docker-install.sh :eval no
 
 * Org Setup :noexport:
   :PROPERTIES:
   :CUSTOM_ID: h:ECAA0F5F
   :END:
 
-#+BEGIN_SRC emacs-lisp :results silent :exports none
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-export-babel-evaluate nil)
-#+END_SRC
-
 * Docker Installation
   :PROPERTIES:
   :CUSTOM_ID: h:BA11A408
   :END:
 
-The ~xsede-jetstream~ project is heavily dependent on Docker.  Herein are some instructions to help you get going with Docker.
+The ~xsede-jetstream~ project is heavily dependent on Docker.  Herein are some instructions to help you get going with Docker. Or if you prefer, you can run the =docker-install.sh= script collocated with this readme (e.g., ~chmod +x docker-install.sh; ./docker-install.sh -u jane~).
 
 ** Linux VM or Bare Metal Linux
    :PROPERTIES:
@@ -45,14 +40,60 @@ Always think before typing the following commands as ~root~ user!
 
 Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good measure.
 
+# Set up tangling
+
+#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash"
+  if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit
+  fi
+
+  usage="$(basename "$0") [-h] [-u, --user user name] -- 
+  script to setup Docker. Run as root. Think before your type:\n
+      -h  show this help text\n
+      -u, --user User name that will be running Docker containers.\n"
+
+  while [[ $# > 0 ]]
+  do
+      key="$1"
+      case $key in
+          -u|--user)
+              DOCKER_USER="$2"
+              shift # past argument
+              ;;
+          -h|--help)
+              echo -e $usage
+              exit
+              ;;
+      esac
+      shift # past argument or value
+  done
+
+  if [ -z ${DOCKER_USER+x} ]; then
+        echo "Must supply a user:" 
+        echo -e $usage
+        exit 1
+  fi
+#+END_SRC
+
 **** apt-get
      :PROPERTIES:
      :CUSTOM_ID: h:B7D88FA4
      :END:
 
-#+BEGIN_SRC sh :eval no
-  apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && \
-      apt-get -y install git
+#+BEGIN_SRC org :noweb-ref apt-get :exports none :tangle no
+  apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+      && apt-get -y install git
+#+END_SRC
+
+#+BEGIN_SRC shell :exports none
+  if [ -n "$(command -v apt-get)" ]; then
+    <<apt-get>>
+  fi
+#+END_SRC
+
+#+BEGIN_SRC shell :tangle no
+  <<apt-get>>
 #+END_SRC
 
 **** yum
@@ -60,8 +101,18 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good mea
      :CUSTOM_ID: h:C9632B6B
      :END:
 
-#+BEGIN_SRC sh :eval no
- yum -y update && yum -y install git
+#+BEGIN_SRC org :noweb-ref yum :exports none :tangle no
+  yum -y update && yum -y install git
+#+END_SRC
+
+#+BEGIN_SRC shell :exports none
+  if [ -n "$(command -v yum)" ]; then
+    <<yum>>
+  fi
+#+END_SRC
+
+#+BEGIN_SRC shell :tangle no
+    <<yum>>
 #+END_SRC
 
 *** Install Docker
@@ -69,11 +120,11 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good mea
     :CUSTOM_ID: h:786799C4
     :END:
 
-Again, think before you type.
+Define a ~DOCKER_USER~. Again, think before you type.
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC shell
   curl -sSL get.docker.com | sh
-  usermod -aG docker <username>
+  usermod -aG docker ${DOCKER_USER}
 #+END_SRC
 
 *** Install docker-compose
@@ -81,11 +132,11 @@ Again, think before you type.
     :CUSTOM_ID: h:02EF6BAD
     :END:
 
-#+BEGIN_SRC org :noweb-ref dcompose-version :exports none
- 1.11.2
+#+BEGIN_SRC org :noweb-ref dcompose-version :exports none :tangle no
+  1.11.2
 #+END_SRC
 
-#+BEGIN_SRC sh :eval no :noweb yes
+#+BEGIN_SRC shell 
   curl -L https://github.com/docker/compose/releases/download/<<dcompose-version>>/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
   chmod +x /usr/local/bin/docker-compose
@@ -98,15 +149,36 @@ Again, think before you type.
 
 As ~root~ user, make sure Docker is available as a daemon. You can issue one of the following commands depending on your flavor of Linux.
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC org :noweb-ref service :exports none :tangle no
   service docker start
+#+END_SRC
+
+#+BEGIN_SRC shell :exports none
+  if [ -n "$(command -v apt-get)" ]; then
+    <<service>>
+  fi
+#+END_SRC
+
+#+BEGIN_SRC shell :tangle no
+  <<service>>
 #+END_SRC
 
 or 
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC org :noweb-ref systemctl :exports none :tangle no
   systemctl enable docker.service
   systemctl start docker.service
+#+END_SRC
+
+#+BEGIN_SRC shell :exports none
+  if [ -n "$(command -v yum)" ]; then
+    <<systemctl>>
+  fi
+#+END_SRC
+
+
+#+BEGIN_SRC shell :tangle no
+  <<systemctl>>
 #+END_SRC
 
 *** Reboot
@@ -116,7 +188,7 @@ or
 
 Now reboot the machine:
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC shell 
   reboot now
 #+END_SRC
 
@@ -129,7 +201,7 @@ Log back into Linux machine or VM.
 
 Run this container to make sure the docker install has gone smoothly:
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC shell :tangle no
   docker run hello-world
 #+END_SRC
 
