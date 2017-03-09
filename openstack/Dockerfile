@@ -6,7 +6,7 @@ FROM centos:7
 
 RUN yum update yum
 
-RUN yum install -y vim telnet openssh openssh-clients
+RUN yum install -y vim telnet openssh openssh-clients git vi less nano
 
 RUN yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
 
