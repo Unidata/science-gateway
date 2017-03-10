@@ -2,5 +2,5 @@
 
 docker run -it  \
        -v `pwd`/.ssh/:/root/.ssh/ \
-       -v `pwd`/openrc.sh:/root/bin/openrc.sh \
+       -v `pwd`/openrc.sh:/home/openstack/bin/openrc.sh \
        openstack-client /bin/bash
