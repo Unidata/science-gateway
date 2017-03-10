@@ -16,7 +16,7 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-source /root/bin/openrc.sh
+source /home/openstack/bin/openrc.sh
 
 echo ensure open stack is working with: glance image-list
 echo https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line
