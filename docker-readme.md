@@ -14,7 +14,18 @@
 
 # Docker Installation
 
-The `xsede-jetstream` project is heavily dependent on Docker. Herein are some instructions to help you get going with Docker. Or if you prefer, you can run the `docker-install.sh` script collocated with this readme (e.g., `chmod +x docker-install.sh; ./docker-install.sh -u jane`).
+The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker. Or if you prefer, you can clone this repository with:
+
+```shell
+git clone https://github.com/Unidata/xsede-jetstream
+```
+
+and run the `docker-install.sh` script collocated with this readme, e.g.,:
+
+```shell
+cd xsede-jetstream
+chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
+```
 
 
 <a id="h:FF95E7EC"></a>
