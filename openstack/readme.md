@@ -3,8 +3,7 @@
   - [Clone the xsede-jetstream Repository](#h:968FA51C)
   - [Build Docker Container](#h:4A9632CC)
   - [API Setup](#h:CBD5EC54)
-    - [Create ssh Keys](#h:EE48476C)
-    - [Download openrc.sh](#h:8B3E8EEE)
+    - [openrc.sh](#h:8B3E8EEE)
     - [Fire Up Container and More Setup](#h:30B73273)
   - [Working with Jetstream API to Create VMs](#h:03303143)
     - [IP Numbers](#h:5E7A7E65)
@@ -54,35 +53,32 @@ docker build -t openstack-client .
 We will be using the Jetstream API directly and via convenience scripts.
 
 
-<a id="h:EE48476C"></a>
-
-### Create ssh Keys
-
-Create an `.ssh` directory for your ssh keys:
-
-```sh
-mkdir -p .ssh && ssh-keygen -b 2048 -t rsa -f .ssh/id_rsa -P ""
-```
-
-
 <a id="h:8B3E8EEE"></a>
 
-### Download openrc.sh
+### openrc.sh
 
-Download the `openrc.sh` file into the `xsede-jetstream/openstack` directory [according to the Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh). See "Use the Horizon dashboard to generate openrc.sh". In the Jetstream Dashboard, navigate to `Access & Security`, `API Access` to download `openrc.sh` (v3).
+The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login.
 
-Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD`:
+1.  Resetting Password
 
-```sh
-export OS_PASSWORD="changeme!"
-```
+    [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/).
 
-Comment out
+2.  Download openrc.sh
 
-```sh
-# echo "Please enter your OpenStack Password: "
-# read -sr OS_PASSWORD_INPUT
-```
+    Download the `openrc.sh` file [according to the Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh). See "Use the Horizon dashboard to generate openrc.sh". Use the IU: <https://jblb.jetstream-cloud.org/dashboard> not the TACC dashboard. In the Jetstream Dashboard, navigate to `Access & Security`, `API Access` to download `openrc.sh` (v3).
+    
+    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD`:
+    
+    ```sh
+    export OS_PASSWORD="changeme!"
+    ```
+    
+    Comment out
+    
+    ```sh
+    # echo "Please enter your OpenStack Password: "
+    # read -sr OS_PASSWORD_INPUT
+    ```
 
 
 <a id="h:30B73273"></a>
@@ -95,21 +91,28 @@ Start the `openstack-client` container with
 sh openstack.sh
 ```
 
-You should be inside the container which has been configured to run openstack `nova` and `neutron` commands. [Go though the following Jetstream API sections](https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line):
+1.  Create ssh Keys
 
--   Create security group
--   Upload SSH key
--   Setup the network
+    Do this step once. This step of ssh key generation is important. In our experience, we have not had good luck with pre-existing keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `nova keypair-add`.
+    
+    ```sh
+    ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
+    nova keypair-add --pub-key id_rsa.pub <key-name>
+    ```
+    
+    Your `.ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
-At this point, you should be able to run `glance image-list` which should yield something like:
+2.  Testing Your Setup
 
-| ID                                   | Name                               |
-|------------------------------------ |---------------------------------- |
-| fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
-| 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
-| b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
-
-If not, check your setup.
+    At this point, you should be able to run `glance image-list` which should yield something like:
+    
+    | ID                                   | Name                               |
+    |------------------------------------ |---------------------------------- |
+    | fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
+    | 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
+    | b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
+    
+    If not, check your setup.
 
 
 <a id="h:03303143"></a>
@@ -138,10 +141,10 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
 Now you can boot up a VM with something like the following command:
 
 ```sh
-boot.sh -n unicloud -s m1.medium -ip 149.165.157.137
+boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 ```
 
-The `boot.sh` command takes a VM name, size, and IP number created earlier, and optionally a network name or UUID. See `boot.sh -h` and `nova flavor-list` for more information.
+The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C), size, and IP number created earlier, and optionally a network name or UUID. See `boot.sh -h` and `nova flavor-list` for more information.
 
 
 <a id="h:9BEEAB97"></a>

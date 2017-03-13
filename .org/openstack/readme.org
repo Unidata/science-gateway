@@ -52,23 +52,26 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 We will be using the Jetstream API directly and via convenience scripts. 
 
-*** Create ssh Keys
-    :PROPERTIES:
-    :CUSTOM_ID: h:EE48476C
-    :END:
-
-Create an =.ssh= directory for your ssh keys:
-
-#+BEGIN_SRC sh :eval no
-  mkdir -p .ssh && ssh-keygen -b 2048 -t rsa -f .ssh/id_rsa -P ""
-#+END_SRC
-
-*** Download openrc.sh
+*** openrc.sh
     :PROPERTIES:
     :CUSTOM_ID: h:8B3E8EEE
     :END:
 
-Download the =openrc.sh= file into the =xsede-jetstream/openstack= directory [[https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh][according to the Jetstream API instructions]]. See "Use the Horizon dashboard to generate openrc.sh". In the Jetstream Dashboard, navigate to ~Access & Security~, ~API Access~ to download =openrc.sh= (v3).
+The next part involves downloading the =openrc.sh= file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login.
+
+**** Resetting Password
+     :PROPERTIES:
+     :CUSTOM_ID: h:3E2185E5
+     :END:
+
+[[https://portal.tacc.utexas.edu/password-reset/][Reset your OpenStack TACC dashboard password]]. 
+
+**** Download openrc.sh
+     :PROPERTIES:
+     :CUSTOM_ID: h:B34CC3AF
+     :END:
+
+Download the =openrc.sh= file [[https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh][according to the Jetstream API instructions]]. See "Use the Horizon dashboard to generate openrc.sh". Use the IU: https://jblb.jetstream-cloud.org/dashboard not the TACC dashboard.  In the Jetstream Dashboard, navigate to ~Access & Security~, ~API Access~ to download =openrc.sh= (v3).
 
 Edit the =openrc.sh= file and the supply the TACC resource ~OS_PASSWORD~:
 
@@ -94,11 +97,24 @@ Start the ~openstack-client~ container with
   sh openstack.sh
 #+END_SRC
 
-You should be inside the container which has been configured to run openstack ~nova~ and ~neutron~ commands. [[https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line][Go though the following Jetstream API sections]]:
+**** Create ssh Keys
+     :PROPERTIES:
+     :CUSTOM_ID: h:EE48476C
+     :END:
 
-- Create security group
-- Upload SSH key
-- Setup the network
+Do this step once. This step of ssh key generation is important. In our experience, we have not had good luck with pre-existing keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~nova keypair-add~.
+
+ #+BEGIN_SRC sh :eval no
+  ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
+  nova keypair-add --pub-key id_rsa.pub <key-name>
+ #+END_SRC
+
+Your =.ssh= directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
+
+**** Testing Your Setup
+     :PROPERTIES:
+     :CUSTOM_ID: h:257FBBBE
+     :END:
 
 At this point, you should be able to run ~glance image-list~ which should yield something like: 
 
@@ -138,10 +154,10 @@ or you can just ~nova floating-ip-list~ if you have IP numbers left around from 
 Now you can boot up a VM with something like the following command:
 
 #+BEGIN_SRC sh :eval no
-  boot.sh -n unicloud -s m1.medium -ip 149.165.157.137
+  boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 #+END_SRC
 
-The ~boot.sh~ command takes a VM name, size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
+The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]], size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
 
 *** Create and Attach Data Volumes
     :PROPERTIES:
