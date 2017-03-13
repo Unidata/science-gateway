@@ -92,7 +92,7 @@ Comment out
 Start the `openstack-client` container with
 
 ```sh
-sh os.sh
+sh openstack.sh
 ```
 
 You should be inside the container which has been configured to run openstack `nova` and `neutron` commands. [Go though the following Jetstream API sections](https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line):
