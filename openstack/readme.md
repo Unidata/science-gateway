@@ -78,7 +78,7 @@ We will be using the Jetstream API directly and via convenience scripts.
 
 ### openrc.sh
 
-The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login.
+The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h:9C0700C5) in the `openrc.sh` file for convenience.
 
 1.  Resetting Password
 
@@ -86,9 +86,13 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 2.  Download openrc.sh
 
-    Download the `openrc.sh` file [according to the Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh). See "Use the Horizon dashboard to generate openrc.sh". Use the IU: <https://jblb.jetstream-cloud.org/dashboard> not the TACC dashboard. In the Jetstream Dashboard, navigate to `Access & Security`, `API Access` to download `openrc.sh` (v3).
+    Download the `openrc.sh` file [according to the Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh). See "Use the Horizon dashboard to generate openrc.sh". Use the IU: <https://jblb.jetstream-cloud.org/dashboard> not the TACC dashboard. In the Jetstream Dashboard, navigate to `Access & Security`, `API Access` to download `openrc.sh` (v3). (In reality, it will be named something like `TG-ATM160027-openrc.sh`. You can rename it to `openrc.sh`, if you want.)
+
+3.  Edit openrc.sh Password (Optional)
+
+    Optionally, for convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
     
-    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD`:
+    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h:8B3E8EEE):
     
     ```sh
     export OS_PASSWORD="changeme!"
