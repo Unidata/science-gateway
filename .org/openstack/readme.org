@@ -35,14 +35,31 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
   git clone https://github.com/Unidata/xsede-jetstream
 #+END_SRC
 
-** Build Docker Container
+** Pull or Build Docker Container
    :PROPERTIES:
    :CUSTOM_ID: h:4A9632CC
    :END:
 
 #+BEGIN_SRC sh :eval no
   cd xsede-jetstream/openstack
-  docker build -t openstack-client .
+#+END_SRC
+
+At this point, you can either pull or build the ~xsede-jetstream~ container:
+
+*** Pull Container
+    :PROPERTIES:
+    :CUSTOM_ID: h:B5690030
+    :END:
+#+BEGIN_SRC sh :eval no
+  docker pull unidata/xsede-jetstream
+#+END_SRC
+
+*** Build Container
+    :PROPERTIES:
+    :CUSTOM_ID: h:1C54F677
+    :END:
+#+BEGIN_SRC sh :eval no
+  docker build -t unidata/xsede-jetstream .
 #+END_SRC
 
 ** API Setup
@@ -91,7 +108,7 @@ Comment out
     :CUSTOM_ID: h:30B73273
     :END:
 
-Start the ~openstack-client~ container with
+Start the ~unidata/xsede-jetstream~ container with
 
 #+BEGIN_SRC sh :eval no
   sh openstack.sh
