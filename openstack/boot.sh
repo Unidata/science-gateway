@@ -1,9 +1,10 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] [-n, --name vm name] [-s, --size vm size] [-ip, --ip ip address] -- 
-script to create VMs.:\n
+usage="$(basename "$0") [-h] [-n, --name vm name] [-k, --key key name] \n
+    [-s, --size vm size] [-ip, --ip ip address] -- script to create VMs.:\n
     -h  show this help text\n
     -n, --name vm name\n
+    -k, --key key name\n
     -s, --size vm size\n
     -net, --netname network name or network UUID\n
     -ip, --ip vm ip number\n"
@@ -14,6 +15,10 @@ do
     case $key in
         -n|--name)
             VM_NAME="$2"
+            shift # past argument
+            ;;
+        -k|--key)
+            KEY_NAME="$2"
             shift # past argument
             ;;
         -s|--size)
@@ -39,6 +44,13 @@ done
 if [ -z ${VM_NAME+x} ];
   then
       echo "Must supply a vm name:" 
+      echo -e $usage
+      exit 1
+fi
+
+if [ -z ${KEY_NAME+x} ];
+  then
+      echo "Must supply a key name:" 
       echo -e $usage
       exit 1
 fi
@@ -85,7 +97,7 @@ MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 nova boot ${MACHINE_NAME} \
   --flavor ${VM_SIZE} \
   --image afbf353a-f0b5-4598-89bd-38acdc6f4b10 \
-  --key-name ${OS_PROJECT_NAME}-api-key \
+  --key-name ${KEY_NAME} \
   --security-groups global-ssh-22 \
   --nic net-name=${NET_NAME}
 
