@@ -1,7 +1,9 @@
 - [Running VMs on Jetstream with OpenStack](#h:90A8A74D)
   - [Install Docker](#h:DE5B47F1)
   - [Clone the xsede-jetstream Repository](#h:968FA51C)
-  - [Build Docker Container](#h:4A9632CC)
+  - [Pull or Build Docker Container](#h:4A9632CC)
+    - [Pull Container](#h:B5690030)
+    - [Build Container](#h:1C54F677)
   - [API Setup](#h:CBD5EC54)
     - [openrc.sh](#h:8B3E8EEE)
     - [Fire Up Container and More Setup](#h:30B73273)
@@ -38,11 +40,30 @@ git clone https://github.com/Unidata/xsede-jetstream
 
 <a id="h:4A9632CC"></a>
 
-## Build Docker Container
+## Pull or Build Docker Container
 
 ```sh
 cd xsede-jetstream/openstack
-docker build -t openstack-client .
+```
+
+At this point, you can either pull or build the `xsede-jetstream` container:
+
+
+<a id="h:B5690030"></a>
+
+### Pull Container
+
+```sh
+docker pull unidata/xsede-jetstream
+```
+
+
+<a id="h:1C54F677"></a>
+
+### Build Container
+
+```sh
+docker build -t unidata/xsede-jetstream .
 ```
 
 
@@ -85,7 +106,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 ### Fire Up Container and More Setup
 
-Start the `openstack-client` container with
+Start the `unidata/xsede-jetstream` container with
 
 ```sh
 sh openstack.sh
