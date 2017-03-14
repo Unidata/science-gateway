@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 usage="$(basename "$0") [-h] [-s, --ssh .ssh dir] [-o, --openrc openrc.sh file] \n
 -- script to  start openstack CL Docker container:\n

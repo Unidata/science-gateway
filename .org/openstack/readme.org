@@ -115,10 +115,16 @@ Comment out
     :CUSTOM_ID: h:30B73273
     :END:
 
-Start the ~unidata/xsede-jetstream~ container with
+**** openstack.sh
+     :PROPERTIES:
+     :CUSTOM_ID: h:5F4AFF6F
+     :END:
+
+Start the ~unidata/xsede-jetstream~ container with =openstack.sh= convenience script. The script take a ~-o~ argument for your =openrc.sh= file and a ~-s~ argument for the directory containing or will contain your ssh keys (e.g., =~/.ssh= or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly).
 
 #+BEGIN_SRC sh :eval no
-  sh openstack.sh
+  chmod +x openstack.sh
+  ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
 #+END_SRC
 
 **** Create ssh Keys

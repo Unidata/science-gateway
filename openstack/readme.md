@@ -110,13 +110,16 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 ### Fire Up Container and More Setup
 
-Start the `unidata/xsede-jetstream` container with
+1.  openstack.sh
 
-```sh
-sh openstack.sh
-```
+    Start the `unidata/xsede-jetstream` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `~/.ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly).
+    
+    ```sh
+    chmod +x openstack.sh
+    ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
+    ```
 
-1.  Create ssh Keys
+2.  Create ssh Keys
 
     Do this step once. This step of ssh key generation is important. In our experience, we have not had good luck with pre-existing keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `nova keypair-add`.
     
@@ -127,7 +130,7 @@ sh openstack.sh
     
     Your `.ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
-2.  Testing Your Setup
+3.  Testing Your Setup
 
     At this point, you should be able to run `glance image-list` which should yield something like:
     
