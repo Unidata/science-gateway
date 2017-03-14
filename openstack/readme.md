@@ -1,4 +1,5 @@
 - [Running VMs on Jetstream with OpenStack](#h:90A8A74D)
+  - [Introduction](#h:11F59F95)
   - [Install Docker (Do This Once)](#h:DE5B47F1)
   - [Clone the xsede-jetstream Repository (Do This Once)](#h:968FA51C)
   - [Pull or Build Docker Container (Do This Once)](#h:4A9632CC)
@@ -18,6 +19,24 @@
 <a id="h:90A8A74D"></a>
 
 # Running VMs on Jetstream with OpenStack
+
+
+<a id="h:11F59F95"></a>
+
+## Introduction
+
+It is preferable to interface with the XSEDE Jetstream cloud via the [Atmosphere web interface](https://use.jetstream-cloud.org/application/dashboard). However, this web dashboard is limited in two important ways:
+
+1.  Users cannot obtain VMs with static IPs
+2.  Users cannot open low number ports (i.e., < 1024)
+
+If you are in either of these scenarios you have to interface with Jetstream via the OpenStack API. The problem here is that you have to do some initial setup which is somewhat painful but that you do only once. After that, you can interface with the Jetstream OpenStack command line via `openstack.sh` line to:
+
+-   Create IP Numbers
+-   Create VMs
+-   Tear down VMs
+-   Create Data Volumes
+-   Attach Data Volumes
 
 
 <a id="h:DE5B47F1"></a>
