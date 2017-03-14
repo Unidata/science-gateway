@@ -24,7 +24,19 @@
   :CUSTOM_ID: h:BA11A408
   :END:
 
-The ~xsede-jetstream~ project is heavily dependent on Docker, and you will have to have access to a recent version of Docker.  Herein are some instructions to help you get going with Docker. Or if you prefer, you can clone this repository with:
+The ~xsede-jetstream~ project is heavily dependent on Docker, and you will have to have access to a recent version of Docker.  Herein are some instructions to help you get going with Docker.
+
+** Linux VM or Bare Metal Linux
+   :PROPERTIES:
+   :CUSTOM_ID: h:FF95E7EC
+   :END:
+
+*** Quick Start
+    :PROPERTIES:
+    :CUSTOM_ID: h:4A4B1084
+    :END:
+
+Quick start instructions for Linux OS can be found here. For a more complete explanation of the Docker installation start with the [[#h:AE788331][System Maintenance]] section.
 
 #+BEGIN_SRC shell :tangle no
   git clone https://github.com/Unidata/xsede-jetstream
@@ -37,17 +49,12 @@ and run the =docker-install.sh= script collocated with this readme, e.g.,:
   chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
 #+END_SRC
 
-** Linux VM or Bare Metal Linux
-   :PROPERTIES:
-   :CUSTOM_ID: h:FF95E7EC
-   :END:
-
-Always think before typing the following commands as ~root~ user!
-
 *** System Maintenance
     :PROPERTIES:
     :CUSTOM_ID: h:AE788331
     :END:
+
+Always think before typing the following commands as ~root~ user!
 
 Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good measure.
 

@@ -1,5 +1,6 @@
 - [Docker Installation](#h:BA11A408)
   - [Linux VM or Bare Metal Linux](#h:FF95E7EC)
+    - [Quick Start](#h:4A4B1084)
     - [System Maintenance](#h:AE788331)
     - [Install Docker](#h:786799C4)
     - [Install docker-compose](#h:02EF6BAD)
@@ -14,7 +15,19 @@
 
 # Docker Installation
 
-The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker. Or if you prefer, you can clone this repository with:
+The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker.
+
+
+<a id="h:FF95E7EC"></a>
+
+## Linux VM or Bare Metal Linux
+
+
+<a id="h:4A4B1084"></a>
+
+### Quick Start
+
+Quick start instructions for Linux OS can be found here. For a more complete explanation of the Docker installation start with the [System Maintenance](#h:AE788331) section.
 
 ```shell
 git clone https://github.com/Unidata/xsede-jetstream
@@ -28,16 +41,11 @@ chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
 ```
 
 
-<a id="h:FF95E7EC"></a>
-
-## Linux VM or Bare Metal Linux
-
-Always think before typing the following commands as `root` user!
-
-
 <a id="h:AE788331"></a>
 
 ### System Maintenance
+
+Always think before typing the following commands as `root` user!
 
 Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good measure.
 
