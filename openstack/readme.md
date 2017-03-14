@@ -1,11 +1,11 @@
 - [Running VMs on Jetstream with OpenStack](#h:90A8A74D)
-  - [Install Docker](#h:DE5B47F1)
-  - [Clone the xsede-jetstream Repository](#h:968FA51C)
-  - [Pull or Build Docker Container](#h:4A9632CC)
+  - [Install Docker (Do This Once)](#h:DE5B47F1)
+  - [Clone the xsede-jetstream Repository (Do This Once)](#h:968FA51C)
+  - [Pull or Build Docker Container (Do This Once)](#h:4A9632CC)
     - [Pull Container](#h:B5690030)
     - [Build Container](#h:1C54F677)
   - [API Setup](#h:CBD5EC54)
-    - [openrc.sh](#h:8B3E8EEE)
+    - [Download and Edit openrc.sh (Do This Once)](#h:8B3E8EEE)
     - [Fire Up Container and More Setup](#h:30B73273)
   - [Working with Jetstream API to Create VMs](#h:03303143)
     - [IP Numbers](#h:5E7A7E65)
@@ -22,14 +22,14 @@
 
 <a id="h:DE5B47F1"></a>
 
-## Install Docker
+## Install Docker (Do This Once)
 
 [Install Docker](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md) in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
 
 <a id="h:968FA51C"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the xsede-jetstream Repository (Do This Once)
 
 We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
 
@@ -40,7 +40,7 @@ git clone https://github.com/Unidata/xsede-jetstream
 
 <a id="h:4A9632CC"></a>
 
-## Pull or Build Docker Container
+## Pull or Build Docker Container (Do This Once)
 
 ```sh
 cd xsede-jetstream/openstack
@@ -76,7 +76,7 @@ We will be using the Jetstream API directly and via convenience scripts.
 
 <a id="h:8B3E8EEE"></a>
 
-### openrc.sh
+### Download and Edit openrc.sh (Do This Once)
 
 The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h:9C0700C5) in the `openrc.sh` file for convenience.
 
@@ -118,10 +118,12 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     chmod +x openstack.sh
     ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
     ```
+    
+    Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
 
-2.  Create ssh Keys
+2.  Create ssh Keys (Do This Once)
 
-    Do this step once. This step of ssh key generation is important. In our experience, we have not had good luck with pre-existing keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `nova keypair-add`.
+    This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `nova keypair-add`.
     
     ```sh
     ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
@@ -130,7 +132,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     
     Your `.ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
-3.  Testing Your Setup
+3.  Testing Setup
 
     At this point, you should be able to run `glance image-list` which should yield something like:
     
@@ -146,6 +148,20 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 <a id="h:03303143"></a>
 
 ## Working with Jetstream API to Create VMs
+
+At this point, we are past the hard work. You will you will employ the `unidata/xsede-jetstream` container accessed via the `openstack.sh` convenience script to
+
+-   Create IP Numbers
+-   Create VMs
+-   Tear down VMs
+-   Create Data Volumes
+-   Attach Data Volumes
+
+If you have not done so already:
+
+```sh
+./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
+```
 
 
 <a id="h:5E7A7E65"></a>
