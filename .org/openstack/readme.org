@@ -17,14 +17,14 @@
   :PROPERTIES:
   :CUSTOM_ID: h:90A8A74D
   :END:
-** Install Docker
+** Install Docker (Do This Once)
    :PROPERTIES:
    :CUSTOM_ID: h:DE5B47F1
    :END:
 
 [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][Install Docker]] in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
-** Clone the xsede-jetstream Repository
+** Clone the xsede-jetstream Repository (Do This Once)
    :PROPERTIES:
    :CUSTOM_ID: h:968FA51C
    :END:
@@ -35,7 +35,7 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
   git clone https://github.com/Unidata/xsede-jetstream
 #+END_SRC
 
-** Pull or Build Docker Container
+** Pull or Build Docker Container (Do This Once)
    :PROPERTIES:
    :CUSTOM_ID: h:4A9632CC
    :END:
@@ -69,7 +69,7 @@ At this point, you can either pull or build the ~xsede-jetstream~ container:
 
 We will be using the Jetstream API directly and via convenience scripts. 
 
-*** openrc.sh
+*** Download and Edit openrc.sh (Do This Once)
     :PROPERTIES:
     :CUSTOM_ID: h:8B3E8EEE
     :END:
@@ -114,7 +114,6 @@ Comment out
     :PROPERTIES:
     :CUSTOM_ID: h:30B73273
     :END:
-
 **** openstack.sh
      :PROPERTIES:
      :CUSTOM_ID: h:5F4AFF6F
@@ -127,12 +126,14 @@ Start the ~unidata/xsede-jetstream~ container with =openstack.sh= convenience sc
   ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
 #+END_SRC
 
-**** Create ssh Keys
+Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
+
+**** Create ssh Keys (Do This Once)
      :PROPERTIES:
      :CUSTOM_ID: h:EE48476C
      :END:
 
-Do this step once. This step of ssh key generation is important. In our experience, we have not had good luck with pre-existing keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~nova keypair-add~.
+This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~nova keypair-add~.
 
  #+BEGIN_SRC sh :eval no
   ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
@@ -141,7 +142,7 @@ Do this step once. This step of ssh key generation is important. In our experien
 
 Your =.ssh= directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
-**** Testing Your Setup
+**** Testing Setup
      :PROPERTIES:
      :CUSTOM_ID: h:257FBBBE
      :END:
@@ -162,6 +163,21 @@ If not, check your setup.
    :PROPERTIES:
    :CUSTOM_ID: h:03303143
    :END:
+
+At this point, we are past the hard work. You will you will employ the ~unidata/xsede-jetstream~ container accessed via the =openstack.sh= convenience script to
+
+  - Create IP Numbers
+  - Create VMs
+  - Tear down VMs
+  - Create Data Volumes
+  - Attach Data Volumes
+
+If you have not done so already:
+
+#+BEGIN_SRC sh :eval no
+  ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
+#+END_SRC
+   
 *** IP Numbers
     :PROPERTIES:
     :CUSTOM_ID: h:5E7A7E65
