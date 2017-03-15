@@ -1,10 +1,10 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] [-s, --ssh .ssh dir] [-o, --openrc openrc.sh file] \n
--- script to  start openstack CL Docker container:\n
+usage="$(basename "$0") [-h] [-s, --ssh ssh directory path] [-o, --openrc openrc.sh file path] \n
+-- script to  start OpenStack CL Docker container. \n Arguments must be supplied will fully qualified paths.\n
     -h  show this help text\n
-    -s, --ssh .ssh directory containing your openstack Jetstream key\n
-    -o, --openrc openrc.sh file obtained from Jetstream\n"
+    -s, --ssh full path to ssh directory containing your OpenStack Jetstream key\n
+    -o, --openrc full path openrc.sh file obtained from Jetstream\n"
 
 while [[ $# > 0 ]]
 do
