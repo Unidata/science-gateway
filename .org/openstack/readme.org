@@ -137,11 +137,11 @@ Comment out
      :CUSTOM_ID: h:5F4AFF6F
      :END:
 
-Start the ~unidata/xsede-jetstream~ container with =openstack.sh= convenience script. The script take a ~-o~ argument for your =openrc.sh= file and a ~-s~ argument for the directory containing or will contain your ssh keys (e.g., =~/.ssh= or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly).
+Start the ~unidata/xsede-jetstream~ container with =openstack.sh= convenience script. The script take a ~-o~ argument for your =openrc.sh= file and a ~-s~ argument for the directory containing or will contain your ssh keys (e.g., =/home/jane/xsede-jetstream/openstack/ssh= or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). *Both arguments must be supplied with fully qualified path names.*
 
 #+BEGIN_SRC sh :eval no
   chmod +x openstack.sh
-  ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
+  ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
 #+END_SRC
 
 Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
@@ -154,11 +154,15 @@ Subsequently, when interacting with Jetstream via OpenStack API now and in the f
 This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~nova keypair-add~.
 
  #+BEGIN_SRC sh :eval no
+  cd ~/.ssh
   ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
-  nova keypair-add --pub-key id_rsa.pub <key-name>
+  # may get a deprecation warning here
+  nova keypair-add --pub-key <key-name>.pub <key-name>
+  # go back to home directory
+  cd
  #+END_SRC
 
-Your =.ssh= directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
+The =ssh= directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
 **** Testing Setup
      :PROPERTIES:
@@ -193,7 +197,7 @@ At this point, we are past the hard work. You will you will employ the ~unidata/
 If you have not done so already:
 
 #+BEGIN_SRC sh :eval no
-  ./openstack.sh -o <your openrc.sh file> -s <.ssh dir>
+  ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
 #+END_SRC
    
 *** IP Numbers
@@ -215,13 +219,43 @@ or you can just ~nova floating-ip-list~ if you have IP numbers left around from 
     :CUSTOM_ID: h:EA17C2D9
     :END:
 
+**** Create VM
+    :PROPERTIES:
+    :CUSTOM_ID: h:7E8034E7
+    :END:
 Now you can boot up a VM with something like the following command:
 
 #+BEGIN_SRC sh :eval no
   boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 #+END_SRC
 
-The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]], size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
+The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
+
+**** SSH Into New VM
+    :PROPERTIES:
+    :CUSTOM_ID: h:10ACA1BC
+    :END:
+
+At this point, you can ~ssh~ into our newly minted VM. Explicitly, providing the key name with the ~ssh~ ~-i~ argument and a user name (e.g., ~ubuntu~ or ~centos~) may be important:
+
+#+BEGIN_SRC sh :eval no
+  ssh -i ~/.ssh/<key-name> ubuntu@149.165.157.137
+#+END_SRC
+
+At this point, you might see
+
+#+BEGIN_SRC sh :eval no
+  ssh: connect to host 149.165.157.137 port 22: No route to host
+#+END_SRC
+
+Usually waiting for a few minutes resolves the issue.
+
+**** Adding Additional SSH Keys (Optional)
+     :PROPERTIES:
+     :CUSTOM_ID: h:A66BED33
+     :END:
+
+Once you are in your VM, it is probably best to add additional ssh public keys into the ~authorized_keys~ file to make logging in easier from whatever host you are connecting from.
 
 *** Create and Attach Data Volumes
     :PROPERTIES:
