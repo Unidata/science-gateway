@@ -1,0 +1,90 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+#+TITLE: Creating a RAMADDA VM on Jetstream
+#+DATE: <2017-03-17 Fri>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+#+PROPERTY: header-args :eval no :tangle no
+
+* Creating a RAMADDA VM on Jetstream
+  :PROPERTIES:
+  :CUSTOM_ID: h:07FD791D
+  :END:
+** Clone the xsede-jetstream Repository
+   :PROPERTIES:
+   :CUSTOM_ID: h:968FA51C
+   :END:
+
+We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+
+#+BEGIN_SRC shell :eval no
+  git clone https://github.com/Unidata/xsede-jetstream
+#+END_SRC
+
+** Start RAMADDA With Docker and docker-compose
+   :PROPERTIES:
+   :CUSTOM_ID: h:2E18E909
+   :END:
+
+With the help of Docker and ~docker-compose~, starting a VM with the RAMADDA content management system should be fairly easy. There are a few directories you will need to map from outside to within the container. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
+
+** /repository Directory
+   :PROPERTIES:
+   :CUSTOM_ID: h:2F1A5636
+   :END:
+
+The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs) or however much data you anticipate your RAMADDA users will consume. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#create-and-attach-data-volumes][See here if creating data volumes via the Jetstream OpenStack API]].
+
+** RAMADDA log Directories
+   :PROPERTIES:
+   :CUSTOM_ID: h:1C3FF741
+   :END:
+
+You will need an Apache Tomcat and RAMADDA log directories:
+
+ #+BEGIN_SRC shell :eval no
+   mkdir -p ~/logs/ramadda-tomcat/
+   mkdir -p ~/logs/ramadda/
+ #+END_SRC
+
+** LDM Data Directory (Optional)
+   :PROPERTIES:
+   :CUSTOM_ID: h:85431E50
+   :END:
+
+I you plan on using the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to RAMADDA container.
+
+** Port 80
+   :PROPERTIES:
+   :CUSTOM_ID: h:404D9595
+   :END:
+Open port ~80~ on your VM, however you do that so that RAMADDA can serve content via the web port. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container. If using the Jetstream OpenStack API, you can do this with ~secgroup~ commands.
+** docker-compose.yml
+   :PROPERTIES:
+   :CUSTOM_ID: h:7E683535
+   :END:
+
+Based on the directory set we have defined, the =docker-compose.yml= file will look something like:
+
+#+INCLUDE: "../../../vms/ramadda/docker-compose.yml" src yaml
+
+** Start RAMADDA
+   :PROPERTIES:
+   :CUSTOM_ID: h:224A9684
+   :END:
+
+Once you have done the work of setting up RAMADDA related directories in the way you like,
+
+#+BEGIN_SRC shell
+  docker-compose up -d
+#+END_SRC
+
+to start RAMADDA.
