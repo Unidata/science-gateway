@@ -1,0 +1,11 @@
+ramadda:
+  image: unidata/ramadda-docker:2.2
+  container_name: ramadda
+  # restart: always
+  ports:
+    - "80:8080"
+  volumes:
+    - /repository/:/data/repository/
+    - /data/ldm/:/data/ldm/
+    - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
+    - ~/logs/ramadda/:/data/repository/logs/
