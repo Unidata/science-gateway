@@ -217,7 +217,7 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
 
 2.  SSH Into New VM
 
-    At this point, you can `ssh` into our newly minted VM. Explicitly, providing the key name with the `ssh` `-i` argument and a user name (e.g., `ubuntu` or `centos`) may be important:
+    At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `ubuntu` or `centos`) may be important:
     
     ```sh
     ssh -i ~/.ssh/<key-name> ubuntu@149.165.157.137
@@ -252,7 +252,7 @@ nova volume-attach <vm-uid-number> <volume-uid-number> auto
 
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
 
-There is a `mount.sh` convenience script to mount **uninitialized** data volumes.
+There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
 
 
 <a id="h:D961F6F8"></a>

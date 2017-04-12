@@ -236,7 +236,7 @@ The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]] defined ear
     :CUSTOM_ID: h:10ACA1BC
     :END:
 
-At this point, you can ~ssh~ into our newly minted VM. Explicitly, providing the key name with the ~ssh~ ~-i~ argument and a user name (e.g., ~ubuntu~ or ~centos~) may be important:
+At this point, you can ~ssh~ into our newly minted VM. Explicitly providing the key name with the ~ssh~ ~-i~ argument and a user name (e.g., ~ubuntu~ or ~centos~) may be important:
 
 #+BEGIN_SRC sh :eval no
   ssh -i ~/.ssh/<key-name> ubuntu@149.165.157.137
