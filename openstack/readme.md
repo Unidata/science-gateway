@@ -12,7 +12,6 @@
     - [IP Numbers](#h:5E7A7E65)
     - [Boot VM](#h:EA17C2D9)
     - [Create and Attach Data Volumes](#h:9BEEAB97)
-    - [ssh Into New VM](#h:D961F6F8)
 
 
 
@@ -229,7 +228,7 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
     ssh: connect to host 149.165.157.137 port 22: No route to host
     ```
     
-    Usually waiting for a few minutes resolves the issue.
+    Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `nova stop <vm-uid-number>` followed by `nova start <vm-uid-number>`.
 
 3.  Adding Additional SSH Keys (Optional)
 
@@ -253,16 +252,3 @@ nova volume-attach <vm-uid-number> <volume-uid-number> auto
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
-
-
-<a id="h:D961F6F8"></a>
-
-### ssh Into New VM
-
-`ssh` into that newly minted VM:
-
-```:eval
-ssh ubuntu@149.165.157.137
-```
-
-If you are having trouble logging in, you may try to delete the `~/.ssh/known_hosts` file. If you still have trouble, try `nova stop <vm-uid-number>` followed by `nova start <vm-uid-number>`.
