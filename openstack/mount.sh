@@ -48,5 +48,4 @@ fi
 mkdir $DIRECTORY
 fdisk -l $MOUNT
 mkfs.ext4 $MOUNT
-mount $MOUNT $DIRECTORY 
-chown -R ubuntu:docker $DIRECTORY
+mount $MOUNT $DIRECTORY
