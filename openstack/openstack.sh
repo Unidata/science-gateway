@@ -26,14 +26,14 @@ do
     shift # past argument or value
 done
 
-if [ -z ${SSH_DIR+x} ];
+if [ -z "$SSH_DIR" ];
   then
       echo "Must supply an .ssh directory:"
       echo -e $usage
       exit 1
 fi
 
-if [ -z ${OPENRC+x} ];
+if [ -z "$OPENRC" ];
    then
       echo "Must supply an openrc.sh file:"
       echo -e $usage

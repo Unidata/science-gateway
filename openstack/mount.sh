@@ -31,14 +31,14 @@ do
     shift # past argument or value
 done
 
-if [ -z ${MOUNT+x} ];
+if [ -z "$MOUNT" ];
   then
       echo "Must supply a device mount name:" 
       echo -e $usage
       exit 1
 fi
 
-if [ -z ${DIRECTORY+x} ];
+if [ -z "$DIRECTORY" ];
    then
       echo "Must supply a directory name to attach to mount:" 
       echo -e $usage

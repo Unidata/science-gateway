@@ -25,7 +25,7 @@ do
     shift # past argument or value
 done
 
-if [ -z ${DOCKER_USER+x} ]; then
+if [ -z "$DOCKER_USER" ]; then
       echo "Must supply a user:" 
       echo -e $usage
       exit 1

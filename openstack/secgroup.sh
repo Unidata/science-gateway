@@ -31,14 +31,14 @@ do
     shift # past argument or value
 done
 
-if [ -z ${SECGROUP_NAME+x} ];
+if [ -z "$SECGROUP_NAME" ];
   then
       echo "Must supply a secgroup name:" 
       echo -e $usage
       exit 1
 fi
 
-if [ -z ${SECGROUP_PORT+x} ];
+if [ -z "$SECGROUP_PORT" ];
    then
       echo "Must supply a secgroup port:" 
       echo -e $usage

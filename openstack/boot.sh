@@ -41,21 +41,21 @@ do
     shift # past argument or value
 done
 
-if [ -z ${VM_NAME+x} ];
+if [ -z "$VM_NAME" ];
   then
       echo "Must supply a vm name:" 
       echo -e $usage
       exit 1
 fi
 
-if [ -z ${KEY_NAME+x} ];
+if [ -z "$KEY_NAME" ];
   then
       echo "Must supply a key name:" 
       echo -e $usage
       exit 1
 fi
 
-if [ -z ${VM_SIZE+x} ];
+if [ -z "$VM_SIZE" ];
    then
       echo "Must supply a vm size:" 
       echo -e $usage
@@ -63,7 +63,7 @@ if [ -z ${VM_SIZE+x} ];
       exit 1
 fi
 
-if [ -z ${IP+x} ];
+if [ -z "$IP" ];
    then
       echo "Must supply an IP address:"
       echo -e $usage
@@ -71,7 +71,7 @@ if [ -z ${IP+x} ];
       exit 1
 fi
 
-if [ -z ${NET_NAME+x} ];
+if [ -z "$NET_NAME" ];
    then
       NET_NAME=${OS_PROJECT_NAME}-api-net
       echo "No network name supplied to going with ${NET_NAME}." 
