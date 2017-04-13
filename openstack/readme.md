@@ -12,6 +12,7 @@
     - [IP Numbers](#h:5E7A7E65)
     - [Boot VM](#h:EA17C2D9)
     - [Create and Attach Data Volumes](#h:9BEEAB97)
+    - [Tearing Down VMs](#h:1B38941F)
 
 
 
@@ -252,3 +253,22 @@ nova volume-attach <vm-uid-number> <volume-uid-number> auto
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
+
+
+<a id="h:1B38941F"></a>
+
+### Tearing Down VMs
+
+There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `umount` any data volumes before deleting a VM. For example,
+
+```sh
+umount /data
+```
+
+then from the OpenStack CL
+
+```sh
+teardown.sh -n unicloud -ip 149.165.157.137
+```
+
+For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.

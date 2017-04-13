@@ -276,3 +276,21 @@ You will then be able to log in to your VM and mount your data volume with typic
 
 There is a ~mount.sh~ convenience script to mount *uninitialized* data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
 
+*** Tearing Down VMs
+    :PROPERTIES:
+    :CUSTOM_ID: h:1B38941F
+    :END:
+
+There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~umount~ any data volumes before deleting a VM. For example,
+
+#+BEGIN_SRC sh :eval no
+  umount /data
+#+END_SRC
+
+then from the OpenStack CL
+
+#+BEGIN_SRC sh :eval no
+  teardown.sh -n unicloud -ip 149.165.157.137
+#+END_SRC
+
+For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
