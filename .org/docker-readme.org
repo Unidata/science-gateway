@@ -87,7 +87,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good mea
       shift # past argument or value
   done
 
-  if [ -z ${DOCKER_USER+x} ]; then
+  if [ -z "$DOCKER_USER" ]; then
         echo "Must supply a user:" 
         echo -e $usage
         exit 1

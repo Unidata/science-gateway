@@ -26,7 +26,7 @@ do
     shift # past argument or value
 done
 
-if [ -z ${VM_NAME+x} ];
+if [ -z "$VM_NAME" ];
   then
       echo "Must supply a vm name:" 
       echo -e $usage
@@ -34,7 +34,7 @@ if [ -z ${VM_NAME+x} ];
       exit 1
 fi
 
-if [ -z ${IP+x} ];
+if [ -z "$IP" ];
    then
       echo "Must supply an IP address:"
       echo -e $usage
