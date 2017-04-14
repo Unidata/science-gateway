@@ -215,7 +215,7 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
     
-    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally a network name or UUID. See `boot.sh -h` and `nova flavor-list` for more information.
+    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. See `boot.sh -h` and `nova flavor-list` for more information.
 
 2.  SSH Into New VM
 
