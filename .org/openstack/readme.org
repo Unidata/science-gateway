@@ -27,13 +27,15 @@ It is preferable to interface with the XSEDE Jetstream cloud via the [[https://u
   1. Users cannot obtain VMs with static IPs
   2. Users cannot open low number ports (i.e., < 1024)
 
-If you are in either of these scenarios you have to interface with Jetstream via the OpenStack API. The problem here is that you have to do some initial setup which is somewhat painful but that you do only once. After that, you can interface with the Jetstream OpenStack command line via =openstack.sh= line to:
+If you are in either of these scenarios, you have to interface with Jetstream via the [[https://iujetstream.atlassian.net/wiki/display/JWT/Using+the+Jetstream+API][OpenStack API]]. The problem here is that there is some initial setup which is somewhat painful but that you do only once. We provide a Docker container that hopefully eases some of the pain as it has the OpenStack command line tools and convenience scripts installed. After that setup, you can interface with the Jetstream OpenStack command line via the =openstack.sh= script which will launch a Docker container that will enable you to:
 
   - Create IP Numbers
   - Create VMs
   - Tear down VMs
   - Create Data Volumes
   - Attach Data Volumes
+
+Note, you do not have to employ this Docker container. It is merely provided as a convenience. If you choose, you can go through the Jetstream OpenStack API instructions directly and ignore all that follows.
 
 ** Install Docker (Do This Once)
    :PROPERTIES:
