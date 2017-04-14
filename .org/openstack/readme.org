@@ -231,7 +231,7 @@ Now you can boot up a VM with something like the following command:
   boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 #+END_SRC
 
-The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally a network name or UUID. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
+The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with ~glance image-list | grep -i featured~. See ~boot.sh -h~ and ~nova flavor-list~ for more information.
 
 **** SSH Into New VM
     :PROPERTIES:
