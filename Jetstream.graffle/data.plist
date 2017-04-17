@@ -85,6 +85,119 @@
 	<array>
 		<dict>
 			<key>Bounds</key>
+			<string>{{261.71888176600157, 487.55902099609386}, {202, 61.355613708496094}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>Helvetica-Bold</string>
+				<key>Size</key>
+				<real>13</real>
+			</dict>
+			<key>ID</key>
+			<integer>107</integer>
+			<key>Magnets</key>
+			<array>
+				<string>{0, 1}</string>
+				<string>{0, -1}</string>
+				<string>{1, 0}</string>
+				<string>{-1, 0}</string>
+			</array>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Color</key>
+					<dict>
+						<key>b</key>
+						<string>0.4</string>
+						<key>g</key>
+						<string>0.4</string>
+						<key>r</key>
+						<string>1</string>
+					</dict>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>CornerRadius</key>
+					<real>5</real>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Align</key>
+				<integer>0</integer>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\b\fs26 \cf0 VM Size: 		Small\
+CPUs: 			2\
+RAM: 			4GB\
+Local Storage: 	20GB}</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
+			<string>{{261.71888176600169, 464.26465477853401}, {202, 23.294371040112015}}</string>
+			<key>Class</key>
+			<string>ShapedGraphic</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>Helvetica-Bold</string>
+				<key>Size</key>
+				<real>13</real>
+			</dict>
+			<key>ID</key>
+			<integer>106</integer>
+			<key>Magnets</key>
+			<array>
+				<string>{0, 1}</string>
+				<string>{0, -1}</string>
+				<string>{1, 0}</string>
+				<string>{-1, 0}</string>
+			</array>
+			<key>Shape</key>
+			<string>Rectangle</string>
+			<key>Style</key>
+			<dict>
+				<key>fill</key>
+				<dict>
+					<key>Color</key>
+					<dict>
+						<key>b</key>
+						<string>0.4</string>
+						<key>g</key>
+						<string>0.4</string>
+						<key>r</key>
+						<string>1</string>
+					</dict>
+				</dict>
+				<key>stroke</key>
+				<dict>
+					<key>CornerRadius</key>
+					<real>5</real>
+				</dict>
+			</dict>
+			<key>Text</key>
+			<dict>
+				<key>Text</key>
+				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
+
+\f0\b\fs22 \cf0 www.jetstream.unidata.ucar.edu}</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Bounds</key>
 			<string>{{526.66668701171875, 57.211906433104375}, {202, 37.464566929133852}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
@@ -365,7 +478,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{246.99999999999997, -2.9807348251342773}, {398, 45}}</string>
+			<string>{{237.6666666666664, -7.6474014918012472}, {398, 45}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -606,20 +719,17 @@
 				NAGGkoSfngCBUAGGhoEACIQEWzFmXYPNzEw9hpKElpYG
 				TlNGb250hpKEhIQGTlNGb250HpSZKIQFWzQwY10GAAAA
 				HgAAAP/+SABlAGwAdgBlAHQAaQBjAGEALQBCAG8AbABk
-				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkFkoSWlgZO
-				U0tlcm6GkoSEhAhOU051bWJlcgCEhAdOU1ZhbHVlAJSE
-				ASqEhAFkpwCGkquShK2ZJIQFWzM2Y10GAAAAHAAAAP/+
-				SABlAGwAdgBlAHQAaQBjAGEATgBlAHUAZQCiDqMAowGj
-				AKMAhpKElpYNTlNTdHJva2VDb2xvcoaShISEB05TQ29s
-				b3IAlKMBhARmZmZmg5mYGD6DmZgYPoOZmBg+AYaSmZKE
-				m5sCAISdmQySnpKgkqGSopKjkqSSpZKmkqeSqJKpkqqG
-				gQAIn4PNzEw9hpKElpYHTlNDb2xvcoaShLejAqqDzcxM
-				PoPNzEw+g83MTD4BhoaG
+				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkpmSmpKE
+				lpYGTlNLZXJuhpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1
+				ZQCUhAEqhIQBZKcAhpKrkoStmSSEBVszNmNdBgAAABwA
+				AAD//kgAZQBsAHYAZQB0AGkAYwBhAE4AZQB1AGUAog6j
+				AKMBowCjAIaShJaWB05TQ29sb3KGkoSEhAdOU0NvbG9y
+				AJSjAoQEZmZmZoPNzEw+g83MTD6DzcxMPgGGhoY=
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red38\green38\blue38;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs36 \cf0 10.0.* Local\
@@ -637,7 +747,7 @@ Network
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{203.77469439525211, 417.28281835249805}, {66.502838134765625, 30}}</string>
+			<string>{{203.77469439525211, 386.66729342472485}, {66.502838134765625, 30}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -709,7 +819,7 @@ Network
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{203.77469089844604, 235.96545133019853}, {66.502838134765625, 30}}</string>
+			<string>{{203.77469089844604, 205.34992640242515}, {66.502838134765625, 30}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -783,7 +893,7 @@ Network
 			<key>AbsoluteRotation</key>
 			<string>YES</string>
 			<key>Bounds</key>
-			<string>{{176.83333333333312, 311.62413120269736}, {105, 60}}</string>
+			<string>{{176.83333333333312, 281.00860627492415}, {105, 60}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FitText</key>
@@ -821,37 +931,35 @@ Network
 				BAtzdHJlYW10eXBlZIHoA4QBQISEhBJOU0F0dHJpYnV0
 				ZWRTdHJpbmcAhIQITlNPYmplY3QAhZKEhIQITlNTdHJp
 				bmcBlIQBKxYxMC4wLiogTG9jYWwgCk5ldHdvcmsKhoQC
-				aUkBBJKEhIQMTlNEaWN0aW9uYXJ5AJSEAWkDkoSWlgZO
-				U0ZvbnSGkoSEhAZOU0ZvbnQelJkohAVbNDBjXQYAAAAe
-				AAAA//5IAGUAbAB2AGUAdABpAGMAYQAtAEIAbwBsAGQA
-				AACEAWYShAFjAJ0BnQCdAIaShJaWEE5TUGFyYWdyYXBo
-				U3R5bGWGkoSEhBBOU1BhcmFncmFwaFN0eWxlAJSEBEND
-				QFMCAISEhAdOU0FycmF5AJSZDJKEhIQJTlNUZXh0VGFi
-				AJSEAkNmAByGkoSiogA4hpKEoqIAVIaShKKiAHCGkoSi
-				ogCBjACGkoSiogCBqACGkoSiogCBxACGkoSiogCB4ACG
-				koSiogCB/ACGkoSiogCBGAGGkoSiogCBNAGGkoSiogCB
-				UAGGhoEACIQEWzFmXYPNzEw9hpKElpYOTlNPcmlnaW5h
-				bEZvbnSGkpqGlwICkoSYmQKSnJKEnp8CAISgmQySoZKj
-				kqSSpZKmkqeSqJKpkqqSq5Kskq2GgQAIo4PNzEw9hpKZ
-				kpqGlwEBlwIOlwMBkoSYmQaShJaWB05TQ29sb3KGkoSE
-				hAdOU0NvbG9yAJSdAoQEZmZmZoPNzEw+g83MTD6DzcxM
-				PgGGkoSWlg1OU1N0cm9rZUNvbG9yhpK0kpmShJuZJIQF
-				WzM2Y10GAAAAHAAAAP/+SABlAGwAdgBlAHQAaQBjAGEA
-				TgBlAHUAZQCcDp0AnQGdAJ0AhpKElpYGTlNLZXJuhpKE
-				hIQITlNOdW1iZXIAhIQHTlNWYWx1ZQCUhAEqhIQBZKoA
-				hpKElpYNTlNTdHJva2VXaWR0aIaShLqpvKoAhpKckrCG
-				hg==
+				aUkBFZKEhIQMTlNEaWN0aW9uYXJ5AJSEAWkCkoSWlhBO
+				U1BhcmFncmFwaFN0eWxlhpKEhIQQTlNQYXJhZ3JhcGhT
+				dHlsZQCUhARDQ0BTAgCEhIQHTlNBcnJheQCUmQyShISE
+				CU5TVGV4dFRhYgCUhAJDZgAchpKEn54AOIaShJ+eAFSG
+				koSfngBwhpKEn54AgYwAhpKEn54AgagAhpKEn54AgcQA
+				hpKEn54AgeAAhpKEn54AgfwAhpKEn54AgRgBhpKEn54A
+				gTQBhpKEn54AgVABhoaBAAiEBFsxZl2DzcxMPYaShJaW
+				Bk5TRm9udIaShISEBk5TRm9udB6UmSiEBVs0MGNdBgAA
+				AB4AAAD//kgAZQBsAHYAZQB0AGkAYwBhAC0AQgBvAGwA
+				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBZKElpYH
+				TlNDb2xvcoaShISEB05TQ29sb3IAlKMChARmZmZmg83M
+				TD6DzcxMPoPNzEw+AYaSq5KErZkkhAVbMzZjXQYAAAAc
+				AAAA//5IAGUAbAB2AGUAdABpAGMAYQBOAGUAdQBlAKIO
+				owCjAaMAowCGkoSWlgZOU0tlcm6GkoSEhAhOU051bWJl
+				cgCEhAdOU1ZhbHVlAJSEASqEhAFkqgCGkpmShJubAgCE
+				nZkMkp6SoJKhkqKSo5KkkqWSppKnkqiSqZKqhoEACJ+D
+				zcxMPYaShJaWDU5TU3Ryb2tlQ29sb3KGkoSxowGlg5mY
+				GD6DmZgYPoOZmBg+AYaGhg==
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red38\green38\blue38;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs36 \cf0 10.0.* Local \
 Network
 \f1\b0\fs28 \cf2 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 \
+\
 }</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
@@ -1016,7 +1124,7 @@ Local Storage: 	120GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71886396408075, 388.35947211583402}, {202, 23.294371040112015}}</string>
+			<string>{{261.71888430913282, 337.28192655436874}, {202, 23.294371040112015}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1060,7 +1168,7 @@ Local Storage: 	120GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71885951360076, 132.33332824706974}, {202, 24.79295695085106}}</string>
+			<string>{{261.71885951360076, 114.99858093261719}, {202, 24.79295695085106}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1104,7 +1212,7 @@ Local Storage: 	120GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71886459986382, 57.211905753615326}, {202, 75.121421813964844}}</string>
+			<string>{{261.71886459986382, 48.022291494821758}, {202, 66.976285686726811}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1163,7 +1271,7 @@ Local Storage: 	480GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71886459986382, 39.999995674673428}, {202, 17.211910078941926}}</string>
+			<string>{{261.71886459986382, 30.81038141587986}, {202, 17.211910078941926}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1439,7 +1547,7 @@ product generation (to make use of unused capcity)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888176600129, 255.38159876660984}, {202, 17.211910078941926}}</string>
+			<string>{{261.71888176600129, 230.90861063794645}, {202, 17.211910078941926}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1467,11 +1575,11 @@ product generation (to make use of unused capcity)}</string>
 					<key>Color</key>
 					<dict>
 						<key>b</key>
-						<string>0.4</string>
+						<string>0.498039</string>
 						<key>g</key>
-						<string>0.4</string>
+						<string>0.498039</string>
 						<key>r</key>
-						<string>1</string>
+						<string>0.498039</string>
 					</dict>
 				</dict>
 				<key>stroke</key>
@@ -1493,7 +1601,7 @@ product generation (to make use of unused capcity)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888685226446, 306.54523284430394}, {202, 81.814246412314645}}</string>
+			<string>{{261.71888685226446, 271.87855560966068}, {202, 66.976285686726811}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1552,7 +1660,7 @@ Local Storage: 	60GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888685226446, 289.33332276536186}, {202, 17.211910078941926}}</string>
+			<string>{{261.71888685226446, 254.6666455307186}, {202, 17.211910078941926}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1606,7 +1714,7 @@ Local Storage: 	60GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888176600129, 187.80092968142475}, {202, 67.580673217773438}}</string>
+			<string>{{261.71888176600129, 163.32794155276136}, {202, 67.580673217773438}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1669,7 +1777,7 @@ Local Storage: 	60GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888176600129, 170.58901960248289}, {202, 17.211910078941926}}</string>
+			<string>{{261.71888176600129, 146.1160314738195}, {202, 17.211910078941926}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1723,7 +1831,7 @@ Local Storage: 	60GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.7188817660014, 450.42211379064889}, {202, 84.535433070866134}}</string>
+			<string>{{261.7188817660014, 390.25184988125812}, {202, 67.580673217773438}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1782,7 +1890,7 @@ Local Storage: 	60GB}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.7188817660014, 427.12774275053687}, {202, 23.294371040112015}}</string>
+			<string>{{261.7188817660014, 366.9574788411461}, {202, 23.294371040112015}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -2164,7 +2272,7 @@ LDM Q: 			10GB}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-02-27 22:21:56 +0000</string>
+	<string>2017-04-17 17:45:17 +0000</string>
 	<key>Modifier</key>
 	<string>chastang</string>
 	<key>NotesVisible</key>
@@ -2249,6 +2357,8 @@ LDM Q: 			10GB}</string>
 				<string>Canvas 1</string>
 			</dict>
 		</array>
+		<key>Frame</key>
+		<string>{{346, 61}, {1268, 976}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -2261,6 +2371,8 @@ LDM Q: 			10GB}</string>
 		<true/>
 		<key>SidebarWidth</key>
 		<integer>120</integer>
+		<key>VisibleRegion</key>
+		<string>{{0, -3.3333333333333335}, {755.33333333333337, 556}}</string>
 		<key>Zoom</key>
 		<real>1.5</real>
 		<key>ZoomValues</key>
