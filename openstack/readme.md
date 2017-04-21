@@ -12,6 +12,7 @@
     - [IP Numbers](#h:5E7A7E65)
     - [Boot VM](#h:EA17C2D9)
     - [Create and Attach Data Volumes](#h:9BEEAB97)
+    - [Opening TCP Ports](#h:D6B1D4C2)
     - [Tearing Down VMs](#h:1B38941F)
 
 
@@ -37,6 +38,7 @@ If you are in either of these scenarios, you have to interface with Jetstream vi
 -   Tear down VMs
 -   Create Data Volumes
 -   Attach Data Volumes
+-   Open TCP ports
 
 Note, you do not have to employ this Docker container. It is merely provided as a convenience. If you choose, you can go through the Jetstream OpenStack API instructions directly and ignore all that follows.
 
@@ -255,6 +257,29 @@ nova volume-attach <vm-uid-number> <volume-uid-number> auto
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
+
+
+<a id="h:D6B1D4C2"></a>
+
+### Opening TCP Ports
+
+Opening TCP ports on VMs must be done via OpenStack with the `nova secgroup` command line interfaces. In addition, this can be achieved indirectly with the `secgroup.sh` convenience script which will create a secgroup that can be subsequently attached to a VM. For example, to create a secgroup that will enable the opening of TCP port `80`:
+
+```sh
+secgroup.sh -n my-vm-ports -p 80
+```
+
+Once the secgroup is created, you can attach multiple TCP ports to that secgroup with `nova` OpenStack commands. For example, here we are attaching port `8080` to the `global-my-vm-ports` secgroup.
+
+```sh
+nova secgroup-add-rule global-my-vm-ports tcp 8080 8080 0.0.0.0/0
+```
+
+Finally, you can attach the secgroup to the VM (e.g., `my-vm`) with:
+
+```sh
+nova add-secgroup my-vm global-my-vm-ports
+```
 
 
 <a id="h:1B38941F"></a>
