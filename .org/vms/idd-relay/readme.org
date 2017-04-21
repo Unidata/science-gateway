@@ -79,7 +79,7 @@ Create the LDM =logs= directory.
    :CUSTOM_ID: h:FB14DD93
    :END:
 
-Open LDM port ~388~ so that this VM may function as an IDD relay node.
+Open LDM port ~388~ so that this VM may function as an IDD relay node.  [[https://github.com/Unidata/xsede-jetstream/tree/secgroups/openstack#h:D6B1D4C2][See here]] for more information on opening ports.
 
 ** docker-compose.yml
    :PROPERTIES:
