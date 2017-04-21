@@ -74,7 +74,7 @@ mkdir -p ~/logs/ldm
 
 ## Port 388
 
-Open LDM port `388` so that this VM may function as an IDD relay node. [See here](https://github.com/Unidata/xsede-jetstream/tree/secgroups/openstack#h:D6B1D4C2) for more information on opening ports.
+Open LDM port `388` so that this VM may function as an IDD relay node. [See here](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) for more information on opening ports.
 
 
 <a id="h:95441A93"></a>

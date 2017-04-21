@@ -63,7 +63,7 @@ I you plan on using the [server-side view capability of RAMADDA](http://ramadda.
 
 ## Port 80
 
-Open port `80` on your VM, however you do that so that RAMADDA can serve content via the web port. Port `80` requests will be forwarded to `8080` inside the RAMADDA Docker container. [See here](https://github.com/Unidata/xsede-jetstream/tree/secgroups/openstack#h:D6B1D4C2) for more information on opening ports.
+Open port `80` on your VM, however you do that so that RAMADDA can serve content via the web port. Port `80` requests will be forwarded to `8080` inside the RAMADDA Docker container. [See here](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) for more information on opening ports.
 
 
 <a id="h:7E683535"></a>

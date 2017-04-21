@@ -66,7 +66,7 @@ I you plan on using the [[http://ramadda.org//repository/userguide/developer/fil
    :PROPERTIES:
    :CUSTOM_ID: h:404D9595
    :END:
-Open port ~80~ on your VM, however you do that so that RAMADDA can serve content via the web port. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container. [[https://github.com/Unidata/xsede-jetstream/tree/secgroups/openstack#h:D6B1D4C2][See here]] for more information on opening ports.
+Open port ~80~ on your VM, however you do that so that RAMADDA can serve content via the web port. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][See here]] for more information on opening ports.
 
 ** docker-compose.yml
    :PROPERTIES:
