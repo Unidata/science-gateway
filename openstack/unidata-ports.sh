@@ -15,10 +15,15 @@ do
     shift # past argument or value
 done
 
+# secgroup.sh automatically prepends "global-" to the secgroup name
 secgroup.sh  -p 22 -n ssh-22
-secgroup.sh  -p 80 -n http-80
+secgroup.sh  -p 80 -n www
+nova secgroup-add-rule global-www tcp 443 443 0.0.0.0/0
 secgroup.sh  -p 112 -n adde-112
 secgroup.sh  -p 388 -n ldm-388
-secgroup.sh  -p 443 -n ssl-443
-secgroup.sh  -p 8080 -n tomcat-http-8080
-secgroup.sh  -p 8443 -n tomcat-ssl-8443
+secgroup.sh  -p 8080 -n tomcat
+nova secgroup-add-rule global-tomcat tcp 8443 8443 0.0.0.0/0
+secgroup.sh  -p 5672 -n edex
+nova secgroup-add-rule global-edex tcp 9581 9581 0.0.0.0/0
+nova secgroup-add-rule global-edex tcp 9582 9582 0.0.0.0/0
+nova secgroup-list
