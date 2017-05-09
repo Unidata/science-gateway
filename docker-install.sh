@@ -33,11 +33,11 @@ fi
 
 if [ -n "$(command -v apt-get)" ]; then
   apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-      && apt-get -y install git
+      && apt-get -y install git unzip wget
 fi
 
 if [ -n "$(command -v yum)" ]; then
-  yum -y update && yum -y install git
+  yum -y update && yum -y install git unzip wget
 fi
 
 curl -sSL get.docker.com | sh
