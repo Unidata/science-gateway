@@ -47,19 +47,19 @@ chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
 
 Always think before typing the following commands as `root` user!
 
-Do the usual maintenance via `apt-get` or `yum`. Also install `git` for good measure.
+Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary packages (e.g., `git`, etc.) for good measure.
 
 1.  apt-get
 
     ```shell
     apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-        && apt-get -y install git
+        && apt-get -y install git unzip wget
     ```
 
 2.  yum
 
     ```shell
-    yum -y update && yum -y install git
+    yum -y update && yum -y install git unzip wget
     ```
 
 

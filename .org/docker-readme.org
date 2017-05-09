@@ -56,7 +56,7 @@ and run the =docker-install.sh= script collocated with this readme, e.g.,:
 
 Always think before typing the following commands as ~root~ user!
 
-Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good measure.
+Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary packages (e.g., ~git~, etc.) for good measure.
 
 # Set up tangling
 
@@ -101,7 +101,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good mea
 
 #+BEGIN_SRC org :noweb-ref apt-get :exports none :tangle no
   apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-      && apt-get -y install git
+      && apt-get -y install git unzip wget
 #+END_SRC
 
 #+BEGIN_SRC shell :exports none
@@ -120,7 +120,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install ~git~ for good mea
      :END:
 
 #+BEGIN_SRC org :noweb-ref yum :exports none :tangle no
-  yum -y update && yum -y install git
+  yum -y update && yum -y install git unzip wget
 #+END_SRC
 
 #+BEGIN_SRC shell :exports none
