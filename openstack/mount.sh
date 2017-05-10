@@ -45,7 +45,7 @@ if [ -z "$DIRECTORY" ];
       exit 1
 fi
 
-mkdir $DIRECTORY
+mkdir -p $DIRECTORY
 fdisk -l $MOUNT
 mkfs.ext4 $MOUNT
 mount $MOUNT $DIRECTORY
