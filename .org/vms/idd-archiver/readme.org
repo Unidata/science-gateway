@@ -1,0 +1,173 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+#+TITLE: Creating an IDD Archiver on Jetstream
+#+DATE:  <2017-04-26 Wed>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+#+PROPERTY: header-args :noweb yes :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :eval no
+
+* Creating an IDD Archiver on Jetstream
+  :PROPERTIES:
+  :CUSTOM_ID: h:046F9FE1
+  :END:
+** Create and IDD Archiver VM on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:304AA966
+   :END:
+
+Create an ~m1.small~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Create and attach]] a 5TB =/data= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-archiver-jetstream.unidata.ucar.edu=.
+
+** Clone the xsede-jetstream and TdsConfig Repositories
+   :PROPERTIES:
+   :CUSTOM_ID: h:00BE67D7
+   :END:
+
+We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+
+#+BEGIN_SRC shell :tangle no
+  git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+#+END_SRC
+
+In addition, we will employ the ~Unidata/TdsConfig~ repository to obtain our LDM pqacts. We will *not* be running the TDS on the IDD archiver VM.
+
+#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash"
+  git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
+#+END_SRC
+
+** Prepare IDD Archiver for Docker and docker-compose
+   :PROPERTIES:
+   :CUSTOM_ID: h:FF66923F
+   :END:
+
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+
+** ~/etc Directory
+   :PROPERTIES:
+   :CUSTOM_ID: h:B5A9CA86
+   :END:
+
+This =~/etc= directory will contain your LDM configuration files.
+
+#+BEGIN_SRC shell 
+  mkdir -p ~/etc
+  cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
+#+END_SRC
+
+*** ~/etc/ldmd.conf
+    :PROPERTIES:
+    :CUSTOM_ID: h:A598B286
+    :END:
+
+You may have to tailor the =ldmd.conf= to your data feed requirements. In addition, change the following request line
+
+#+BEGIN_SRC shell :tangle no
+  REQUEST ANY ".*" 10.0.0.8
+#+END_SRC
+
+to point the local IDD relay *10.0 address*.
+
+*** ~/etc/registry.xml
+    :PROPERTIES:
+    :CUSTOM_ID: h:27A09559
+    :END:
+
+Verify the =registry.xml= file is updated the ~hostname~ element with ~idd-archiver.jetstream-cloud.org~ so that Real-Time IDD statistics can be properly reported back to Unidata. Finally, you may have to adjust the size of the queue currently at ~6G~.
+
+** pqacts
+   :PROPERTIES:
+   :CUSTOM_ID: h:4BDFE35D
+   :END:
+
+Unpack the pqacts configurations from the ~TdsConfig~ project and put them in the expected =~/etc/TDS= location.
+
+#+BEGIN_SRC shell
+  mkdir -p /tmp/tdsconfig/ ~/etc/TDS
+  wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O /tmp/tdsconfig/config.zip
+  unzip /tmp/tdsconfig/config.zip -d /tmp/tdsconfig/
+  cp -r /tmp/tdsconfig/pqacts/* ~/etc/TDS
+  rm -rf /tmp/tdsconfig
+#+END_SRC
+
+** Edit ldmfile.sh
+   :PROPERTIES:
+   :CUSTOM_ID: h:D2BD1E3A
+   :END:
+
+Examine the =~/etc/TDS/util/ldmfile.sh= file. As the top of this file indicates, you must change the =logfile= to suit your needs. Change the 
+
+#+BEGIN_EXAMPLE
+logfile=logs/ldm-mcidas.log
+#+END_EXAMPLE
+
+line to
+
+#+BEGIN_EXAMPLE
+logfile=var/logs/ldm-mcidas.log
+#+END_EXAMPLE
+
+This will ensure =ldmfile.sh= can properly invoked from the =pqact= files.
+
+We can achieve this change with a bit of ~sed~:
+
+#+BEGIN_SRC shell 
+  # in place change of logs dir w/ sed
+  sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
+      ~/etc/TDS/util/ldmfile.sh
+#+END_SRC
+
+Also ensure that =ldmfile.sh= is executable.
+
+#+BEGIN_SRC shell 
+  chmod +x ~/etc/TDS/util/ldmfile.sh
+#+END_SRC
+
+** /data/queues Directory
+   :PROPERTIES:
+   :CUSTOM_ID: h:2428D469
+   :END:
+
+This =queues= directory will contain the LDM queue file.
+
+#+BEGIN_SRC shell 
+  mkdir -p /data/queues
+#+END_SRC
+
+** /data/ldm/logs Directory
+   :PROPERTIES:
+   :CUSTOM_ID: h:57DC40FF
+   :END:
+
+Create the LDM =logs= directory.
+
+#+BEGIN_SRC shell
+  mkdir -p /data/logs/ldm
+#+END_SRC
+
+** docker-compose.yml
+   :PROPERTIES:
+   :CUSTOM_ID: h:498535EC
+   :END:
+
+Based on the directory set we have defined, the =docker-compose.yml= file will look like this:
+
+#+INCLUDE: "../../../vms/idd-archiver/docker-compose.yml" src yaml
+
+** Start the IDD Archiver Node
+   :PROPERTIES:
+   :CUSTOM_ID: h:4167D52C
+   :END:
+
+To start the IDD archiver node:
+
+#+BEGIN_SRC shell :tangle no
+  cd ~/xsede-jetstream/vms/idd-archiver/
+  docker-compose up -d
+#+END_SRC
