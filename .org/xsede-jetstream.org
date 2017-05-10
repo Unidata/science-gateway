@@ -20,14 +20,16 @@ The markdown documentation of this project is automatically generated from ~org~
 Publishing
 
 #+BEGIN_SRC emacs-lisp :results silent
+  (setq base-dir (concat (projectile-project-root) ".org"))
+
+  (setq pub-dir (projectile-project-root))
+
   (setq org-publish-project-alist
-        '(("orgfiles"
-            :base-directory "."
+        `(("orgfiles"
+            :base-directory ,base-dir
             :recursive t
             :base-extension "org"
             :exclude "xsede-jetstream.org"
-            :publishing-directory ".."
+            :publishing-directory ,pub-dir
             :publishing-function org-gfm-publish-to-gfm)))
 #+END_SRC
-
-
