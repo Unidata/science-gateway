@@ -12,6 +12,7 @@ ldm:
     - /data/:/data/
     - /data/queues:/home/ldm/var/queues/
     - /data/logs/ldm/:/home/ldm/var/logs/
+    - ./cron/:/var/spool/cron/
   ports:
     - "388:388"
   ulimits:

@@ -81,6 +81,11 @@ to point the local IDD relay *10.0 address*.
 
 Verify the =registry.xml= file is updated the ~hostname~ element with ~idd-archiver.jetstream-cloud.org~ so that Real-Time IDD statistics can be properly reported back to Unidata. Finally, you may have to adjust the size of the queue currently at ~6G~.
 
+** Data Scouring
+   :PROPERTIES:
+   :CUSTOM_ID: h:1CA59DB7
+   :END:
+Scouring the =/data/ldm= directory is achieved through the LDM =scour.conf= mechanism and scouring utilities. See the [[https://github.com/Unidata/ldm-docker][ldm-docker project README]] for details. Examine the =etc/scour.conf=, =cron/ldm=, and =docker-compose.yml= to ensure scouring of data happens in the time frame you wish.
 ** pqacts
    :PROPERTIES:
    :CUSTOM_ID: h:4BDFE35D
