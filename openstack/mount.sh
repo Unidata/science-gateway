@@ -49,3 +49,5 @@ mkdir -p $DIRECTORY
 fdisk -l $MOUNT
 mkfs.ext4 $MOUNT
 mount $MOUNT $DIRECTORY
+echo "Ensure the $DIRECTORY is chowned correctly"
+echo "Ensure /etc/fstab is to your liking in order to have the data volume available upon reboot"
