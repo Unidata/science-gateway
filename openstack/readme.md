@@ -258,6 +258,14 @@ You will then be able to log in to your VM and mount your data volume with typic
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
 
+1.  Ensure Volume Availability Upon Machine Restart
+
+    You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, add an entry that looks like this in the `/etc/fstab` file:
+    
+        UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e       /data   ext4    defaults        1       1
+    
+    where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
+
 
 <a id="h:D6B1D4C2"></a>
 
