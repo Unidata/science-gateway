@@ -39,6 +39,10 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 In addition, we will employ the `Unidata/TdsConfig` repository to obtain our LDM pqacts. We will **not** be running the TDS on the IDD archiver VM.
 
+```shell
+git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
+```
+
 
 <a id="h:FF66923F"></a>
 
