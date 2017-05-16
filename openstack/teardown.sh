@@ -30,7 +30,7 @@ if [ -z "$VM_NAME" ];
   then
       echo "Must supply a vm name:" 
       echo -e $usage
-      nova list
+      openstack server list
       exit 1
 fi
 
@@ -38,14 +38,14 @@ if [ -z "$IP" ];
    then
       echo "Must supply an IP address:"
       echo -e $usage
-      nova list
+      openstack server list
       exit 1
 fi
 
 MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 
-nova stop ${MACHINE_NAME}
+openstack server stop ${MACHINE_NAME}
 
-nova floating-ip-disassociate ${MACHINE_NAME} ${IP}
+openstack server remove floating ip ${MACHINE_NAME} ${IP}
 
-nova delete ${MACHINE_NAME}
+openstack server delete ${MACHINE_NAME}

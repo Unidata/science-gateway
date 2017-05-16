@@ -10,7 +10,7 @@ RUN yum install -y vim telnet openssh openssh-clients git vi less nano
 
 RUN yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
 
-RUN yum install -y python-glanceclient python-neutronclient python-novaclient python-openstackclient
+RUN yum install -y python-glanceclient python-openstackclient
 
 ###
 # Set up openstack account and create bin directory

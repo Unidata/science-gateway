@@ -146,13 +146,12 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 2.  Create ssh Keys (Do This Once)
 
-    This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `nova keypair-add`.
+    This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `openstack keypair create`.
     
     ```sh
     cd ~/.ssh
     ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
-    # may get a deprecation warning here
-    nova keypair-add --pub-key <key-name>.pub <key-name>
+    openstack keypair create --public-key <key-name>.pub <key-name>
     # go back to home directory
     cd
     ```
@@ -198,11 +197,11 @@ If you have not done so already:
 We are ready to fire up VMs. First create an IP number which we will be using shortly:
 
 ```sh
-nova floating-ip-create public
-nova floating-ip-list
+openstack floating ip create public
+openstack floating ip list
 ```
 
-or you can just `nova floating-ip-list` if you have IP numbers left around from previous VMs.
+or you can just `openstack floating ip list` if you have IP numbers left around from previous VMs.
 
 
 <a id="h:EA17C2D9"></a>
@@ -217,7 +216,7 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
     
-    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. See `boot.sh -h` and `nova flavor-list` for more information.
+    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. See `boot.sh -h` and `openstack flavor list` for more information.
 
 2.  SSH Into New VM
 
@@ -233,7 +232,7 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
     ssh: connect to host 149.165.157.137 port 22: No route to host
     ```
     
-    Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `nova stop <vm-uid-number>` followed by `nova start <vm-uid-number>`.
+    Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `openstack server stop <vm-uid-number>` followed by `openstack server start <vm-uid-number>`.
 
 3.  Adding Additional SSH Keys (Optional)
 
@@ -244,14 +243,14 @@ or you can just `nova floating-ip-list` if you have IP numbers left around from 
 
 ### Create and Attach Data Volumes
 
-You can create data volumes via the open stack `cinder` interface. As an example, here, we will be creating a 750GB `data` volume. You will subsequently attach the data volume to your VM with `nova` commands:
+You can create data volumes via the OpenStack API. As an example, here, we will be creating a 750GB `data` volume. You will subsequently attach the data volume:
 
 ```sh
-cinder create 750 --display-name data
+openstack volume create --size 750 data
 
-cinder list && nova list
+openstack volume list && openstack server list
 
-nova volume-attach <vm-uid-number> <volume-uid-number> auto
+openstack server add volume <vm-uid-number> <volume-uid-number>
 ```
 
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
@@ -271,22 +270,22 @@ There is a `mount.sh` convenience script to mount **uninitialized** data volumes
 
 ### Opening TCP Ports
 
-Opening TCP ports on VMs must be done via OpenStack with the `nova secgroup` command line interfaces. In addition, this can be achieved indirectly with the `secgroup.sh` convenience script which will create a secgroup that can be subsequently attached to a VM. For example, to create a secgroup that will enable the opening of TCP port `80`:
+Opening TCP ports on VMs must be done via OpenStack with the `openstack security group` command line interfaces. In addition, this can be For example, to create a security group that will enable the opening of TCP port `80`:
 
 ```sh
 secgroup.sh -n my-vm-ports -p 80
 ```
 
-Once the secgroup is created, you can attach multiple TCP ports to that secgroup with `nova` OpenStack commands. For example, here we are attaching port `8080` to the `global-my-vm-ports` secgroup.
+Once the security group is created, you can attach multiple TCP ports to that security group with `openstack security group` commands. For example, here we are attaching port `8080` to the `global-my-vm-ports` security group.
 
 ```sh
-nova secgroup-add-rule global-my-vm-ports tcp 8080 8080 0.0.0.0/0
+openstack security group rule create global-my-vm-ports --protocol tcp --dst-port 8080:8080 --remote-ip 0.0.0.0/0
 ```
 
-Finally, you can attach the secgroup to the VM (e.g., `my-vm`) with:
+Finally, you can attach the security group to the VM (e.g., `my-vm`) with:
 
 ```sh
-nova add-secgroup my-vm global-my-vm-ports
+openstack server add security group my-vm global-my-vm-ports
 ```
 
 

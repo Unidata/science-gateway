@@ -64,7 +64,7 @@ if [ -z "$VM_SIZE" ];
    then
       echo "Must supply a vm size:" 
       echo -e $usage
-      nova flavor-list
+      openstack server list
       exit 1
 fi
 
@@ -72,7 +72,7 @@ if [ -z "$IP" ];
    then
       echo "Must supply an IP address:"
       echo -e $usage
-      nova floating-ip-list
+      openstack floating ip list
       exit 1
 fi
 
@@ -85,7 +85,7 @@ fi
 # OS_PROJECT_NAME is defined in openrc.sh
 MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 
-nova boot ${MACHINE_NAME} \
+openstack server create ${MACHINE_NAME} \
   --flavor ${VM_SIZE} \
   --image ${IMAGE_NAME} \
   --key-name ${KEY_NAME} \
@@ -100,13 +100,11 @@ sleep 30
 # parameterized from the command line. Comment in/out for the ports you need
 # open.  Also see unidata-ports.sh.
 
-# nova add-secgroup ${MACHINE_NAME} global-http-80
-# nova add-secgroup ${MACHINE_NAME} global-ldm-388
-# nova add-secgroup ${MACHINE_NAME} global-adde-112
-# nova add-secgroup ${MACHINE_NAME} global-ssl-443
-# nova add-secgroup ${MACHINE_NAME} global-tomcat-http-8080
-# nova add-secgroup ${MACHINE_NAME} global-tomcat-ssl-8443
+# openstack server add security group ${MACHINE_NAME} global-www
+# openstack server add security group ${MACHINE_NAME} global-ldm-388
+# openstack server add security group ${MACHINE_NAME} global-adde-112
+# openstack server add security group ${MACHINE_NAME} global-tomcat
 
 # Associate your VM with an IP
 
-nova floating-ip-associate ${MACHINE_NAME} ${IP}
+openstack server add floating ip ${MACHINE_NAME} ${IP}
