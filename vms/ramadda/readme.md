@@ -4,7 +4,8 @@
   - [Start RAMADDA With Docker and docker-compose](#h:2E18E909)
   - [/repository Directory](#h:2F1A5636)
   - [RAMADDA log Directories](#h:1C3FF741)
-  - [LDM Data Directory (Optional)](#h:85431E50)
+  - [LDM Data Directory from idd-archiver Via NFS](#h:85431E50)
+  - [Ensure /repository and /data Availability Upon Machine Restart](#h:6423976C)
   - [Port 80](#h:404D9595)
   - [docker-compose.yml](#h:7E683535)
   - [Start RAMADDA](#h:224A9684)
@@ -62,9 +63,30 @@ mkdir -p ~/logs/ramadda/
 
 <a id="h:85431E50"></a>
 
-## LDM Data Directory (Optional)
+## LDM Data Directory from idd-archiver Via NFS
 
-I you plan on using the [server-side view capability of RAMADDA](http://ramadda.org//repository/userguide/developer/filesystem.html) which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., `/data/ldm/`) available to RAMADDA container.
+If you plan on employing the [server-side view capability of RAMADDA](http://ramadda.org//repository/userguide/developer/filesystem.html) which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., `/data/ldm/`) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the `idd-archiver` machine so you need to mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.15`:
+
+```sh
+# create the NFS mount point
+sudo mkdir -p /data
+sudo mount 10.0.0.15:/data /data
+```
+
+
+<a id="h:6423976C"></a>
+
+## Ensure /repository and /data Availability Upon Machine Restart
+
+Ensure the `/repository` OpenStack data volume is available when the RAMADDA VM starts with the `/etc/fstab` file:
+
+    UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /repository ext4  defaults  1 1
+
+where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
+
+In addition, you will want to ensure the NFS `/data` volume is also available with the help of `fstab`.
+
+    10.0.0.15:/data    /data   nfs rsize=8192,wsize=8192,timeo=14,intr
 
 
 <a id="h:404D9595"></a>

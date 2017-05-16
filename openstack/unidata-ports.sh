@@ -26,4 +26,8 @@ openstack security group rule create global-tomcat --protocol tcp --dst-port 844
 secgroup.sh  -p 5672 -n edex
 openstack security group rule create global-tomcat --protocol tcp --dst-port 9581:9581 --remote-ip 0.0.0.0/0
 openstack security group rule create global-tomcat --protocol tcp --dst-port 9582:9582 --remote-ip 0.0.0.0/0
+secgroup.sh  -p 111 -n nfs
+openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
+openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
+openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
 openstack security group list

@@ -10,6 +10,7 @@
   - [Edit ldmfile.sh](#h:D2BD1E3A)
   - [/data/queues Directory](#h:2428D469)
   - [/data/ldm/logs Directory](#h:57DC40FF)
+  - [Sharing /data directory via NFS](#h:358A22F4)
   - [docker-compose.yml](#h:498535EC)
   - [Start the IDD Archiver Node](#h:4167D52C)
 
@@ -154,6 +155,48 @@ Create the LDM `logs` directory.
 ```shell
 mkdir -p /data/logs/ldm
 ```
+
+
+<a id="h:358A22F4"></a>
+
+## Sharing /data directory via NFS
+
+Because volume multi-attach is not yet available via OpenStack, we will want to share the `/data` directory via NFS to client VMs over the `10.0` network by adding and an entry to the `/etc/exports` file. For example, here we are sharing the `/data` directory to the VM at `10.0.0.15`.
+
+```shell
+/data 10.0.0.15(rw,sync,no_subtree_check)
+```
+
+Now start NFS:
+
+```shell
+sudo exportfs -a
+sudo service nfs-kernel-server start
+```
+
+Finally, ensure NFS will be available when the VM starts:
+
+```shell
+sudo update-rc.d nfs-kernel-server defaults
+```
+
+1.  Open NFS Related Ports
+
+    Via OpenStack also open NFS related ports: `111`, `1110`, `2049`, `4045`. If it does not exist already, create the `global-nfs` security group with the `secgroup.sh` convenience script and additional `openstack` commands.
+    
+    ```shell
+    # Will create a "global-nfs" security group.
+    secgroup.sh  -p 111 -n nfs
+    openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
+    openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
+    openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
+    ```
+    
+    Finally, attach the `global-nfs` security group to the newly created VM. The VM ID can be obtained with `openstack server list`.
+    
+    ```shell
+    openstack server add security group <VM name or ID> global-nfs
+    ```
 
 
 <a id="h:498535EC"></a>

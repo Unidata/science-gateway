@@ -53,13 +53,13 @@ Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary pa
 
     ```shell
     apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-        && apt-get -y install git unzip wget
+        && apt-get -y install git unzip wget nfs-kernel-server nfs-common
     ```
 
 2.  yum
 
     ```shell
-    yum -y update && yum -y install git unzip wget
+    yum -y update && yum -y install git unzip wget nfs-kernel-server nfs-common
     ```
 
 
