@@ -62,12 +62,37 @@ You will need an Apache Tomcat and RAMADDA log directories:
    mkdir -p ~/logs/ramadda/
  #+END_SRC
 
-** LDM Data Directory (Optional)
+** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:
    :CUSTOM_ID: h:85431E50
    :END:
 
-I you plan on using the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to RAMADDA container.
+If you plan on employing the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the ~idd-archiver~ machine so you need to mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.15~:
+
+#+BEGIN_SRC sh :eval no
+  # create the NFS mount point
+  sudo mkdir -p /data
+  sudo mount 10.0.0.15:/data /data
+#+END_SRC
+
+** Ensure /repository and /data Availability Upon Machine Restart
+   :PROPERTIES:
+   :CUSTOM_ID: h:6423976C
+   :END:
+
+Ensure the =/repository= OpenStack data volume is available when the RAMADDA VM starts with the ~/etc/fstab~ file:
+
+#+BEGIN_EXAMPLE
+  UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /repository ext4  defaults  1 1
+#+END_EXAMPLE
+
+where the ~UUID~ represents the ID of the data volume device name (e.g., ~/dev/sdb~) which you can discover with the ~blkid~ command. [[https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04][askubuntu]] has a good discussion on this topic. 
+
+In addition, you will want to ensure the NFS =/data= volume is also available with the help of =fstab=.
+
+#+BEGIN_EXAMPLE
+  10.0.0.15:/data    /data   nfs rsize=8192,wsize=8192,timeo=14,intr
+#+END_EXAMPLE
 
 ** Port 80
    :PROPERTIES:
