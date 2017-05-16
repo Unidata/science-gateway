@@ -20,7 +20,7 @@ do
             shift # past argument
             ;;
         -l|--list)
-            nova secgroup-list
+            openstack security group list
             exit
             ;;
         -h|--help)
@@ -45,7 +45,7 @@ if [ -z "$SECGROUP_PORT" ];
       exit 1
 fi
 
-nova secgroup-create global-${SECGROUP_NAME} "${SECGROUP_NAME} enabled"
-nova secgroup-add-rule global-${SECGROUP_NAME} tcp ${SECGROUP_PORT} ${SECGROUP_PORT} 0.0.0.0/0
-nova secgroup-add-rule global-${SECGROUP_NAME} icmp -1 -1 0.0.0.0/0
-nova secgroup-list
+openstack security group create --description "${SECGROUP_NAME} & icmp enabled" global-${SECGROUP_NAME}
+openstack security group rule create --protocol tcp --dst-port ${SECGROUP_PORT} ${SECGROUP_PORT} --remote-ip 0.0.0.0/0 global-${SECGROUP_NAME}
+openstack security group rule create --protocol icmp global-${SECGROUP_NAME}
+openstack security group list

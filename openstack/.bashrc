@@ -8,8 +8,8 @@ alias mv='mv -i'
 
 # open stack aliases
 
-alias iplist='nova floating-ip-list'
-alias vmlist='nova list'
+alias iplist='openstack floating ip list'
+alias vmlist='openstack server list'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
