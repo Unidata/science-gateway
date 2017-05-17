@@ -46,6 +46,6 @@ if [ -z "$SECGROUP_PORT" ];
 fi
 
 openstack security group create --description "${SECGROUP_NAME} & icmp enabled" global-${SECGROUP_NAME}
-openstack security group rule create --protocol tcp --dst-port ${SECGROUP_PORT} ${SECGROUP_PORT} --remote-ip 0.0.0.0/0 global-${SECGROUP_NAME}
+openstack security group rule create --protocol tcp --dst-port ${SECGROUP_PORT}:${SECGROUP_PORT} --remote-ip 0.0.0.0/0 global-${SECGROUP_NAME}
 openstack security group rule create --protocol icmp global-${SECGROUP_NAME}
 openstack security group list
