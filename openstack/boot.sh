@@ -81,12 +81,15 @@ fi
 # OS_PROJECT_NAME is defined in openrc.sh
 MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 
+# obtained through openstack network list
+NETWORK_ID=52839426-7790-47ed-b3ef-49392ef78db2
+
 openstack server create ${MACHINE_NAME} \
   --flavor ${VM_SIZE} \
   --image ${IMAGE_NAME} \
   --key-name ${KEY_NAME} \
-  --security-groups global-ssh-22 \
-  --nic net-name=${OS_PROJECT_NAME}-api-net
+  --security-group global-ssh-22 \
+  --nic net-id=${NETWORK_ID}
 
 # give chance for VM to fire up
 echo sleep 30 for seconds while VM fires up
