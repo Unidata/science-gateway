@@ -60,7 +60,7 @@ if [ -z "$VM_SIZE" ];
    then
       echo "Must supply a vm size:" 
       echo -e $usage
-      openstack server list
+      openstack flavor list
       exit 1
 fi
 
