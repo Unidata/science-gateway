@@ -10,10 +10,6 @@ usage="$(basename "$0") [-h] [-n, --name vm name] [-k, --key key name] \n
     -i, --image image UID\n
     -ip, --ip vm ip number\n"
 
-echo $usage
-
-exit 1
-
 while [[ $# > 0 ]]
 do
     key="$1"
