@@ -18,7 +18,7 @@
   :PROPERTIES:
   :CUSTOM_ID: h:046F9FE1
   :END:
-** Create and IDD Archiver VM on Jetstream
+** Create an IDD Archiver VM on Jetstream
    :PROPERTIES:
    :CUSTOM_ID: h:304AA966
    :END:
