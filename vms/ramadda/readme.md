@@ -1,4 +1,5 @@
 - [Creating a RAMADDA VM on Jetstream](#h:07FD791D)
+  - [Create a RAMADDA VM on Jetstream](#h:F4023EC5)
   - [Clone the xsede-jetstream Repository](#h:968FA51C)
   - [Start RAMADDA With Docker and docker-compose](#h:2E18E909)
   - [/repository Directory](#h:2F1A5636)
@@ -13,6 +14,13 @@
 <a id="h:07FD791D"></a>
 
 # Creating a RAMADDA VM on Jetstream
+
+
+<a id="h:F4023EC5"></a>
+
+## Create a RAMADDA VM on Jetstream
+
+Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 100GB `/repository` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `ramadda-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:968FA51C"></a>
