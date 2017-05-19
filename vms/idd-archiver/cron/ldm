@@ -13,7 +13,7 @@ MAILTO=""
 0 0 * * 0 bash -l -c 'ldmadmin newmetrics'
 
 # check the LDM
-0,15,30,45 * * * * bash -l -c 'ldmadmin check >/dev/null
+0,15,30,45 * * * * bash -l -c 'ldmadmin check' >/dev/null
 
 # Number of days to should match setup in scour.conf
 16 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/ANTARCTIC 2
