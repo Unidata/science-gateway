@@ -1,5 +1,5 @@
 - [Creating an IDD Archiver on Jetstream](#h:046F9FE1)
-  - [Create and IDD Archiver VM on Jetstream](#h:304AA966)
+  - [Create an IDD Archiver VM on Jetstream](#h:304AA966)
   - [Clone the xsede-jetstream and TdsConfig Repositories](#h:00BE67D7)
   - [Prepare IDD Archiver for Docker and docker-compose](#h:FF66923F)
   - [~/etc Directory](#h:B5A9CA86)
@@ -22,7 +22,7 @@
 
 <a id="h:304AA966"></a>
 
-## Create and IDD Archiver VM on Jetstream
+## Create an IDD Archiver VM on Jetstream
 
 Create an `m1.small` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
 
