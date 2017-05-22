@@ -299,7 +299,9 @@ There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `u
 umount /data
 ```
 
-then from the OpenStack CL
+You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., `docker-compose stop`, `sudo service nfs-kernel-server stop`), in case you get errors about the volume being busy.
+
+Then from the OpenStack CL
 
 ```sh
 teardown.sh -n unicloud -ip 149.165.157.137

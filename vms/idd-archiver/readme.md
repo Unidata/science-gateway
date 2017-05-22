@@ -10,6 +10,7 @@
   - [Edit ldmfile.sh](#h:D2BD1E3A)
   - [/data/queues Directory](#h:2428D469)
   - [/data/ldm/logs Directory](#h:57DC40FF)
+  - [Ensure /data Volume Availability Upon Machine Restart](#h:3CE81256)
   - [Sharing /data directory via NFS](#h:358A22F4)
   - [docker-compose.yml](#h:498535EC)
   - [Start the IDD Archiver Node](#h:4167D52C)
@@ -155,6 +156,13 @@ Create the LDM `logs` directory.
 ```shell
 mkdir -p /data/logs/ldm
 ```
+
+
+<a id="h:3CE81256"></a>
+
+## Ensure /data Volume Availability Upon Machine Restart
+
+[Ensure `/data` volume availability upon machine restart](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97).
 
 
 <a id="h:358A22F4"></a>

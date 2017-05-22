@@ -6,6 +6,7 @@
   - [RAMADDA log Directories](#h:1C3FF741)
   - [LDM Data Directory from idd-archiver Via NFS](#h:85431E50)
   - [Ensure /repository and /data Availability Upon Machine Restart](#h:6423976C)
+    - [/data NFS Mounted Volume](#h:286B798E)
   - [Port 80](#h:404D9595)
   - [docker-compose.yml](#h:7E683535)
   - [Start RAMADDA](#h:224A9684)
@@ -78,11 +79,12 @@ sudo mount 10.0.0.15:/data /data
 
 ## Ensure /repository and /data Availability Upon Machine Restart
 
-Ensure the `/repository` OpenStack data volume is available when the RAMADDA VM starts with the `/etc/fstab` file:
+[Ensure the `/repository` volume availability upon machine restart](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97).
 
-    UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /repository ext4  defaults  1 1
 
-where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
+<a id="h:286B798E"></a>
+
+### /data NFS Mounted Volume
 
 In addition, you will want to ensure the NFS `/data` volume is also available with the help of `fstab`.
 
