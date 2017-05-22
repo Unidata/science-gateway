@@ -156,6 +156,13 @@ Create the LDM =logs= directory.
   mkdir -p /data/logs/ldm
 #+END_SRC
 
+** Ensure /data Volume Availability Upon Machine Restart
+   :PROPERTIES:
+   :CUSTOM_ID: h:3CE81256
+   :END:
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Ensure =/data= volume availability upon machine restart]].
+
 ** Sharing /data directory via NFS
    :PROPERTIES:
    :CUSTOM_ID: h:358A22F4
