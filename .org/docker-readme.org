@@ -151,7 +151,7 @@ Define a ~DOCKER_USER~. Again, think before you type.
     :END:
 
 #+BEGIN_SRC org :noweb-ref dcompose-version :exports none :tangle no
-  1.11.2
+  1.13.0
 #+END_SRC
 
 #+BEGIN_SRC shell 
