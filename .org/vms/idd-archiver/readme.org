@@ -12,7 +12,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
 
-#+PROPERTY: header-args :noweb yes :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :eval no
+#+PROPERTY: header-args :noweb yes :eval no
 
 * Creating an IDD Archiver on Jetstream
   :PROPERTIES:
@@ -38,7 +38,7 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 In addition, we will employ the ~Unidata/TdsConfig~ repository to obtain our LDM pqacts. We will *not* be running the TDS on the IDD archiver VM.
 
-#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash"
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :exports none :shebang "#!/bin/bash"
   git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 #+END_SRC
 
@@ -56,7 +56,7 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD ar
 
 This =~/etc= directory will contain your LDM configuration files.
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p ~/etc
   cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
 #+END_SRC
@@ -93,7 +93,7 @@ Scouring the =/data/ldm= directory is achieved through the LDM =scour.conf= mech
 
 Unpack the pqacts configurations from the ~TdsConfig~ project and put them in the expected =~/etc/TDS= location.
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /tmp/tdsconfig/ ~/etc/TDS
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O /tmp/tdsconfig/config.zip
   unzip /tmp/tdsconfig/config.zip -d /tmp/tdsconfig/
@@ -109,20 +109,20 @@ Unpack the pqacts configurations from the ~TdsConfig~ project and put them in th
 Examine the =~/etc/TDS/util/ldmfile.sh= file. As the top of this file indicates, you must change the =logfile= to suit your needs. Change the 
 
 #+BEGIN_EXAMPLE
-logfile=logs/ldm-mcidas.log
+  logfile=logs/ldm-mcidas.log
 #+END_EXAMPLE
 
 line to
 
 #+BEGIN_EXAMPLE
-logfile=var/logs/ldm-mcidas.log
+  logfile=var/logs/ldm-mcidas.log
 #+END_EXAMPLE
 
 This will ensure =ldmfile.sh= can properly invoked from the =pqact= files.
 
 We can achieve this change with a bit of ~sed~:
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   # in place change of logs dir w/ sed
   sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
       ~/etc/TDS/util/ldmfile.sh
@@ -130,7 +130,7 @@ We can achieve this change with a bit of ~sed~:
 
 Also ensure that =ldmfile.sh= is executable.
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   chmod +x ~/etc/TDS/util/ldmfile.sh
 #+END_SRC
 
@@ -141,7 +141,7 @@ Also ensure that =ldmfile.sh= is executable.
 
 This =queues= directory will contain the LDM queue file.
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/queues
 #+END_SRC
 
@@ -152,7 +152,7 @@ This =queues= directory will contain the LDM queue file.
 
 Create the LDM =logs= directory.
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/logs/ldm
 #+END_SRC
 
@@ -168,23 +168,31 @@ Create the LDM =logs= directory.
    :CUSTOM_ID: h:358A22F4
    :END:
 
-Because volume multi-attach is not yet available via OpenStack, we will want to share the =/data= directory via NFS to client VMs over the ~10.0~ network by adding and an entry to the =/etc/exports= file. For example, here we are sharing the =/data= directory to the VM at ~10.0.0.15~.
+Because volume multi-attach is not yet available via OpenStack, we will want to share the =/data= directory via NFS to client VMs over the ~10.0~ network by adding and an entry to the =/etc/exports= file. For example, here we are sharing the =/data= directory to the VM at ~10.0.0.18~.
 
-#+BEGIN_SRC shell
-  /data 10.0.0.15(rw,sync,no_subtree_check)
+#+BEGIN_SRC sh :eval no :exports none :tangle ../../../vms/idd-archiver/nfs-install.sh :shebang "#!/bin/bash"
+  if [ "$EUID" -ne 0 ]
+    then echo "Please run as root"
+    exit
+  fi
+#+END_SRC
+
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+  echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
+      --append /etc/exports > /dev/null
 #+END_SRC
 
 Now start NFS:
 
-#+BEGIN_SRC shell
-  sudo exportfs -a
-  sudo service nfs-kernel-server start
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+  exportfs -a
+  service nfs-kernel-server start
 #+END_SRC
 
 Finally, ensure NFS will be available when the VM starts:
 
-#+BEGIN_SRC shell
-  sudo update-rc.d nfs-kernel-server defaults
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+  update-rc.d nfs-kernel-server defaults
 #+END_SRC
 
 **** Open NFS Related Ports
@@ -194,7 +202,7 @@ Finally, ensure NFS will be available when the VM starts:
 
 Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it does not exist already, create the ~global-nfs~ security group with the ~secgroup.sh~ convenience script and additional ~openstack~ commands.
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :tangle no
   # Will create a "global-nfs" security group.
   secgroup.sh  -p 111 -n nfs
   openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
@@ -204,7 +212,7 @@ Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it 
 
 Finally, attach the ~global-nfs~ security group to the newly created VM. The VM ID can be obtained with ~openstack server list~.
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :tangle no
   openstack server add security group <VM name or ID> global-nfs
 #+END_SRC
 

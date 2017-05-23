@@ -169,23 +169,24 @@ mkdir -p /data/logs/ldm
 
 ## Sharing /data directory via NFS
 
-Because volume multi-attach is not yet available via OpenStack, we will want to share the `/data` directory via NFS to client VMs over the `10.0` network by adding and an entry to the `/etc/exports` file. For example, here we are sharing the `/data` directory to the VM at `10.0.0.15`.
+Because volume multi-attach is not yet available via OpenStack, we will want to share the `/data` directory via NFS to client VMs over the `10.0` network by adding and an entry to the `/etc/exports` file. For example, here we are sharing the `/data` directory to the VM at `10.0.0.18`.
 
 ```shell
-/data 10.0.0.15(rw,sync,no_subtree_check)
+echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
+    --append /etc/exports > /dev/null
 ```
 
 Now start NFS:
 
 ```shell
-sudo exportfs -a
-sudo service nfs-kernel-server start
+exportfs -a
+service nfs-kernel-server start
 ```
 
 Finally, ensure NFS will be available when the VM starts:
 
 ```shell
-sudo update-rc.d nfs-kernel-server defaults
+update-rc.d nfs-kernel-server defaults
 ```
 
 1.  Open NFS Related Ports
