@@ -259,9 +259,12 @@ There is a `mount.sh` convenience script to mount **uninitialized** data volumes
 
 1.  Ensure Volume Availability Upon Machine Restart
 
-    You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, add an entry that looks like this in the `/etc/fstab` file:
+    You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the `/etc/fstab` file:
     
-        UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e       /data   ext4    defaults        1       1
+    ```shell
+    echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /data ext4 defaults 1 1 | tee \
+        --append /etc/fstab > /dev/null
+    ```
     
     where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
 
