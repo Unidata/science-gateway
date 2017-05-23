@@ -32,7 +32,7 @@ Create an ~m1.medium~ VM with the [[https://github.com/Unidata/xsede-jetstream/b
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
-#+BEGIN_SRC shell :eval no
+#+BEGIN_SRC shell
   git clone https://github.com/Unidata/xsede-jetstream
 #+END_SRC
 
@@ -50,6 +50,20 @@ With the help of Docker and ~docker-compose~, starting a VM with the RAMADDA con
 
 The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs) or however much data you anticipate your RAMADDA users will consume. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#create-and-attach-data-volumes][See here if creating data volumes via the Jetstream OpenStack API]].
 
+** Create RAMADDA default password
+   :PROPERTIES:
+   :CUSTOM_ID: h:D5095E2A
+   :END:
+
+When starting RAMADDA for the first time, you must have  a =password.properties= file in the RAMADDA home directory which is =/repository/=. See [[http://ramadda.org//repository/userguide/toc.html][RAMADDA documentation]] for more details on setting up RAMADDA. Here is a =pw.properties= file to get you going. Change password below to something more secure!
+
+#+BEGIN_SRC shell
+  # Create RAMADDA default password
+
+  echo ramadda.install.password=changeme! | tee --append \
+    /repository/pw.properties > /dev/null
+#+END_SRC
+
 ** RAMADDA log Directories
    :PROPERTIES:
    :CUSTOM_ID: h:1C3FF741
@@ -57,7 +71,7 @@ The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs)
 
 You will need an Apache Tomcat and RAMADDA log directories:
 
- #+BEGIN_SRC shell :eval no
+ #+BEGIN_SRC shell
    mkdir -p ~/logs/ramadda-tomcat/
    mkdir -p ~/logs/ramadda/
  #+END_SRC
@@ -67,12 +81,12 @@ You will need an Apache Tomcat and RAMADDA log directories:
    :CUSTOM_ID: h:85431E50
    :END:
 
-If you plan on employing the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the ~idd-archiver~ machine so you need to mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.15~:
+If you plan on employing the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the ~idd-archiver~ machine so you need to mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
 
-#+BEGIN_SRC sh :eval no
+#+BEGIN_SRC shell
   # create the NFS mount point
   sudo mkdir -p /data
-  sudo mount 10.0.0.15:/data /data
+  sudo mount 10.0.0.4:/data /data
 #+END_SRC
 
 ** Ensure /repository and /data Availability Upon Machine Restart
@@ -82,6 +96,10 @@ If you plan on employing the [[http://ramadda.org//repository/userguide/develope
 
 [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Ensure the =/repository= volume availability upon machine restart]].
 
+#+BEGIN_SRC shell
+  sudo echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e	 /repository	ext4	defaults	1	 1 | tee --append /etc/fstab > /dev/null
+#+END_SRC
+
 *** /data NFS Mounted Volume
     :PROPERTIES:
     :CUSTOM_ID: h:286B798E
@@ -89,15 +107,16 @@ If you plan on employing the [[http://ramadda.org//repository/userguide/develope
 
 In addition, you will want to ensure the NFS =/data= volume is also available with the help of =fstab=.
 
-#+BEGIN_EXAMPLE
-  10.0.0.15:/data    /data   nfs rsize=8192,wsize=8192,timeo=14,intr
-#+END_EXAMPLE
+#+BEGIN_SRC shell
+  sudo echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
+#+END_SRC
 
 ** Port 80
    :PROPERTIES:
    :CUSTOM_ID: h:404D9595
    :END:
-Open port ~80~ on your VM, however you do that so that RAMADDA can serve content via the web port. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][See here]] for more information on opening ports.
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open port]] ~80~ on the RAMADDA VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container.
 
 ** docker-compose.yml
    :PROPERTIES:
@@ -120,3 +139,9 @@ Once you have done the work of setting up RAMADDA related directories in the way
 #+END_SRC
 
 to start RAMADDA.
+** Navigate to RAMADDA
+   :PROPERTIES:
+   :CUSTOM_ID: h:81FED1EC
+   :END:
+
+In a web browser, navigate to [[http://ramadda-jetstream.unidata.ucar.edu/repository][http://ramadda-jetstream.unidata.ucar.edu/repository]]. If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier. 
