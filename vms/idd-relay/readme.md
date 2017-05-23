@@ -1,4 +1,5 @@
 - [Creating an IDD Relay on Jetstream](#h:840E89CB)
+  - [Create an IDD Relay VM on Jetstream](#h:4BF1C37C)
   - [Clone the xsede-jetstream Repository](#h:7544DE64)
   - [Start IDD Relay With Docker and docker-compose](#h:C89E3FF5)
   - [~/etc Directory](#h:E4AB4451)
@@ -13,6 +14,13 @@
 <a id="h:840E89CB"></a>
 
 # Creating an IDD Relay on Jetstream
+
+
+<a id="h:4BF1C37C"></a>
+
+## Create an IDD Relay VM on Jetstream
+
+Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:7544DE64"></a>

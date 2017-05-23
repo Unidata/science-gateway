@@ -18,6 +18,13 @@
   :PROPERTIES:
   :CUSTOM_ID: h:840E89CB
   :END:
+** Create an IDD Relay VM on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:4BF1C37C
+   :END:
+
+Create an ~m1.medium~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-relay-jetstream.unidata.ucar.edu=.
+
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
    :CUSTOM_ID: h:7544DE64
