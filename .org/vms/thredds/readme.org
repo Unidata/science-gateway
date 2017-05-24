@@ -1,0 +1,167 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+#+TITLE: Creating a THREDDS VM on Jetstream
+#+DATE: <2017-05-23 Tue>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+#+PROPERTY: header-args :eval no :tangle no
+* Create a THREDDS VM on Jetstream
+  :PROPERTIES:
+  :CUSTOM_ID: h:A57251FC
+  :END:
+** Create a THREDDS VM on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:011CFB59
+   :END:
+   
+Create an ~m1.medium~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-jetstream.unidata.ucar.edu=.
+
+** Clone the xsede-jetstream and TdsConfig Repositories
+   :PROPERTIES:
+   :CUSTOM_ID: h:E1E7DBE4
+   :END:
+
+We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+
+#+BEGIN_SRC shell :tangle no :exports code
+  git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+#+END_SRC
+
+In addition, we will employ the ~Unidata/TdsConfig~ repository.
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh :shebang "#!/bin/bash"
+  git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
+#+END_SRC
+
+** Start TDS With Docker and docker-compose
+   :PROPERTIES:
+   :CUSTOM_ID: h:704AF626
+   :END:
+
+With the help of Docker and ~docker-compose~, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
+
+** TDS Configuration
+   :PROPERTIES:
+   :CUSTOM_ID: h:1E5D6712
+   :END:
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+  mkdir -p ~/tdsconfig/
+  wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
+  unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
+#+END_SRC
+
+** TDS log Directories
+   :PROPERTIES:
+   :CUSTOM_ID: h:E0771AED
+   :END:
+
+You will need Apache Tomcat and TDS log directories:
+
+ #+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+   mkdir -p ~/logs/tds-tomcat/
+   mkdir -p ~/logs/tds/
+ #+END_SRC
+
+** LDM Data Directory from idd-archiver Via NFS
+   :PROPERTIES:
+   :CUSTOM_ID: h:F043AB6A
+   :END:
+
+The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
+
+#+BEGIN_SRC shell :exports none :tangle ../../../vms/thredds/nfs-install.sh :shebang "#!/bin/bash"
+  if [ "$EUID" -ne 0 ]
+    then echo "Please run as root"
+    exit
+  fi
+#+END_SRC
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
+  # create the NFS mount point
+  mkdir -p /data
+  mount 10.0.0.4:/data /data
+#+END_SRC
+
+*** Ensure /data Availability Upon Machine Restart
+    :PROPERTIES:
+    :CUSTOM_ID: h:437D2B38
+    :END:
+
+You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
+  echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
+#+END_SRC
+
+** SSL Certificate
+   :PROPERTIES:
+   :CUSTOM_ID: h:C5008DD9
+   :END:
+
+In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed certificate with ~openssl~ (or better yet, obtain a real certificate from a certificate authority).
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+  openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
+    "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
+    -keyout ~/xsede-jetstream/vms/thredds/files/ssl.key \
+    -out ~/xsede-jetstream/vms/thredds/files/ssl.crt
+#+END_SRC
+
+** Ports 80, 443 and 8443
+   :PROPERTIES:
+   :CUSTOM_ID: h:68B4119B
+   :END:
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
+
+** THREDDS Data Manager (TDM)
+   :PROPERTIES:
+   :CUSTOM_ID: h:0DA2982B
+   :END:
+
+The [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
+
+** docker-compose.yml
+   :PROPERTIES:
+   :CUSTOM_ID: h:6C55AE58
+   :END:
+
+Based on the directory set we have defined, the =docker-compose.yml= file that looks like:
+
+#+INCLUDE: "../../../vms/thredds/docker-compose.yml" src yaml
+
+*** THREDDS Environment Variable Parameterization
+    :PROPERTIES:
+    :CUSTOM_ID: h:4D99AC45
+    :END:
+
+You can provide additional THREDDS parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
+
+#+INCLUDE: "../../../vms/thredds/compose.env" src shell
+
+** Start the TDS
+   :PROPERTIES:
+   :CUSTOM_ID: h:71555497
+   :END:
+
+Once you have done the work of setting up THREDDS related directories in the way you like,
+
+#+BEGIN_SRC shell
+  docker-compose up -d
+#+END_SRC
+
+to start the TDS
+** Navigate to the TDS
+   :PROPERTIES:
+   :CUSTOM_ID: h:9BC953A7
+   :END:
+In a web browser, navigate to [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html]] to see if is running. 

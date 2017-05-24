@@ -1,0 +1,28 @@
+###
+# THREDDS
+###
+version: '3'
+
+services:
+  thredds-production:
+    image: unidata/thredds-docker:4.6.10
+    container_name: thredds
+    # restart: always
+    ports:
+      - "80:8080"
+      - "443:8443"
+      - "8443:8443"
+    volumes:
+      - ~/logs/tds-tomcat/:/usr/local/tomcat/logs/
+      - ~/logs/tds/:/usr/local/tomcat/content/thredds/logs/
+      # ssl certs, keys not in version control, see readme.md
+      - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
+      - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./files/tdsCat.css:/usr/local/tomcat/webapps/thredds/tdsCat.css
+      - ./files/folder.gif:/usr/local/tomcat/webapps/thredds/folder.gif
+      - /data/:/data/
+      - ~/tdsconfig/:/usr/local/tomcat/content/thredds
+    env_file:
+      - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"

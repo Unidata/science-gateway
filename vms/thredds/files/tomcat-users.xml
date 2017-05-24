@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
+
+  <role rolename="tdsConfig" description="can change THREDDS configuration files"/>
+  <role rolename="tdsMonitor" description="can monitor log files with tdsMonitor program"/>
+  <role rolename="tdsTrigger" description="can trigger feature collections, eg from tdm"/>
+
+  <user username="tdm"
+        password="6f028bd809cddb4190ebb8706eb2baf43acbae8a05ee1a0bd49eedff2039b970$1$a0f639131443811fb800d486392822783e00cf3d"
+        roles="tdsTrigger"/>
+  <user username="admin"
+        password="6f028bd809cddb4190ebb8706eb2baf43acbae8a05ee1a0bd49eedff2039b970$1$a0f639131443811fb800d486392822783e00cf3d"
+        roles="tdsConfig,tdsMonitor"/>
+</tomcat-users>
