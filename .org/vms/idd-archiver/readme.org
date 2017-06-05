@@ -94,11 +94,10 @@ Scouring the =/data/ldm= directory is achieved through the LDM =scour.conf= mech
 Unpack the pqacts configurations from the ~TdsConfig~ project and put them in the expected =~/etc/TDS= location.
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
-  mkdir -p /tmp/tdsconfig/ ~/etc/TDS
-  wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O /tmp/tdsconfig/config.zip
-  unzip /tmp/tdsconfig/config.zip -d /tmp/tdsconfig/
-  cp -r /tmp/tdsconfig/pqacts/* ~/etc/TDS
-  rm -rf /tmp/tdsconfig
+  mkdir -p ~/tdsconfig/ ~/etc/TDS
+  wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
+  unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
+  cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 #+END_SRC
 
 ** Edit ldmfile.sh
@@ -195,7 +194,7 @@ Finally, ensure NFS will be available when the VM starts:
   update-rc.d nfs-kernel-server defaults
 #+END_SRC
 
-**** Open NFS Related Ports
+*** Open NFS Related Ports
      :PROPERTIES:
      :CUSTOM_ID: h:1AFDC551
      :END:
@@ -215,6 +214,103 @@ Finally, attach the ~global-nfs~ security group to the newly created VM. The VM 
 #+BEGIN_SRC shell :tangle no
   openstack server add security group <VM name or ID> global-nfs
 #+END_SRC
+
+** THREDDS Data Manager (TDM)
+   :PROPERTIES:
+   :CUSTOM_ID: h:DB469C8D
+   :END:
+
+While not related to IDD archival, the [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the ~thredds-jetstream~ VM via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
+
+*** TDM Logging Directory
+    :PROPERTIES:
+    :CUSTOM_ID: h:865C1FF8
+    :END:
+
+Create a logging directory for the TDM:
+
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+  mkdir -p ~/logs/tdm
+#+END_SRC
+
+**** Running the TDM Out the TDM Log Directory
+     :PROPERTIES:
+     :CUSTOM_ID: h:94768FE5
+     :END:
+
+[[https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container][TDM logging will not be configurable until TDS 5.0]]. Until then we are running the TDM out of the =~/logs/tdm= directory:
+
+#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+  curl -SL  \
+       https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.10/tdmFat-4.6.10.jar \
+       -o ~/logs/tdm/tdm.jar
+  curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
+       -o ~/logs/tdm/tdm.sh
+  chmod +x  ~/logs/tdm/tdm.sh
+#+END_SRC
+
+*** Configuring the TDM to work with the TDS
+    :PROPERTIES:
+    :CUSTOM_ID: h:2C5BF1CA
+    :END:
+
+In the ~docker-compose.yml~ shown below, there is a reference to a ~compose.env~ file that contains TDM related environment variables. 
+
+#+INCLUDE: "../../../vms/idd-archiver/compose.env" src shell
+
+Let's consider each environment variable (i.e., configuration option), in turn.
+
+**** ~TDS_CONTENT_ROOT_PATH~
+     :PROPERTIES:
+     :CUSTOM_ID: h:DB951BAE
+     :END:
+
+This environment variable relates to the TDS content root *inside* the container and probably does not need to be changed.
+
+  #+BEGIN_SRC shell :eval no
+    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
+  #+END_SRC
+
+**** ~TDM_PW~
+     :PROPERTIES:
+     :CUSTOM_ID: h:DB951BAE
+     :END:
+
+Supply the TDM password. For example,
+
+#+BEGIN_EXAMPLE
+  TDM_PW=CHANGEME!
+#+END_EXAMPLE
+
+Note that this password should correspond to the SHA digested password of the ~tdm~ user in =~/xsede-jetstream/vm/thredds/files/tomcat-users.xml= file on the *thredds-jetstream* VM. You can create a password/SHA pair with the following command:
+
+  #+BEGIN_SRC shell :eval no
+    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
+  #+END_SRC
+
+**** ~TDS_HOST~
+     :PROPERTIES:
+     :CUSTOM_ID: h:02D6C753
+     :END:
+
+Supply the hostname of the TDS that the TDM will notify:
+
+#+BEGIN_EXAMPLE
+  TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+#+END_EXAMPLE
+
+**** ~TDM_XMX_SIZE~, ~TDM_XMS_SIZE~
+     :PROPERTIES:
+     :CUSTOM_ID: h:F5791708
+     :END:
+
+Define the maximum and minimum size of the Java heap under which the TDM can operate:
+
+#+BEGIN_EXAMPLE
+  TDM_XMX_SIZE=6G
+
+  TDM_XMS_SIZE=1G
+#+END_EXAMPLE
 
 ** docker-compose.yml
    :PROPERTIES:
@@ -236,3 +332,4 @@ To start the IDD archiver node:
   cd ~/xsede-jetstream/vms/idd-archiver/
   docker-compose up -d
 #+END_SRC
+
