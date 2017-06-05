@@ -12,6 +12,10 @@
   - [/data/ldm/logs Directory](#h:57DC40FF)
   - [Ensure /data Volume Availability Upon Machine Restart](#h:3CE81256)
   - [Sharing /data directory via NFS](#h:358A22F4)
+    - [Open NFS Related Ports](#h:1AFDC551)
+  - [THREDDS Data Manager (TDM)](#h:DB469C8D)
+    - [TDM Logging Directory](#h:865C1FF8)
+    - [Configuring the TDM to work with the TDS](#h:2C5BF1CA)
   - [docker-compose.yml](#h:498535EC)
   - [Start the IDD Archiver Node](#h:4167D52C)
 
@@ -99,11 +103,10 @@ Scouring the `/data/ldm` directory is achieved through the LDM `scour.conf` mech
 Unpack the pqacts configurations from the `TdsConfig` project and put them in the expected `~/etc/TDS` location.
 
 ```shell
-mkdir -p /tmp/tdsconfig/ ~/etc/TDS
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O /tmp/tdsconfig/config.zip
-unzip /tmp/tdsconfig/config.zip -d /tmp/tdsconfig/
-cp -r /tmp/tdsconfig/pqacts/* ~/etc/TDS
-rm -rf /tmp/tdsconfig
+mkdir -p ~/tdsconfig/ ~/etc/TDS
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
+unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
+cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 ```
 
 
@@ -189,23 +192,119 @@ Finally, ensure NFS will be available when the VM starts:
 update-rc.d nfs-kernel-server defaults
 ```
 
-1.  Open NFS Related Ports
 
-    Via OpenStack also open NFS related ports: `111`, `1110`, `2049`, `4045`. If it does not exist already, create the `global-nfs` security group with the `secgroup.sh` convenience script and additional `openstack` commands.
+<a id="h:1AFDC551"></a>
+
+### Open NFS Related Ports
+
+Via OpenStack also open NFS related ports: `111`, `1110`, `2049`, `4045`. If it does not exist already, create the `global-nfs` security group with the `secgroup.sh` convenience script and additional `openstack` commands.
+
+```shell
+# Will create a "global-nfs" security group.
+secgroup.sh  -p 111 -n nfs
+openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
+openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
+openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
+```
+
+Finally, attach the `global-nfs` security group to the newly created VM. The VM ID can be obtained with `openstack server list`.
+
+```shell
+openstack server add security group <VM name or ID> global-nfs
+```
+
+
+<a id="h:DB469C8D"></a>
+
+## THREDDS Data Manager (TDM)
+
+While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `thredds-jetstream` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver-jetstream` VM.
+
+
+<a id="h:865C1FF8"></a>
+
+### TDM Logging Directory
+
+Create a logging directory for the TDM:
+
+```shell
+mkdir -p ~/logs/tdm
+```
+
+1.  Running the TDM Out the TDM Log Directory
+
+    [TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `~/logs/tdm` directory:
     
     ```shell
-    # Will create a "global-nfs" security group.
-    secgroup.sh  -p 111 -n nfs
-    openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
-    openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
-    openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
+    curl -SL  \
+         https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.10/tdmFat-4.6.10.jar \
+         -o ~/logs/tdm/tdm.jar
+    curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
+         -o ~/logs/tdm/tdm.sh
+    chmod +x  ~/logs/tdm/tdm.sh
     ```
-    
-    Finally, attach the `global-nfs` security group to the newly created VM. The VM ID can be obtained with `openstack server list`.
+
+
+<a id="h:2C5BF1CA"></a>
+
+### Configuring the TDM to work with the TDS
+
+In the `docker-compose.yml` shown below, there is a reference to a `compose.env` file that contains TDM related environment variables.
+
+```shell
+# TDS Content root
+
+TDS_CONTENT_ROOT_PATH=/usr/local/tomcat/content
+
+# TDM related environment variables
+
+TDM_PW=CHANGEME!
+
+# Trailing slash is important!
+TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+
+# The minimum and maximum Java heap space memory to be allocated to the TDM
+
+TDM_XMX_SIZE=6G
+
+TDM_XMS_SIZE=1G
+```
+
+Let's consider each environment variable (i.e., configuration option), in turn.
+
+1.  `TDS_CONTENT_ROOT_PATH`
+
+    This environment variable relates to the TDS content root **inside** the container and probably does not need to be changed.
     
     ```shell
-    openstack server add security group <VM name or ID> global-nfs
+    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
     ```
+
+2.  `TDM_PW`
+
+    Supply the TDM password. For example,
+    
+        TDM_PW=CHANGEME!
+    
+    Note that this password should correspond to the SHA digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **thredds-jetstream** VM. You can create a password/SHA pair with the following command:
+    
+    ```shell
+    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
+    ```
+
+3.  `TDS_HOST`
+
+    Supply the hostname of the TDS that the TDM will notify:
+    
+        TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+
+4.  `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
+
+    Define the maximum and minimum size of the Java heap under which the TDM can operate:
+    
+        TDM_XMX_SIZE=6G
+        
+        TDM_XMS_SIZE=1G
 
 
 <a id="h:498535EC"></a>
@@ -215,27 +314,44 @@ update-rc.d nfs-kernel-server defaults
 Based on the directory set we have defined, the `docker-compose.yml` file will look like this:
 
 ```yaml
-###
-# LDM
-###
-ldm:
-  # restart: always
-  image: unidata/ldm-docker:6.13.6
-  container_name: ldm
-  restart: always
-  volumes:
-    - ~/etc/:/home/ldm/etc/
-    - /data/:/home/ldm/var/data/
-    - /data/:/data/
-    - /data/queues:/home/ldm/var/queues/
-    - /data/logs/ldm/:/home/ldm/var/logs/
-    - ./cron/:/var/spool/cron/
-  ports:
-    - "388:388"
-  ulimits:
-    nofile:
-      soft: 64
-      hard: 64
+version: '3'
+
+services:
+
+  ###
+  # LDM
+  ###
+  ldm:
+    image: unidata/ldm-docker:6.13.6
+    container_name: ldm
+    # restart: always
+    volumes:
+      - ~/etc/:/home/ldm/etc/
+      - /data/:/home/ldm/var/data/
+      - /data/:/data/
+      - /data/queues:/home/ldm/var/queues/
+      - /data/logs/ldm/:/home/ldm/var/logs/
+      - ./cron/:/var/spool/cron/
+    ports:
+      - "388:388"
+    ulimits:
+      nofile:
+        soft: 64
+        hard: 64
+  
+  ###
+  # TDM
+  ###
+  tdm:
+    image: unidata/tdm-docker:4.6
+    container_name: tdm
+    # restart: always
+    volumes:
+        - /data/:/data/
+        - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
+        - ~/logs/tdm/:/usr/local/tomcat/content/tdm/
+    env_file:
+        - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
 ```
 
 

@@ -719,12 +719,14 @@ Local Storage: 	20GB}</string>
 				NAGGkoSfngCBUAGGhoEACIQEWzFmXYPNzEw9hpKElpYG
 				TlNGb250hpKEhIQGTlNGb250HpSZKIQFWzQwY10GAAAA
 				HgAAAP/+SABlAGwAdgBlAHQAaQBjAGEALQBCAG8AbABk
-				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkpmSmpKE
-				lpYGTlNLZXJuhpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1
-				ZQCUhAEqhIQBZKcAhpKrkoStmSSEBVszNmNdBgAAABwA
-				AAD//kgAZQBsAHYAZQB0AGkAYwBhAE4AZQB1AGUAog6j
-				AKMBowCjAIaShJaWB05TQ29sb3KGkoSEhAdOU0NvbG9y
-				AJSjAoQEZmZmZoPNzEw+g83MTD6DzcxMPgGGhoY=
+				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkoSWlgdO
+				U0NvbG9yhpKEhIQHTlNDb2xvcgCUowKEBGZmZmaDzcxM
+				PoPNzEw+g83MTD4BhpKZkoSbmwIAhJ2ZDJKekqCSoZKi
+				kqOSpJKlkqaSp5KokqmSqoaBAAifg83MTD2GkquShK2Z
+				JIQFWzM2Y10GAAAAHAAAAP/+SABlAGwAdgBlAHQAaQBj
+				AGEATgBlAHUAZQCiDqMAowGjAKMAhpKElpYGTlNLZXJu
+				hpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1ZQCUhAEqhIQB
+				ZKoAhoaG
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
@@ -940,20 +942,19 @@ Network
 				gTQBhpKEn54AgVABhoaBAAiEBFsxZl2DzcxMPYaShJaW
 				Bk5TRm9udIaShISEBk5TRm9udB6UmSiEBVs0MGNdBgAA
 				AB4AAAD//kgAZQBsAHYAZQB0AGkAYwBhAC0AQgBvAGwA
-				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBZKElpYH
+				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBJKElpYH
 				TlNDb2xvcoaShISEB05TQ29sb3IAlKMChARmZmZmg83M
-				TD6DzcxMPoPNzEw+AYaSq5KErZkkhAVbMzZjXQYAAAAc
-				AAAA//5IAGUAbAB2AGUAdABpAGMAYQBOAGUAdQBlAKIO
-				owCjAaMAowCGkoSWlgZOU0tlcm6GkoSEhAhOU051bWJl
-				cgCEhAdOU1ZhbHVlAJSEASqEhAFkqgCGkpmShJubAgCE
-				nZkMkp6SoJKhkqKSo5KkkqWSppKnkqiSqZKqhoEACJ+D
-				zcxMPYaShJaWDU5TU3Ryb2tlQ29sb3KGkoSxowGlg5mY
-				GD6DmZgYPoOZmBg+AYaGhg==
+				TD6DzcxMPoPNzEw+AYaSmZKEm5sCAISdmQySnpKgkqGS
+				opKjkqSSpZKmkqeSqJKpkqqGgQAIn4PNzEw9hpKrkoSt
+				mSSEBVszNmNdBgAAABwAAAD//kgAZQBsAHYAZQB0AGkA
+				YwBhAE4AZQB1AGUAog6jAKMBowCjAIaShJaWBk5TS2Vy
+				boaShISECE5TTnVtYmVyAISEB05TVmFsdWUAlIQBKoSE
+				AWSqAIaGhg==
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red38\green38\blue38;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs36 \cf0 10.0.* Local \
@@ -1547,7 +1548,7 @@ product generation (to make use of unused capcity)}</string>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{261.71888176600129, 230.90861063794645}, {202, 17.211910078941926}}</string>
+			<string>{{10.33333253860458, 493.51633005933309}, {197.33333142598485, 17.211910078941926}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1596,7 +1597,7 @@ product generation (to make use of unused capcity)}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs26 \cf0 TDM}</string>
+\f0\b\fs26 \cf0 TDS Data Manager (TDM)}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -2272,7 +2273,7 @@ LDM Q: 			10GB}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-04-17 17:45:17 +0000</string>
+	<string>2017-06-05 16:42:09 +0000</string>
 	<key>Modifier</key>
 	<string>chastang</string>
 	<key>NotesVisible</key>

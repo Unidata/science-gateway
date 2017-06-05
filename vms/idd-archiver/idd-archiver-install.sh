@@ -4,11 +4,10 @@ git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 mkdir -p ~/etc
 cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
 
-mkdir -p /tmp/tdsconfig/ ~/etc/TDS
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O /tmp/tdsconfig/config.zip
-unzip /tmp/tdsconfig/config.zip -d /tmp/tdsconfig/
-cp -r /tmp/tdsconfig/pqacts/* ~/etc/TDS
-rm -rf /tmp/tdsconfig
+mkdir -p ~/tdsconfig/ ~/etc/TDS
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
+unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
+cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 
 # in place change of logs dir w/ sed
 sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
@@ -19,3 +18,12 @@ chmod +x ~/etc/TDS/util/ldmfile.sh
 mkdir -p /data/queues
 
 mkdir -p /data/logs/ldm
+
+mkdir -p ~/logs/tdm
+
+curl -SL  \
+     https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.10/tdmFat-4.6.10.jar \
+     -o ~/logs/tdm/tdm.jar
+curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
+     -o ~/logs/tdm/tdm.sh
+chmod +x  ~/logs/tdm/tdm.sh
