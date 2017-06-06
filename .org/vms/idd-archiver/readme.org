@@ -169,7 +169,7 @@ Create the LDM =logs= directory.
 
 Because volume multi-attach is not yet available via OpenStack, we will want to share the =/data= directory via NFS to client VMs over the ~10.0~ network by adding and an entry to the =/etc/exports= file. For example, here we are sharing the =/data= directory to the VM at ~10.0.0.18~.
 
-#+BEGIN_SRC sh :eval no :exports none :tangle ../../../vms/idd-archiver/nfs-install.sh :shebang "#!/bin/bash"
+#+BEGIN_SRC sh :exports none :tangle ../../../vms/idd-archiver/nfs-install.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
     exit
@@ -284,7 +284,7 @@ Supply the TDM password. For example,
 
 Note that this password should correspond to the SHA digested password of the ~tdm~ user in =~/xsede-jetstream/vm/thredds/files/tomcat-users.xml= file on the *thredds-jetstream* VM. You can create a password/SHA pair with the following command:
 
-  #+BEGIN_SRC shell :eval no
+  #+BEGIN_SRC shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
   #+END_SRC
 
