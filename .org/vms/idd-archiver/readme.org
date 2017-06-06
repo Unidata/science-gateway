@@ -267,10 +267,6 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
 This environment variable relates to the TDS content root *inside* the container and probably does not need to be changed.
 
-  #+BEGIN_SRC shell :eval no
-    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
-  #+END_SRC
-
 **** ~TDM_PW~
      :PROPERTIES:
      :CUSTOM_ID: h:DB951BAE

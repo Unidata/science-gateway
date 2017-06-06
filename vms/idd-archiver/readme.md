@@ -275,10 +275,6 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 1.  `TDS_CONTENT_ROOT_PATH`
 
     This environment variable relates to the TDS content root **inside** the container and probably does not need to be changed.
-    
-    ```shell
-    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
-    ```
 
 2.  `TDM_PW`
 
