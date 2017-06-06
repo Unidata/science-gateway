@@ -179,6 +179,8 @@ Because volume multi-attach is not yet available via OpenStack, we will want to 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
       --append /etc/exports > /dev/null
+  echo /data		10.0.0.19(rw,sync,no_subtree_check) | tee \
+      --append /etc/exports > /dev/null
 #+END_SRC
 
 Now start NFS:
