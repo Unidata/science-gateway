@@ -12,6 +12,10 @@
   - [docker-compose.yml](#h:7E683535)
   - [Start RAMADDA](#h:224A9684)
   - [Navigate to RAMADDA](#h:81FED1EC)
+  - [Access RAMADDA with the Unidata IDV](#h:73BB6227)
+    - [RAMADDA IDV Plugin](#h:3CCEFC0F)
+    - [RAMADDA Server Side Views](#h:C8481694)
+    - [RAMADDA Catalog Views from the IDV](#h:589449E2)
 
 
 
@@ -159,3 +163,31 @@ to start RAMADDA.
 ## Navigate to RAMADDA
 
 In a web browser, navigate to [<http://ramadda-jetstream.unidata.ucar.edu/repository>](http://ramadda-jetstream.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier.
+
+
+<a id="h:73BB6227"></a>
+
+## Access RAMADDA with the Unidata IDV
+
+RAMADDA has good integration with the [Unidata Integrated Data Viewer (IDV)](http://www.unidata.ucar.edu/software/idv/) and the two technologies work well together.
+
+
+<a id="h:3CCEFC0F"></a>
+
+### RAMADDA IDV Plugin
+
+IDV users may wish to install the [RAMADDA IDV plugin](http://www.unidata.ucar.edu/software/idv/docs/workshop/savingstate/Ramadda.html) to publish IDV bundles to RAMADDA.
+
+
+<a id="h:C8481694"></a>
+
+### RAMADDA Server Side Views
+
+RAMADDA also has access to the LDM `/data/` directory so you may want to set up [server-side view of this part of the file system](http://ramadda.org//repository/userguide/developer/filesystem.html). This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
+
+
+<a id="h:589449E2"></a>
+
+### RAMADDA Catalog Views from the IDV
+
+Finally, you can enter this catalog URL in the IDV dashboard to examine data holdings shared bundles, etc. on RAMADDA. For example, <http://ramadda-jetstream.unidata.ucar.edu/repository?output=thredds.catalog>.
