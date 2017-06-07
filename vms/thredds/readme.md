@@ -3,6 +3,7 @@
   - [Clone the xsede-jetstream and TdsConfig Repositories](#h:E1E7DBE4)
   - [Start TDS With Docker and docker-compose](#h:704AF626)
   - [TDS Configuration](#h:1E5D6712)
+    - [Supply Contact and Host Information in threddsConfig.xml](#h:3F46F49F)
   - [TDS log Directories](#h:E0771AED)
   - [LDM Data Directory from idd-archiver Via NFS](#h:F043AB6A)
     - [Ensure /data Availability Upon Machine Restart](#h:437D2B38)
@@ -61,6 +62,25 @@ mkdir -p ~/tdsconfig/
 wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 ```
+
+
+<a id="h:3F46F49F"></a>
+
+### Supply Contact and Host Information in threddsConfig.xml
+
+Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution by filling out the `contact` and `hostInstitution` XML elements. For example:
+
+    <contact>
+      <name>THREDDS Support</name>
+      <organization>Unidata</organization>
+      <email>support-thredds@unidata.ucar.edu</email>
+    </contact>
+    <hostInstitution>
+      <name>Unidata</name>
+      <webSite>http://www.unidata.ucar.edu/</webSite>
+      <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
+      <logoAltText>Unidata</logoAltText>
+    </hostInstitution>
 
 
 <a id="h:E0771AED"></a>
