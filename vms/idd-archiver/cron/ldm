@@ -15,7 +15,11 @@ MAILTO=""
 # check the LDM
 0,15,30,45 * * * * bash -l -c 'ldmadmin check' >/dev/null
 
-# Number of days to should match setup in scour.conf
+####
+# Supersedes scour.conf
+####
+
+# UNIWISC Satellite Imagery
 16 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/ANTARCTIC 2
 17 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/ARCTIC    2
 18 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GEWCOMP   4
@@ -24,3 +28,8 @@ MAILTO=""
 21 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GOES-15   4
 22 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/MOLLWEIDE 12
 23 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/SOUNDER   2
+
+#  TDS Tree
+25 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/radar                   5
+30 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/grid                    3
+35 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/satellite               12
