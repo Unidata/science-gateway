@@ -8,7 +8,7 @@
   - [Data Scouring](#h:1CA59DB7)
   - [pqacts](#h:4BDFE35D)
   - [Edit ldmfile.sh](#h:D2BD1E3A)
-  - [/data/queues Directory](#h:2428D469)
+  - [/data/ldm/queues Directory](#h:2428D469)
   - [/data/ldm/logs Directory](#h:57DC40FF)
   - [Ensure /data Volume Availability Upon Machine Restart](#h:3CE81256)
   - [Sharing /data directory via NFS](#h:358A22F4)
@@ -141,12 +141,12 @@ chmod +x ~/etc/TDS/util/ldmfile.sh
 
 <a id="h:2428D469"></a>
 
-## /data/queues Directory
+## /data/ldm/queues Directory
 
 This `queues` directory will contain the LDM queue file.
 
 ```shell
-mkdir -p /data/queues
+mkdir -p /data/ldm/queues
 ```
 
 
@@ -157,7 +157,7 @@ mkdir -p /data/queues
 Create the LDM `logs` directory.
 
 ```shell
-mkdir -p /data/logs/ldm
+mkdir -p /data/ldm/logs/
 ```
 
 
@@ -327,8 +327,8 @@ services:
       - ~/etc/:/home/ldm/etc/
       - /data/:/home/ldm/var/data/
       - /data/:/data/
-      - /data/queues:/home/ldm/var/queues/
-      - /data/logs/ldm/:/home/ldm/var/logs/
+      - /data/ldm/queues:/home/ldm/var/queues/
+      - /data/ldm/logs/:/home/ldm/var/logs/
       - ./cron/:/var/spool/cron/
     ports:
       - "388:388"
