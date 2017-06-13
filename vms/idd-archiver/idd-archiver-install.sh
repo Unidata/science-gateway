@@ -15,9 +15,9 @@ sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
 
 chmod +x ~/etc/TDS/util/ldmfile.sh
 
-mkdir -p /data/queues
+mkdir -p /data/ldm/queues
 
-mkdir -p /data/logs/ldm
+mkdir -p /data/ldm/logs/
 
 mkdir -p ~/logs/tdm
 

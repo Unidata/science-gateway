@@ -13,8 +13,8 @@ services:
       - ~/etc/:/home/ldm/etc/
       - /data/:/home/ldm/var/data/
       - /data/:/data/
-      - /data/queues:/home/ldm/var/queues/
-      - /data/logs/ldm/:/home/ldm/var/logs/
+      - /data/ldm/queues:/home/ldm/var/queues/
+      - /data/ldm/logs/:/home/ldm/var/logs/
       - ./cron/:/var/spool/cron/
     ports:
       - "388:388"

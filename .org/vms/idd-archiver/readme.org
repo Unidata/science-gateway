@@ -133,7 +133,7 @@ Also ensure that =ldmfile.sh= is executable.
   chmod +x ~/etc/TDS/util/ldmfile.sh
 #+END_SRC
 
-** /data/queues Directory
+** /data/ldm/queues Directory
    :PROPERTIES:
    :CUSTOM_ID: h:2428D469
    :END:
@@ -141,7 +141,7 @@ Also ensure that =ldmfile.sh= is executable.
 This =queues= directory will contain the LDM queue file.
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
-  mkdir -p /data/queues
+  mkdir -p /data/ldm/queues
 #+END_SRC
 
 ** /data/ldm/logs Directory
@@ -152,7 +152,7 @@ This =queues= directory will contain the LDM queue file.
 Create the LDM =logs= directory.
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
-  mkdir -p /data/logs/ldm
+  mkdir -p /data/ldm/logs/
 #+END_SRC
 
 ** Ensure /data Volume Availability Upon Machine Restart
