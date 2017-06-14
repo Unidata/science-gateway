@@ -179,6 +179,8 @@ echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
 echo /data		10.0.0.19(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
+echo /data		10.0.0.11(rw,sync,no_subtree_check) | tee \
+    --append /etc/exports > /dev/null
 ```
 
 Now start NFS:
