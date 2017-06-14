@@ -1,0 +1,484 @@
+# Unidata-Wisconsin (UNIWISC aka MCIDAS) PNG compressed Products
+#
+# Header Format:
+#              \1  \2   \3          \4      \5    \6     \7
+#           Qx pd anum SAT         BAND    RES CCYYMMDD HHMM
+# pnga2area Q0 CF 0015 GOES-10_SND UNKBAND 1km 20000525 2000
+#
+# McIDAS Product Codes and System Key Table entries used for Menu System
+#-------+----------+------------------------------------+---------------------
+# Code   Resolution  Description                         SYSKEY.TAB words used
+#-------+----------+------------------------------------+---------------------
+#  CA     480x1160   CIMSS Cloud Top Pressure                2173 2174 2175
+#  CB     440x1160   CIMSS Precipitable Water                2176 2177 2178
+#  CC    2160x4320   CIMSS Sea Surface Temperature           2179 2180 2181
+#  CD     440x1160   CIMSS Lifted Index                      2182 2183 2184
+#  CE     440x1160   CIMSS CAPE                              2185 2186 2187
+#  CF     440x1160   CIMSS Ozone                             2188 2189 2190
+#  CG     800x400    CIMSS Wildfire ABBA North America
+#  CH    1675x1156   CIMSS Wildfire ABBA South America
+#
+#  EV    2726x1732   GOES-East Western Hemisphere 1 km Visible
+#  UV    2726x1732   GOES-East Eastern US Visible            2146 2147 2148
+#  UD    2726x1732   GOES-East Eastern US 3.9 um
+#  UI    2726x1732   GOES-East Eastern US Infrared           2143 2144 2145
+#  UW    2726x1732   GOES-East Eastern US Water Vapor        2149 2150 2151
+#  UE    2726x1732   GOES-East Eastern US CO2
+#
+#  U9    1400x1740   GOES-West Western US Visible            2116 2117 2118
+#  U7    1400x1740   GOES-West Western US 3.9 um
+#  UB    1400x1740   GOES-West Western US Water Vapor        2104 2105 2106
+#  U5    1400x1740   GOES-West Western US Infrared           2113 2114 2115
+#  U8    1400x1740   GOES-West Western US CO2
+#
+#  CV     592x1204   GOES-East/West Visible Composite        2164 2165 2166
+#  CS     592x1204   GOES-East/West 3.9 um Composite
+#  CW     592x1204   GOES-East/West Water Vapor Composite    2167 2168 2169
+#  CI     592x1204   GOES-East/West Infrared Composite       2161 2162 2163
+#  CL     592x1204   GOES-East/West CO2 Composite
+#
+#  GW    1024x2048   Global Rectilinear Wv Composite
+#  GI    1024x2048   Global Rectilinear IR Composite
+#
+#  UY     700x1280   Global Mollweide Water Vapor Composite  2152 2153 2154
+#  UX     700x1280   Global Mollweide Infrared Composite     2122 2123 2124
+#
+#  U3     350x640    Manually Digitized Radar                2110 2111 2112
+#
+#  UJ    2048x2048   Antarctic VIS Composite
+#  UF    2048x2048   Antarctic WV Composite
+#  U1    2048x2048   Antarctic IR composite                  2119 2120 2121
+#  UK    2048x2048   Antarctic PseudoColor Composite
+#  X1    2048x2048   Antarctic IRS Composite
+#  X2    2048x2048   Antarctic IRL Composite
+#
+#  UL    2176x2176   Arctic  VIS    Composite
+#  UN    2176x2176   Arctic  3.8 um Composite
+#  UG    2176x2176   Arctic  6.7 um Composite
+#  UH    2176x2176   Arctic 11.0 um Composite
+#  UO    2176x2176   Arctic 12.0 um Composite         
+#
+#------------------------------ Archaic --------------------------------------
+#
+#  UA     480x640    Educational floater I                   2101 2102 2103
+#  UC     480x640    Educational floater II                  2170 2171 2172
+#  UR     480x640    Research floater                        2107 2108 2109
+#
+#  N1     700x864    GOES-East IR/Topography Composite       2125 2126 2127
+#  N2     700x864    GOES-East VIS/Topography Composite      2128 2129 2130
+#  N3     666x884    GOES-West IR/Topography Composite       2131 2132 2133
+#  N4     666x884    GOES-West VIS/Topography Composite      2134 2135 2136
+#  N5     480x640    MDR/Topography Composite                2137 2138 2139
+#  N6     700x1280   Mollweide WV/Topography Composite       2140 2141 2142
+#  N7    1232x1252   GOES-E/W IR/Topography Composite        2155 2156 2157
+#  N8    1232x1252   GOES-E/W VIS/Topography Composite       2158 2159 2160
+#  N9    1232x1252   GOES-E/W WV/Topography Composite
+
+#
+# The following decode actions are included to use the McIDAS
+# routing table, ROUTE.SYS to kick off image compositing
+#
+
+#
+# RTIMAGES GW-VIS
+#UNIWISC	^pnga2area Q. (U9) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GW-VIS -r \1,\2
+
+#
+# RTIMAGES GW-39
+#UNIWISC	^pnga2area Q. (U7) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GW-39 -r \1,\2
+
+#
+# RTIMAGES GW-WV
+#UNIWISC	^pnga2area Q. (UB) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GW-WV -r \1,\2
+
+#
+# RTIMAGES GW-IR
+#UNIWISC	^pnga2area Q. (U5) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GW-IR -r \1,\2
+
+#
+# RTIMAGES GW-CO2
+#UNIWISC	^pnga2area Q. (U8) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GW-CO2 -r \1,\2
+
+#
+# RTIMAGES GE-VIS
+#UNIWISC	^pnga2area Q. (UV) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GE-VIS -r \1,\2
+
+#
+# RTIMAGES GE-39
+#UNIWISC	^pnga2area Q. (UD) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GE-39 -r \1,\2
+
+#
+# RTIMAGES GE-WV
+#UNIWISC	^pnga2area Q. (UW) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GE-WV -r \1,\2
+
+#
+# RTIMAGES GE-IR
+#UNIWISC	^pnga2area Q. (UI) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GE-IR -r \1,\2
+
+#
+# RTIMAGES GE-CO2
+#UNIWISC	^pnga2area Q. (UE) (.*) (.*) (.*) (.*) (........) (....)
+#	PIPE	-close
+#	decoders/pnga2area -vl /usr/local/ldm/logs/ldm-mcidas.log
+#	-a etc/SATANNOT
+#	-b etc/SATBAND
+#	-d /data/ldm/pub/decoded/mcidas/RTIMAGES/GE-CO2 -r \1,\2
+
+
+#
+# ---------------- GOES-East and West Image Sectors ----------------
+#
+
+#
+# UW products except Mollweide IR and WV and Antarctic composite and floaters
+# FILEd into GEMPAK directory/name hierarchy
+UNIWISC	^pnga2area Q. ([EU][^ACXY13]) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/\5/\4/\6/\4_\6_\7
+
+#
+# --------------- Educational Floaters (obsolete) ---------------
+#
+
+#
+# Educational Floater-I
+UNIWISC	^pnga2area Q. (UA) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3_fl1/\5/\4/\6/\4_\6_\7
+
+#
+# Educational Floater-II
+UNIWISC	^pnga2area Q. (UC) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3_fl2/\5/\4/\6/\4_\6_\7
+
+#
+# -------- GOES-East/West Northern Hemisphere Composites --------
+#
+
+#
+# GOES-East/West VIS composites
+UNIWISC	^pnga2area Q. (CV) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GEWCOMP/\5/0.65/\6/0.65_\6_\7
+
+#
+# GOES-East/West 3.9 um composites
+UNIWISC	^pnga2area Q. (CS) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GEWCOMP/\5/3.9/\6/3.9_\6_\7
+
+#
+# GOES-East/West WV composites
+UNIWISC	^pnga2area Q. (CW) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GEWCOMP/\5/6.5/\6/6.5_\6_\7
+
+#
+# GOES-East/West IR composites
+UNIWISC	^pnga2area Q. (CI) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GEWCOMP/\5/10.7/\6/10.7_\6_\7
+
+#
+# GOES-East/West 13.3 um composites
+UNIWISC	^pnga2area Q. (CL) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GEWCOMP/\5/13.3/\6/13.3_\6_\7
+
+#
+# ------------------- SSEC Global Composites -------------------
+#
+
+#
+# Global WV composite
+UNIWISC	^pnga2area Q. (GW) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GLOBAL/\5/WV/\6/WVCOMP_\6_\7
+
+#
+# Global IR composites
+UNIWISC	^pnga2area Q. (GI) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/GLOBAL/\5/IR/\6/IRCOMP_\6_\7
+
+#
+# ----------------- Mollweide Global Composites -----------------
+#
+
+#
+# Mollweide Global Water Vapor
+UNIWISC	^pnga2area Q. (UY) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/MOLLWEIDE/30km/WV/\6/MOLLWV_\6_\7
+
+#
+# Mollweide Global IR
+UNIWISC	^pnga2area Q. (UX) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/MOLLWEIDE/30km/IR/\6/MOLLIR_\6_\7
+
+#
+# ------------------ AMRC Antarctic Composites ------------------
+#
+
+# 20151112 - changed VIS (UJ), PCOL (UK), WV (UF) and IR (U1)
+#              actions to match updated Product IDs
+#            added IRS (X1) and IRL (X2 actions
+
+#
+# Antarctic VIS Composite
+# pnga2area Q0 UJ 1260 SP_COMP 0.65um 1km 20151112 1700
+UNIWISC	^pnga2area Q. (UJ) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/VIS/\6/VIS_\6_\7
+
+#
+# Antarctic Shortwave IR Composite
+# pnga2area Q0 X1 1290 SP_COMP 3.8um 1km 20151112 1701
+UNIWISC	^pnga2area Q. (X1) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IRS/\6/IRS_\6_\7
+
+#
+# Antarctic WV Composite
+# pnga2area Q0 UF 180 SP_COMP 6.7um 1km 20151112 1701
+UNIWISC	^pnga2area Q. (UF) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/WV/\6/WV_\6_\7
+
+#
+# Antarctic Composite IR
+# pnga2area Q0 U1 190 SP_COMP 11.0um 1km 20151112 1700
+UNIWISC	^pnga2area Q. (U1) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IR/\6/IR_\6_\7
+
+#
+# Antarctic Longwave IR Composite
+# pnga2area Q0 X2 1290 SP_COMP 12.0um 1km 20151112 1701
+UNIWISC	^pnga2area Q. (X2) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IRL/\6/IRL_\6_\7
+
+#
+# -------------------- AMRC Arctic Composites --------------------
+#
+
+#
+# Arctic VIS Composite
+# pnga2area Q0 UL 1280 NP_COMP 0.65um 1km 20131122 0100
+UNIWISC	^pnga2area Q. (UL) (.*) (.*) (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ARCTIC/4km/\4/\6/\4_\6_\7
+
+#
+# Arctic SW Composite
+# pnga2area Q0 UN 1290 NP_COMP 3.8um 1km 20131122 0042
+UNIWISC	^pnga2area Q. (UN) (.*) (.*) (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ARCTIC/4km/\4/\6/\4_\6_\7
+
+#
+# Arctic WV Composite
+# pnga2area Q0 UG 60 NP_COMP 6.7um 1km 20131122 0036
+UNIWISC	^pnga2area Q. (UG) (.*) (.*) (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ARCTIC/4km/\4/\6/\4_\6_\7
+
+#
+# Arctic IR Composite
+# pnga2area Q0 UH 160 NP_COMP 11.0um 1km 20131122 0000
+UNIWISC	^pnga2area Q. (UH) (.*) (.*) (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ARCTIC/4km/\4/\6/\4_\6_\7
+
+#
+# Arctic LW Composite
+# pnga2area Q0 UO 1300 NP_COMP 12.0um 1km 20131122 0054
+UNIWISC	^pnga2area Q. (UO) (.*) (.*) (.*)um (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ARCTIC/4km/\4/\6/\4_\6_\7
+
+#
+# ------------------ Manually Digitized Radar ------------------
+#
+
+#
+# Manually Digitized Radar
+UNIWISC	^pnga2area Q. (U3) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/MDR/\5/MDR/\6/MDR_\6_\7
+
+#
+# ---------------- CIMSS Multichannel Products -----------------
+#
+
+#
+# CIMSS Cloud Top Pressure - McIDAS product code CA
+UNIWISC	^pnga2area Q0 CA .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/CTP/\4/CTP_\4_\5
+
+#
+# CIMSS Total Column Precipitable Water - McIDAS product code CB
+UNIWISC	^pnga2area Q0 CB .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/PW/\4/PW_\4_\5
+
+#
+# CIMSS Sea Surface Temperature - McIDAS product code CC
+UNIWISC	^pnga2area Q0 CC .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/SST/\4/SST_\4_\5
+
+#
+# CIMSS Lifted Index - McIDAS product code CD
+UNIWISC	^pnga2area Q0 CD .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/LI/\4/LI_\4_\5
+
+#
+# CIMSS CAPE - McIDAS product code CE
+UNIWISC	^pnga2area Q0 CE .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/CAPE/\4/CAPE_\4_\5
+
+#
+# CIMSS Ozone - McIDAS product code CF
+UNIWISC	^pnga2area Q0 CF .... (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/OZONE/\4/OZONE_\4_\5
+
+#
+# CIMSS Northern Hemisphere Wildfire ABBA - McIDAS product code CG
+UNIWISC	^pnga2area Q0 CG (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/FIRESNH/\4/FIRESNH_\4_\5
+
+#
+# CIMSS Southern Hemisphere Wildfire ABBA - McIDAS product code CH
+UNIWISC	^pnga2area Q0 CH (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/FIRESSH/\4/FIRESSH_\4_\5
+
+#
+# ---------- FNEXRAD Nexrad Level III composite images ----------
+#
+
+#
+# Create Nexrad 1 km Regional N0R Composite
+#FNEXRAD	^radar_mosaic_regional_(...)
+#	PIPE	-close
+#	etc/TDS/util/mcgribdec \1 /tmp/nexrcomp/radar_regional.grib 6100
+
+#
+# File Nexrad 1 km Regional N0R Composite
+FNEXRAD	^pnga2area Q5 (RO) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/mcidas/NEXRCOMP/1KN0R-FLT/\5/\4_\6_\7
+
+#
+# Create Nexrad 6 km National N0R Composite
+#FNEXRAD	rad/NEXRCOMP/1km
+#	EXEC	etc/TDS/util/mcginidec N0R NEXRCOMP/1KN0R-NAT
+
+#
+# File Nexrad 6 km National N0R mosaic
+FNEXRAD	^pnga2area Q5 (RL) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/mcidas/NEXRCOMP/6KN0R-NAT/\5/\6/\4_\6_\7
+
+#
+# Create Nexrad 10 km National RCM Composite
+#HDS	^HAXA00 K...
+#	PIPE	-close
+#	etc/TDS/util/mcgribdec RCM /tmp/nexrcomp/radar_national_rcm.grib
+
+#
+# File Nexrad 10 km National RCM Composite
+FNEXRAD	^pnga2area Q5 (RN) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/mcidas/NEXRCOMP/10KRCM-NAT/\5/\6/\4_\6_\7
+
+#
+# --------------------- FSL Wind Profiler Data ------------------
+#
+
+#
+# Hourly-summary
+FSL2	^FSL\.NetCDF\.NOAAnet\.windprofiler\.01hr
+	PIPE	-close proftomd
+	-l /opt/ldm/logs/ldm-mcidas.log
+	-d /data/ldm/pub/decoded/mcidas/RTPTSRC/PROFHOURLY -v U2 WPRO 81
+#
+# 6-minute
+FSL2	^FSL\.NetCDF\.NOAAnet\.windprofiler\.06min
+	PIPE	-close proftomd
+	-l /opt/ldm/logs/ldm-mcidas.log
+	-d /data/ldm/pub/decoded/mcidas/RTPTSRC/PROF6MIN -v U6 WPR6 91
+
+#
+# ------------------------- LIGHTNING data ----------------------
+#
+
+#
+# NLDN data (UCAR only):
+#LIGHTNING	^([12][0-9][0-9][0-9]|[0-9][0-9])([0-3][0-9][0-9])([0-2][0-9])([0-5][0-9])([0-5][0-9])
+#	PIPE	-close
+#	decoders/lgt2md -l logs/ldm-mcidas.log
+#	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/NLDN
+#	70 NLDN DIALPROD=LD \1\2 \3\400 DEV=CCN
+
+#
+# USPLN North America lightning product
+#LIGHTNING	N1.*-(....)_(..)_(..)_(..)_(..)_..\.dat$
+#	PIPE	-close
+#	decoders/lgt2md -l logs/ldm-mcidas.log
+#	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/USPLN
+#	120 NLDN DIALPROD=LP X X DEV=CCN

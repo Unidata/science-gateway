@@ -1,0 +1,19 @@
+###
+# McIDAS
+###
+
+version: '3'
+
+services:
+  mcidas:
+    image: unidata/mcidas
+    container_name: mcidas
+    # restart: always
+    volumes:
+      # Directories outside of the container that need to be accessible
+      - ~/mcidas/upcworkdata/:/home/mcidas/upcworkdata/
+      - ~/mcidas/util/:/home/mcidas/util/
+      - ~/mcidas/decoders/:/home/mcidas/decoders/
+      - /data/ldm/pub:/data/ldm/pub/
+    ports:
+      - "112:112"
