@@ -16,7 +16,7 @@ MAILTO=""
 0,15,30,45 * * * * bash -l -c 'ldmadmin check' >/dev/null
 
 ####
-# Supersedes scour.conf
+# Compliments scour.conf since the LDM does not scour empty directories
 ####
 
 # UNIWISC Satellite Imagery
