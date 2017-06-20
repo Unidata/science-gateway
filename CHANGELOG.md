@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.0 - 2017-06-20
+### Added
+- ADDE VM (from the IDV Data Choosers go to `adde-jetstream.unidata.ucar.edu`)
+- Scouring improvements on `idd-archiver-jetstream.unidata.ucar.edu`
+- Better organization for the `/data` for the LDM queue and logs
+- Continued NFS mount improvements
+- Updated Ubuntu 16 Jetstream featured image
+
 ## 0.3.0 - 2017-06-08
 ### Added
 - [THREDDS VM](http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html)
@@ -30,6 +38,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Docker installation script and instructions
 - XSEDE Jetstream vision question OmniGraffle figure
 
-[Unreleased]: https://github.com/Unidata/xsede-jetstream/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/Unidata/xsede-jetstream/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.1.0...v0.2.0
