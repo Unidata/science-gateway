@@ -1,0 +1,26 @@
+ name: root
+ channels:
+   - conda-forge
+ dependencies:
+   - python=3
+   - numpy
+   - notebook
+   - matplotlib
+   - cartopy
+   - jupyter
+   - netcdf4
+   - libnetcdf!=4.4.1.1
+   - owslib
+   - metpy
+   - pint
+   - shapely
+   - siphon
+   - xarray
+   - pip
+   - ffmpeg
+   - gitpython
+   # currently broken, I guess
+   # - pip:
+   #   - oauthenticator
+   #   - python-awips
+   #   - mpldatacursor
