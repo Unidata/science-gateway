@@ -76,7 +76,7 @@ cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
 You may have to tailor the `ldmd.conf` to your data feed requirements. In addition, change the following request line
 
 ```shell
-REQUEST ANY ".*" 10.0.0.8
+REQUEST ANY ".*" 10.0.0.21
 ```
 
 to point the local IDD relay **10.0 address**.

@@ -69,7 +69,7 @@ This =~/etc= directory will contain your LDM configuration files.
 You may have to tailor the =ldmd.conf= to your data feed requirements. In addition, change the following request line
 
 #+BEGIN_SRC shell :tangle no
-  REQUEST ANY ".*" 10.0.0.8
+  REQUEST ANY ".*" 10.0.0.21
 #+END_SRC
 
 to point the local IDD relay *10.0 address*.
