@@ -286,10 +286,19 @@ Let's consider each environment variable (i.e., configuration option), in turn.
     
         TDM_PW=CHANGEME!
     
-    Note that this password should correspond to the SHA digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **thredds-jetstream** VM. You can create a password/SHA pair with the following command:
+    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **thredds-jetstream** VM. You can create a password/SHA pair with the following command:
     
     ```shell
-    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "SHA" CHANGEME!
+    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
+    ```
+
+    Ensure you are using the correct hashing algorithm in the `server.xml` on the TDS server running on the thredds-jetstream VM. For example,
+
+    ```xml
+    <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+           resourceName="UserDatabase">
+      <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512" />
+    </Realm>
     ```
 
 3.  `TDS_HOST`
