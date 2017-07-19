@@ -19,6 +19,7 @@
    - pip
    - ffmpeg
    - gitpython
+   - nb_conda_kernels
    # currently broken, I guess
    # - pip:
    #   - oauthenticator
