@@ -6,7 +6,7 @@ FROM jupyterhub/jupyterhub:latest
 
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y curl
+RUN apt-get install -y curl vim
 
 ###
 # Setting HOME
