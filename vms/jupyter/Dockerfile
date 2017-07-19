@@ -28,6 +28,19 @@ RUN conda env update --name root -f $HOME/environment.yml
 
 RUN pip install python-awips mpldatacursor oauthenticator
 
+ADD globus_env.yml $HOME/
+
+RUN conda env create -f $HOME/conda_env.yml
+
+RUN wget https://s3.amazonaws.com/connect.globusonline.org/linux/stable/globusconnectpersonal-latest.tgz
+
+# Apparently ADD unpacks tar.gz files automatically 
+ADD globusconnectpersonal-?.?.?.tgz $HOME/globusconnectpersonal
+
+ADD globus.patch $HOME/globusconnectpersonal
+
+RUN patch $HOME/globusconnectpersonal < globus.patch
+
 ###
 # /etc/skel
 ###
