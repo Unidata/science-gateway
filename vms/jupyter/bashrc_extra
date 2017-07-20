@@ -1,0 +1,8 @@
+
+
+# add globus to path
+GLOBUSCONNECTPERSONAL=$(ls /srv/jupyterhub/ | grep globusconnectpersonal)
+PATH=/srv/jupyterhub/$GLOBUSCONNECTPERSONAL:$PATH
+
+# cd to notebook directory upon login
+cd /notebooks/$USER
