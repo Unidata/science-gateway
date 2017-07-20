@@ -1,0 +1,10 @@
+ name: globus
+ channels:
+   - conda-forge
+ dependencies:
+   - python=2
+   - six
+   - requests
+   - click
+   - pip:
+     - globus-cli

@@ -20,6 +20,8 @@ WORKDIR $HOME
 # Install Python Stuff
 ###
 
+# root environment
+
 RUN conda update --yes --quiet conda
 
 ADD environment.yml $HOME/
@@ -28,13 +30,27 @@ RUN conda env update --name root -f $HOME/environment.yml
 
 RUN pip install python-awips mpldatacursor oauthenticator
 
+# globus environment
+
+ADD globus_env.yml $HOME/
+
+RUN conda env create -f $HOME/globus_env.yml
+
+RUN curl https://s3.amazonaws.com/connect.globusonline.org/linux/stable/globusconnectpersonal-latest.tgz | tar xz
+
+ADD globusconnectpersonal.patch $HOME/
+
+RUN patch -p0 < globusconnectpersonal.patch
+
+RUN rm globusconnectpersonal.patch
+
 ###
 # /etc/skel
 ###
 
-RUN echo | tee --append /etc/skel/.bashrc > /dev/null
-RUN echo "# cd to notebook directory upon login" | tee --append /etc/skel/.bashrc > /dev/null
-RUN echo "cd /notebooks/\$USER" | tee --append /etc/skel/.bashrc > /dev/null
+ADD bashrc_extra $HOME
+
+RUN cat $HOME/bashrc_extra | tee --append /etc/skel/.bashrc > /dev/null
 
 ###
 # Clone Unidata Python notebook git repositories
