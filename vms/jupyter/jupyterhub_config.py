@@ -437,7 +437,7 @@ class MySpawner(LocalProcessSpawner):
         # don't overwrite user content
         if not os.path.exists(nbdir):
             shutil.copytree("/srv/jupyterhub/git", nbdir)
-            recursive_chown(nbdir, self.user.name)
+        recursive_chown(nbdir, self.user.name)
         return nbdir
 
 c.JupyterHub.spawner_class = MySpawner
