@@ -51,3 +51,4 @@ mkfs.ext4 $MOUNT
 mount $MOUNT $DIRECTORY
 echo "Ensure the $DIRECTORY is chowned correctly"
 echo "Ensure /etc/fstab is to your liking in order to have the data volume available upon reboot"
+echo "For /etc/fstab discover UUID of mount with the blkid command"
