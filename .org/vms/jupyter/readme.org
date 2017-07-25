@@ -82,6 +82,13 @@ In the =~/xsede-jetstream/vms/jupyter/files/= directory, generate a self-signed 
     -out ~/config/ssl/ssl.crt
 #+END_SRC
 
+** Ports 80, 443, and 8000
+   :PROPERTIES:
+   :CUSTOM_ID: h:ED417641
+   :END:
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open ports]] ~80~, ~443~, and ~8000~ on the Jupyter VM via OpenStack.
+
 ** docker-compose.yml
    :PROPERTIES:
    :CUSTOM_ID: h:8F37201D

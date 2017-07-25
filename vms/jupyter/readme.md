@@ -5,6 +5,7 @@
   - [Jupyter Configuration](#h:1217328A)
   - [Jupyter log Directory](#h:098522DC)
   - [SSL Certificate](#h:7D97FA52)
+  - [Ports 80, 443, and 8000](#h:ED417641)
   - [docker-compose.yml](#h:8F37201D)
   - [Start JupyterHub](#h:62B48A14)
   - [Passwords for Users](#h:742BC415)
@@ -79,6 +80,13 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   -keyout ~/config/ssl/ssl.key \
   -out ~/config/ssl/ssl.crt
 ```
+
+
+<a id="h:ED417641"></a>
+
+## Ports 80, 443, and 8000
+
+[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, `443`, and `8000` on the Jupyter VM via OpenStack.
 
 
 <a id="h:8F37201D"></a>
