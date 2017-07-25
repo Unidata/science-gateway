@@ -88,7 +88,7 @@ At this point, you can either pull or build the ~xsede-jetstream~ container:
    :CUSTOM_ID: h:CBD5EC54
    :END:
 
-We will be using the Jetstream API directly and via convenience scripts. 
+We will be using the Jetstream API directly and via convenience scripts.
 
 *** Download and Edit openrc.sh (Do This Once)
     :PROPERTIES:
@@ -102,7 +102,7 @@ The next part involves downloading the =openrc.sh= file to work with our OpenSta
      :CUSTOM_ID: h:3E2185E5
      :END:
 
-[[https://portal.tacc.utexas.edu/password-reset/][Reset your OpenStack TACC dashboard password]]. 
+[[https://portal.tacc.utexas.edu/password-reset/][Reset your OpenStack TACC dashboard password]].
 
 **** Download openrc.sh
      :PROPERTIES:
@@ -171,7 +171,7 @@ The =ssh= directory was mounted from outside the Docker container you are curren
      :CUSTOM_ID: h:257FBBBE
      :END:
 
-At this point, you should be able to run ~glance image-list~ which should yield something like: 
+At this point, you should be able to run ~glance image-list~ which should yield something like:
 
 #+TBLNAME: image-list
 | ID                                   | Name                               |
@@ -201,7 +201,7 @@ If you have not done so already:
 #+BEGIN_SRC sh :eval no
   ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
 #+END_SRC
-   
+
 *** IP Numbers
     :PROPERTIES:
     :CUSTOM_ID: h:5E7A7E65
@@ -265,12 +265,12 @@ Once you are in your VM, it is probably best to add additional ssh public keys i
     :END:
 
 You can create data volumes via the OpenStack API. As an example, here, we will be creating a 750GB ~data~ volume. You will subsequently attach the data volume:
- 
+
 #+BEGIN_SRC sh :eval no
   openstack volume create --size 750 data
 
   openstack volume list && openstack server list
-  
+
   openstack server add volume <vm-uid-number> <volume-uid-number>
 #+END_SRC
 
@@ -290,7 +290,7 @@ You want to ensure data volumes are available when the VM starts (for example af
       --append /etc/fstab > /dev/null
 #+END_SRC
 
-where the ~UUID~ represents the ID of the data volume device name (e.g., ~/dev/sdb~) which you can discover with the ~blkid~ command. [[https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04][askubuntu]] has a good discussion on this topic. 
+where the ~UUID~ represents the ID of the data volume device name (e.g., ~/dev/sdb~) which you can discover with the ~blkid~ command. [[https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04][askubuntu]] has a good discussion on this topic.
 
 *** Opening TCP Ports
     :PROPERTIES:
@@ -318,8 +318,12 @@ Finally, you can attach the security group to the VM (e.g., ~my-vm~) with:
     :PROPERTIES:
     :CUSTOM_ID: h:1B38941F
     :END:
+**** umount External Volumes
+     :PROPERTIES:
+     :CUSTOM_ID: h:B367439E
+     :END:
 
-There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~umount~ any data volumes before deleting a VM. For example,
+There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~umount~ any data volumes before deleting a VM. For example on the VM in question,
 
 #+BEGIN_SRC sh :eval no
   umount /data
@@ -327,7 +331,20 @@ There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~u
 
 You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., ~docker-compose stop~, ~sudo service nfs-kernel-server stop~), in case you get errors about the volume being busy.
 
-Then from the OpenStack CL
+In addition, just to be on the safe side, remove the volume from the VM via OpenStack:
+
+#+BEGIN_SRC sh :eval no
+  openstack volume list && openstack server list
+
+  openstack server remove volume <vm-uid-number> <volume-uid-number>
+#+END_SRC
+
+**** Tear Down
+     :PROPERTIES:
+     :CUSTOM_ID: h:8FDA03F6
+     :END:
+
+Then finally from the OpenStack CL,
 
 #+BEGIN_SRC sh :eval no
   teardown.sh -n unicloud -ip 149.165.157.137

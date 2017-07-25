@@ -114,15 +114,15 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 3.  Edit openrc.sh Password (Optional)
 
     Optionally, for convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
-    
+
     Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h:8B3E8EEE):
-    
+
     ```sh
     export OS_PASSWORD="changeme!"
     ```
-    
+
     Comment out
-    
+
     ```sh
     # echo "Please enter your OpenStack Password: "
     # read -sr OS_PASSWORD_INPUT
@@ -136,18 +136,18 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 1.  openstack.sh
 
     Start the `unidata/xsede-jetstream` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `/home/jane/xsede-jetstream/openstack/ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). **Both arguments must be supplied with fully qualified path names.**
-    
+
     ```sh
     chmod +x openstack.sh
     ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
     ```
-    
+
     Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
 
 2.  Create ssh Keys (Do This Once)
 
     This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `openstack keypair create`.
-    
+
     ```sh
     cd ~/.ssh
     ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
@@ -155,19 +155,19 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     # go back to home directory
     cd
     ```
-    
+
     The `ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
 
 3.  Testing Setup
 
     At this point, you should be able to run `glance image-list` which should yield something like:
-    
+
     | ID                                   | Name                               |
     |------------------------------------ |---------------------------------- |
     | fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
     | 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
     | b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
-    
+
     If not, check your setup.
 
 
@@ -211,27 +211,27 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
 1.  Create VM
 
     Now you can boot up a VM with something like the following command:
-    
+
     ```sh
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
-    
+
     The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. See `boot.sh -h` and `openstack flavor list` for more information.
 
 2.  SSH Into New VM
 
     At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `ubuntu` or `centos`) may be important:
-    
+
     ```sh
     ssh -i ~/.ssh/<key-name> ubuntu@149.165.157.137
     ```
-    
+
     At this point, you might see
-    
+
     ```sh
     ssh: connect to host 149.165.157.137 port 22: No route to host
     ```
-    
+
     Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `openstack server stop <vm-uid-number>` followed by `openstack server start <vm-uid-number>`.
 
 3.  Adding Additional SSH Keys (Optional)
@@ -260,12 +260,12 @@ There is a `mount.sh` convenience script to mount **uninitialized** data volumes
 1.  Ensure Volume Availability Upon Machine Restart
 
     You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the `/etc/fstab` file:
-    
+
     ```shell
     echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /data ext4 defaults 1 1 | tee \
         --append /etc/fstab > /dev/null
     ```
-    
+
     where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
 
 
@@ -296,18 +296,30 @@ openstack server add security group my-vm global-my-vm-ports
 
 ### Tearing Down VMs
 
-There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `umount` any data volumes before deleting a VM. For example,
+1.  umount External Volumes
 
-```sh
-umount /data
-```
+    There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `umount` any data volumes before deleting a VM. For example on the VM in question,
 
-You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., `docker-compose stop`, `sudo service nfs-kernel-server stop`), in case you get errors about the volume being busy.
+    ```sh
+    umount /data
+    ```
 
-Then from the OpenStack CL
+    You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., `docker-compose stop`, `sudo service nfs-kernel-server stop`), in case you get errors about the volume being busy.
 
-```sh
-teardown.sh -n unicloud -ip 149.165.157.137
-```
+    In addition, just to be on the safe side, remove the volume from the VM via OpenStack:
 
-For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
+    ```sh
+    openstack volume list && openstack server list
+
+    openstack server remove volume <vm-uid-number> <volume-uid-number>
+    ```
+
+2.  Tear Down
+
+    Then finally from the OpenStack CL,
+
+    ```sh
+    teardown.sh -n unicloud -ip 149.165.157.137
+    ```
+
+    For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
