@@ -6,9 +6,9 @@
   - [Jupyter log Directory](#h:098522DC)
   - [SSL Certificate](#h:7D97FA52)
   - [Ports 80, 443, and 8000](#h:ED417641)
+  - [Globus OAuth Setup](#h:524FAF4B)
   - [docker-compose.yml](#h:8F37201D)
   - [Start JupyterHub](#h:62B48A14)
-  - [Passwords for Users](#h:742BC415)
   - [Navigate to JupyterHub](#h:4DCCED79)
 
 
@@ -89,6 +89,18 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 [Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, `443`, and `8000` on the Jupyter VM via OpenStack.
 
 
+<a id="h:524FAF4B"></a>
+
+## Globus OAuth Setup
+
+This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu:8000`) with Globus. Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
+
+```python
+c.Authenticator.admin_users = {'jane','joe'}
+c.Authenticator.whitelist = {'jen','james'}
+```
+
+
 <a id="h:8F37201D"></a>
 
 ## docker-compose.yml
@@ -133,27 +145,6 @@ docker-compose up -d
 ```
 
 to start JupyterHub
-
-
-<a id="h:742BC415"></a>
-
-## Passwords for Users
-
-Assign temporary passwords for admin and whitelisted users defined earlier in the `~/config/jupyterhub_config.py`.
-
-You can generate random passwords with `openssl`. For example,
-
-```shell
-openssl rand -base64 12
-```
-
-Followed by:
-
-```shell
-docker exec jupyter /bin/sh -c 'echo <user>:<password> | /usr/sbin/chpasswd'
-```
-
-Communicate that password to the user via email. Have them change their password by logging into this JupyterHub instance with the username and temporary password and going to New, Terminal which will open a Unix terminal. Have them run `passwd` command.
 
 
 <a id="h:4DCCED79"></a>

@@ -1,0 +1,4 @@
+python-awips
+mpldatacursor
+oauthenticator
+globus_sdk[jwt]>=1.0.0,<2.0.0

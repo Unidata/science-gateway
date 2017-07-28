@@ -1,5 +1,6 @@
 from pwd import getpwnam
 from jupyterhub.spawner import LocalProcessSpawner
+from oauthenticator.globus import LocalGlobusOAuthenticator
 import shutil
 import os
 
@@ -611,9 +612,30 @@ c.JupyterHub.spawner_class = MySpawner
 ## The name of the PAM service to use for authentication
 #c.PAMAuthenticator.service = 'login'
 
-# specify users and admin
+#------------------------------------------------------------------------------
+# GlobusOAuthenticator
+#------------------------------------------------------------------------------
+
+c.JupyterHub.authenticator_class = LocalGlobusOAuthenticator
+c.MyOAuthenticator.callback_url = os.environ['OAUTH_CALLBACK_URL']
+c.MyOAuthenticator.client_id = os.environ['OAUTH_CLIENT_ID']
+c.MyOAuthenticator.client_secret = os.environ['OAUTH_CLIENT_SECRET']
+c.GlobusOAuthenticator.identity_provider = 'xsede.org'
+# Allow Refresh Tokens in user notebooks. Disallow these for increased security,
+# allow them for better usability.
+c.LocalGlobusOAuthenticator.allow_refresh_tokens = True
+# Default scopes are below if unspecified. Add a custom transfer server if you
+# have one.
+c.LocalGlobusOAuthenticator.scope = [
+    'openid', 'profile', 'urn:globus:auth:scope:transfer.api.globus.org:all'
+]
+# Default tokens excluded from being passed into the spawner environment
+c.LocalGlobusOAuthenticator.exclude = ['auth.globus.org']
+# If the JupyterHub server is an endpoint, for convenience the endpoint id can
+# be set here. It will show up in the notebook kernel for all users as
+# 'GLOBUS_LOCAL_ENDPOINT'.  c.LocalGlobusOAuthenticator.globus_local_endpoint =
+# '<Your Local JupyterHub UUID>' specify users and admin
 c.Authenticator.admin_users = {}
 c.Authenticator.whitelist = {}
-
 # create system users that don't exist yet
 c.LocalAuthenticator.create_system_users = True
