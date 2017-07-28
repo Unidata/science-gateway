@@ -28,7 +28,9 @@ ADD environment.yml $HOME/
 
 RUN conda env update --name root -f $HOME/environment.yml
 
-RUN pip install python-awips mpldatacursor oauthenticator
+ADD pip.txt $HOME/
+
+RUN pip install -r pip.txt
 
 # globus environment
 

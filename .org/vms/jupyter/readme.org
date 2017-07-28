@@ -1,4 +1,4 @@
-#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:nil arch:headline author:t
 #+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
@@ -89,6 +89,19 @@ In the =~/xsede-jetstream/vms/jupyter/files/= directory, generate a self-signed 
 
 [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open ports]] ~80~, ~443~, and ~8000~ on the Jupyter VM via OpenStack.
 
+** Globus OAuth Setup
+   :PROPERTIES:
+   :CUSTOM_ID: h:524FAF4B
+   :END:
+
+This JupyterHub server makes use of [[https://developers.globus.org/][Globus OAuth capability]] for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward and mostly implemented in the [[https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py][jupyterhub_config.py]] JupyterHub configuration file. The only tricky part is to supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables which you obtain when registering the JupyterHub server application (e.g., ~https://jupyter-jetstream.unidata.ucar.edu:8000~) with Globus. Also in ~jupyterhub_config.py~, supply the white list of administrator and users with ~c.Authenticator.admin_users~, ~c.Authenticator.whitelist~ variables. For example,
+
+#+BEGIN_SRC python :eval no
+  c.Authenticator.admin_users = {'jane','joe'}
+  c.Authenticator.whitelist = {'jen','james'}
+#+END_SRC
+
+
 ** docker-compose.yml
    :PROPERTIES:
    :CUSTOM_ID: h:8F37201D
@@ -110,27 +123,6 @@ Once you have done the work of setting up JupyterHub related directories,
 #+END_SRC
 
 to start JupyterHub
-
-** Passwords for Users
-   :PROPERTIES:
-   :CUSTOM_ID: h:742BC415
-   :END:
-
-Assign temporary passwords for admin and whitelisted users defined earlier in the =~/config/jupyterhub_config.py=.
-
-You can generate random passwords with ~openssl~. For example,
-
-#+BEGIN_SRC shell
-  openssl rand -base64 12
-#+END_SRC
-
-Followed by:
-
-#+BEGIN_SRC shell
-  docker exec jupyter /bin/sh -c 'echo <user>:<password> | /usr/sbin/chpasswd'
-#+END_SRC
-
-Communicate that password to the user via email. Have them change their password by logging into this JupyterHub instance with the username and temporary password and going to New, Terminal which will open a Unix terminal. Have them run ~passwd~ command.
 
 ** Navigate to JupyterHub
    :PROPERTIES:
