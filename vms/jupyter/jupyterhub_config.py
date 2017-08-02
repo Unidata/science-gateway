@@ -165,7 +165,7 @@ import os
 #c.JupyterHub.pid_file = ''
 
 ## The public facing port of the proxy
-#c.JupyterHub.port = 8000
+c.JupyterHub.port = 443
 
 ## The ip for the proxy API handlers
 #c.JupyterHub.proxy_api_ip = '127.0.0.1'
