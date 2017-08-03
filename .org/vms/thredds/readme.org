@@ -85,12 +85,28 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
    :CUSTOM_ID: h:E0771AED
    :END:
 
+*** Create log Directories
+    :PROPERTIES:
+    :CUSTOM_ID: h:F83FDEE6
+    :END:
+
 You will need Apache Tomcat and TDS log directories:
 
  #+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
    mkdir -p ~/logs/tds-tomcat/
    mkdir -p ~/logs/tds/
  #+END_SRC
+
+*** Scour log Directories
+    :PROPERTIES:
+    :CUSTOM_ID: h:7BF272F0
+    :END:
+
+Scour occasionally so the log directories do not fill up.
+
+#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+  (crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
+#+END_SRC
 
 ** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:

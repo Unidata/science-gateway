@@ -5,6 +5,8 @@
   - [TDS Configuration](#h:1E5D6712)
     - [Supply Contact and Host Information in threddsConfig.xml](#h:3F46F49F)
   - [TDS log Directories](#h:E0771AED)
+    - [Create log Directories](#h:F83FDEE6)
+    - [Scour log Directories](#h:7BF272F0)
   - [LDM Data Directory from idd-archiver Via NFS](#h:F043AB6A)
     - [Ensure /data Availability Upon Machine Restart](#h:437D2B38)
   - [SSL Certificate](#h:C5008DD9)
@@ -87,11 +89,27 @@ Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution 
 
 ## TDS log Directories
 
+
+<a id="h:F83FDEE6"></a>
+
+### Create log Directories
+
 You will need Apache Tomcat and TDS log directories:
 
 ```shell
 mkdir -p ~/logs/tds-tomcat/
 mkdir -p ~/logs/tds/
+```
+
+
+<a id="h:7BF272F0"></a>
+
+### Scour log Directories
+
+Scour occasionally so the log directories do not fill up.
+
+```shell
+(crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
 ```
 
 
