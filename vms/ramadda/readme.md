@@ -5,6 +5,8 @@
   - [/repository Directory](#h:2F1A5636)
   - [Create RAMADDA default password](#h:D5095E2A)
   - [RAMADDA log Directories](#h:1C3FF741)
+    - [Create log Directories](#h:DABCF6E2)
+    - [Scour log Directories](#h:1121D213)
   - [LDM Data Directory from idd-archiver Via NFS](#h:85431E50)
   - [Ensure /repository and /data Availability Upon Machine Restart](#h:6423976C)
     - [/data NFS Mounted Volume](#h:286B798E)
@@ -74,11 +76,27 @@ echo ramadda.install.password=changeme! | tee --append \
 
 ## RAMADDA log Directories
 
+
+<a id="h:DABCF6E2"></a>
+
+### Create log Directories
+
 You will need an Apache Tomcat and RAMADDA log directories:
 
 ```shell
 mkdir -p ~/logs/ramadda-tomcat/
 mkdir -p ~/logs/ramadda/
+```
+
+
+<a id="h:1121D213"></a>
+
+### Scour log Directories
+
+Scour occasionally so the log directories do not fill up.
+
+```shell
+(crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
 ```
 
 
