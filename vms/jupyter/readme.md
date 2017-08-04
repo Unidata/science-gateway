@@ -2,8 +2,12 @@
   - [Create a Jupyter VM on Jetstream](#h:CD4EE10C)
   - [Clone the xsede-jetstream](#h:30553515)
   - [Prepare Jupyter VM for Docker and docker-compose](#h:00BDD041)
-  - [Jupyter Configuration](#h:1217328A)
-  - [Jupyter log Directory](#h:098522DC)
+  - [JupyterHub Configuration](#h:1217328A)
+    - [jupyterhub\_config.py](#h:25E29186)
+    - [nginx](#h:90A0BF68)
+  - [Log Directories](#h:098522DC)
+    - [JupyterHub](#h:A1CDED76)
+    - [nginx](#h:69CC6370)
   - [SSL Certificate](#h:7D97FA52)
   - [Ports 80, 443, and 8000](#h:ED417641)
   - [Globus OAuth Setup](#h:524FAF4B)
@@ -45,24 +49,57 @@ With the help of Docker and `docker-compose`, starting a VM containing an IDD ar
 
 <a id="h:1217328A"></a>
 
-## Jupyter Configuration
+## JupyterHub Configuration
+
+
+<a id="h:25E29186"></a>
+
+### jupyterhub\_config.py
+
+Copy the `jupyterhub_config.py` file to the `~/config/` directory. [Subsequently](#h:524FAF4B), you will have to make minor edits to supply the user and admin whitelist.
 
 ```shell
 mkdir -p ~/config/
 cp jupyterhub_config.py ~/config/
 ```
 
-Edit the `~/config/jupyterhub_config.py`.
+
+<a id="h:90A0BF68"></a>
+
+### nginx
+
+Must run nginx in parallel to JupyterHub to redirect `http` to `https`.
+
+```shell
+mkdir -p ~/nginx/
+cp nginx.conf ~/nginx/
+```
 
 
 <a id="h:098522DC"></a>
 
-## Jupyter log Directory
+## Log Directories
 
-You will need Apache Tomcat and TDS log directories:
+
+<a id="h:A1CDED76"></a>
+
+### JupyterHub
+
+The JupyterHub log directory:
 
 ```shell
 mkdir -p ~/logs/jupyter/
+```
+
+
+<a id="h:69CC6370"></a>
+
+### nginx
+
+The nginx log directory:
+
+```shell
+mkdir -p ~/logs/nginx/
 ```
 
 
@@ -93,7 +130,7 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 
 ## Globus OAuth Setup
 
-This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu:8000`) with Globus. Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
+This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu`) with Globus. Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
 
 ```python
 c.Authenticator.admin_users = {'jane','joe'}
@@ -109,7 +146,7 @@ Based on the directory set we have defined, the `docker-compose.yml` file will l
 
 ```yaml
 ###
-# JupyterHub
+# JupyterHub + nginx
 ###
 
 version: '3'
@@ -131,6 +168,13 @@ services:
       - "443:443"
     env_file:
       - "compose.env"
+  web:
+    image: nginx
+    volumes:
+      - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ~/logs/nginx:/var/log/nginx
+    ports:
+      - "80:80"
 ```
 
 
@@ -151,4 +195,4 @@ to start JupyterHub
 
 ## Navigate to JupyterHub
 
-In a web browser, navigate to [<https://jupyter-jetstream.unidata.ucar.edu:8000>](https://jupyter-jetstream.unidata.ucar.edu:8000).
+In a web browser, navigate to [<https://jupyter-jetstream.unidata.ucar.edu>](https://jupyter-jetstream.unidata.ucar.edu).
