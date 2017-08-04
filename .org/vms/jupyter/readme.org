@@ -43,28 +43,62 @@ Create an ~m1.xlarge~ VM with the [[https://github.com/Unidata/xsede-jetstream/b
 
 With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
 
-** Jupyter Configuration
+** JupyterHub Configuration
    :PROPERTIES:
    :CUSTOM_ID: h:1217328A
    :END:
 
-#+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh
+*** jupyterhub_config.py
+    :PROPERTIES:
+    :CUSTOM_ID: h:25E29186
+    :END:
+
+Copy the =jupyterhub_config.py= file to the =~/config/= directory. [[#h:524FAF4B][Subsequently]], you will have to make minor edits to supply the user and admin whitelist.
+
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh :shebang "#!/bin/bash"
   mkdir -p ~/config/
   cp jupyterhub_config.py ~/config/
 #+END_SRC
 
-Edit the =~/config/jupyterhub_config.py=.
+*** nginx
+    :PROPERTIES:
+    :CUSTOM_ID: h:90A0BF68
+    :END:
 
-** Jupyter log Directory
+Must run nginx in parallel to JupyterHub to redirect ~http~ to ~https~.
+
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh
+  mkdir -p ~/nginx/
+  cp nginx.conf ~/nginx/
+#+END_SRC
+
+** Log Directories
    :PROPERTIES:
    :CUSTOM_ID: h:098522DC
    :END:
 
-You will need Apache Tomcat and TDS log directories:
+*** JupyterHub
+    :PROPERTIES:
+    :CUSTOM_ID: h:A1CDED76
+    :END:
+
+The JupyterHub log directory:
 
 #+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh
    mkdir -p ~/logs/jupyter/
  #+END_SRC
+
+*** nginx
+    :PROPERTIES:
+    :CUSTOM_ID: h:69CC6370
+    :END:
+
+The nginx log directory:
+
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh
+   mkdir -p ~/logs/nginx/
+ #+END_SRC
+
 
 ** SSL Certificate
    :PROPERTIES:
@@ -94,13 +128,12 @@ In the =~/xsede-jetstream/vms/jupyter/files/= directory, generate a self-signed 
    :CUSTOM_ID: h:524FAF4B
    :END:
 
-This JupyterHub server makes use of [[https://developers.globus.org/][Globus OAuth capability]] for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward and mostly implemented in the [[https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py][jupyterhub_config.py]] JupyterHub configuration file. The only tricky part is to supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables which you obtain when registering the JupyterHub server application (e.g., ~https://jupyter-jetstream.unidata.ucar.edu:8000~) with Globus. Also in ~jupyterhub_config.py~, supply the white list of administrator and users with ~c.Authenticator.admin_users~, ~c.Authenticator.whitelist~ variables. For example,
+This JupyterHub server makes use of [[https://developers.globus.org/][Globus OAuth capability]] for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward and mostly implemented in the [[https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py][jupyterhub_config.py]] JupyterHub configuration file. The only tricky part is to supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables which you obtain when registering the JupyterHub server application (e.g., ~https://jupyter-jetstream.unidata.ucar.edu~) with Globus. Also in =jupyterhub_config.py=, supply the white list of administrator and users with ~c.Authenticator.admin_users~, ~c.Authenticator.whitelist~ variables. For example,
 
 #+BEGIN_SRC python :eval no
   c.Authenticator.admin_users = {'jane','joe'}
   c.Authenticator.whitelist = {'jen','james'}
 #+END_SRC
-
 
 ** docker-compose.yml
    :PROPERTIES:
@@ -129,4 +162,4 @@ to start JupyterHub
    :CUSTOM_ID: h:4DCCED79
    :END:
 
-In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu:8000][https://jupyter-jetstream.unidata.ucar.edu:8000]].
+In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][https://jupyter-jetstream.unidata.ucar.edu]].
