@@ -32,12 +32,15 @@ if [ -z "$DOCKER_USER" ]; then
 fi
 
 if [ -n "$(command -v apt-get)" ]; then
-  apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-      && apt-get -y install git unzip wget nfs-kernel-server nfs-common
+  apt-get remove -y docker docker-engine docker.io && rm -rf /var/lib/docker && \
+    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y \
+    install git unzip wget nfs-kernel-server nfs-common
 fi
 
 if [ -n "$(command -v yum)" ]; then
-  yum -y update && yum -y install git unzip wget nfs-kernel-server nfs-common
+  yum -y remove docker docker-common docker-selinux docker-engine-selinux \
+    docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
+    install git unzip wget nfs-kernel-server nfs-common
 fi
 
 curl -sSL get.docker.com | sh
