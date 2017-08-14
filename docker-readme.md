@@ -47,19 +47,22 @@ chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
 
 Always think before typing the following commands as `root` user!
 
-Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary packages (e.g., `git`, etc.) for good measure.
+Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary packages (e.g., `git`, etc.) for good measure. Purge Docker from the system before installing fresh Docker.
 
 1.  apt-get
 
     ```shell
-    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
-        && apt-get -y install git unzip wget nfs-kernel-server nfs-common
+    apt-get remove -y docker docker-engine docker.io && rm -rf /var/lib/docker && \
+      apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y \
+      install git unzip wget nfs-kernel-server nfs-common
     ```
 
 2.  yum
 
     ```shell
-    yum -y update && yum -y install git unzip wget nfs-kernel-server nfs-common
+    yum -y remove docker docker-common docker-selinux docker-engine-selinux \
+      docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
+      install git unzip wget nfs-kernel-server nfs-common
     ```
 
 
@@ -80,7 +83,7 @@ usermod -aG docker ${DOCKER_USER}
 ### Install docker-compose
 
 ```shell
-curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
 ```

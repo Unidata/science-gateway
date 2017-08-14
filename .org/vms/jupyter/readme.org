@@ -41,7 +41,7 @@ Create an ~m1.xlarge~ VM with the [[https://github.com/Unidata/xsede-jetstream/b
    :CUSTOM_ID: h:00BDD041
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+With the help of Docker and ~docker-compose~, starting a VM containing a JupyterHub server is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
 
 ** JupyterHub Configuration
    :PROPERTIES:
