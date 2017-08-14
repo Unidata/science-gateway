@@ -44,7 +44,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 ## Prepare Jupyter VM for Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM containing a JupyterHub server is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
 
 
 <a id="h:1217328A"></a>
