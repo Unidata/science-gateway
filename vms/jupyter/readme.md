@@ -1,6 +1,6 @@
 - [Creating a Jupyter VM on Jetstream](#h:CF2006B5)
   - [Create a Jupyter VM on Jetstream](#h:CD4EE10C)
-  - [Clone the xsede-jetstream](#h:30553515)
+  - [Clone the xsede-jetstream Repository](#h:30553515)
   - [Prepare Jupyter VM for Docker and docker-compose](#h:00BDD041)
   - [JupyterHub Configuration](#h:1217328A)
     - [jupyterhub\_config.py](#h:25E29186)
@@ -31,7 +31,7 @@ Create an `m1.xlarge` VM with the [Jetstream OpenStack API](https://github.com/U
 
 <a id="h:30553515"></a>
 
-## Clone the xsede-jetstream
+## Clone the xsede-jetstream Repository
 
 We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
 
