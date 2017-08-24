@@ -25,7 +25,7 @@
 
 Create an ~m1.xlarge~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Create and attach]] a 1TB =/notebooks= and =/scratch= volumes to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =jupyter-jetstream.unidata.ucar.edu=.
 
-** Clone the xsede-jetstream
+** Clone the xsede-jetstream Repository
    :PROPERTIES:
    :CUSTOM_ID: h:30553515
    :END:
