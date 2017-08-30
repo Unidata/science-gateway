@@ -1,0 +1,112 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:nil
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:nil title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+
+#+TITLE:  Unidata Science Gateway on the XSEDE Jetstream Cloud
+#+DATE: {{{time(%Y-%m-%d %H:%M:%S %Z)}}}
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang at ucar dot edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.9)
+
+#+SETUPFILE: theme-readtheorg.setup
+
+#+CAPTION: Credit: NASA
+#+NAME: Hurricane
+[[file:hurricane.jpg]]
+
+
+* Introduction
+  :PROPERTIES:
+  :CUSTOM_ID: h:BEB7506B
+  :END:
+
+Welcome to the [[http://www.unidata.ucar.edu/][Unidata]] Science Gateway on the [[http://www.xsede.org][XSEDE]] [[https://portal.xsede.org/jetstream][Jetstream Cloud]]. As part of [[https://www.unidata.ucar.edu/publications/Unidata_2018.pdf][Unidata's 2018 Five-year plan (PDF)]], Unidata is exploring the use of cloud computing. A variety of Unidata related technologies can be found here for our community to make use of directly or with client applications described further on.
+
+* THREDDS
+  :PROPERTIES:
+  :CUSTOM_ID: h:9690244B
+  :END:
+
+The Unidata [[http://www.unidata.ucar.edu/software/thredds/current/tds/][THREDDS Data server]] (TDS) is a web server that provides metadata and data access for scientific datasets, using a variety of remote data access protocols. A [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][TDS]] is available on Jetstream at ~http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.xml~ supplying a good portion of the data available on the [[http://www.unidata.ucar.edu/data/][IDD]] with a five day archive.
+
+This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][IDV]] or from Python with the [[https://github.com/Unidata/netcdf4-python][netCDF-Python]] or [[https://github.com/Unidata/siphon][Siphon]] APIs.
+
+* RAMADDA
+  :PROPERTIES:
+  :CUSTOM_ID: h:DBF62CF5
+  :END:
+
+[[http://geodesystems.com/][RAMADDA]] is a geoscience content management system originally developed at Unidata and now maintained by [[http://geodesystems.com/][Geode Systems]]. The [[http://ramadda-jetstream.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]] contains [[http://ramadda-jetstream.unidata.ucar.edu/repository/entry/show?entryid=0d0cbe65-2f39-4754-801f-a3f996693ed9][IDV bundles]] that retrieve data from Jetstream data servers.
+
+* JupyterHub
+  :PROPERTIES:
+  :CUSTOM_ID: h:D1710E1B
+  :END:
+
+[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can be used to serve notebooks to a class of students or for scientific researchers. An [[https://jupyter-jetstream.unidata.ucar.edu][experimental JupyterHub server]] is running on Jetstream containing Unidata Jupyter notebook projects: 
+
+- [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
+- [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]
+- [[https://github.com/Unidata/online-python-training][Unidata Online Python Training]]
+
+* ADDE
+  :PROPERTIES:
+  :CUSTOM_ID: h:4AD59494
+  :END:
+
+An ADDE server is available at ~adde-jetstream.unidata.ucar.edu~ over (the usual) port ~112~ for the [[http://www.unidata.ucar.edu/software/idv/][IDV]], [[http://www.ssec.wisc.edu/mcidas/software/v/][McIDAS-V]], [[https://www.ssec.wisc.edu/mcidas/][McIDAS-X]].
+
+* AWIPS EDEX
+  :PROPERTIES:
+  :CUSTOM_ID: h:9ADDB20C
+  :END:
+
+Unidata maintains an [[http://www.unidata.ucar.edu/software/awips2/][EDEX]] data server on Jetstream to ingest and serve real-time AWIPS data for rendering by the [[http://unidata.github.io/awips2/install/install-cave/][CAVE client]] and the [[http://python-awips.readthedocs.io][python-awips data access framework]].  For CAVE, simply enter ~edex-cloud.unidata.ucar.edu~ in the CAVE Connectivity Preferences dialog to connect.
+
+* LDM
+  :PROPERTIES:
+  :CUSTOM_ID: h:7DD1393A
+  :END:
+
+Two *internal* [[http://www.unidata.ucar.edu/software/ldm/][LDM]] nodes are supplying data to our Jetstream resources. 
+
+* IDV Jetstream Plugin
+  :PROPERTIES:
+  :CUSTOM_ID: h:05438731
+  :END:
+
+The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://jetstream.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
+
+* Under the Hood
+  :PROPERTIES:
+  :CUSTOM_ID: h:632926D5
+  :END:
+
+The implementation of this effort is described here:
+
+https://github.com/Unidata/xsede-jetstream
+
+* Acknowledgments and Bibliography
+  :PROPERTIES:
+  :CUSTOM_ID: h:34E7E087
+  :END:
+
+** Acknowledgments
+   :PROPERTIES:
+   :CUSTOM_ID: h:98F550D4
+   :END:
+
+We thank Jeremy Fischer, Marlon Pierce, Suresh Marru, George Wm Turner, Brian Beck, Craig Alan Stewart, Victor Hazlewood and Peg Lindenlaub for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+** Bibliography
+   :PROPERTIES:
+   :CUSTOM_ID: h:9DC92977
+   :END:
+
+
+#+BIBLIOGRAPHY: jetstream plain

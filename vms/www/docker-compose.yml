@@ -1,0 +1,16 @@
+###
+# NGINX
+###
+
+nginx:
+  image: nginx
+  container_name: nginx
+  # restart: always
+  volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./web/:/usr/share/nginx/html:ro
+    - ~/logs/nginx/:/var/log/nginx/
+  ports:
+    - "80:80"
+    - "443:443"
+

@@ -1,0 +1,108 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:nil arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+OPTIONS: auto-id:t
+#+TITLE: Creating Webserver VM on Jetstream
+#+DATE: <2017-08-14 Mon>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+
+#+PROPERTY: header-args :noweb yes :eval no
+
+* Create a Webserver VM on Jetstream
+  :PROPERTIES:
+  :CUSTOM_ID: h:49CACBE8
+  :END:
+
+** Create a WWW VM on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:593C3161
+   :END:
+Create an ~m1.small~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =jupyter.unidata.ucar.edu=.
+** Clone the xsede-jetstream Repository
+   :PROPERTIES:
+   :CUSTOM_ID: h:1EA54D54
+   :END:
+
+ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+
+#+BEGIN_SRC shell :tangle no :exports code
+  git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+#+END_SRC
+
+** Prepare WWW VM for Docker and docker-compose
+   :PROPERTIES:
+   :CUSTOM_ID: h:D311EB0F
+   :END:
+
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+
+** Logging
+   :PROPERTIES:
+   :CUSTOM_ID: h:7FF2F781
+   :END:
+
+The nginx log directory:
+
+#+BEGIN_SRC shell 
+  mkdir -p ~/logs/nginx/
+ #+END_SRC
+
+** Ports 80, 443
+   :PROPERTIES:
+   :CUSTOM_ID: h:5BF405FC
+   :END:
+
+[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open ports]] ~80~, and ~443~ on the WWW VM via OpenStack.
+
+** Start Ngnix
+   :PROPERTIES:
+   :CUSTOM_ID: h:B30CBDF8
+   :END:
+
+Once you have done the work of setting up nginx related directories,
+
+#+BEGIN_SRC shell
+  docker-compose up -d
+#+END_SRC
+
+to start the web server.
+** Publishing Configuration                                           :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:723E78A4
+   :END:
+
+#+BEGIN_SRC emacs-lisp  :eval yes :results silent
+  (setq base-dir (concat (projectile-project-root) ".org/vms/www/web"))
+
+  (setq pub-dir (concat (projectile-project-root) "vms/www/web"))
+
+  ;; (setq pub-dir
+  ;;       "/ssh:ubuntu@www-jetstream:/home/ubuntu/xsede-jetstream/vms/www/web")
+
+  ;; (setq pub-dir
+  ;;        "/ssh:ubuntu@www-tun:/home/ubuntu/xsede-jetstream/vms/www/web")
+
+  (setq org-publish-project-alist
+        `(
+          ("jetstream-www"
+           :base-directory ,base-dir
+           :recursive nil
+           :base-extension "org"
+           :publishing-directory ,pub-dir
+           :publishing-function org-html-publish-to-html)
+          ("jetstream-www-static"
+           :base-directory ,base-dir
+           :base-extension "bib\\|jpg\\|html"
+           :publishing-directory ,pub-dir
+           :recursive t
+           :publishing-function org-publish-attachment)))
+#+END_SRC
+
+
+
