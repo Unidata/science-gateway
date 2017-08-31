@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.0 - 2017-08-31
+### Added
+- Experimental [JupyterHub](https://jupyter-jetstream.unidata.ucar.edu/)
+- [Unidata Jetstream Science Gateway](http://jetstream.unidata.ucar.edu)
+- Improved/updated Docker and `docker-compose` installation 
+- Updated Tomcat to sha-512
+
 ## 0.4.0 - 2017-06-20
 ### Added
 - ADDE VM (from the IDV Data Choosers go to `adde-jetstream.unidata.ucar.edu`)
@@ -38,7 +45,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Docker installation script and instructions
 - XSEDE Jetstream vision question OmniGraffle figure
 
-[Unreleased]: https://github.com/Unidata/xsede-jetstream/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/Unidata/xsede-jetstream/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Unidata/xsede-jetstream/compare/v0.1.0...v0.2.0
