@@ -32,12 +32,16 @@ if [ -z "$DOCKER_USER" ]; then
 fi
 
 if [ -n "$(command -v apt-get)" ]; then
-  apt-get remove -y docker docker-engine docker.io && rm -rf /var/lib/docker && \
+  service docker stop
+
+  apt-get remove -y docker docker-engine docker.io docker-ce && rm -rf /var/lib/docker && \
     apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y \
-    install git unzip wget nfs-kernel-server nfs-common
+    install git unzip wget nfs-kernel-server nfs-common && apt autoremove -y
 fi
 
 if [ -n "$(command -v yum)" ]; then
+  systemctl stop docker
+
   yum -y remove docker docker-common docker-selinux docker-engine-selinux \
     docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
     install git unzip wget nfs-kernel-server nfs-common
