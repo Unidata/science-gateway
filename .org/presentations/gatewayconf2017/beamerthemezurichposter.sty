@@ -1,0 +1,138 @@
+\ProvidesPackage{beamerthemezurichposter}
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,calc}
+\RequirePackage{amsmath,amssymb,bm,amsthm}
+\usefonttheme{default}
+
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+% chameleon
+\definecolor{tangocolordarkchameleon}{HTML}{4E9A06}
+\definecolor{tangocolormediumchameleon}{HTML}{73D216}
+\definecolor{tangocolorlightchameleon}{HTML}{8AE234}
+
+% tango sky blue
+\definecolor{tangocolordarkskyblue}{HTML}{204A87}
+\definecolor{tangocolormediumskyblue}{HTML}{3465A4}
+\definecolor{tangocolorlightskyblue}{HTML}{729FCF}
+
+% tango plum
+\definecolor{tangocolordarkplum}{HTML}{5C3566}
+\definecolor{tangocolormediumplum}{HTML}{75507B}
+\definecolor{tangocolorlightplum}{HTML}{AD7FA8}
+
+% scarlet red
+\definecolor{tangocolordarkscarletred}{HTML}{A40000}
+\definecolor{tangocolormediumscarletred}{HTML}{CC0000}
+\definecolor{tangocolorlightscarletred}{HTML}{EF2929}
+
+% aluminium
+\definecolor{tangocolordarkaluminium}{HTML}{BABDB6}
+%\definecolor{tangocolormediumaluminium}{HTML}{D3D7CF}
+\definecolor{tangocolormediumaluminium}{HTML}{D3D3D3}
+\definecolor{tangocolorlightaluminium}{HTML}{EEEEEC}
+
+% gray
+\definecolor{tangocolorlightgray}{HTML}{888A85}
+
+% body colors and fonts
+\setbeamercolor*{normal text}{fg=black,bg=tangocolorlightaluminium}
+
+% headline colors and fonts
+\setbeamercolor{headline}{fg=white,bg=tangocolordarkskyblue}
+\setbeamercolor{title in headline}{fg=white}
+
+% TODO: modify the bullet color for the example and alert blocks!
+
+% block environment
+\setbeamercolor*{block body}{bg=tangocolormediumaluminium,fg=black}
+\setbeamercolor*{block title}{fg=white,bg=tangocolordarkskyblue}
+\setbeamerfont{block title}{size=\large,series=\bf}
+
+% example environment
+\setbeamercolor{block title example}{fg=white,bg=tangocolordarkchameleon}
+\setbeamercolor{block body example}{bg=tangocolormediumaluminium,fg=black}
+
+% alerted environment
+%\setbeamercolor{block title alerted}{fg=white,bg=tangocolordarkplum}
+\setbeamercolor{block title alerted}{fg=white,bg=tangocolordarkscarletred}
+\setbeamercolor{block body alerted}{bg=tangocolormediumaluminium,fg=black}
+
+% headline
+\setbeamertemplate{headline}{  
+  \leavevmode
+
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \begin{columns}[T]
+      \begin{column}{.09\paperwidth}
+      \end{column}
+      \begin{column}{.65\paperwidth}
+        \vskip4ex
+        \raggedleft
+        \usebeamercolor{title in headline}{\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
+        \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[1ex]}
+        \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}     
+      \end{column}
+      \begin{column}{.23\paperwidth}
+        \vskip1.5cm
+        \begin{center}
+          \includegraphics[width=.7\linewidth]{unidatalogo}
+        \end{center}
+        \vskip1.5cm
+      \end{column}
+      \begin{column}{.03\paperwidth}
+      \end{column}
+    \end{columns}
+  \end{beamercolorbox}
+  
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{2pt}
+  \end{beamercolorbox}
+}
+
+
+\setbeamertemplate{block begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,leftskip=1cm,colsep*=.75ex]{block title}%
+    \usebeamerfont*{block title}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[rounded=true,colsep*=.75ex,sep=.75ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{block alerted begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,leftskip=1cm,colsep*=.75ex]{block title alerted}%
+    \usebeamerfont*{block title alerted}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block alerted body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[rounded=true,colsep*=.75ex,sep=.75ex,vmode]{block body alerted}%
+    \ifbeamercolorempty[bg]{block body alerted}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+
+\setbeamertemplate{block alerted end}{
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{block example begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[rounded=true,leftskip=1cm,colsep*=.75ex]{block title example}%
+    \usebeamerfont*{block title example}\insertblocktitle
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block example body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[rounded=true,colsep*=.75ex,sep=.75ex,vmode]{block body example}%
+    \ifbeamercolorempty[bg]{block body example}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+
+\setbeamertemplate{block example end}{
+  \end{beamercolorbox}
+}

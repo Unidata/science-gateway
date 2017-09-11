@@ -1,0 +1,123 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:nil toc:nil todo:t |:t
+#+TITLE: Unidata Science Gateway on the XSEDE Jetstream Cloud
+#+DATE: <2017-09-06 Wed>
+#+AUTHOR: Julien Chastang (chastang@ucar.edu), Mohan Ramamurthy - Unidata, UCP, UCAR
+
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.2.1 (Org mode 9.0.9)
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+BEAMER_HEADER: \usepackage[orientation=portrait,scale=1.5]{beamerposter}
+#+BEAMER_THEME: zurichposter
+
+#+OPTIONS: H:1
+
+# unidata bottom banner
+#+LATEX_HEADER: \setbeamertemplate{background canvas}{ \raisebox{-\paperheight}[0pt][0pt]{ \makebox[\paperwidth][c]{ \includegraphics[width=\paperwidth,height=5cm]{../Unidata_gradient_for_poster.png} } } }
+#+LATEX_HEADER: \setbeamertemplate{bibliography item}[text]
+
+* Publishing Configuration                                         :noexport:
+
+#+BEGIN_SRC emacs-lisp  :eval yes :results silent
+  (setq base-dir (concat (projectile-project-root) ".org/presentations"))
+
+  (setq pub-dir (concat (projectile-project-root) "presentations"))
+
+  (setq org-publish-project-alist
+        `(
+          ("jetstream-presentations"
+           :base-directory ,base-dir
+           :base-extension "pdf"
+           :publishing-directory ,pub-dir
+           :recursive t
+           :publishing-function org-publish-attachment)))
+#+END_SRC
+
+
+* 
+    :PROPERTIES:
+    :BEAMER_OPT: label=
+    :END:
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+**** Conference Abstract                                           :noexport:
+
+With the goal of better serving our community and in fulfillment of objectives articulated in "Unidata 2018: Transforming Geoscience through Innovative Data Services," Unidata is investigating how its technologies can best take advantage of cloud computing. The observation that science students and professionals are spending too much time distracted by software that is difficult to access, install, and use, motivates Unidata’s investigation. In addition, by taking advantage of the cloud’s ability to scale and its capacity to store large quantities of data, cloud computing can tackle a class of problems that cannot be approached by traditional, local computing methods. Cloud computing can accelerate scientific workflows, discoveries, and collaborations by reducing research and data friction. We aim to improve “time to science” by taking advantage of the NSF-funded XSEDE Jetstream cloud. We describe a Unidata science gateway on Jetstream. With the aid of several open-source, cloud computing projects including OpenStack and Docker on Linux VMs, we deploy a variety of scientific computing resources on Jetstream for our scientific community. These systems can be leveraged with data-proximate Jupyter notebooks, and remote clients such as the Unidata IDV. This gateway will enable students and scientists to spend less time managing their software and more time doing science.
+
+**** Abstract
+      :PROPERTIES:
+      :BEAMER_env: exampleblock
+      :END:
+
+Cloud computing can accelerate scientific workflows, discovery, and collaborations by reducing research and data friction. We aim to improve time to science by taking advantage of the NSF-funded XSEDE Jetstream cloud. We describe a Unidata science gateway on Jetstream. With the aid of several open-source, cloud computing projects, we deploy a variety of scientific computing resources on Jetstream for our scientific community. These resources will enable students and scientists to spend less time managing their software and more time advancing science. 
+
+**** Unidata Science Gateway on Jetstream
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+ #+ATTR_LATEX: width=\textwidth
+[[file:gateway.png]]
+
+**** Background
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+With the goal of better serving our community and in fulfillment of objectives articulated in "Unidata 2018: Transforming Geoscience through Innovative Data Services"\cite{Unidata2013}, Unidata is investigating how its technologies can best take advantage of cloud computing. The motivation of Unidata's investigation is rooted in the observation that science students and professionals are spending too much time distracted by software that is difficult to access, install, and use. In addition, by taking advantage of cloud scalability and its capacity to store large quantities of data, cloud computing can tackle a class of problems that cannot be approached by traditional, local computing methods.
+
+**** Architecture of VMs, Data Storage and Networking
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+#+NAME: architecture
+ #+ATTR_LATEX: width=\textwidth
+[[file:../../../jetstream.png]]
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+**** Methods
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+To build the Unidata Science Gateway, we employed open-source and cloud computing technologies. We created several Docker containers for Unidata technology offerings and reused other open-source containers. We built containers for the Unidata LDM and TDS, RAMADDA, and ADDE\cite{Chastang2017a}. In addition, we make use of Apache Tomcat and JupyterHub containers maintained by open-source groups. With the Jetstream OpenStack API, we deployed a collection of Linux virtual machines (VMs) attached with disk storage to run these containers. Running containers are orchestrated with =docker-compose=. The AWIPS EDEX server does not make use of Docker, but we are able to allocate a very large VM as this server requires significant computing resources. In addition, we setup an internal subnetwork with OpenStack for inter-VM communication via TCP ports and NFS mounts. With the LDM and Unidata Internet Data Distribution (IDD) network, we can deliver large quantities of geoscience data to Jetstream in a timely manner because of the Internet2 network accessible on Jetstream. All the work presented here is developed in an open-source manner using git and github version control technology\cite{Chastang2017d}.
+
+**** Data Analysis and Visualization
+
+#+NAME: analysisandviz
+#+ATTR_LATEX: width=\textwidth
+[[file:client.png]]
+/Jupyter Python data-proximate analysis and visualization and remote client visualization with the IDV coupled with the Jetstream plugin./
+
+**** Conclusions
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+By leveraging the Jetstream cloud and a variety of open-source technologies, we can deploy a fully capable Unidata data center quickly. These resources can be used directly via Jupyter notebooks, or with remote client application such as the Unidata Integrated Data Viewer (IDV). Future work will involve taking better advantage of the horizontal scalability of the cloud, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
+
+**** Acknowledgments
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+We thank Jeremy Fischer, Marlon Pierce, Suresh Marru, George Wm Turner, Brian Beck, Craig Alan Stewart, Victor Hazlewood and Peg Lindenlaub for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+**** References
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+#+BIBLIOGRAPHY: ../../../vms/www/web/jetstream abbrv
