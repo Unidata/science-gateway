@@ -66,16 +66,16 @@
 
   \begin{beamercolorbox}[wd=\paperwidth]{headline}
     \begin{columns}[T]
-      \begin{column}{.09\paperwidth}
+      \begin{column}{.02\paperwidth}
       \end{column}
       \begin{column}{.65\paperwidth}
         \vskip4ex
-        \raggedleft
+        %% \raggedleft
         \usebeamercolor{title in headline}{\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
         \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[1ex]}
-        \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}     
+        \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}            \vskip4ex 
       \end{column}
-      \begin{column}{.23\paperwidth}
+      \begin{column}{.30\paperwidth}
         \vskip1.5cm
         \begin{center}
           \includegraphics[width=.7\linewidth]{unidatalogo}
@@ -136,3 +136,9 @@
 \setbeamertemplate{block example end}{
   \end{beamercolorbox}
 }
+
+\setbeamertemplate{background canvas}{ \raisebox{-\paperheight}[0pt][0pt]{
+    \makebox[\paperwidth][c]{
+      \includegraphics[width=\paperwidth,height=5cm]{../Unidata_gradient_for_poster.png}
+} } }
+
