@@ -25,7 +25,7 @@
 # bib
 #+LATEX_HEADER: \usepackage[backend=bibtex, style=numeric]{biblatex}
 #+LATEX_HEADER: \renewcommand*{\bibfont}{\tiny}
-#+LATEX_HEADER: \bibliography{../../../vms/www/web/jetstream.bib}
+#+LATEX_HEADER: \bibliography{../../../vms/science-gateway/web/jetstream.bib}
 
 # numbered bib items instead of weird icon
 #+LATEX_HEADER: \setbeamertemplate{bibliography item}[text]

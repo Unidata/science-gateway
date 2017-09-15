@@ -1,7 +1,7 @@
-- [Create a Webserver VM on Jetstream](#h:49CACBE8)
-  - [Create a WWW VM on Jetstream](#h:593C3161)
+- [Create a Science Gateway VM on Jetstream](#h:49CACBE8)
+  - [Create a Science Gateway VM on Jetstream](#h:593C3161)
   - [Clone the xsede-jetstream Repository](#h:1EA54D54)
-  - [Prepare WWW VM for Docker and docker-compose](#h:D311EB0F)
+  - [Prepare Science Gateway VM for Docker and docker-compose](#h:D311EB0F)
   - [Logging](#h:7FF2F781)
   - [Ports 80, 443](#h:5BF405FC)
   - [Start Ngnix](#h:B30CBDF8)
@@ -10,14 +10,14 @@
 
 <a id="h:49CACBE8"></a>
 
-# Create a Webserver VM on Jetstream
+# Create a Science Gateway VM on Jetstream
 
 
 <a id="h:593C3161"></a>
 
-## Create a WWW VM on Jetstream
+## Create a Science Gateway VM on Jetstream
 
-Create an `m1.small` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `jupyter.unidata.ucar.edu`.
+Create an `m1.small` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `science-gateway.unidata.ucar.edu`.
 
 
 <a id="h:1EA54D54"></a>
@@ -33,7 +33,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 <a id="h:D311EB0F"></a>
 
-## Prepare WWW VM for Docker and docker-compose
+## Prepare Science Gateway VM for Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
 
@@ -53,7 +53,7 @@ mkdir -p ~/logs/nginx/
 
 ## Ports 80, 443
 
-[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, and `443` on the WWW VM via OpenStack.
+[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, and `443` on the Science Gateway VM via OpenStack.
 
 
 <a id="h:B30CBDF8"></a>
