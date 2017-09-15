@@ -1,0 +1,164 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{Chastang2017d}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {GitHub}%
+    }
+    \strng{namehash}{CJ1}
+    \strng{fullhash}{CJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{howpublished}{\url{https://github.com/Unidata/xsede-jetstream/}}
+    \field{title}{Unidata on the {XSEDE} {Jetstream} Cloud}
+    \verb{url}
+    \verb https://github.com/Unidata/xsede-jetstream/
+    \endverb
+    \field{journaltitle}{GitHub repository}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Chastang2017c}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SR}{%
+         family={Signell},
+         familyi={S\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {Earth Science Information Partners}%
+    }
+    \strng{namehash}{CJSR1}
+    \strng{fullhash}{CJSR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.6084/m9.figshare.5249845.v1
+    \endverb
+    \field{note}{See also http://science-gateway.unidata.ucar.edu}
+    \field{title}{Met/Ocean Modeling Workflows on {XSEDE} via {HPC} \& Cloud}
+    \verb{url}
+    \verb https://figshare.com/articles/Met_Ocean_Modeling_Workflows_on_XSEDE_v
+    \verb ia_HPC_Cloud/5249845
+    \endverb
+    \list{location}{1}{%
+      {Bloomington, IN USA}%
+    }
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Chastang2017a}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=YT}{%
+         family={Yoksas},
+         familyi={Y\bibinitperiod},
+         given={T.},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=RMK}{%
+         family={Ramamurthy},
+         familyi={R\bibinitperiod},
+         given={M.\bibnamedelima K.},
+         giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {American Meteorological Society}%
+    }
+    \strng{namehash}{CJYTRMK1}
+    \strng{fullhash}{CJYTRMK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Proceedings, 33nd Conference on Environmental Information
+  Processing Technologies, 97th AMS Annual Meeting}
+    \field{note}{See also http://science-gateway.unidata.ucar.edu}
+    \field{title}{Geoscientific Data Distribution in the {XSEDE} {Jetstream}
+  Cloud}
+    \verb{url}
+    \verb https://ams.confex.com/ams/97Annual/webprogram/Paper315508.html
+    \endverb
+    \list{location}{1}{%
+      {Seattle, WA USA}%
+    }
+    \field{year}{2017}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Unidata2013}{report}{}
+    \name{author}{1}{}{%
+      {{hash=RMK}{%
+         family={Ramamurthy},
+         familyi={R\bibinitperiod},
+         given={M.\bibnamedelima K.},
+         giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RMK1}
+    \strng{fullhash}{RMK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Unidata 2018: Transforming Geoscience through Innovative Data
+  Services}
+    \verb{url}
+    \verb https://www.unidata.ucar.edu/publications/Unidata_2018.pdf
+    \endverb
+    \list{location}{1}{%
+      {3300 Mitchell Ln, Boulder, CO 80301 USA}%
+    }
+    \list{institution}{1}{%
+      {Unidata Program Center, UCAR Community Programs, University Corporation
+  for Atmospheric Research}%
+    }
+    \field{type}{techreport}
+    \field{year}{2013}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+\endsortlist
+\endinput
