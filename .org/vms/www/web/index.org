@@ -80,7 +80,7 @@ Two *internal* [[http://www.unidata.ucar.edu/software/ldm/][LDM]] nodes are supp
   :CUSTOM_ID: h:05438731
   :END:
 
-The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://jetstream.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
+The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://science-gateway.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
 
 * Under the Hood
   :PROPERTIES:
