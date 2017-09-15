@@ -100,8 +100,7 @@ https://github.com/Unidata/xsede-jetstream
    :PROPERTIES:
    :CUSTOM_ID: h:98F550D4
    :END:
-
-We thank Jeremy Fischer, Marlon Pierce, Suresh Marru, George Wm Turner, Brian Beck, Craig Alan Stewart, Victor Hazlewood and Peg Lindenlaub for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+We thank Brian Beck, Craig Alan Stewart, George Wm Turner, Jeremy Fischer, Lance Moxley, Marlon Pierce, Maytal Dahan, Nicole Wolter, Peg Lindenlaub, Suresh Marru, and Victor Hazlewood for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
 
 ** Bibliography
    :PROPERTIES:
