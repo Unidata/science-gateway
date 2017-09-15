@@ -861,7 +861,7 @@ Local Storage: 	20GB}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs22 \cf0 jetstream.unidata.ucar.edu}</string>
+\f0\b\fs22 \cf0 science-gateway.unidata.ucar.edu}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -1165,14 +1165,14 @@ Local Storage: 	20GB}</string>
 				NAGGkoSfngCBUAGGhoEACIQEWzFmXYPNzEw9hpKElpYG
 				TlNGb250hpKEhIQGTlNGb250HpSZKIQFWzQwY10GAAAA
 				HgAAAP/+SABlAGwAdgBlAHQAaQBjAGEALQBCAG8AbABk
-				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkpmShJub
-				AgCEnZkMkp6SoJKhkqKSo5KkkqWSppKnkqiSqZKqhoEA
-				CJ+DzcxMPYaShJaWBk5TS2VyboaShISECE5TTnVtYmVy
-				AISEB05TVmFsdWUAlIQBKoSEAWSnAIaSq5KErZkkhAVb
-				MzZjXQYAAAAcAAAA//5IAGUAbAB2AGUAdABpAGMAYQBO
-				AGUAdQBlAKIOowCjAaMAowCGkoSWlgdOU0NvbG9yhpKE
-				hIQHTlNDb2xvcgCUowKEBGZmZmaDzcxMPoPNzEw+g83M
-				TD4BhoaG
+				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkoSWlgdO
+				U0NvbG9yhpKEhIQHTlNDb2xvcgCUowKEBGZmZmaDzcxM
+				PoPNzEw+g83MTD4BhpKZkoSbmwIAhJ2ZDJKekqCSoZKi
+				kqOSpJKlkqaSp5KokqmSqoaBAAifg83MTD2GkquShK2Z
+				JIQFWzM2Y10GAAAAHAAAAP/+SABlAGwAdgBlAHQAaQBj
+				AGEATgBlAHUAZQCiDqMAowGjAKMAhpKElpYGTlNLZXJu
+				hpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1ZQCUhAEqhIQB
+				ZKoAhoaG
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
@@ -1305,14 +1305,14 @@ Network
 				gTQBhpKEn54AgVABhoaBAAiEBFsxZl2DzcxMPYaShJaW
 				Bk5TRm9udIaShISEBk5TRm9udB6UmSiEBVs0MGNdBgAA
 				AB4AAAD//kgAZQBsAHYAZQB0AGkAYwBhAC0AQgBvAGwA
-				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBJKZkoSb
-				mwIAhJ2ZDJKekqCSoZKikqOSpJKlkqaSp5KokqmSqoaB
-				AAifg83MTD2GkoSWlgZOU0tlcm6GkoSEhAhOU051bWJl
-				cgCEhAdOU1ZhbHVlAJSEASqEhAFkpwCGkquShK2ZJIQF
-				WzM2Y10GAAAAHAAAAP/+SABlAGwAdgBlAHQAaQBjAGEA
-				TgBlAHUAZQCiDqMAowGjAKMAhpKElpYHTlNDb2xvcoaS
-				hISEB05TQ29sb3IAlKMChARmZmZmg83MTD6DzcxMPoPN
-				zEw+AYaGhg==
+				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBJKElpYH
+				TlNDb2xvcoaShISEB05TQ29sb3IAlKMChARmZmZmg83M
+				TD6DzcxMPoPNzEw+AYaSmZKEm5sCAISdmQySnpKgkqGS
+				opKjkqSSpZKmkqeSqJKpkqqGgQAIn4PNzEw9hpKrkoSt
+				mSSEBVszNmNdBgAAABwAAAD//kgAZQBsAHYAZQB0AGkA
+				YwBhAE4AZQB1AGUAog6jAKMBowCjAIaShJaWBk5TS2Vy
+				boaShISECE5TTnVtYmVyAISEB05TVmFsdWUAlIQBKoSE
+				AWSqAIaGhg==
 				</data>
 				<key>Text</key>
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
@@ -2609,7 +2609,7 @@ LDM Q: 			10GB}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-09-14 18:23:03 +0000</string>
+	<string>2017-09-15 20:56:09 +0000</string>
 	<key>Modifier</key>
 	<string>chastang</string>
 	<key>NotesVisible</key>
