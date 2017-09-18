@@ -17,7 +17,7 @@
 \endgroup
 
 \sortlist[entry]{nty/global/}
-  \entry{Chastang2017d}{misc}{}
+  \entry{Chastang2017c}{misc}{}
     \name{author}{1}{}{%
       {{hash=CJ}{%
          family={Chastang},
@@ -44,7 +44,7 @@
     \field{year}{2017}
   \endentry
 
-  \entry{Chastang2017c}{inproceedings}{}
+  \entry{Chastang2017b}{inproceedings}{}
     \name{author}{2}{}{%
       {{hash=CJ}{%
          family={Chastang},
