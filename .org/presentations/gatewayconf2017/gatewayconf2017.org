@@ -73,7 +73,7 @@ With the goal of better serving our community and in fulfillment of objectives a
       :CUSTOM_ID: h:13B06764
       :END:
 
-Cloud computing can accelerate scientific workflows, discoveries, and collaborations by reducing research and data friction. We aim to improve “time to science” by taking advantage of the NSF-funded XSEDE Jetstream cloud. We describe a Unidata science gateway on Jetstream. With the aid of several open-source, cloud computing projects including OpenStack and Docker on Linux VMs, we deploy a variety of scientific computing resources on Jetstream for our scientific community. These systems can be leveraged with data-proximate Jupyter notebooks, and remote visualization clients such as the Unidata Integrated Data Viewer (IDV) and AWIPS CAVE. This gateway will enable students and scientists to spend less time managing their software and more time doing science.
+Cloud computing can accelerate scientific workflows, discoveries, and collaborations by reducing research and data friction. We aim to improve “time to science” by taking advantage of the NSF-funded XSEDE Jetstream cloud\cite{10.1145/2792745.2792774}\cite{10.1109/MCSE.2014.80}. We describe a Unidata science gateway on Jetstream. With the aid of several open-source, cloud computing projects including OpenStack and Docker on Linux VMs, we deploy a variety of scientific computing resources on Jetstream for our scientific community. These systems can be leveraged with data-proximate Jupyter notebooks, and remote visualization clients such as the Unidata Integrated Data Viewer (IDV) and AWIPS CAVE. This gateway will enable students and scientists to spend less time managing their software and more time doing science.
 
 **** http://science-gateway.unidata.ucar.edu
      :PROPERTIES:
@@ -131,7 +131,7 @@ To build the Unidata Science Gateway, we employed open-source and cloud computin
      :BEAMER_env: alertblock
      :CUSTOM_ID: h:E728C162
      :END:
-We can quickly deploy a fully capable Unidata data center by leveraging the Jetstream cloud and a variety of open-source technologies. Science students and professionals can use the Unidata gateway directly via Jupyter notebooks, or with remote visualization client applications such as the IDV and AWIPS CAVE. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows\cite{Chastang2017b}. Future work will involve taking better advantage of the horizontal scalability of the cloud, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
+We can quickly deploy a fully capable Unidata data center by leveraging the Jetstream cloud and a variety of open-source technologies. Science students and professionals can use the Unidata gateway directly via Jupyter notebooks, or with remote visualization client applications such as the IDV and AWIPS CAVE. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows\cite{Chastang2017b}. Future work will involve taking advantage cloud scalability, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
 
 **** Acknowledgments
      :PROPERTIES:
