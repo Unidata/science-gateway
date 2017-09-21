@@ -238,18 +238,25 @@ for the JavaScript code in this tag.
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#h:BEB7506B">1. Introduction</a></li>
-<li><a href="#h:9690244B">2. THREDDS</a></li>
-<li><a href="#h:DBF62CF5">3. RAMADDA</a></li>
-<li><a href="#h:D1710E1B">4. JupyterHub</a></li>
-<li><a href="#h:4AD59494">5. ADDE</a></li>
-<li><a href="#h:9ADDB20C">6. AWIPS EDEX</a></li>
-<li><a href="#h:7DD1393A">7. LDM</a></li>
+<li><a href="#h:D1710E1B">2. JupyterHub</a></li>
+<li><a href="#h:9690244B">3. THREDDS Data Server</a></li>
+<li><a href="#h:9ADDB20C">4. AWIPS EDEX</a></li>
+<li><a href="#h:DBF62CF5">5. RAMADDA Geoscience CMS</a></li>
+<li><a href="#h:7DD1393A">6. LDM</a></li>
+<li><a href="#h:4AD59494">7. ADDE</a></li>
 <li><a href="#h:05438731">8. IDV Jetstream Plugin</a></li>
-<li><a href="#h:632926D5">9. Under the Hood</a></li>
-<li><a href="#h:34E7E087">10. Acknowledgments and Bibliography</a>
+<li><a href="#h:20A85AD4">9. Conference Presentations</a>
 <ul>
-<li><a href="#h:98F550D4">10.1. Acknowledgments</a></li>
-<li><a href="#h:9DC92977">10.2. Bibliography</a></li>
+<li><a href="#h:796B2372">9.1. Past Presentations</a></li>
+<li><a href="#h:BD0797EC">9.2. Forthcoming Presentations</a></li>
+</ul>
+</li>
+<li><a href="#h:632926D5">10. Under the Hood</a></li>
+<li><a href="#h:15E3DA2C">11. Contact</a></li>
+<li><a href="#h:34E7E087">12. Acknowledgments and Bibliography</a>
+<ul>
+<li><a href="#h:98F550D4">12.1. Acknowledgments</a></li>
+<li><a href="#h:9DC92977">12.2. Bibliography</a></li>
 </ul>
 </li>
 </ul>
@@ -262,43 +269,24 @@ for the JavaScript code in this tag.
 <p><span class="figure-number">Figure 1: </span>Credit: NASA</p>
 </div>
 
-
 <div id="outline-container-org43ae87c" class="outline-2">
 <h2 id="h:BEB7506B"><a id="org43ae87c"></a><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-h:BEB7506B">
 <p>
-Welcome to the <a href="http://www.unidata.ucar.edu/">Unidata</a> Science Gateway on the <a href="http://www.xsede.org">XSEDE</a> <a href="https://portal.xsede.org/jetstream">Jetstream Cloud</a>. As part of <a href="https://www.unidata.ucar.edu/publications/Unidata_2018.pdf">Unidata's 2018 Five-year plan (PDF)</a>, Unidata is exploring the use of cloud computing. A variety of Unidata related technologies can be found here for our community to make use of directly or with client applications described further on.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgef54bf3" class="outline-2">
-<h2 id="h:9690244B"><a id="orgef54bf3"></a><span class="section-number-2">2</span> THREDDS</h2>
-<div class="outline-text-2" id="text-h:9690244B">
-<p>
-The Unidata <a href="http://www.unidata.ucar.edu/software/thredds/current/tds/">THREDDS Data server</a> (TDS) is a web server that provides metadata and data access for scientific datasets, using a variety of remote data access protocols. A <a href="http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html">TDS</a> is available on Jetstream at <code>http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.xml</code> supplying a good portion of the data available on the <a href="http://www.unidata.ucar.edu/data/">IDD</a> with a five day archive.
-</p>
-
-<p>
-This TDS can be accessed from the  <a href="http://www.unidata.ucar.edu/software/idv/">IDV</a> or from Python with the <a href="https://github.com/Unidata/netcdf4-python">netCDF-Python</a> or <a href="https://github.com/Unidata/siphon">Siphon</a> APIs.
-</p>
-</div>
-</div>
-
-<div id="outline-container-orge734d83" class="outline-2">
-<h2 id="h:DBF62CF5"><a id="orge734d83"></a><span class="section-number-2">3</span> RAMADDA</h2>
-<div class="outline-text-2" id="text-h:DBF62CF5">
-<p>
-<a href="http://geodesystems.com/">RAMADDA</a> is a geoscience content management system originally developed at Unidata and now maintained by <a href="http://geodesystems.com/">Geode Systems</a>. The <a href="http://ramadda-jetstream.unidata.ucar.edu/repository">RAMADDA installation on Jetstream</a> contains <a href="http://ramadda-jetstream.unidata.ucar.edu/repository/entry/show?entryid=0d0cbe65-2f39-4754-801f-a3f996693ed9">IDV bundles</a> that retrieve data from Jetstream data servers.
+Welcome to the <a href="http://www.unidata.ucar.edu/">Unidata</a> Science Gateway on the <a href="http://www.xsede.org">XSEDE</a> <a href="https://portal.xsede.org/jetstream">Jetstream Cloud</a>. As part of <a href="https://www.unidata.ucar.edu/publications/Unidata_2018.pdf">Unidata's 2018 Five-year plan (PDF)</a> "Unidata 2018: Transforming Geoscience through Innovative Data Service", Unidata is exploring the use of cloud computing. A collection of Unidata related technologies can be found here for our community to make use of directly or with client applications described further on. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows.
 </p>
 </div>
 </div>
 
 <div id="outline-container-org9f6e9de" class="outline-2">
-<h2 id="h:D1710E1B"><a id="org9f6e9de"></a><span class="section-number-2">4</span> JupyterHub</h2>
+<h2 id="h:D1710E1B"><a id="org9f6e9de"></a><span class="section-number-2">2</span> JupyterHub</h2>
 <div class="outline-text-2" id="text-h:D1710E1B">
 <p>
-<a href="https://jupyterhub.readthedocs.io">JupyterHub</a> is a technology that can be used to serve notebooks to a class of students or for scientific researchers. An <a href="https://jupyter-jetstream.unidata.ucar.edu">experimental JupyterHub server</a> is running on Jetstream containing Unidata Jupyter notebook projects: 
+<a href="https://jupyter-jetstream.unidata.ucar.edu">JupyterHub server on Jetstream</a>
+</p>
+
+<p>
+<a href="https://jupyterhub.readthedocs.io">JupyterHub</a> is a technology that can be used to serve programmatic, interactive notebooks to a class of students or for scientific researchers. An <a href="https://jupyter-jetstream.unidata.ucar.edu">experimental JupyterHub server</a> is running on Jetstream containing Unidata Jupyter notebook projects: 
 </p>
 
 <ul class="org-ul">
@@ -306,32 +294,78 @@ This TDS can be accessed from the  <a href="http://www.unidata.ucar.edu/software
 <li><a href="https://github.com/Unidata/notebook-gallery">Unidata Notebook Gallery</a></li>
 <li><a href="https://github.com/Unidata/online-python-training">Unidata Online Python Training</a></li>
 </ul>
+
+<p>
+This JupyterHub server is currently experimental. If you would like to be granted access, please contact <code>support@unidata.ucar.edu</code>.
+</p>
 </div>
 </div>
 
-<div id="outline-container-orgd1e9346" class="outline-2">
-<h2 id="h:4AD59494"><a id="orgd1e9346"></a><span class="section-number-2">5</span> ADDE</h2>
-<div class="outline-text-2" id="text-h:4AD59494">
+<div id="outline-container-org16444fb" class="outline-2">
+<h2 id="h:9690244B"><a id="org16444fb"></a><span class="section-number-2">3</span> THREDDS Data Server</h2>
+<div class="outline-text-2" id="text-h:9690244B">
 <p>
-An ADDE server is available at <code>adde-jetstream.unidata.ucar.edu</code> over (the usual) port <code>112</code> for the <a href="http://www.unidata.ucar.edu/software/idv/">IDV</a>, <a href="http://www.ssec.wisc.edu/mcidas/software/v/">McIDAS-V</a>, <a href="https://www.ssec.wisc.edu/mcidas/">McIDAS-X</a>.
+<a href="http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html">TDS installation on Jetstream</a>
+</p>
+
+<p>
+The Unidata <a href="http://www.unidata.ucar.edu/software/thredds/current/tds/">THREDDS Data server</a> (TDS) is a web server that provides metadata and data access for scientific datasets, using a variety of remote data access protocols. A <a href="http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html">TDS</a> is available on Jetstream at <code>http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.xml</code> supplying a good portion of the data available on the <a href="http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH">IDD</a> with a five day archive.
+</p>
+
+<p>
+This TDS can be accessed from the  <a href="http://www.unidata.ucar.edu/software/idv/">IDV</a> or from Python with the <a href="https://github.com/Unidata/netcdf4-python">netCDF-Python</a> or <a href="https://github.com/Unidata/siphon">Siphon</a> APIs or any THREDDS client (e.g., PyCSW).
 </p>
 </div>
 </div>
 
 <div id="outline-container-org1b43b6f" class="outline-2">
-<h2 id="h:9ADDB20C"><a id="org1b43b6f"></a><span class="section-number-2">6</span> AWIPS EDEX</h2>
+<h2 id="h:9ADDB20C"><a id="org1b43b6f"></a><span class="section-number-2">4</span> AWIPS EDEX</h2>
 <div class="outline-text-2" id="text-h:9ADDB20C">
 <p>
-Unidata maintains an <a href="http://www.unidata.ucar.edu/software/awips2/">EDEX</a> data server on Jetstream to ingest and serve real-time AWIPS data for rendering by the <a href="http://unidata.github.io/awips2/install/install-cave/">CAVE client</a> and the <a href="http://python-awips.readthedocs.io">python-awips data access framework</a>.  For CAVE, simply enter <code>edex-cloud.unidata.ucar.edu</code> in the CAVE Connectivity Preferences dialog to connect.
+EDEX installation on Jetstream: <code>edex-cloud.unidata.ucar.edu</code>
+</p>
+
+<p>
+AWIPS is a meteorological display and analysis system used by the National Weather Service.  <a href="http://www.unidata.ucar.edu/software/awips2/">EDEX</a> is the server-side component of this system. Unidata maintains an EDEX data server on Jetstream to ingest and serve real-time AWIPS data for rendering by the <a href="http://unidata.github.io/awips2/install/install-cave/">CAVE client</a> and the <a href="http://python-awips.readthedocs.io">python-awips data access framework</a>.  For CAVE, simply enter <code>edex-cloud.unidata.ucar.edu</code> in the CAVE Connectivity Preferences dialog to connect.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgde4f7d2" class="outline-2">
+<h2 id="h:DBF62CF5"><a id="orgde4f7d2"></a><span class="section-number-2">5</span> RAMADDA Geoscience CMS</h2>
+<div class="outline-text-2" id="text-h:DBF62CF5">
+<p>
+<a href="http://ramadda-jetstream.unidata.ucar.edu/repository">RAMADDA installation on Jetstream</a>
+</p>
+
+<p>
+<a href="http://geodesystems.com/">RAMADDA</a> is a geoscience content management system (CMS) originally developed at Unidata and now maintained by <a href="http://geodesystems.com/">Geode Systems</a>. The <a href="http://ramadda-jetstream.unidata.ucar.edu/repository">RAMADDA installation on Jetstream</a> contains <a href="http://ramadda-jetstream.unidata.ucar.edu/repository/entry/show?entryid=0d0cbe65-2f39-4754-801f-a3f996693ed9">IDV bundles</a> that retrieve data from Jetstream data servers.
 </p>
 </div>
 </div>
 
 <div id="outline-container-org855b4c0" class="outline-2">
-<h2 id="h:7DD1393A"><a id="org855b4c0"></a><span class="section-number-2">7</span> LDM</h2>
+<h2 id="h:7DD1393A"><a id="org855b4c0"></a><span class="section-number-2">6</span> LDM</h2>
 <div class="outline-text-2" id="text-h:7DD1393A">
 <p>
-Two <b>internal</b> <a href="http://www.unidata.ucar.edu/software/ldm/">LDM</a> nodes are supplying data to our Jetstream resources. 
+<a href="http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH">LDM installation on Jetstream</a>
+</p>
+
+<p>
+The Unidata <a href="http://www.unidata.ucar.edu/software/ldm/">Local Data Manager</a> (LDM) system is a peer-to-peer network for event-driven data distribution, and is the fundamental component of the Unidata Internet Data (<a href="http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH">IDD</a>) system. Two <b>internal</b> LDM nodes supply data to our Jetstream resources. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd1e9346" class="outline-2">
+<h2 id="h:4AD59494"><a id="orgd1e9346"></a><span class="section-number-2">7</span> ADDE</h2>
+<div class="outline-text-2" id="text-h:4AD59494">
+<p>
+ADDE installation on Jetstream: <code>adde://adde-jetstream.unidata.ucar.edu:112</code>
+</p>
+
+<p>
+<a href="https://www.ssec.wisc.edu/mcidas/doc/learn_guide/2015/adde.html">ADDE</a> (Abstract Data Distribution Environment) is a data server developed by the University of Wisconsin, Space Science Engineering Center. It primarily serves satellite and radar imagery and point observations to the  <a href="http://www.unidata.ucar.edu/software/idv/">IDV</a>, <a href="http://www.ssec.wisc.edu/mcidas/software/v/">McIDAS-V</a>, <a href="https://www.ssec.wisc.edu/mcidas/">McIDAS-X</a>. An ADDE server is available at <code>adde-jetstream.unidata.ucar.edu</code> over (the usual) port <code>112</code>.
 </p>
 </div>
 </div>
@@ -345,26 +379,57 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 </div>
 </div>
 
+<div id="outline-container-org884dc7e" class="outline-2">
+<h2 id="h:20A85AD4"><a id="org884dc7e"></a><span class="section-number-2">9</span> Conference Presentations</h2>
+<div class="outline-text-2" id="text-h:20A85AD4">
+</div>
+
+<div id="outline-container-orgb50f846" class="outline-3">
+<h3 id="h:796B2372"><a id="orgb50f846"></a><span class="section-number-3">9.1</span> Past Presentations</h3>
+<div class="outline-text-3" id="text-h:796B2372">
+<ul class="org-ul">
+<li><a href="https://figshare.com/articles/Unidata_and_data-proximate_analysis_and_visualization_in_the_cloud/5249839">ESIP Summer Meeting 2017 | July 25-28, 2017 – Bloomington, IN USA</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org928ecbf" class="outline-3">
+<h3 id="h:BD0797EC"><a id="org928ecbf"></a><span class="section-number-3">9.2</span> Forthcoming Presentations</h3>
+<div class="outline-text-3" id="text-h:BD0797EC">
+<ul class="org-ul">
+<li>Gateways 2017 |  October 23–25, 2017 – Ann Arbor, MI USA</li>
+<li>2017 AGU Fall Meeting | December 11–15, 2017 – New Orleans, LA USA</li>
+<li>2018 AMS Annual Meeting | January 7–11, 2017 – Austin, TX USA</li>
+</ul>
+</div>
+</div>
+</div>
+
 <div id="outline-container-orgab51d3f" class="outline-2">
-<h2 id="h:632926D5"><a id="orgab51d3f"></a><span class="section-number-2">9</span> Under the Hood</h2>
+<h2 id="h:632926D5"><a id="orgab51d3f"></a><span class="section-number-2">10</span> Under the Hood</h2>
 <div class="outline-text-2" id="text-h:632926D5">
 <p>
-The implementation of this effort is described here:
+The implementation of this effort is described here: <a href="https://github.com/Unidata/xsede-jetstream">https://github.com/Unidata/xsede-jetstream</a>.
 </p>
+</div>
+</div>
 
+<div id="outline-container-orgaa7703c" class="outline-2">
+<h2 id="h:15E3DA2C"><a id="orgaa7703c"></a><span class="section-number-2">11</span> Contact</h2>
+<div class="outline-text-2" id="text-h:15E3DA2C">
 <p>
-<a href="https://github.com/Unidata/xsede-jetstream">https://github.com/Unidata/xsede-jetstream</a>
+If you wish to contact Unidata concerning this science gateway, please contact <code>support@unidata.ucar.edu</code>.
 </p>
 </div>
 </div>
 
 <div id="outline-container-orgf8a223a" class="outline-2">
-<h2 id="h:34E7E087"><a id="orgf8a223a"></a><span class="section-number-2">10</span> Acknowledgments and Bibliography</h2>
+<h2 id="h:34E7E087"><a id="orgf8a223a"></a><span class="section-number-2">12</span> Acknowledgments and Bibliography</h2>
 <div class="outline-text-2" id="text-h:34E7E087">
 </div>
 
 <div id="outline-container-org4866098" class="outline-3">
-<h3 id="h:98F550D4"><a id="org4866098"></a><span class="section-number-3">10.1</span> Acknowledgments</h3>
+<h3 id="h:98F550D4"><a id="org4866098"></a><span class="section-number-3">12.1</span> Acknowledgments</h3>
 <div class="outline-text-3" id="text-h:98F550D4">
 <p>
 We thank Brian Beck, Craig Alan Stewart, George Wm Turner, Jeremy Fischer, Lance Moxley, Marlon Pierce, Maytal Dahan, Nicole Wolter, Peg Lindenlaub, Suresh Marru, and Victor Hazlewood for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
@@ -373,7 +438,7 @@ We thank Brian Beck, Craig Alan Stewart, George Wm Turner, Jeremy Fischer, Lance
 </div>
 
 <div id="outline-container-org1fec46a" class="outline-3">
-<h3 id="h:9DC92977"><a id="org1fec46a"></a><span class="section-number-3">10.2</span> Bibliography</h3>
+<h3 id="h:9DC92977"><a id="org1fec46a"></a><span class="section-number-3">12.2</span> Bibliography</h3>
 <div class="outline-text-3" id="text-h:9DC92977">
 <div id="bibliography">
 <h2>References</h2>
@@ -585,7 +650,7 @@ The Extreme Science and Engineering Discovery Environment
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Date: 2017-09-18 16:56:38 MDT</p>
+<p class="date">Date: 2017-09-25 15:26:27 MDT</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
