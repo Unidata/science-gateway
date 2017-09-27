@@ -146,4 +146,4 @@ We thank Brian Beck, Craig Alan Stewart, George Wm Turner, Jeremy Fischer, Lance
    :CUSTOM_ID: h:9DC92977
    :END:
 
-#+BIBLIOGRAPHY: jetstream plain
+#+BIBLIOGRAPHY: ../../../../jetstream plain
