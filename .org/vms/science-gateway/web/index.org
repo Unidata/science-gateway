@@ -114,7 +114,7 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 
 - Gateways 2017 |  October 23–25, 2017 – Ann Arbor, MI USA 
 - 2017 AGU Fall Meeting | December 11–15, 2017 – New Orleans, LA USA 
-- 2018 AMS Annual Meeting | January 7–11, 2017 – Austin, TX USA 
+- 2018 AMS Annual Meeting | January 7–11, 2018 – Austin, TX USA
 
 * Under the Hood
   :PROPERTIES:
