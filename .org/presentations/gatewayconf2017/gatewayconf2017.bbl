@@ -35,6 +35,7 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{C}
     \field{sortinithash}{C}
+    \field{howpublished}{\url{https://github.com/Unidata/xsede-jetstream/}}
     \field{title}{Unidata on the {XSEDE} {Jetstream} Cloud}
     \verb{url}
     \verb https://github.com/Unidata/xsede-jetstream/
@@ -160,55 +161,19 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
-  \entry{10.1145/2792745.2792774}{inbook}{}
+  \entry{10.1145/2792745.2792774}{inproceedings}{}
     \name{author}{12}{}{%
-      {{hash=SC}{%
+      {{hash=SCA}{%
          family={Stewart},
          familyi={S\bibinitperiod},
-         given={{Craig A.}},
-         giveni={C\bibinitperiod},
+         given={Craig\bibnamedelima A.},
+         giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod},
       }}%
-      {{hash=HD}{%
-         family={Hancock},
-         familyi={H\bibinitperiod},
-         given={David},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=SD}{%
-         family={Stanzioneb},
-         familyi={S\bibinitperiod},
-         given={Daniel},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=TG}{%
-         family={Turnerd},
-         familyi={T\bibinitperiod},
-         given={George},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=CT}{%
+      {{hash=CTM}{%
          family={Cockerill},
          familyi={C\bibinitperiod},
-         given={{Timothy M.}},
-         giveni={T\bibinitperiod},
-      }}%
-      {{hash=MN}{%
-         family={Merchant},
-         familyi={M\bibinitperiod},
-         given={Nirav},
-         giveni={N\bibinitperiod},
-      }}%
-      {{hash=TJ}{%
-         family={Taylor},
-         familyi={T\bibinitperiod},
-         given={James},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=VM}{%
-         family={Vaughn},
-         familyi={V\bibinitperiod},
-         given={Matthew},
-         giveni={M\bibinitperiod},
+         given={Timothy\bibnamedelima M.},
+         giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod},
       }}%
       {{hash=FI}{%
          family={Foster},
@@ -216,11 +181,35 @@
          given={Ian},
          giveni={I\bibinitperiod},
       }}%
+      {{hash=HD}{%
+         family={Hancock},
+         familyi={H\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MN}{%
+         family={Merchant},
+         familyi={M\bibinitperiod},
+         given={Nirav},
+         giveni={N\bibinitperiod},
+      }}%
       {{hash=SE}{%
          family={Skidmore},
          familyi={S\bibinitperiod},
          given={Edwin},
          giveni={E\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Stanzione},
+         familyi={S\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TJ}{%
+         family={Taylor},
+         familyi={T\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
       }}%
       {{hash=TS}{%
          family={Tuecke},
@@ -228,33 +217,53 @@
          given={Steven},
          giveni={S\bibinitperiod},
       }}%
-      {{hash=GN}{%
+      {{hash=TG}{%
+         family={Turner},
+         familyi={T\bibinitperiod},
+         given={George},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=VM}{%
+         family={Vaughn},
+         familyi={V\bibinitperiod},
+         given={Matthew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GNI}{%
          family={Gaffney},
          familyi={G\bibinitperiod},
-         given={{Niall I.}},
-         giveni={N\bibinitperiod},
+         given={Niall\bibnamedelima I.},
+         giveni={N\bibinitperiod\bibinitdelim I\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
-      {Association for Computing Machinery}%
+      {ACM}%
     }
-    \keyw{Atmosphere, Big data, Cloud computing, Long tail of science}
-    \strng{namehash}{SC+1}
-    \strng{fullhash}{SCHDSDTGCTMNTJVMFISETSGN1}
+    \keyw{atmosphere, big data, cloud computing, long tail of science}
+    \strng{namehash}{SCA+1}
+    \strng{fullhash}{SCACTMFIHDMNSESDTJTSTGVMGNI1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
     \field{sortinit}{S}
     \field{sortinithash}{S}
-    \field{booktitle}{Proceedings of the XSEDE 2015 Conference: Scientific
+    \field{booktitle}{Proceedings of the 2015 XSEDE Conference: Scientific
   Advancements Enabled by Enhanced Cyberinfrastructure}
     \verb{doi}
     \verb 10.1145/2792745.2792774
     \endverb
-    \field{title}{Jetstream: A self-provisioned, scalable science and
-  engineering cloud environment}
-    \field{volume}{2015-July}
-    \field{month}{07}
+    \field{isbn}{978-1-4503-3720-5}
+    \field{pages}{29:1\bibrangedash 29:8}
+    \field{series}{XSEDE '15}
+    \field{title}{Jetstream: A Self-provisioned, Scalable Science and
+  Engineering Cloud Environment}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2792745.2792774
+    \endverb
+    \list{location}{1}{%
+      {St. Louis, Missouri, USA}%
+    }
     \field{year}{2015}
+    \warn{\item Can't use 'location' + 'address'}
   \endentry
 
   \entry{10.1109/MCSE.2014.80}{article}{}

@@ -124,21 +124,22 @@ To build the Unidata Science Gateway, we employed open-source and cloud computin
 #+NAME: analysisandviz
 #+ATTR_LATEX: width=\textwidth
 [[file:client.png]]
-/Starting from upper-left, clockwise: IDV remote visualization client with Jetstream plugin, Jupyter Python notebook, RAMADDA geoscience content management system, AWIPS CAVE remote visualization client./
+/Starting at upper-left, clockwise: IDV, Jupyter Python notebook, AWIPS CAVE, RAMADDA./
 
 **** Conclusions
      :PROPERTIES:
      :BEAMER_env: alertblock
      :CUSTOM_ID: h:E728C162
      :END:
-We can quickly deploy a fully capable Unidata data center by leveraging the Jetstream cloud and a variety of open-source technologies. Science students and professionals can use the Unidata gateway directly via Jupyter notebooks, or with remote visualization client applications such as the IDV and AWIPS CAVE. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows\cite{Chastang2017b}. Future work will explore cloud scalability, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
+We can quickly deploy a fully capable Unidata data center by leveraging the Jetstream cloud and a variety of open-source technologies. Science students and professionals can use the Unidata gateway directly via Jupyter notebooks, or with remote visualization client applications such as the IDV and AWIPS CAVE. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows\cite{Chastang2017b}. Future work will explore cloud elasticity, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
 
 **** Acknowledgments
      :PROPERTIES:
      :BEAMER_env: block
      :CUSTOM_ID: h:B4D2EAE2
      :END:
-We thank Brian Beck, Craig Alan Stewart, George Wm Turner, Jeremy Fischer, Lance Moxley, Marlon Pierce, Maytal Dahan, Nicole Wolter, Peg Lindenlaub, Suresh Marru, and Victor Hazlewood for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+We thank B. Beck, M. Dahan, J. Fischer, V. Hazlewood, P. Lindenlaub, S. Marru, L. Moxley, M. Pierce, C. A. Stewart, G. W. Turner, N. Wilkins-Diehr and N. Wolter for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
 
 **** References
      :PROPERTIES:
