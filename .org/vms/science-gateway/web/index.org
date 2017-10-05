@@ -14,8 +14,10 @@
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.9)
 
 #+SETUPFILE: theme-readtheorg.setup
+#+HTML_HEAD:<style type="text/css">.figure-number {display: none;}</style>
 
-#+CAPTION: Credit: NASA
+# https://www.nasa.gov/audience/forstudents/5-8/features/nasa-knows/what-are-hurricanes-58.html
+#+CAPTION: Credits: NASA
 #+NAME: Hurricane
 [[file:hurricane.jpg]]
 
