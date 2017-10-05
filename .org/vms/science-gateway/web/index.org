@@ -26,7 +26,9 @@
   :CUSTOM_ID: h:BEB7506B
   :END:
 
-Welcome to the [[http://www.unidata.ucar.edu/][Unidata]] Science Gateway on the [[http://www.xsede.org][XSEDE]] [[https://portal.xsede.org/jetstream][Jetstream Cloud]]. As part of [[https://www.unidata.ucar.edu/publications/Unidata_2018.pdf][Unidata's 2018 Five-year plan (PDF)]] "Unidata 2018: Transforming Geoscience through Innovative Data Service", Unidata is exploring the use of cloud computing. A collection of Unidata related technologies can be found here for our community to make use of directly or with client applications described further on. Gateway users, coupled with XSEDE HPC resources, can achieve complete end-to-end scientific computing workflows.
+Welcome to the [[http://www.unidata.ucar.edu/][Unidata]] Science Gateway on the [[http://www.xsede.org][XSEDE]] [[https://portal.xsede.org/jetstream][Jetstream Cloud]]. Unidata is a diverse community of education and research institutions with the common goal of sharing geoscience data and the tools to access and visualize that data. For more than 30 years, Unidata has been providing data, software tools, and support to enhance Earth-system education and research. Funded primarily by the National Science Foundation (NSF), Unidata is one of the University Corporation for Atmospheric Research (UCAR)'s Community Programs (UCP).
+
+As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.pdf][five-year plan (PDF)]] "Unidata 2018: Transforming Geoscience through Innovative Data Service", Unidata is exploring cloud computing technologies in the context of accessing, analyzing, and visualizing geoscience data. This site collects Unidata-related technologies hosted on Jetstream; you can make use of these resources either directly in your browser or using one of the client applications described below. Our hope is that by combining the resources available in this gateway -- and perhaps coupling them with XSEDE HPC resources -- community members can create end-to-end scientific computing workflows in the Jetstream Cloud.
 
 * JupyterHub
   :PROPERTIES:
