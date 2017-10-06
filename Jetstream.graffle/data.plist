@@ -1165,10 +1165,10 @@ Local Storage: 	20GB}</string>
 				NAGGkoSfngCBUAGGhoEACIQEWzFmXYPNzEw9hpKElpYG
 				TlNGb250hpKEhIQGTlNGb250HpSZKIQFWzQwY10GAAAA
 				HgAAAP/+SABlAGwAdgBlAHQAaQBjAGEALQBCAG8AbABk
-				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkoSWlgdO
-				U0NvbG9yhpKEhIQHTlNDb2xvcgCUowKEBGZmZmaDzcxM
-				PoPNzEw+g83MTD4BhpKZkoSbmwIAhJ2ZDJKekqCSoZKi
-				kqOSpJKlkqaSp5KokqmSqoaBAAifg83MTD2GkquShK2Z
+				AAAAhAFmEoQBYwCjAaMAowCGhpcCAZKEmJkEkpmShJub
+				AgCEnZkMkp6SoJKhkqKSo5KkkqWSppKnkqiSqZKqhoEA
+				CJ+DzcxMPYaShJaWB05TQ29sb3KGkoSEhAdOU0NvbG9y
+				AJSjAoQEZmZmZoPNzEw+g83MTD6DzcxMPgGGkquShK2Z
 				JIQFWzM2Y10GAAAAHAAAAP/+SABlAGwAdgBlAHQAaQBj
 				AGEATgBlAHUAZQCiDqMAowGjAKMAhpKElpYGTlNLZXJu
 				hpKEhIQITlNOdW1iZXIAhIQHTlNWYWx1ZQCUhAEqhIQB
@@ -1305,10 +1305,10 @@ Network
 				gTQBhpKEn54AgVABhoaBAAiEBFsxZl2DzcxMPYaShJaW
 				Bk5TRm9udIaShISEBk5TRm9udB6UmSiEBVs0MGNdBgAA
 				AB4AAAD//kgAZQBsAHYAZQB0AGkAYwBhAC0AQgBvAGwA
-				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBJKElpYH
-				TlNDb2xvcoaShISEB05TQ29sb3IAlKMChARmZmZmg83M
-				TD6DzcxMPoPNzEw+AYaSmZKEm5sCAISdmQySnpKgkqGS
-				opKjkqSSpZKmkqeSqJKpkqqGgQAIn4PNzEw9hpKrkoSt
+				ZAAAAIQBZhKEAWMAowGjAKMAhoaXAgGShJiZBJKZkoSb
+				mwIAhJ2ZDJKekqCSoZKikqOSpJKlkqaSp5KokqmSqoaB
+				AAifg83MTD2GkoSWlgdOU0NvbG9yhpKEhIQHTlNDb2xv
+				cgCUowKEBGZmZmaDzcxMPoPNzEw+g83MTD4BhpKrkoSt
 				mSSEBVszNmNdBgAAABwAAAD//kgAZQBsAHYAZQB0AGkA
 				YwBhAE4AZQB1AGUAog6jAKMBowCjAIaShJaWBk5TS2Vy
 				boaShISECE5TTnVtYmVyAISEB05TVmFsdWUAlIQBKoSE
@@ -1875,7 +1875,7 @@ Local Storage: 	120GB}</string>
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs26 \cf0 McIDAS/GEMPAK\
-product generation (to make use of unused capcity)}</string>
+product generation (to make use of unused capacity)}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -2609,7 +2609,7 @@ LDM Q: 			10GB}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2017-09-15 20:56:09 +0000</string>
+	<string>2017-10-06 17:25:42 +0000</string>
 	<key>Modifier</key>
 	<string>chastang</string>
 	<key>NotesVisible</key>
