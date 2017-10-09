@@ -109,14 +109,16 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
    :CUSTOM_ID: h:796B2372
    :END:
 
-- [[https://figshare.com/articles/Unidata_and_data-proximate_analysis_and_visualization_in_the_cloud/5249839][ESIP Summer Meeting 2017 | July 25-28, 2017 – Bloomington, IN USA]] 
+- ESIP Summer Meeting 2017 | July 25-28, 2017 – Bloomington, IN USA
+  - [[https://doi.org/10.6084/m9.figshare.5249839.v1][Unidata and data-proximate analysis and visualization in the cloud]]
+  - [[https://doi.org/10.6084/m9.figshare.5249845.v1][Met/Ocean Modeling Workflows on XSEDE via HPC & Cloud]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h:BD0797EC
    :END:
 
-- Gateways 2017 |  October 23–25, 2017 – Ann Arbor, MI USA 
+- [[https://doi.org/10.6084/m9.figshare.5479648.v1][Gateways 2017 |  October 23–25, 2017 – Ann Arbor, MI USA]]
 - 2017 AGU Fall Meeting | December 11–15, 2017 – New Orleans, LA USA 
 - 2018 AMS Annual Meeting | January 7–11, 2018 – Austin, TX USA
 
