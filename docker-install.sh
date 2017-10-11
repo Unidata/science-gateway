@@ -34,9 +34,10 @@ fi
 if [ -n "$(command -v apt-get)" ]; then
   service docker stop
 
-  apt-get remove -y docker docker-engine docker.io docker-ce && rm -rf /var/lib/docker && \
-    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y \
-    install git unzip wget nfs-kernel-server nfs-common && apt autoremove -y
+  dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
+     docker-ce && rm -rf /var/lib/docker && apt-get update && apt-get -y upgrade \
+     && apt-get -y dist-upgrade && apt-get -y install git unzip wget \
+     nfs-kernel-server nfs-common && apt autoremove -y
 fi
 
 if [ -n "$(command -v yum)" ]; then
