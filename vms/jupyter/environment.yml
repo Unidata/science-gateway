@@ -20,3 +20,4 @@
    - ffmpeg
    - gitpython
    - nb_conda_kernels
+   - jupyerhub=0.7.2
