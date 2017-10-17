@@ -6,7 +6,7 @@ FROM jupyterhub/jupyterhub:latest
 
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y curl vim
+RUN apt-get install -y curl vim zip unzip iputils-ping
 
 ###
 # Setting HOME
