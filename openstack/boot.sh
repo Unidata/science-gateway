@@ -74,7 +74,7 @@ fi
 
 if [ -z "$IMAGE_NAME" ];
    then
-      IMAGE_NAME=9b3a67a2-2c0e-4d6d-af64-90d66e6312e1
+      IMAGE_NAME=9ec1521c-aea9-439f-8655-03cd20603edc
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
