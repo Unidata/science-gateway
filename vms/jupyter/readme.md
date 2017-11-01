@@ -107,16 +107,9 @@ mkdir -p ~/logs/nginx/
 
 ## SSL Certificate
 
-In the `~/xsede-jetstream/vms/jupyter/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
+[Obtain an SSL cert from letsencrypt](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04) on base VM Docker host.
 
-```shell
-mkdir -p ~/config/ssl/
-
-openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
-  "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/config/ssl/ssl.key \
-  -out ~/config/ssl/ssl.crt
-```
+Copy the letsencrypt cert file tree (what usually ends up in `/etc/letsencrypt`) to `~/letsencrypt`.
 
 
 <a id="h:ED417641"></a>
@@ -162,9 +155,9 @@ services:
       - ~/logs/jupyter:/var/log
       - /notebooks:/notebooks
       - /scratch:/scratch
+      - ~/letsencrypt:/etc/letsencrypt/
     ports:
       - "8000:8000"
-      - "80:80"
       - "443:443"
     env_file:
       - "compose.env"

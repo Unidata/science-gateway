@@ -15,6 +15,7 @@ services:
       - ~/logs/jupyter:/var/log
       - /notebooks:/notebooks
       - /scratch:/scratch
+      - ~/letsencrypt:/etc/letsencrypt/
     ports:
       - "8000:8000"
       - "443:443"

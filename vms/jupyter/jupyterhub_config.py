@@ -223,13 +223,13 @@ c.JupyterHub.port = 443
 ## Path to SSL certificate file for the public facing interface of the proxy
 #  
 #  Use with ssl_key
-c.JupyterHub.ssl_key = '/etc/jupyterhub/ssl/ssl.key'
+c.JupyterHub.ssl_key = '/etc/letsencrypt/live/jupyter-jetstream.unidata.ucar.edu/privkey.pem'
 
 
 ## Path to SSL key file for the public facing interface of the proxy
 #  
 #  Use with ssl_cert
-c.JupyterHub.ssl_cert = '/etc/jupyterhub/ssl/ssl.crt'
+c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/jupyter-jetstream.unidata.ucar.edu/cert.pem'
 
 ## Host to send statsd metrics to
 #c.JupyterHub.statsd_host = ''
