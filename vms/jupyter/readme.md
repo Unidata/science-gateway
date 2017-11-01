@@ -107,11 +107,15 @@ mkdir -p ~/logs/nginx/
 
 ## SSL Certificate
 
-In the `~/xsede-jetstream/vms/jupyter/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
+In the `~/config/ssl/` directory, obtain a `ssl.key`, `ssl.crt` certificate pair from a certificate authority (e.g., letsencrypt).
 
 ```shell
 mkdir -p ~/config/ssl/
+```
 
+Or generate a self-signed certificate with `openssl`, but this is not recommended:
+
+```shell
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
   -keyout ~/config/ssl/ssl.key \
@@ -160,11 +164,11 @@ services:
       # Directories outside of the container that need to be accessible
       - ~/config:/etc/jupyterhub
       - ~/logs/jupyter:/var/log
+      - ~/ssl/:/etc/jupyterhub/ssl/
       - /notebooks:/notebooks
       - /scratch:/scratch
     ports:
       - "8000:8000"
-      - "80:80"
       - "443:443"
     env_file:
       - "compose.env"
@@ -195,4 +199,4 @@ to start JupyterHub
 
 ## Navigate to JupyterHub
 
-In a web browser, navigate to [<https://jupyter-jetstream.unidata.ucar.edu>](https://jupyter-jetstream.unidata.ucar.edu).
+In a web browser, navigate to [https://jupyter-jetstream.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
