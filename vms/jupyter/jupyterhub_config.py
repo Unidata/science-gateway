@@ -1,4 +1,5 @@
 from pwd import getpwnam
+from grp import getgrnam
 from jupyterhub.spawner import LocalProcessSpawner
 from oauthenticator.globus import LocalGlobusOAuthenticator
 import shutil
@@ -421,7 +422,10 @@ c.JupyterHub.ssl_cert = '/etc/jupyterhub/ssl/ssl.crt'
 
 def recursive_chown(path, user):
     uid = getpwnam(user).pw_uid
-    gid = getpwnam(user).pw_gid
+    try:
+        gid = getgrnam('docker').gr_gid
+    except KeyError:
+        gid = getpwnam(user).pw_gid
 
     os.chown(path, uid, gid)
 
@@ -440,6 +444,7 @@ class MySpawner(LocalProcessSpawner):
             shutil.copytree("/srv/jupyterhub/git", nbdir)
         recursive_chown(nbdir, self.user.name)
         return nbdir
+
 
 c.JupyterHub.spawner_class = MySpawner
 

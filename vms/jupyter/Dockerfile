@@ -63,6 +63,15 @@ RUN sed -i 's/FIRST_UID=1000/FIRST_UID=1001/g' /etc/adduser.conf
 
 RUN sed -i 's/FIRST_GID=1000/FIRST_GID=1001/g' /etc/adduser.conf
 
+# Ensure all new users belong to docker group
+# Assuming Docker host has a Docker group with GID of 999
+
+RUN groupadd docker -g 999
+
+RUN sed -i 's/USERGROUPS=yes/USERGROUPS=no/g' /etc/adduser.conf
+
+RUN sed -i 's/USERS_GID=100/USERS_GID=999/g' /etc/adduser.conf
+
 ###
 # Clone Unidata Python notebook git repositories
 ###
