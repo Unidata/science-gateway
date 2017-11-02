@@ -54,6 +54,16 @@ ADD bashrc_extra $HOME
 RUN cat $HOME/bashrc_extra | tee --append /etc/skel/.bashrc > /dev/null
 
 ###
+# /etc/adduser.conf
+###
+
+# To not conflict with UID, GIDs from Docker host
+
+RUN sed -i 's/FIRST_UID=1000/FIRST_UID=1001/g' /etc/adduser.conf
+
+RUN sed -i 's/FIRST_GID=1000/FIRST_GID=1001/g' /etc/adduser.conf
+
+###
 # Clone Unidata Python notebook git repositories
 ###
 
