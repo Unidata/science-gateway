@@ -420,10 +420,11 @@ c.JupyterHub.ssl_cert = '/etc/jupyterhub/ssl/ssl.crt'
 # c.Spawner.notebook_dir = '~/notebooks'
 
 
-def recursive_chown(path, user):
+def recursive_chown(path, user, group):
+    """Recursive chown of notebook path, ideally with docker group"""
     uid = getpwnam(user).pw_uid
     try:
-        gid = getgrnam('docker').gr_gid
+        gid = getgrnam(group).gr_gid
     except KeyError:
         gid = getpwnam(user).pw_gid
 
@@ -436,13 +437,28 @@ def recursive_chown(path, user):
             os.chown(os.path.join(root, momo), uid, gid)
 
 
+def create_condarc(user):
+    """Create .condarc in ~"""
+    condarc = ''.join(["/home/", user, "/.condarc"])
+    envs = ''.join(["  - /notebooks/", user, "/my-conda-envs/"])
+    with open(condarc, "w") as f:
+        f.write("channels:\n")
+        f.write("  - conda-forge\n")
+        f.write("  - defaults\n")
+        f.write("envs_dirs:\n")
+        f.write(envs)
+        f.write("\n")
+    os.chown(condarc, getpwnam(user).pw_uid, getpwnam(user).pw_gid)
+
+
 class MySpawner(LocalProcessSpawner):
     def _notebook_dir_default(self):
         nbdir = ''.join(['/notebooks/', self.user.name])
         # don't overwrite user content
         if not os.path.exists(nbdir):
             shutil.copytree("/srv/jupyterhub/git", nbdir)
-        recursive_chown(nbdir, self.user.name)
+        recursive_chown(nbdir, self.user.name, 'docker')
+        create_condarc(self.user.name)
         return nbdir
 
 
