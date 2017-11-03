@@ -4,8 +4,5 @@
 GLOBUSCONNECTPERSONAL=$(ls /srv/jupyterhub/ | grep globusconnectpersonal)
 PATH=/srv/jupyterhub/$GLOBUSCONNECTPERSONAL:$PATH
 
-# https://conda.io/docs/user-guide/configuration/use-condarc.html#specify-environment-directories-envs-dirs
-export CONDA_ENVS_PATH="/notebooks/$USER/my-conda-envs:/opt/anaconda/envs"
-
 # cd to notebook directory upon login
 cd /notebooks/$USER
