@@ -1,4 +1,4 @@
 python-awips
 mpldatacursor
-oauthenticator==0.6.1
-globus_sdk[jwt]
+oauthenticator
+globus_sdk[jwt]>=1.0.0,<2.0.0
