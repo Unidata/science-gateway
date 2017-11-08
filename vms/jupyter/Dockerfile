@@ -81,7 +81,7 @@ RUN mkdir -p $HOME/git
 WORKDIR $HOME/git
 
 RUN git clone https://github.com/Unidata/unidata-python-workshop 
-RUN git clone https://github.com/Unidata/notebook-gallery
+RUN git clone -b gh-pages https://github.com/Unidata/notebook-gallery
 RUN git clone -b master https://github.com/Unidata/online-python-training
 
 COPY Welcome.ipynb $HOME/git
