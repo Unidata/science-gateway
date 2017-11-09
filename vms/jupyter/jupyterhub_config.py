@@ -283,6 +283,8 @@ c.JupyterHub.ssl_cert = '/etc/jupyterhub/ssl/ssl.crt'
 #  documentation for your spawner to verify!
 #c.Spawner.args = []
 
+c.Spawner.args = ['--NotebookApp.default_url=/notebooks/Welcome.ipynb']
+
 ## The command used for starting the single-user server.
 #  
 #  Provide either a string or a list containing the path to the startup script
