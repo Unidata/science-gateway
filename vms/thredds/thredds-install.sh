@@ -1,6 +1,3 @@
-#!/bin/bash
-git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
-
 mkdir -p ~/tdsconfig/
 wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
