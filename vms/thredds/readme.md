@@ -1,6 +1,6 @@
 - [Create a THREDDS VM on Jetstream](#h:A57251FC)
   - [Create a THREDDS VM on Jetstream](#h:011CFB59)
-  - [Clone the xsede-jetstream and TdsConfig Repositories](#h:E1E7DBE4)
+  - [Clone the xsede-jetstream Repository](#h:E1E7DBE4)
   - [Start TDS With Docker and docker-compose](#h:704AF626)
   - [TDS Configuration](#h:1E5D6712)
     - [Supply Contact and Host Information in threddsConfig.xml](#h:3F46F49F)
@@ -33,18 +33,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/U
 
 <a id="h:E1E7DBE4"></a>
 
-## Clone the xsede-jetstream and TdsConfig Repositories
+## Clone the xsede-jetstream Repository
 
 We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
 
 ```shell
 git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
-```
-
-In addition, we will employ the `Unidata/TdsConfig` repository.
-
-```shell
-git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 ```
 
 
@@ -245,4 +239,4 @@ to start the TDS
 
 ## Navigate to the TDS
 
-In a web browser, navigate to [<http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html>](http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+In a web browser, navigate to [http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html](http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html) to see if is running.
