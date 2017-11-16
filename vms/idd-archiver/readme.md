@@ -81,6 +81,18 @@ REQUEST ANY ".*" 10.0.0.21
 
 to point the local IDD relay **10.0 address**.
 
+or something like
+
+```shell
+REQUEST CONDUIT ".*" 10.0.0.21
+REQUEST NGRID ".*" 10.0.0.21
+REQUEST NOTHER ".*" 10.0.0.21
+REQUEST NEXRAD3 ".*" 10.0.0.21
+REQUEST ANY-NEXRAD3-NOTHER-NGRID-CONDUIT ".*" 10.0.0.21
+```
+
+to break apart the requests.
+
 
 <a id="h:27A09559"></a>
 
