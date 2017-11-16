@@ -30,7 +30,7 @@
 
 ## Create an IDD Archiver VM on Jetstream
 
-Create an `m1.small` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:00BE67D7"></a>
