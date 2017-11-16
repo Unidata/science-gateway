@@ -37,7 +37,7 @@ and run the `docker-install.sh` script collocated with this readme, e.g.,:
 
 ```shell
 cd xsede-jetstream
-chmod +x docker-install.sh; sudo ./docker-install.sh -u ${USER}
+sudo ./docker-install.sh -u ${USER}
 ```
 
 
@@ -54,9 +54,10 @@ Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary pa
     ```shell
     service docker stop
 
-    apt-get remove -y docker docker-engine docker.io docker-ce && rm -rf /var/lib/docker && \
-      apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y \
-      install git unzip wget nfs-kernel-server nfs-common && apt autoremove -y
+    dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
+       docker-ce && rm -rf /var/lib/docker && apt-get update && apt-get -y upgrade \
+       && apt-get -y dist-upgrade && apt-get -y install git unzip wget \
+       nfs-kernel-server nfs-common && apt autoremove -y
     ```
 
 2.  yum
