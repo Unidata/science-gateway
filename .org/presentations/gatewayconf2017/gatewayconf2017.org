@@ -18,7 +18,7 @@
 #+LATEX_CLASS: beamer
 #+BEAMER_HEADER: \usepackage[orientation=portrait,scale=1.33]{../common/beamerposter}
 #+BEAMER_HEADER: \usepackage{lmodern}
-#+BEAMER_HEADER: \usepackage{../common/beamerthemezurichposter}
+#+BEAMER_HEADER: \usepackage{../common/portrait/beamerthemezurichposter}
 
 #+OPTIONS: H:1
 
