@@ -1,0 +1,336 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{Chastang2016b}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {GitHub}%
+    }
+    \strng{namehash}{CJ1}
+    \strng{fullhash}{CJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{howpublished}{\url{https://github.com/Unidata/ldm-docker/}}
+    \field{title}{Unidata LDM Docker Container}
+    \verb{url}
+    \verb https://github.com/Unidata/ldm-docker/
+    \endverb
+    \field{journaltitle}{GitHub repository}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Chastang2016}{inproceedings}{}
+    \name{author}{3}{}{%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FW}{%
+         family={Fisher},
+         familyi={F\bibinitperiod},
+         given={W.},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Arms},
+         familyi={A\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {American Meteorological Society}%
+    }
+    \keyw{UPC}
+    \strng{namehash}{CJFWAS1}
+    \strng{fullhash}{CJFWAS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Proceedings, 32nd Conference on Environmental Information
+  Processing Technologies, 96th AMS Annual Meeting}
+    \field{note}{See also
+  http://unidata.github.io/Unidata-Dockerfiles/index.html}
+    \field{title}{UniCloud: Docker Use at Unidata}
+    \verb{url}
+    \verb https://ams.confex.com/ams/96Annual/webprogram/Paper287336.html
+    \endverb
+    \list{location}{1}{%
+      {New Orleans, LA}%
+    }
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Wilcox2015}{misc}{}
+    \name{author}{2}{}{%
+      {{hash=KW}{%
+         family={K.},
+         familyi={K\bibinitperiod},
+         given={Wilcox},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=CJ}{%
+         family={Chastang},
+         familyi={C\bibinitperiod},
+         given={J.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {GitHub}%
+    }
+    \strng{namehash}{KWCJ1}
+    \strng{fullhash}{KWCJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{howpublished}{\url{https://github.com/Unidata/thredds-docker/}}
+    \field{title}{Unidata THREDDS Docker Container}
+    \verb{url}
+    \verb https://github.com/Unidata/thredds-docker/
+    \endverb
+    \field{journaltitle}{GitHub repository}
+    \field{year}{2015}
+  \endentry
+
+  \entry{10.1145/2792745.2792774}{inproceedings}{}
+    \name{author}{12}{}{%
+      {{hash=SCA}{%
+         family={Stewart},
+         familyi={S\bibinitperiod},
+         given={Craig\bibnamedelima A.},
+         giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=CTM}{%
+         family={Cockerill},
+         familyi={C\bibinitperiod},
+         given={Timothy\bibnamedelima M.},
+         giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=FI}{%
+         family={Foster},
+         familyi={F\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Hancock},
+         familyi={H\bibinitperiod},
+         given={David},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MN}{%
+         family={Merchant},
+         familyi={M\bibinitperiod},
+         given={Nirav},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=SE}{%
+         family={Skidmore},
+         familyi={S\bibinitperiod},
+         given={Edwin},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Stanzione},
+         familyi={S\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TJ}{%
+         family={Taylor},
+         familyi={T\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=TS}{%
+         family={Tuecke},
+         familyi={T\bibinitperiod},
+         given={Steven},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=TG}{%
+         family={Turner},
+         familyi={T\bibinitperiod},
+         given={George},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=VM}{%
+         family={Vaughn},
+         familyi={V\bibinitperiod},
+         given={Matthew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GNI}{%
+         family={Gaffney},
+         familyi={G\bibinitperiod},
+         given={Niall\bibnamedelima I.},
+         giveni={N\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {ACM}%
+    }
+    \keyw{atmosphere, big data, cloud computing, long tail of science}
+    \strng{namehash}{SCA+1}
+    \strng{fullhash}{SCACTMFIHDMNSESDTJTSTGVMGNI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Proceedings of the 2015 XSEDE Conference: Scientific
+  Advancements Enabled by Enhanced Cyberinfrastructure}
+    \verb{doi}
+    \verb 10.1145/2792745.2792774
+    \endverb
+    \field{isbn}{978-1-4503-3720-5}
+    \field{pages}{29:1\bibrangedash 29:8}
+    \field{series}{XSEDE '15}
+    \field{title}{Jetstream: A Self-provisioned, Scalable Science and
+  Engineering Cloud Environment}
+    \verb{url}
+    \verb http://doi.acm.org/10.1145/2792745.2792774
+    \endverb
+    \list{location}{1}{%
+      {St. Louis, Missouri, USA}%
+    }
+    \field{year}{2015}
+    \warn{\item Can't use 'location' + 'address'}
+  \endentry
+
+  \entry{10.1109/MCSE.2014.80}{article}{}
+    \name{author}{13}{}{%
+      {{hash=TJ}{%
+         family={Towns},
+         familyi={T\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=CT}{%
+         family={Cockerill},
+         familyi={C\bibinitperiod},
+         given={Timothy},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=DM}{%
+         family={Dahan},
+         familyi={D\bibinitperiod},
+         given={Maytal},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=FI}{%
+         family={Foster},
+         familyi={F\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=GK}{%
+         family={Gaither},
+         familyi={G\bibinitperiod},
+         given={Kelly},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=GA}{%
+         family={Grimshaw},
+         familyi={G\bibinitperiod},
+         given={Andrew},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HV}{%
+         family={Hazlewood},
+         familyi={H\bibinitperiod},
+         given={Victor},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=LS}{%
+         family={Lathrop},
+         familyi={L\bibinitperiod},
+         given={Scott},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LD}{%
+         family={Lifka},
+         familyi={L\bibinitperiod},
+         given={Dave},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=PGD}{%
+         family={Peterson},
+         familyi={P\bibinitperiod},
+         given={Gregory\bibnamedelima D.},
+         giveni={G\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=RR}{%
+         family={Roskies},
+         familyi={R\bibinitperiod},
+         given={Ralph},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SJR}{%
+         family={Scott},
+         familyi={S\bibinitperiod},
+         given={J.\bibnamedelima Ray},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=WDN}{%
+         family={Wilkins-Diehr},
+         familyi={W\bibinitperiod-D\bibinitperiod},
+         given={Nancy},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE Computer Society}%
+    }
+    \strng{namehash}{TJ+1}
+    \strng{fullhash}{TJCTDMFIGKGAHVLSLDPGDRRSJRWDN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1109/MCSE.2014.80
+    \endverb
+    \field{issn}{1521-9615}
+    \field{number}{5}
+    \field{pages}{62\bibrangedash 74}
+    \field{title}{{XSEDE}: Accelerating Scientific Discovery}
+    \field{volume}{16}
+    \list{location}{1}{%
+      {Los Alamitos, CA, USA}%
+    }
+    \field{journaltitle}{Computing in Science \& Engineering}
+    \field{year}{2014}
+  \endentry
+\endsortlist
+\endinput

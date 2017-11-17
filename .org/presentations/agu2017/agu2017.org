@@ -1,0 +1,154 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: tasks:t tex:t timestamp:t title:nil toc:nil todo:t |:t
+#+OPTIONS: auto-id:t
+
+#+TITLE: Reducing Time to Science: Unidata and JupyterHub Technology Using the XSEDE Jetstream Cloud  
+#+DATE: <2017-12-12 Tue>
+#+AUTHOR: Julien Chastang (chastang@ucar.edu), Rich Signell (USGS Woods Hole), Jeremy Fischer (XSEDE, Indiana University)
+#+LATEX_HEADER: \institute[Unidata]{Unidata Program Center, UCP, University Corporation for Atmospheric Research}
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.3.1 (Org mode 9.1.2)
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+BEAMER_HEADER: \usepackage[orientation=landscape,scale=1.66]{../common/beamerposter}
+#+BEAMER_HEADER: \usepackage{lmodern}
+#+BEAMER_HEADER: \usepackage{../common/landscape/beamerthemezurichposter}
+
+#+OPTIONS: H:1
+
+# bib
+#+LATEX_HEADER: \usepackage[backend=bibtex, style=numeric]{biblatex}
+#+LATEX_HEADER: \renewcommand*{\bibfont}{\tiny}
+#+LATEX_HEADER: \bibliography{../../../jetstream.bib}
+
+# numbered bib items instead of weird icon
+#+LATEX_HEADER: \setbeamertemplate{bibliography item}[text]
+
+* Publishing Configuration                                         :noexport:
+  :PROPERTIES:
+  :CUSTOM_ID: h:6BAB6253
+  :END:
+
+#+BEGIN_SRC emacs-lisp  :eval yes :results silent
+  (setq base-dir (concat (projectile-project-root) ".org/presentations"))
+
+  (setq pub-dir (concat (projectile-project-root) "presentations"))
+
+  (setq org-publish-project-alist
+        `(
+          ("jetstream-presentations"
+           :base-directory ,base-dir
+           :base-extension "pdf"
+           :publishing-directory ,pub-dir
+           :recursive t
+           :publishing-function org-publish-attachment)))
+#+END_SRC
+
+*   
+    :PROPERTIES:
+    :BEAMER_OPT: t,label=
+    :CUSTOM_ID: h:C3763AD1
+    :END:
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.333
+    :CUSTOM_ID: h:2BF768BB
+    :END:
+**** Abstract
+      :PROPERTIES:
+      :BEAMER_env: exampleblock
+      :CUSTOM_ID: h:B6CEDC5C
+      :END:
+
+The ascendancy of Jupyter notebooks and cloud computing coupled with established Unidata technology provides a significant opportunity to improve "time to science" by reducing research and data impediments. Scientists and students no longer need to transfer unwieldy geoscientific datasets to local computing environments and can rely upon data center reliability and horsepower. Moreover, complex software environments required to analyze and visualize these data can be preconfigured by experts on the scientists' behalf. We describe the deployment of Unidata and JupyterHub technologies on the NSF-funded XSEDE Jetstream cloud\cite{10.1145/2792745.2792774}\cite{10.1109/MCSE.2014.80}.
+
+**** Methods
+     :PROPERTIES:
+     :BEAMER_env: block
+     :CUSTOM_ID: h:6CD3AE86
+     :END:
+
+- Cloud Technologies
+  - XSEDE Jetstream Cloud
+  - OpenStack
+  - Linux Virtual Machines
+- Docker Containers\cite{Chastang2016}
+  - Unidata Local Data Manager\cite{Chastang2016b} (LDM)
+  - Unidata THREDDS Data Server\cite{Wilcox2015} (TDS)
+  - JupyterHub 
+- Data Transfer
+  - Internet2\textsuperscript{\textregistered}
+  - LDM
+  - Internet Data Distribution (IDD) network with NCEP data
+  - Globus CL
+- JupyterHub with Unidata Notebooks Projects
+  - Unidata Python Workshop
+  - Notebook Gallery
+  - Online Python Training
+- Unidata Python APIs
+  - netCDF4-python
+  - MetPy
+  - Siphon
+- Globus OAuth
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.333
+   :CUSTOM_ID: h:A481781B
+   :END:
+
+
+**** JupyterHub with Unidata Notebooks 
+     :PROPERTIES:
+     :BEAMER_env: block
+     :CUSTOM_ID: h:158E3721
+     :END:
+
+ #+ATTR_LATEX: width=\textwidth
+[[file:miller.png]]
+
+**** Cloud Architecture
+     :PROPERTIES:
+     :BEAMER_env: block
+     :CUSTOM_ID: h:660BF14A
+     :END:
+
+#+NAME: architecture
+ #+ATTR_LATEX: width=\textwidth
+[[file:jetstream.png]]
+
+*** Column 3
+   :PROPERTIES:
+   :BEAMER_col: 0.333
+   :CUSTOM_ID: h:B0BF1E45
+   :END:
+
+**** Conclusions
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :CUSTOM_ID: h:E2F114DD
+     :END:
+
+Deploying a multi-user JupyterHub server on the Jetstream cloud with easily accessible geoscientific data holdings has many benefits. Cloud computing environments are fast, reliable and scalable. Scientists and students analyze, visualize, and share data using only browser-based Jupyter notebook and JupyterHub technology. No local specialized desktop software or fast Internet connection are required. These Jupyter notebooks are preconfigured by specialists for the geoscience community. In addition, we can leverage decades of Unidata expertise in delivering and serving data with the LDM and TDS co-located on Jetstream delivering large quantities of geoscience data. This environment will enable scientists to spend less time managing their software and more time doing science. Future work will explore cloud elasticity, in a classroom setting for example, where students may be running many Jupyter notebooks at once.
+
+**** Acknowledgments
+     :PROPERTIES:
+     :BEAMER_env: block
+     :CUSTOM_ID: h:F6BAC9F5
+     :END:
+
+We thank B. Beck, M. Dahan, J. Fischer, V. Hazlewood, P. Lindenlaub, S. Marru, L. Moxley, M. Pierce, C. A. Stewart, G. W. Turner, N. Wilkins-Diehr and N. Wolter for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+**** References
+     :PROPERTIES:
+     :BEAMER_env: block
+     :CUSTOM_ID: h:A4BD3515
+     :END:
+
+  \printbibliography
