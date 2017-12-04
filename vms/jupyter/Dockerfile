@@ -81,8 +81,24 @@ RUN mkdir -p $HOME/git
 WORKDIR $HOME/git
 
 RUN git clone https://github.com/Unidata/unidata-python-workshop 
-RUN git clone -b gh-pages https://github.com/Unidata/notebook-gallery
+
+RUN git clone https://github.com/Unidata/notebook-gallery && \
+  git --git-dir=notebook-gallery/.git checkout gh-pages && \
+  git clone -b master notebook-gallery/.git /tmp/notebook-gallery
+
 RUN git clone -b master https://github.com/Unidata/online-python-training
+
+
+###
+# Create related conda environments
+###
+
+RUN conda env update --name unidata-python-workshop \
+  -f unidata-python-workshop/environment.yml
+RUN conda env update --name notebook-gallery \
+  -f /tmp/notebook-gallery/environment.yml && rm -rf /tmp/notebook-gallery
+RUN conda env update --name online-python-training \
+  -f online-python-training/environment.yml
 
 COPY Welcome.ipynb $HOME/git
 
