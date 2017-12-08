@@ -83,8 +83,9 @@ WORKDIR $HOME/git
 RUN git clone https://github.com/Unidata/unidata-python-workshop 
 
 RUN git clone https://github.com/Unidata/notebook-gallery && \
-  git --git-dir=notebook-gallery/.git checkout gh-pages && \
-  git clone -b master notebook-gallery/.git /tmp/notebook-gallery
+    git --git-dir=notebook-gallery/.git --work-tree notebook-gallery/ \
+    checkout gh-pages && git clone -b master notebook-gallery/.git \
+    /tmp/notebook-gallery
 
 RUN git clone -b master https://github.com/Unidata/online-python-training
 
