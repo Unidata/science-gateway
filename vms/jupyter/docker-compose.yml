@@ -13,7 +13,7 @@ services:
       # Directories outside of the container that need to be accessible
       - ~/config:/etc/jupyterhub
       - ~/logs/jupyter:/var/log
-      - ~/ssl/:/etc/jupyterhub/ssl/
+      - ~/config/ssl/:/etc/jupyterhub/ssl/
       - /notebooks:/notebooks
       - /scratch:/scratch
     ports:
