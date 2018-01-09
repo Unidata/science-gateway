@@ -134,7 +134,11 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 
 ## Globus OAuth Setup
 
-This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu`) with Globus. Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
+This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu`) with Globus.
+
+Supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables in the `compose.env` file co-located with `docker-compose.yml`. Make sure you have correctly grabbed those variables from the <https://developers.globus.org/>. Not copying these variables correctly can be the source of errors and headaches.
+
+Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
 
 ```python
 c.Authenticator.admin_users = {'jane','joe'}
@@ -164,7 +168,7 @@ services:
       # Directories outside of the container that need to be accessible
       - ~/config:/etc/jupyterhub
       - ~/logs/jupyter:/var/log
-      - ~/ssl/:/etc/jupyterhub/ssl/
+      - ~/config/ssl/:/etc/jupyterhub/ssl/
       - /notebooks:/notebooks
       - /scratch:/scratch
     ports:
@@ -186,7 +190,13 @@ services:
 
 ## Start JupyterHub
 
-Once you have done the work of setting up JupyterHub related directories,
+Once you have done the work of setting up JupyterHub related directories, you need to build the container (which may take a while),
+
+```shell
+docker build -t unidata/unidatahub .
+```
+
+and issue the command
 
 ```shell
 docker-compose up -d

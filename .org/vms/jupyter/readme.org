@@ -132,7 +132,11 @@ Or generate a self-signed certificate with ~openssl~, but this is not recommende
    :CUSTOM_ID: h:524FAF4B
    :END:
 
-This JupyterHub server makes use of [[https://developers.globus.org/][Globus OAuth capability]] for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward and mostly implemented in the [[https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py][jupyterhub_config.py]] JupyterHub configuration file. The only tricky part is to supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables which you obtain when registering the JupyterHub server application (e.g., ~https://jupyter-jetstream.unidata.ucar.edu~) with Globus. Also in =jupyterhub_config.py=, supply the white list of administrator and users with ~c.Authenticator.admin_users~, ~c.Authenticator.whitelist~ variables. For example,
+This JupyterHub server makes use of [[https://developers.globus.org/][Globus OAuth capability]] for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward and mostly implemented in the [[https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py][jupyterhub_config.py]] JupyterHub configuration file. The only tricky part is to supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables which you obtain when registering the JupyterHub server application (e.g., ~https://jupyter-jetstream.unidata.ucar.edu~) with Globus.
+
+Supply the ~OAUTH_CLIENT_ID~ and ~OAUTH_CLIENT_SECRET~ environment variables in the =compose.env= file co-located with =docker-compose.yml=. Make sure you have correctly grabbed those variables from the https://developers.globus.org/. Not copying these variables correctly can be the source of errors and headaches.
+
+Also in =jupyterhub_config.py=, supply the white list of administrator and users with ~c.Authenticator.admin_users~, ~c.Authenticator.whitelist~ variables. For example,
 
 #+BEGIN_SRC python :eval no
   c.Authenticator.admin_users = {'jane','joe'}
