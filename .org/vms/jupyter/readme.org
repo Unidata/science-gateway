@@ -153,7 +153,13 @@ Based on the directory set we have defined, the =docker-compose.yml= file will l
    :CUSTOM_ID: h:62B48A14
    :END:
 
-Once you have done the work of setting up JupyterHub related directories,
+Once you have done the work of setting up JupyterHub related directories, you need to build the container (which may take a while),
+
+#+BEGIN_SRC shell
+  docker build -t unidata/unidatahub .
+#+END_SRC
+
+and issue the command
 
 #+BEGIN_SRC shell
   docker-compose up -d
