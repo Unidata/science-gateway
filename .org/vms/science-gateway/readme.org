@@ -103,6 +103,3 @@ to start the web server.
            :recursive t
            :publishing-function org-publish-attachment)))
 #+END_SRC
-
-
-
