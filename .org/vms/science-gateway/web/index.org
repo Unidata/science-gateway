@@ -131,14 +131,16 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 
 The implementation of this effort is described here: https://github.com/Unidata/xsede-jetstream.
 
-* Unidata Science Gateway System Status
+* System Status
   :PROPERTIES:
   :CUSTOM_ID: h:DA850DB8
   :END:
 
 [[https://conan.unidata.ucar.edu/bb/][Internal only Unidata system monitoring link]]
+
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-relay.jetstream-cloud.org][IDD Relay RTSTATS]]
-[[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-archiver.jetstream-cloud.org][IDD Archiver RTSTATS]]
+[[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-archiver.jetstream-cloud.org][
+IDD Archiver RTSTATS]]
 
 * Contact
   :PROPERTIES:
