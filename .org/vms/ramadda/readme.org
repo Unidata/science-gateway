@@ -57,7 +57,7 @@ The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs)
 
 When starting RAMADDA for the first time, you must have  a =password.properties= file in the RAMADDA home directory which is =/repository/=. See [[http://ramadda.org//repository/userguide/toc.html][RAMADDA documentation]] for more details on setting up RAMADDA. Here is a =pw.properties= file to get you going. Change password below to something more secure!
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/ramadda-install.sh :shebang "#!/bin/bash"
+#+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh :shebang "#!/bin/bash"
   # Create RAMADDA default password
 
   echo ramadda.install.password=changeme! | tee --append \
@@ -76,7 +76,7 @@ When starting RAMADDA for the first time, you must have  a =password.properties=
 
 You will need an Apache Tomcat and RAMADDA log directories:
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/ramadda-install.sh 
+#+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh
    mkdir -p ~/logs/ramadda-tomcat/
    mkdir -p ~/logs/ramadda/
  #+END_SRC
@@ -88,7 +88,7 @@ You will need an Apache Tomcat and RAMADDA log directories:
 
 Scour occasionally so the log directories do not fill up.
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/ramadda-install.sh
+#+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh
   (crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
 #+END_SRC
 
