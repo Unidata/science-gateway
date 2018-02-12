@@ -107,7 +107,7 @@ Scour occasionally so the log directories do not fill up.
    :CUSTOM_ID: h:F043AB6A
    :END:
 
-The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
+The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.8~:
 
 #+BEGIN_SRC shell :exports none :tangle ../../../vms/thredds/nfs-install.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
@@ -119,7 +119,7 @@ The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in or
 #+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
   # create the NFS mount point
   mkdir -p /data
-  mount 10.0.0.4:/data /data
+  mount 10.0.0.8:/data /data
 #+END_SRC
 
 *** Ensure /data Availability Upon Machine Restart
@@ -130,7 +130,7 @@ The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in or
 You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
 
 #+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
-  echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
+  echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
 #+END_SRC
 
 ** SSL Certificate
