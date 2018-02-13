@@ -111,7 +111,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     
     * From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
     
-    * Select **OpenStack RC File (Identidy API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
+    * Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
     
     * Move this file to `bin/openrc.sh` (e.g., `/home/jane/xsede-jetstream/openstack/bin/openrc.sh`).
 
