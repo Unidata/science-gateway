@@ -4,7 +4,7 @@ FROM centos:7
 # Update the system. Install stuff.
 ###
 
-RUN yum update yum
+RUN yum update yum -y
 
 RUN yum install -y vim telnet openssh openssh-clients git vi less nano
 
@@ -28,15 +28,15 @@ ENV PATH=$HOME/bin:$PATH
 # Add various utilities
 ###
 
-ADD secgroup.sh $HOME/bin
+ADD secgroup.sh $HOME/bin/
 
-ADD boot.sh $HOME/bin
+ADD boot.sh $HOME/bin/
 
-ADD teardown.sh $HOME/bin
+ADD teardown.sh $HOME/bin/
 
-ADD unidata-ports.sh $HOME/bin
+ADD unidata-ports.sh $HOME/bin/
 
-ADD mount.sh $HOME/bin
+ADD mount.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
