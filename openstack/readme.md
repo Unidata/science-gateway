@@ -105,7 +105,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 1.  [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/).
 
-2.  Download your `openrc.sh` file from the IU (not TACC) dashboard at <https://iu.jetstream-cloud.org> and move it to the `openstack` directory.
+2.  Download your `openrc.sh` file from the IU (not TACC) dashboard at <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.
     
     * See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh).
     
@@ -113,9 +113,9 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     
     * Select **OpenStack RC File (Identidy API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
     
-    * Move this file to `openrc.sh` (e.g., `/home/jane/xsede-jetstream/openstack/openrc.sh`).
+    * Move this file to `bin/openrc.sh` (e.g., `/home/jane/xsede-jetstream/openstack/bin/openrc.sh`).
 
-3.  Edit `openrc.sh` Password (Optional)
+3.  Edit `bin/openrc.sh` Password (Optional)
 
     For convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
 
@@ -145,8 +145,13 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     chmod +x openstack.sh
     ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
     ```
-
     Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
+
+    A wrapper scirpt `run.sh` is provided, which assumes that directories `bin/` and `ssh/` exist in the working directory, and that `bin/` contains `openrc.sh`:
+
+   ```sh
+   ./run.sh
+   ```
 
 2.  Create ssh Keys (Do This Once)
 

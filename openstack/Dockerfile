@@ -28,15 +28,15 @@ ENV PATH=$HOME/bin:$PATH
 # Add various utilities
 ###
 
-ADD secgroup.sh $HOME/bin/
+ADD bin/secgroup.sh $HOME/bin/
 
-ADD boot.sh $HOME/bin/
+ADD bin/boot.sh $HOME/bin/
 
-ADD teardown.sh $HOME/bin/
+ADD bin/teardown.sh $HOME/bin/
 
-ADD unidata-ports.sh $HOME/bin/
+ADD bin/unidata-ports.sh $HOME/bin/
 
-ADD mount.sh $HOME/bin/
+ADD bin/mount.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
