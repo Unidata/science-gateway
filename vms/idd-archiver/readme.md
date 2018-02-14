@@ -193,6 +193,8 @@ echo /data		10.0.0.15(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
 echo /data		10.0.0.11(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
+echo /data		10.0.0.10(rw,sync,no_subtree_check) | tee \
+    --append /etc/exports > /dev/null
 ```
 
 Now start NFS:
@@ -250,7 +252,7 @@ mkdir -p ~/logs/tdm
 1.  Running the TDM Out the TDM Log Directory
 
     [TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `~/logs/tdm` directory:
-    
+
     ```shell
     curl -SL  \
          https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.10/tdmFat-4.6.10.jar \
@@ -295,11 +297,11 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 2.  `TDM_PW`
 
     Supply the TDM password. For example,
-    
+
         TDM_PW=CHANGEME!
-    
+
     Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **thredds-jetstream** VM. You can create a password/SHA pair with the following command:
-    
+
     ```shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
     ```
@@ -316,15 +318,15 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 3.  `TDS_HOST`
 
     Supply the hostname of the TDS that the TDM will notify:
-    
+
         TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
 
 4.  `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
 
     Define the maximum and minimum size of the Java heap under which the TDM can operate:
-    
+
         TDM_XMX_SIZE=6G
-        
+
         TDM_XMS_SIZE=1G
 
 
@@ -359,7 +361,7 @@ services:
       nofile:
         soft: 64
         hard: 64
-  
+
   ###
   # TDM
   ###

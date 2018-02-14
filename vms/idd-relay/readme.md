@@ -49,7 +49,6 @@ This `~/etc` directory will contain your LDM configuration files.
 
 ```shell
 mkdir -p ~/etc
-# wherever you cloned the repo above
 cp ~/xsede-jetstream/vms/idd-relay/etc/* ~/etc/
 ```
 

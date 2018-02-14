@@ -61,7 +61,6 @@ cp RESOLV.SRV ~/mcidas/upcworkdata/
 
 ADDE will need access to the `/data/ldm/` directory from `idd-archiver` in order to serve data. Mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.4`:
 
-
 ```shell
 # create the NFS mount point
 mkdir -p /data

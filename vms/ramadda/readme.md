@@ -180,7 +180,7 @@ to start RAMADDA.
 
 ## Navigate to RAMADDA
 
-In a web browser, navigate to [<http://ramadda-jetstream.unidata.ucar.edu/repository>](http://ramadda-jetstream.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier.
+In a web browser, navigate to [http://ramadda-jetstream.unidata.ucar.edu/repository](http://ramadda-jetstream.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier.
 
 
 <a id="h:73BB6227"></a>

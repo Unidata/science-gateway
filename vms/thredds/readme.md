@@ -111,12 +111,12 @@ Scour occasionally so the log directories do not fill up.
 
 ## LDM Data Directory from idd-archiver Via NFS
 
-The TDS will need access to the `/data/ldm/` directory from `idd-archiver` in order to serve data. Mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.4`:
+The TDS will need access to the `/data/ldm/` directory from `idd-archiver` in order to serve data. Mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.8`:
 
 ```shell
 # create the NFS mount point
 mkdir -p /data
-mount 10.0.0.4:/data /data
+mount 10.0.0.8:/data /data
 ```
 
 
@@ -127,7 +127,7 @@ mount 10.0.0.4:/data /data
 You will want to ensure the NFS `/data` volume is available with the help of `fstab`.
 
 ```shell
-echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
+echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
 ```
 
 
