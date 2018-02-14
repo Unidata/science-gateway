@@ -103,17 +103,21 @@ We will be using the Jetstream API directly and via convenience scripts.
 
 The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h:9C0700C5) in the `openrc.sh` file for convenience.
 
-1.  Resetting Password
+1.  [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/).
 
-    [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/).
+2.  Download your `openrc.sh` file from the IU (not TACC) dashboard at <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.
+    
+    * See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh).
+    
+    * From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
+    
+    * Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
+    
+    * Move this file to `bin/openrc.sh` (e.g., `/home/jane/xsede-jetstream/openstack/bin/openrc.sh`).
 
-2.  Download openrc.sh
+3.  Edit `bin/openrc.sh` Password (Optional)
 
-    Download the `openrc.sh` file [according to the Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh). See "Use the Horizon dashboard to generate openrc.sh". Use the IU: <https://jblb.jetstream-cloud.org/dashboard> not the TACC dashboard. In the Jetstream Dashboard, navigate to `Access & Security`, `API Access` to download `openrc.sh` (v3). (In reality, it will be named something like `TG-ATM160027-openrc.sh`. You can rename it to `openrc.sh`, if you want.)
-
-3.  Edit openrc.sh Password (Optional)
-
-    Optionally, for convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
+    For convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
 
     Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h:8B3E8EEE):
 
@@ -141,8 +145,13 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     chmod +x openstack.sh
     ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
     ```
-
     Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
+
+    A wrapper scirpt `run.sh` is provided, which assumes that directories `bin/` and `ssh/` exist in the working directory, and that `bin/` contains `openrc.sh`:
+
+   ```sh
+   ./run.sh
+   ```
 
 2.  Create ssh Keys (Do This Once)
 
@@ -175,7 +184,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 ## Working with Jetstream API to Create VMs
 
-At this point, we are past the hard work. You will you will employ the `unidata/xsede-jetstream` container accessed via the `openstack.sh` convenience script to
+At this point, we are past the hard work. You will employ the `unidata/xsede-jetstream` container accessed via the `openstack.sh` convenience script to
 
 -   Create IP Numbers
 -   Create VMs
@@ -253,7 +262,7 @@ openstack volume list && openstack server list
 openstack server add volume <vm-uid-number> <volume-uid-number>
 ```
 
-You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.
+You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands.  If running these command manually (not using the `mount.sh` script) you will need to run `kfs.ext4 /dev/sdb` to create an ext4 partition using the entire disk.
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
 
