@@ -4,7 +4,7 @@ usage="$(basename "$0") [-h] [-s, --ssh ssh directory path] [-o, --openrc openrc
 -- script to  start OpenStack CL Docker container. \n Arguments must be supplied will fully qualified paths.\n
     -h  show this help text\n
     -s, --ssh full path to ssh directory containing your OpenStack Jetstream key\n
-    -o, --openrc full path openrc.sh file obtained from Jetstream\n"
+    -o, --openrc full path to directory with openrc.sh file obtained from Jetstream (bin)\n"
 
 while [[ $# > 0 ]]
 do
@@ -42,6 +42,6 @@ fi
 
 docker run -it  \
        -v ${SSH_DIR}:/home/openstack/.ssh/ \
-       -v ${OPENRC}:/home/openstack/bin/openrc.sh \
+       -v ${OPENRC}:/home/openstack/bin/ \
        unidata/xsede-jetstream /bin/bash
 
