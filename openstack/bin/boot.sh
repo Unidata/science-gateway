@@ -73,8 +73,9 @@ if [ -z "$IP" ];
 fi
 
 if [ -z "$IMAGE_NAME" ];
-   then
-      IMAGE_NAME=9ec1521c-aea9-439f-8655-03cd20603edc
+then
+      # Discovered through `glance image-list | grep -i featured`
+      IMAGE_NAME=a2c80fbf-2875-457a-b488-28c4afeb296b
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
