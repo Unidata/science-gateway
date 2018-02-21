@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<registry>
+  <delete-info-files>0</delete-info-files>
+  <hostname>thredds-test.jetstream-cloud.org</hostname>
+  <insertion-check-interval>300</insertion-check-interval>
+  <reconciliation-mode>do nothing</reconciliation-mode>
+  <check-time>
+    <enabled>1</enabled>
+    <limit>10</limit>
+    <warn-if-disabled>1</warn-if-disabled>
+    <ntpdate>
+      <command>ntpdate</command>
+      <servers>ntp.ucsd.edu ntp1.cs.wisc.edu ntppub.tamu.edu otc1.psu.edu timeserver.unidata.ucar.edu</servers>
+      <timeout>5</timeout>
+    </ntpdate>
+  </check-time>
+  <log>
+    <count>7</count>
+    <file>/home/ldm/var/logs/ldmd.log</file>
+    <rotate>1</rotate>
+  </log>
+  <metrics>
+    <count>4</count>
+    <file>/home/ldm/var/logs/metrics.txt</file>
+    <files>/home/ldm/var/logs/metrics.txt*</files>
+    <netstat-command>true</netstat-command>
+    <top-command>/usr/bin/top -b -n 1</top-command>
+  </metrics>
+  <pqact>
+    <config-path>/home/ldm/etc/pqact.conf</config-path>
+    <!-- <datadir-path>/home/ldm/var/data</datadir-path> -->
+    <datadir-path>/home/ldm</datadir-path>
+  </pqact>
+  <pqsurf>
+    <config-path>/home/ldm/etc/pqsurf.conf</config-path>
+    <!-- <datadir-path>/home/ldm/var/data</datadir-path> -->
+    <datadir-path>/home/ldm</datadir-path>
+  </pqsurf>
+  <queue>
+    <path>/home/ldm/var/queues/ldm.pq</path>
+    <size>6G</size>
+    <slots>default</slots>
+  </queue>
+  <scour>
+    <config-path>/home/ldm/etc/scour.conf</config-path>
+  </scour>
+  <server>
+    <config-path>/home/ldm/etc/ldmd.conf</config-path>
+    <ip-addr>0.0.0.0</ip-addr>
+    <max-clients>256</max-clients>
+    <max-latency>3600</max-latency>
+    <port>388</port>
+    <time-offset>3600</time-offset>
+    <enable-anti-DOS>TRUE</enable-anti-DOS>
+  </server>
+  <surf-queue>
+    <path>/home/ldm/var/queues/pqsurf.pq</path>
+    <size>2M</size>
+  </surf-queue>
+</registry>

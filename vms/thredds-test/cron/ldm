@@ -1,0 +1,35 @@
+MAILTO=""
+
+# crontab according to http://www.unidata.ucar.edu/software/ldm/ldm-current/basics/configuring.html#cron
+
+# run ldm scour
+0 1,4,7,10,13,16,19,22 * * * bash -l -c 'ldmadmin scour'
+
+# Rotate logs
+0 0 * * * bash -l -c 'ldmadmin newlog'
+
+# performance metrics
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * bash -l -c 'ldmadmin addmetrics'
+0 0 * * 0 bash -l -c 'ldmadmin newmetrics'
+
+# check the LDM
+0,15,30,45 * * * * bash -l -c 'ldmadmin check' >/dev/null
+
+####
+# Compliments scour.conf since the LDM does not scour empty directories
+####
+
+# UNIWISC Satellite Imagery
+16 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/ANTARCTIC 1
+17 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/ARCTIC    1
+18 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GEWCOMP   1
+19 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GLOBAL    1
+20 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GOES-13   1
+21 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/GOES-15   1
+22 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/MOLLWEIDE 1
+23 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/decoded/gempak/areas/SOUNDER   1
+
+#  TDS Tree
+25 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/radar                   1
+30 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/grid                    1
+35 0 * * * /home/ldm/util/scourBYday /data/ldm/pub/native/satellite               1
