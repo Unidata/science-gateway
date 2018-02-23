@@ -223,7 +223,24 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
 
-    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. See `boot.sh -h` and `openstack flavor list` for more information.
+    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
+
+    ```sh
+    $ glance image-list | grep -i featured
+    ```
+
+    may yield something like:
+
+    ```sh
+    | 4ada5750-4ba4-4cc6-8d12-9001fe04ae1b | JS-API-Featured-Centos6-Feb-13-2018  |
+    | 87df53d5-04bd-4bb8-862e-b67247f07f87 | JS-API-Featured-Centos7-Feb-13-2018  |
+    | 20e6ec66-a5ec-41fc-820c-08a2af5bd1eb | JS-API-Featured-Ubuntu14-Feb-13-2018 |
+    | a2c80fbf-2875-457a-b488-28c4afeb296b | JS-API-Featured-Ubuntu16-Feb-13-2018 |
+    ```
+
+    The CentOS VMs will have a default of user `centos` and the Ubuntu VMs will have a default user of `ubuntu`.
+
+    Also see `boot.sh -h` and `openstack flavor list` for more information.
 
 2.  SSH Into New VM
 
