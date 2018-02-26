@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]; then
   exit
 fi
 
-usage="$(basename "$0") [-h] [-u, --user user name] -- 
+usage="$(basename "$0") [-h] [-u, --user user name] --
 script to setup Docker. Run as root. Think before your type:\n
     -h  show this help text\n
     -u, --user User name that will be running Docker containers.\n"
@@ -26,7 +26,7 @@ do
 done
 
 if [ -z "$DOCKER_USER" ]; then
-      echo "Must supply a user:" 
+      echo "Must supply a user:"
       echo -e $usage
       exit 1
 fi
@@ -51,7 +51,7 @@ fi
 curl -sSL get.docker.com | sh
 usermod -aG docker ${DOCKER_USER}
 
-curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
 
