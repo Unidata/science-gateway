@@ -27,7 +27,7 @@ services:
   # TDM
   ###
   tdm:
-    image: unidata/tdm-docker:4.6
+    image: unidata/tdm-docker:4.6.11
     container_name: tdm
     # restart: always
     volumes:
@@ -42,7 +42,7 @@ services:
   ###
 
   thredds-production:
-    image: unidata/thredds-docker:4.6.10
+    image: unidata/thredds-docker:4.6.11
     container_name: thredds
     # restart: always
     ports:

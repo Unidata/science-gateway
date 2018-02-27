@@ -342,6 +342,16 @@ Based on the directory set we have defined, the =docker-compose.yml= file will l
 
 #+INCLUDE: "../../../vms/idd-archiver/docker-compose.yml" src yaml
 
+*** LDM Environment Variable Parameterization
+    :PROPERTIES:
+    :CUSTOM_ID: h:031CD94A
+    :END:
+
+You can provide additional LDM parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
+
+#+INCLUDE: "../../../vms/idd-archiver/compose.env" src shell
+
+
 ** Start the IDD Archiver Node
    :PROPERTIES:
    :CUSTOM_ID: h:4167D52C

@@ -7,6 +7,7 @@
   - [~/logs Directory](#h:515DAD84)
   - [Port 388](#h:FB14DD93)
   - [docker-compose.yml](#h:95441A93)
+    - [LDM Environment Variable Parameterization](#h:031CD94A)
   - [Start the IDD Relay Node](#h:80DA881B)
 
 
@@ -98,13 +99,33 @@ ldm:
   # restart: always
   image: unidata/ldm-docker:6.13.6
   container_name: ldm
-  # restart: always
   volumes:
     - ~/etc/:/home/ldm/etc/
     - ~/queues:/home/ldm/var/queues/
     - ~/logs/ldm/:/home/ldm/var/logs/
   ports:
     - "388:388"
+  ulimits:
+    nofile:
+      soft: 1024
+      hard: 1024
+  env_file:
+    - "compose.env"
+```
+
+
+<a id="h:031CD94A"></a>
+
+### LDM Environment Variable Parameterization
+
+You can provide additional LDM parameterization via the `compose.env` file referenced in the `docker-compose.yml` file.
+
+```shell
+# https://github.com/Unidata/ldm-docker#configurable-ldm-uid-and-gid
+
+LDM_USER_ID=1000
+
+LDM_GROUP_ID=1000
 ```
 
 
