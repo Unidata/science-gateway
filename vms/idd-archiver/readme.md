@@ -372,6 +372,8 @@ services:
       nofile:
         soft: 64
         hard: 64
+    env_file:
+        - "compose.env"
 
   ###
   # TDM
