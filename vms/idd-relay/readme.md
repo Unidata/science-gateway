@@ -97,22 +97,23 @@ Based on the directory set we have defined, the `docker-compose.yml` file will l
 ###
 version: '3'
 
-ldm:
-  image: unidata/ldm-docker:latest
-  container_name: ldm
-  # restart: always
-  volumes:
-    - ~/etc/:/home/ldm/etc/
-    - ~/queues:/home/ldm/var/queues/
-    - ~/logs/ldm/:/home/ldm/var/logs/
-  ports:
-    - "388:388"
-  ulimits:
-    nofile:
-      soft: 1024
-      hard: 1024
-  env_file:
-    - "compose.env"
+services:
+  ldm:
+    image: unidata/ldm-docker:latest
+    container_name: ldm
+    restart: always
+    volumes:
+      - ~/etc/:/home/ldm/etc/
+      - ~/queues:/home/ldm/var/queues/
+      - ~/logs/ldm/:/home/ldm/var/logs/
+    ports:
+      - "388:388"
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 1024
+    env_file:
+      - "compose.env"
 ```
 
 
