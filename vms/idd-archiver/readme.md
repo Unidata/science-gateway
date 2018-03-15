@@ -17,6 +17,7 @@
     - [TDM Logging Directory](#h:865C1FF8)
     - [Configuring the TDM to work with the TDS](#h:2C5BF1CA)
   - [docker-compose.yml](#h:498535EC)
+    - [LDM Environment Variable Parameterization](#h:A6C77825)
   - [Start the IDD Archiver Node](#h:4167D52C)
 
 
@@ -284,6 +285,18 @@ TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
 TDM_XMX_SIZE=6G
 
 TDM_XMS_SIZE=1G
+
+# See https://github.com/Unidata/tomcat-docker#configurable-tomcat-uid-and-gid
+
+TDM_USER_ID=1000
+
+TDM_GROUP_ID=1000
+
+# https://github.com/Unidata/ldm-docker#configurable-ldm-uid-and-gid
+
+LDM_USER_ID=1000
+
+LDM_GROUP_ID=1000
 ```
 
 Let's consider each environment variable (i.e., configuration option), in turn.
@@ -343,7 +356,7 @@ services:
   # LDM
   ###
   ldm:
-    image: unidata/ldm-docker:6.13.6
+    image: unidata/ldm-docker:latest
     container_name: ldm
     # restart: always
     volumes:
@@ -364,7 +377,7 @@ services:
   # TDM
   ###
   tdm:
-    image: unidata/tdm-docker:4.6
+    image: unidata/tdm-docker:latest
     container_name: tdm
     # restart: always
     volumes:
@@ -372,7 +385,45 @@ services:
         - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
         - ~/logs/tdm/:/usr/local/tomcat/content/tdm/
     env_file:
-        - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
+        - "compose.env"
+```
+
+
+<a id="h:A6C77825"></a>
+
+### LDM Environment Variable Parameterization
+
+You can provide additional LDM parameterization via the `compose.env` file referenced in the `docker-compose.yml` file.
+
+```shell
+# TDS Content root
+
+TDS_CONTENT_ROOT_PATH=/usr/local/tomcat/content
+
+# TDM related environment variables
+
+TDM_PW=CHANGEME!
+
+# Trailing slash is important!
+TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+
+# The minimum and maximum Java heap space memory to be allocated to the TDM
+
+TDM_XMX_SIZE=6G
+
+TDM_XMS_SIZE=1G
+
+# See https://github.com/Unidata/tomcat-docker#configurable-tomcat-uid-and-gid
+
+TDM_USER_ID=1000
+
+TDM_GROUP_ID=1000
+
+# https://github.com/Unidata/ldm-docker#configurable-ldm-uid-and-gid
+
+LDM_USER_ID=1000
+
+LDM_GROUP_ID=1000
 ```
 
 

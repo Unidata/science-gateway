@@ -173,7 +173,7 @@ version: '3'
 
 services:
   thredds-production:
-    image: unidata/thredds-docker:4.6.10
+    image: unidata/thredds-docker:latest
     container_name: thredds
     # restart: always
     ports:
@@ -219,6 +219,12 @@ TDS_CONTENT_ROOT_PATH=/usr/local/tomcat/content
 THREDDS_XMX_SIZE=4G
 
 THREDDS_XMS_SIZE=4G
+
+# See https://github.com/Unidata/tomcat-docker#configurable-tomcat-uid-and-gid
+
+TOMCAT_USER_ID=1000
+
+TOMCAT_GROUP_ID=1000
 ```
 
 
