@@ -143,6 +143,15 @@ Based on the directory set we have defined, the =docker-compose.yml= file will l
 
 #+INCLUDE: "../../../vms/ramadda/docker-compose.yml" src yaml
 
+*** RAMADDA Environment Variable Parameterization
+    :PROPERTIES:
+    :CUSTOM_ID: h:704211AA
+    :END:
+
+You can provide additional RAMADDA parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
+
+#+INCLUDE: "../../../vms/ramadda/compose.env" src shell
+
 ** Start RAMADDA
    :PROPERTIES:
    :CUSTOM_ID: h:224A9684

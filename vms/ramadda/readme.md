@@ -12,6 +12,7 @@
     - [/data NFS Mounted Volume](#h:286B798E)
   - [Port 80](#h:404D9595)
   - [docker-compose.yml](#h:7E683535)
+    - [RAMADDA Environment Variable Parameterization](#h:704211AA)
   - [Start RAMADDA](#h:224A9684)
   - [Navigate to RAMADDA](#h:81FED1EC)
   - [Access RAMADDA with the Unidata IDV](#h:73BB6227)
@@ -149,17 +150,38 @@ sudo echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | 
 Based on the directory set we have defined, the `docker-compose.yml` file will look something like:
 
 ```yaml
-ramadda:
-  image: unidata/ramadda-docker:2.2
-  container_name: ramadda
-  # restart: always
-  ports:
-    - "80:8080"
-  volumes:
-    - /repository/:/data/repository/
-    - /data/ldm/:/data/ldm/
-    - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
-    - ~/logs/ramadda/:/data/repository/logs/
+version: '3'
+
+services:
+
+  ramadda:
+    image: unidata/ramadda-docker:latest
+    container_name: ramadda
+    # restart: always
+    ports:
+      - "80:8080"
+    volumes:
+      - /repository/:/data/repository/
+      - /data/ldm/:/data/ldm/
+      - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
+      - ~/logs/ramadda/:/data/repository/logs/
+    env_file:
+      - "compose.env"
+```
+
+
+<a id="h:704211AA"></a>
+
+### RAMADDA Environment Variable Parameterization
+
+You can provide additional RAMADDA parameterization via the `compose.env` file referenced in the `docker-compose.yml` file.
+
+```shell
+# See https://github.com/Unidata/tomcat-docker#configurable-tomcat-uid-and-gid
+
+TOMCAT_USER_ID=1000
+
+TOMCAT_GROUP_ID=1000
 ```
 
 

@@ -6,7 +6,7 @@ services:
   # LDM
   ###
   ldm:
-    image: unidata/ldm-docker:6.13.6
+    image: unidata/ldm-docker:latest
     container_name: ldm
     # restart: always
     volumes:
@@ -27,7 +27,7 @@ services:
   # TDM
   ###
   tdm:
-    image: unidata/tdm-docker:4.6
+    image: unidata/tdm-docker:latest
     container_name: tdm
     # restart: always
     volumes:
@@ -35,4 +35,4 @@ services:
         - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
         - ~/logs/tdm/:/usr/local/tomcat/content/tdm/
     env_file:
-        - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
+        - "compose.env"
