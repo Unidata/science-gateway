@@ -1,24 +1,24 @@
-diff -Naur ./globusconnectpersonal-2.3.3/gc-ctrl.py ./globusconnectpersonal-2.3.3b/gc-ctrl.py
---- ./globusconnectpersonal-2.3.3/gc-ctrl.py	2016-07-06 16:39:36.000000000 +0000
-+++ ./globusconnectpersonal-2.3.3b/gc-ctrl.py	2017-07-20 06:38:39.772567378 +0000
+diff -Naur ./globusconnectpersonal-2.3.4/gc-ctrl.py ./globusconnectpersonal-2.3.4b/gc-ctrl.py
+--- ./globusconnectpersonal-2.3.4/gc-ctrl.py	2016-07-06 16:39:36.000000000 +0000
++++ ./globusconnectpersonal-2.3.4b/gc-ctrl.py	2017-07-20 06:38:39.772567378 +0000
 @@ -1,4 +1,4 @@
 -#!/usr/bin/python
 +#!/usr/bin/env python
  # 
  # Copyright 2010-2011 University of Chicago
  # 
-diff -Naur ./globusconnectpersonal-2.3.3/gc.py ./globusconnectpersonal-2.3.3b/gc.py
---- ./globusconnectpersonal-2.3.3/gc.py	2016-07-06 16:39:36.000000000 +0000
-+++ ./globusconnectpersonal-2.3.3b/gc.py	2017-07-20 06:38:55.620583187 +0000
+diff -Naur ./globusconnectpersonal-2.3.4/gc.py ./globusconnectpersonal-2.3.4b/gc.py
+--- ./globusconnectpersonal-2.3.4/gc.py	2016-07-06 16:39:36.000000000 +0000
++++ ./globusconnectpersonal-2.3.4b/gc.py	2017-07-20 06:38:55.620583187 +0000
 @@ -1,4 +1,4 @@
 -#!/usr/bin/python -u
 +#!/usr/bin/env python
  
  #  Copyright 2010-2011 University of Chicago
  #
-diff -Naur ./globusconnectpersonal-2.3.3/setup.py ./globusconnectpersonal-2.3.3b/setup.py
---- ./globusconnectpersonal-2.3.3/setup.py	2016-07-06 16:39:36.000000000 +0000
-+++ ./globusconnectpersonal-2.3.3b/setup.py	2017-07-20 06:39:07.560595109 +0000
+diff -Naur ./globusconnectpersonal-2.3.4/setup.py ./globusconnectpersonal-2.3.4b/setup.py
+--- ./globusconnectpersonal-2.3.4/setup.py	2016-07-06 16:39:36.000000000 +0000
++++ ./globusconnectpersonal-2.3.4b/setup.py	2017-07-20 06:39:07.560595109 +0000
 @@ -1,4 +1,4 @@
 -#!/usr/bin/python -u
 +#!/usr/bin/env python
