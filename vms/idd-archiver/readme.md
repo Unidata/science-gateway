@@ -254,7 +254,7 @@ mkdir -p ~/logs/tdm
 
     ```shell
     curl -SL  \
-         https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.10/tdmFat-4.6.10.jar \
+         https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.11/tdmFat-4.6.11.jar \
          -o ~/logs/tdm/tdm.jar
     curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
          -o ~/logs/tdm/tdm.sh
