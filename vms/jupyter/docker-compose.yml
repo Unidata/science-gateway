@@ -23,6 +23,8 @@ services:
       - "compose.env"
   web:
     image: nginx
+    container_name: nginx
+    # restart: always
     volumes:
       - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ~/logs/nginx:/var/log/nginx
