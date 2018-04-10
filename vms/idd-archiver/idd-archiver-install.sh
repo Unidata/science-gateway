@@ -5,7 +5,7 @@ mkdir -p ~/etc
 cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
 
 mkdir -p ~/tdsconfig/ ~/etc/TDS
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/idd/config.zip -O ~/tdsconfig/config.zip
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/newThredds/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 
