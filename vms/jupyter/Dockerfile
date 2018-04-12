@@ -47,9 +47,6 @@ RUN patch -p0 < globusconnectpersonal.patch
 
 RUN rm globusconnectpersonal.patch
 
-# To support Dask dashboard
-RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
-
 ###
 # /etc/skel
 ###
@@ -107,6 +104,22 @@ RUN conda env update --name online-python-training \
   -f online-python-training/environment.yml
 
 COPY Welcome.ipynb $HOME/git
+
+###
+# Jupyter Extensions
+###
+
+# To support Dask dashboard
+RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
+
+# jupyterlab
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+#                                @jupyterlab/hub-extension
+
+# @jupyterlab/hub-extension currently broken so must install "by hand"
+RUN git clone https://github.com/jupyterhub/jupyterlab-hub.git $HOME/jupyterlab-hub
+WORKDIR $HOME/jupyterlab-hub
+RUN npm install --unsafe-perm && npm run build && jupyter labextension install .
 
 WORKDIR $HOME
 
