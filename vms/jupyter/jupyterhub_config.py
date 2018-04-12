@@ -283,7 +283,7 @@ c.JupyterHub.ssl_cert = '/etc/jupyterhub/ssl/ssl.crt'
 #  documentation for your spawner to verify!
 #c.Spawner.args = []
 
-c.Spawner.args = ['--NotebookApp.default_url=/notebooks/Welcome.ipynb']
+# c.Spawner.args = ['--NotebookApp.default_url=/notebooks/Welcome.ipynb']
 
 ## The command used for starting the single-user server.
 #  
@@ -330,7 +330,7 @@ c.Spawner.args = ['--NotebookApp.default_url=/notebooks/Welcome.ipynb']
 #  - You can set `notebook_dir` to `/` and `default_url` to `/home/{username}` to allow people to
 #    navigate the whole filesystem from their notebook, but still start in their home directory.
 #  - You can set this to `/lab` to have JupyterLab start by default, rather than Jupyter Notebook.
-#c.Spawner.default_url = ''
+c.Spawner.default_url = '/lab'
 
 ## Disable per-user configuration of single-user servers.
 #  
