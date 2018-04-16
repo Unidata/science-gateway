@@ -1,4 +1,4 @@
-- [Docker Installation](#h:BA11A408)
+- [Virtual Machine Initialization](#h:BA11A408)
   - [Linux VM or Bare Metal Linux](#h:FF95E7EC)
     - [Quick Start](#h:4A4B1084)
     - [System Maintenance](#h:AE788331)
@@ -13,9 +13,9 @@
 
 <a id="h:BA11A408"></a>
 
-# Docker Installation
+# Virtual Machine Initialization
 
-The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker.
+The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker and other system maintenance you will need to perform.
 
 
 <a id="h:FF95E7EC"></a>
@@ -33,11 +33,11 @@ Quick start instructions for Linux OS can be found here. For a more complete exp
 git clone https://github.com/Unidata/xsede-jetstream
 ```
 
-and run the `docker-install.sh` script collocated with this readme, e.g.,:
+and run the `ubuntu-init.sh` or `centos-init.sh` script collocated with this readme, e.g.,:
 
 ```shell
 cd xsede-jetstream
-sudo ./docker-install.sh -u ${USER}
+sudo ./<linux-distro>-init.sh -u ${USER}
 ```
 
 

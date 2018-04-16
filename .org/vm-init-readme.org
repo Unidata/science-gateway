@@ -3,7 +3,7 @@
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+OPTIONS: auto-id:t
-#+TITLE: docker-readme
+#+TITLE: VM Init
 #+DATE: <2017-03-03 Fri>
 #+AUTHOR: Julien Chastang
 #+EMAIL: chastang@ucar.edu
@@ -12,19 +12,19 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
 
-#+PROPERTY: header-args :noweb yes :tangle ../docker-install.sh :eval no
+#+PROPERTY: header-args :noweb yes :eval no
 
-* Org Setup :noexport:
+* Org Setup                                                        :noexport:
   :PROPERTIES:
   :CUSTOM_ID: h:ECAA0F5F
   :END:
 
-* Docker Installation
+* Virtual Machine Initialization
   :PROPERTIES:
   :CUSTOM_ID: h:BA11A408
   :END:
 
-The ~xsede-jetstream~ project is heavily dependent on Docker, and you will have to have access to a recent version of Docker.  Herein are some instructions to help you get going with Docker.
+The ~xsede-jetstream~ project is heavily dependent on Docker, and you will have to have access to a recent version of Docker.  Herein are some instructions to help you get going with Docker and other system maintenance you will need to perform.
 
 ** Linux VM or Bare Metal Linux
    :PROPERTIES:
@@ -42,11 +42,11 @@ Quick start instructions for Linux OS can be found here. For a more complete exp
   git clone https://github.com/Unidata/xsede-jetstream
 #+END_SRC
 
-and run the =docker-install.sh= script collocated with this readme, e.g.,:
+and run the =ubuntu-init.sh= or =centos-init.sh= script collocated with this readme, e.g.,:
 
 #+BEGIN_SRC shell :tangle no
   cd xsede-jetstream
-  sudo ./docker-install.sh -u ${USER}
+  sudo ./<linux-distro>-init.sh -u ${USER}
 #+END_SRC
 
 *** System Maintenance
@@ -60,13 +60,13 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary pa
 
 # Set up tangling
 
-#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash"
+#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash" :tangle '("../ubuntu-init.sh" "../centos-init.sh")
   if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
     exit
   fi
 
-  usage="$(basename "$0") [-h] [-u, --user user name] -- 
+  usage="$(basename "$0") [-h] [-u, --user user name] --
   script to setup Docker. Run as root. Think before your type:\n
       -h  show this help text\n
       -u, --user User name that will be running Docker containers.\n"
@@ -88,7 +88,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary pa
   done
 
   if [ -z "$DOCKER_USER" ]; then
-        echo "Must supply a user:" 
+        echo "Must supply a user:"
         echo -e $usage
         exit 1
   fi
@@ -99,7 +99,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary pa
      :CUSTOM_ID: h:B7D88FA4
      :END:
 
-#+BEGIN_SRC org :noweb-ref apt-get :exports none :tangle no
+#+BEGIN_SRC shell  :tangle ../ubuntu-init.sh
   service docker stop
 
   dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
@@ -108,37 +108,17 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary pa
      nfs-kernel-server nfs-common && apt autoremove -y
 #+END_SRC
 
-#+BEGIN_SRC shell :exports none
-  if [ -n "$(command -v apt-get)" ]; then
-    <<apt-get>>
-  fi
-#+END_SRC
-
-#+BEGIN_SRC shell :tangle no
-  <<apt-get>>
-#+END_SRC
-
 **** yum
      :PROPERTIES:
      :CUSTOM_ID: h:C9632B6B
      :END:
 
-#+BEGIN_SRC org :noweb-ref yum :exports none :tangle no
+#+BEGIN_SRC shell  :tangle ../centos-init.sh
   systemctl stop docker
 
   yum -y remove docker docker-common docker-selinux docker-engine-selinux \
     docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
     install git unzip wget nfs-kernel-server nfs-common
-#+END_SRC
-
-#+BEGIN_SRC shell :exports none
-  if [ -n "$(command -v yum)" ]; then
-    <<yum>>
-  fi
-#+END_SRC
-
-#+BEGIN_SRC shell :tangle no
-    <<yum>>
 #+END_SRC
 
 *** Install Docker
@@ -148,7 +128,7 @@ Do the usual maintenance via ~apt-get~ or ~yum~. Also install a few ancillary pa
 
 Define a ~DOCKER_USER~. Again, think before you type.
 
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :tangle '("../ubuntu-init.sh" "../centos-init.sh")
   curl -sSL get.docker.com | sh
   usermod -aG docker ${DOCKER_USER}
 #+END_SRC
@@ -162,7 +142,7 @@ Define a ~DOCKER_USER~. Again, think before you type.
   1.19.0
 #+END_SRC
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle '("../ubuntu-init.sh" "../centos-init.sh")
   curl -L https://github.com/docker/compose/releases/download/<<dcompose-version>>/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
   chmod +x /usr/local/bin/docker-compose
@@ -175,36 +155,15 @@ Define a ~DOCKER_USER~. Again, think before you type.
 
 As ~root~ user, make sure Docker is available as a daemon. You can issue one of the following commands depending on your flavor of Linux.
 
-#+BEGIN_SRC org :noweb-ref service :exports none :tangle no
+#+BEGIN_SRC shell :tangle ../ubuntu-init.sh
   service docker start
 #+END_SRC
 
-#+BEGIN_SRC shell :exports none
-  if [ -n "$(command -v apt-get)" ]; then
-    <<service>>
-  fi
-#+END_SRC
+or
 
-#+BEGIN_SRC shell :tangle no
-  <<service>>
-#+END_SRC
-
-or 
-
-#+BEGIN_SRC org :noweb-ref systemctl :exports none :tangle no
+#+BEGIN_SRC shell :tangle ../centos-init.sh
   systemctl enable docker.service
   systemctl start docker.service
-#+END_SRC
-
-#+BEGIN_SRC shell :exports none
-  if [ -n "$(command -v yum)" ]; then
-    <<systemctl>>
-  fi
-#+END_SRC
-
-
-#+BEGIN_SRC shell :tangle no
-  <<systemctl>>
 #+END_SRC
 
 *** Reboot
@@ -214,7 +173,7 @@ or
 
 Now reboot the machine:
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell :tangle '("../ubuntu-init.sh" "../centos-init.sh")
   reboot now
 #+END_SRC
 

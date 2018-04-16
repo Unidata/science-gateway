@@ -31,22 +31,11 @@ if [ -z "$DOCKER_USER" ]; then
       exit 1
 fi
 
-if [ -n "$(command -v apt-get)" ]; then
-  service docker stop
+systemctl stop docker
 
-  dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
-     docker-ce && rm -rf /var/lib/docker && apt-get update && apt-get -y upgrade \
-     && apt-get -y dist-upgrade && apt-get -y install git unzip wget \
-     nfs-kernel-server nfs-common && apt autoremove -y
-fi
-
-if [ -n "$(command -v yum)" ]; then
-  systemctl stop docker
-
-  yum -y remove docker docker-common docker-selinux docker-engine-selinux \
-    docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
-    install git unzip wget nfs-kernel-server nfs-common
-fi
+yum -y remove docker docker-common docker-selinux docker-engine-selinux \
+  docker-engine docker-ce && rm -rf /var/lib/docker && yum -y update && yum -y \
+  install git unzip wget nfs-kernel-server nfs-common
 
 curl -sSL get.docker.com | sh
 usermod -aG docker ${DOCKER_USER}
@@ -55,13 +44,7 @@ curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compos
 
 chmod +x /usr/local/bin/docker-compose
 
-if [ -n "$(command -v apt-get)" ]; then
-  service docker start
-fi
-
-if [ -n "$(command -v yum)" ]; then
-  systemctl enable docker.service
-  systemctl start docker.service
-fi
+systemctl enable docker.service
+systemctl start docker.service
 
 reboot now
