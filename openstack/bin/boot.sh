@@ -74,7 +74,7 @@ fi
 
 if [ -z "$IMAGE_NAME" ];
 then
-      # Discovered through `glance image-list | grep -i featured`
+      # Discovered through `openstack image list | grep -i featured`
       IMAGE_NAME=72f29569-ca2a-4044-8554-57a731beb587
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi

@@ -18,5 +18,5 @@ fi
 
 source /home/openstack/bin/openrc.sh
 
-echo ensure open stack is working with: glance image-list
+echo ensure open stack is working with: openstack image list
 echo https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line
