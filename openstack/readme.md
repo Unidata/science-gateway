@@ -167,7 +167,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 3.  Testing Setup
 
-    At this point, you should be able to run `glance image-list` which should yield something like:
+    At this point, you should be able to run `openstack image list` which should yield something like:
 
     | ID                                   | Name                               |
     |------------------------------------ |---------------------------------- |
@@ -223,10 +223,10 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
 
-    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `glance image-list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
+    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `openstack image list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
 
     ```sh
-    $ glance image-list | grep -i featured
+    $ openstack image list | grep -i featured
     ```
 
     may yield something like:
