@@ -33,7 +33,7 @@ Quick start instructions for Linux OS can be found here. For a more complete exp
 git clone https://github.com/Unidata/xsede-jetstream
 ```
 
-and run the `ubuntu-init.sh` or `centos-init.sh` script collocated with this readme, e.g.,:
+and run the `ubuntu-init.sh` or `centos-init.sh` script co-located with this readme, e.g.,:
 
 ```shell
 cd xsede-jetstream
