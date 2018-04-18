@@ -7,4 +7,4 @@ if [ ! -d $dir/ssh ]; then
   chmod 777 $dir/ssh # write access required for keygen
 fi
 
-./openstack.sh -o ${dir}/bin -s ${dir}/ssh
+./openstack.sh -o ${dir}/bin/openrc.sh -s ${dir}/ssh

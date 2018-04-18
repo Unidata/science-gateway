@@ -151,6 +151,8 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     ./run.sh
     ```
 
+    You can use this `run.sh` script as a template for you to parameterize, perhaps for alternative `openrc.sh` files.
+
 2.  Create ssh Keys (Do This Once)
 
     This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `openstack keypair create`.
