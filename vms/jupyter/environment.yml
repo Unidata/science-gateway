@@ -20,3 +20,4 @@
    - ffmpeg
    - gitpython
    - nb_conda_kernels
+   - nbserverproxy
