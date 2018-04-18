@@ -74,8 +74,9 @@ fi
 
 if [ -z "$IMAGE_NAME" ];
 then
-      # Discovered through `openstack image list | grep -i featured`
-      IMAGE_NAME=72f29569-ca2a-4044-8554-57a731beb587
+      # Grab an Ubuntu 16 Featured Image
+    IMAGE_NAME=$(openstack image list | grep -i featured | grep -i ubuntu16 \
+                     | awk 'BEGIN { FS = "|" } ; { print $2 }')
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
@@ -83,7 +84,7 @@ fi
 MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 
 # obtained through openstack network list
-NETWORK_ID=52839426-7790-47ed-b3ef-49392ef78db2
+NETWORK_ID=TG-ATM160027-api-net
 
 openstack server create ${MACHINE_NAME} \
   --flavor ${VM_SIZE} \
