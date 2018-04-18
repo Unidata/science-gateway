@@ -156,6 +156,8 @@ A wrapper script =run.sh= is provided, which assumes that directories =bin/= and
   ./run.sh
 #+END_SRC
 
+You can use this =run.sh= script as a template for you to parameterize, perhaps for alternative =openrc.sh= files.
+
 **** Create ssh Keys (Do This Once)
      :PROPERTIES:
      :CUSTOM_ID: h:EE48476C
