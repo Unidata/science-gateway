@@ -45,6 +45,9 @@ RUN patch -p0 < globusconnectpersonal.patch
 
 RUN rm globusconnectpersonal.patch
 
+# To support Dask dashboard
+RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
+
 ###
 # /etc/skel
 ###
