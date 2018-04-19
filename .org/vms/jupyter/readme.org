@@ -99,7 +99,6 @@ The nginx log directory:
    mkdir -p ~/logs/nginx/
  #+END_SRC
 
-
 ** SSL Certificate
    :PROPERTIES:
    :CUSTOM_ID: h:7D97FA52
@@ -177,3 +176,26 @@ to start JupyterHub
    :END:
 
 In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][https://jupyter-jetstream.unidata.ucar.edu]].
+** Backing Up /notebooks
+   :PROPERTIES:
+   :CUSTOM_ID: h:EB684CA9
+   :END:
+
+It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the Jupyter VM and backing up user data to that mounted partition.
+
+See [[https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md][Wrangler documentation]] for creating an NFS mount from Wrangler to Jetstream with a mount point of =/wrangler=. Once the mount is established, we are employing [[https://github.com/laurent22/rsync-time-backup][rsync-time-backup]] to do "time machine" style backups to =/wrangler/backup-notebooks=:
+
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh :shebang "#!/bin/bash"
+  git clone https://github.com/laurent22/rsync-time-backup ~/rsync-time-backup \
+      && chmod +x ~/rsync-time-backup/rsync_tmbackup.sh
+  mkdir -p -- "/wrangler/backup-notebooks"
+  # Required by rsync-time-backup
+  touch "/wrangler/backup-notebooks/backup.marker"
+#+END_SRC
+
+Backup from cron:
+
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh
+  (crontab -l ; echo \
+       "0 */1 * * * ~/xsede-jetstream/vms/jupyter/backup-notebooks.sh") | crontab -
+#+END_SRC
