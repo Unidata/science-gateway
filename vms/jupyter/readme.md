@@ -14,6 +14,7 @@
   - [docker-compose.yml](#h:8F37201D)
   - [Start JupyterHub](#h:62B48A14)
   - [Navigate to JupyterHub](#h:4DCCED79)
+  - [Backing Up /notebooks](#h:EB684CA9)
 
 
 
@@ -178,6 +179,8 @@ services:
       - "compose.env"
   web:
     image: nginx
+    container_name: nginx
+    # restart: always
     volumes:
       - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ~/logs/nginx:/var/log/nginx
@@ -210,3 +213,27 @@ to start JupyterHub
 ## Navigate to JupyterHub
 
 In a web browser, navigate to [https://jupyter-jetstream.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
+
+
+<a id="h:EB684CA9"></a>
+
+## Backing Up /notebooks
+
+It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the Jupyter VM and backing up user data to that mounted partition.
+
+See [Wrangler documentation](https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md) for creating an NFS mount from Wrangler to Jetstream with a mount point of `/wrangler`. Once the mount is established, we are employing [rsync-time-backup](https://github.com/laurent22/rsync-time-backup) to do "time machine" style backups to `/wrangler/backup-notebooks`:
+
+```shell
+git clone https://github.com/laurent22/rsync-time-backup ~/rsync-time-backup \
+    && chmod +x ~/rsync-time-backup/rsync_tmbackup.sh
+mkdir -p -- "/wrangler/backup-notebooks"
+# Required by rsync-time-backup
+touch "/wrangler/backup-notebooks/backup.marker"
+```
+
+Backup from cron:
+
+```shell
+(crontab -l ; echo \
+     "0 */1 * * * ~/xsede-jetstream/vms/jupyter/backup-notebooks.sh") | crontab -
+```
