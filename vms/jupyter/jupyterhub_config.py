@@ -459,6 +459,7 @@ class MySpawner(LocalProcessSpawner):
         # don't overwrite user content
         if not os.path.exists(nbdir):
             shutil.copytree("/srv/jupyterhub/git", nbdir)
+            os.chmod(nbdir, 0o711)
         recursive_chown(nbdir, self.user.name, 'docker')
         create_condarc(self.user.name)
         return nbdir
