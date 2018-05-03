@@ -16,14 +16,14 @@ do
 done
 
 # secgroup.sh automatically prepends "global-" to the secgroup name
-secgroup.sh  -p 22 -n ssh-22
-secgroup.sh  -p 80 -n www
+secgroup.sh  -p 22 -n global-ssh-22
+secgroup.sh  -p 80 -n global-www
 openstack security group rule create global-www --protocol tcp --dst-port 443:443 --remote-ip 0.0.0.0/0
-secgroup.sh  -p 112 -n adde-112
-secgroup.sh  -p 388 -n ldm-388
-secgroup.sh  -p 8080 -n tomcat
+secgroup.sh  -p 112 -n global-adde-112
+secgroup.sh  -p 388 -n global-ldm-388
+secgroup.sh  -p 8080 -n global-tomcat
 openstack security group rule create global-tomcat --protocol tcp --dst-port 8443:8443 --remote-ip 0.0.0.0/0
-secgroup.sh  -p 5672 -n edex
+secgroup.sh  -p 5672 -n global-edex
 openstack security group rule create global-edex --protocol tcp --dst-port 9581:9581 --remote-ip 0.0.0.0/0
 openstack security group rule create global-edex --protocol tcp --dst-port 9582:9582 --remote-ip 0.0.0.0/0
 openstack security group rule create global-edex --protocol tcp --dst-port 5432:5432 --remote-ip 0.0.0.0/0
@@ -32,4 +32,4 @@ openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1
 openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
 openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
 openstack security group list
-secgroup.sh  -p 8000 -n jupyter-8000
+secgroup.sh  -p 8000 -n global-jupyter-8000
