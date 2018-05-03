@@ -214,20 +214,20 @@ update-rc.d nfs-kernel-server defaults
 
 ### Open NFS Related Ports
 
-Via OpenStack also open NFS related ports: `111`, `1110`, `2049`, `4045`. If it does not exist already, create the `global-nfs` security group with the `secgroup.sh` convenience script and additional `openstack` commands.
+Via OpenStack also open NFS related ports: `111`, `1110`, `2049`, `4045`. If it does not exist already, create the `local-nfs` security group with the `secgroup.sh` convenience script and additional `openstack` commands.
 
 ```shell
-# Will create a "global-nfs" security group.
-secgroup.sh  -p 111 -n nfs
-openstack security group rule create global-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 0.0.0.0/0
-openstack security group rule create global-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 0.0.0.0/0
-openstack security group rule create global-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 0.0.0.0/0
+  # Will create a "local-nfs" security group.
+secgroup.sh  -p 111 -n local-nfs --remote-ip 10.0.0.0/24
+openstack security group rule create local-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 10.0.0.0/24
+openstack security group rule create local-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 10.0.0.0/24
+openstack security group rule create local-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 10.0.0.0/24
 ```
 
-Finally, attach the `global-nfs` security group to the newly created VM. The VM ID can be obtained with `openstack server list`.
+Finally, attach the `local-nfs` security group to the newly created VM. The VM ID can be obtained with `openstack server list`.
 
 ```shell
-openstack server add security group <VM name or ID> global-nfs
+openstack server add security group <VM name or ID> local-nfs
 ```
 
 
