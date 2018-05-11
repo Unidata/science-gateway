@@ -76,7 +76,7 @@ if [ -z "$IMAGE_NAME" ];
 then
       # Grab an Ubuntu 16 Featured Image
     IMAGE_NAME=$(openstack image list | grep -i featured | grep -i ubuntu16 \
-                     | awk 'BEGIN { FS = "|" } ; { print $2 }')
+                     | awk 'BEGIN { FS = "|" } ; { print $2 }' | tail -1)
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
