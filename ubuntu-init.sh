@@ -4,7 +4,7 @@ if [ "$EUID" -ne 0 ]; then
   exit
 fi
 
-usage="$(basename "$0") [-h] [-u, --user user name] -- 
+usage="$(basename "$0") [-h] [-u, --user user name] --
 script to setup Docker. Run as root. Think before your type:\n
     -h  show this help text\n
     -u, --user User name that will be running Docker containers.\n"
@@ -26,17 +26,21 @@ do
 done
 
 if [ -z "$DOCKER_USER" ]; then
-      echo "Must supply a user:" 
+      echo "Must supply a user:"
       echo -e $usage
       exit 1
 fi
 
 service docker stop
 
+# See https://askubuntu.com/questions/990268/usr-sbin-fanctl-no-such-file-or-directory-in-etc-network-if-up-d-ubuntu-fan
+# about why we remove ubuntu-fan, for now.
+
 dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
-   docker-ce && rm -rf /var/lib/docker && apt-get update && apt-get -y upgrade \
-   && apt-get -y dist-upgrade && apt-get -y install git unzip wget \
-   nfs-kernel-server nfs-common && apt autoremove -y
+   docker-ce && apt remove -y --purge ubuntu-fan && rm -rf /var/lib/docker \
+    && apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+    && apt-get -y install git unzip wget nfs-kernel-server nfs-common \
+    && apt autoremove -y
 
 curl -sSL get.docker.com | sh
 usermod -aG docker ${DOCKER_USER}
