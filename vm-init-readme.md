@@ -54,10 +54,14 @@ Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary pa
     ```shell
     service docker stop
 
+    # See https://askubuntu.com/questions/990268/usr-sbin-fanctl-no-such-file-or-directory-in-etc-network-if-up-d-ubuntu-fan
+    # about why we remove ubuntu-fan, for now.
+
     dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
-       docker-ce && rm -rf /var/lib/docker && apt-get update && apt-get -y upgrade \
-       && apt-get -y dist-upgrade && apt-get -y install git unzip wget \
-       nfs-kernel-server nfs-common && apt autoremove -y
+       docker-ce && apt remove -y --purge ubuntu-fan && rm -rf /var/lib/docker \
+        && apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+        && apt-get -y install git unzip wget nfs-kernel-server nfs-common \
+        && apt autoremove -y
     ```
 
 2.  yum
