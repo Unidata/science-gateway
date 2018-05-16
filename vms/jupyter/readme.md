@@ -56,7 +56,7 @@ With the help of Docker and `docker-compose`, starting a VM containing a Jupyter
 
 ### jupyterhub\_config.py
 
-Copy the `jupyterhub_config.py` file to the `~/config/` directory. [Subsequently](#h:524FAF4B), you will have to make minor edits to supply the user and admin whitelist.
+Copy the `jupyterhub_config.py` file to the `~/config/` directory. [Subsequently](#h:524FAF4B), you will have to make minor edits to supply the user and admin white list.
 
 ```shell
 mkdir -p ~/config/
