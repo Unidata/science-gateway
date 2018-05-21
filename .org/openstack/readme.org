@@ -377,3 +377,142 @@ Then finally from the OpenStack CL,
 #+END_SRC
 
 For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
+*** Swapping VMs
+    :PROPERTIES:
+    :CUSTOM_ID: h:56B1F4AC
+    :END:
+
+Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that will have the same IP address and attached volume disk storage. However, before swapping out VMs, we should do a bit of homework and careful preparation so that the swap can go as smoothly as possible.
+
+**** Prerequisites
+     :PROPERTIES:
+     :CUSTOM_ID: h:82627F76
+     :END:
+
+Create the VM that will be swapped in. Make sure to:
+ - [[https://github.com/Unidata/xsede-jetstream/blob/master/vm-init-readme.md][initialize new VM]]
+ - build or fetch relevant Docker containers
+ - copy over the relevant configuration files. E.g., check with ~git diff~ and scrutinize ~~/config~
+ - check the crontab with ~crontab -l~
+ - beware of any ~10.0~ address changes that need to be made (e.g., NFS mounts)
+ - consider other ancillary stuff (e.g., check home directory, ~docker-compose~ files)
+ - think before you type
+
+**** /etc/fstab and umount
+     :PROPERTIES:
+     :CUSTOM_ID: h:5122BD67
+     :END:
+
+Examine =/etc/fstab= to find all relevant mounts on "old" VM. Copy over =fstab= to new host (the ~UUIDs~ should remain the same but double check). Then ~umount~ mounts.
+
+**** OpenStack Swap
+     :PROPERTIES:
+     :CUSTOM_ID: h:45D6670A
+     :END:
+
+From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
+
+#+BEGIN_SRC shell :eval no
+  openstack volume list && openstack server list
+#+END_SRC
+
+#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash" :tangle "../../openstack/bin/swap-vm.sh"
+
+  echo Make sure to:
+  echo  - initialize new VM
+  echo  - open the same ports
+  echo  - build or fetch relevant Docker containers
+  echo  - copy over the relevant configuration files. E.g., check with git diff and scrutinize ~/config
+  echo  - check the crontab with crontab -l
+  echo  - beware of any 10.0 address changes that need to be made \(e.g., NFS mounts\)
+  echo  - consider other ancillary stuff \(e.g., check home directory, docker-compose files\)
+  echo  - think before you type
+
+  read -p "Are you sure you want to continue? " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]
+  then
+      [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+  fi
+
+  usage="$(basename "$0") [-h] [-o, --old old VM ID] [-n, --new new VM ID] \n
+      [-v, --volume zero or more volume IDs (each supplied with -v)] \n
+      [-ip, --ip ip address] \n
+      -- script to swap VMs:\n
+      -h  show this help text\n
+      -o, --old old VM ID\n
+      -n, --new new VM ID\n
+      -v, --volume zero or more volume IDs (each supplied with -v)\n
+      -ip, --ip VM ip number\n"
+
+  while [[ $# > 0 ]]
+  do
+      key="$1"
+      case $key in
+          -o|--old)
+              VM_ID_OLD="$2"
+              shift # past argument
+              ;;
+          -n|--new)
+              VM_ID_NEW="$2"
+              shift # past argument
+              ;;
+          -v|--volumes)
+              VOLUME_IDS+="$2 "
+              shift # past argument
+              ;;
+          -ip|--ip)
+              IP="$2"
+              shift # past argument
+              ;;
+          -h|--help)
+              echo -e $usage
+              exit
+              ;;
+      esac
+      shift # past argument or value
+  done
+
+  if [ -z "$VM_ID_OLD" ];
+    then
+        echo "Must supply a vm name:"
+        echo -e $usage
+        exit 1
+  fi
+
+  if [ -z "$VM_ID_NEW" ];
+    then
+        echo "Must supply a key name:"
+        echo -e $usage
+        exit 1
+  fi
+
+  if [ -z "$IP" ];
+     then
+        echo "Must supply an IP address:"
+        echo -e $usage
+        echo openstack floating ip list
+        exit 1
+  fi
+#+END_SRC
+
+Then swap out both the IP address as well as zero or more external data volumes with the new server.
+
+#+BEGIN_SRC shell :tangle "../../openstack/bin/swap-vm.sh"
+
+  openstack server remove floating ip ${VM_ID_OLD} ${IP}
+  openstack server add floating ip ${VM_ID_NEW} ${IP}
+
+  for i in ${VOLUME_IDS}
+  do
+       openstack server remove volume ${VM_ID_OLD} $i
+       openstack server add volume ${VM_ID_NEW} $i
+  done
+#+END_SRC
+
+**** /etc/fstab and mount
+     :PROPERTIES:
+     :CUSTOM_ID: h:152E6DAB
+     :END:
+
+Issue ~blkid~ (or ~ls -la /dev/disk/by-uuid~) command to find ~UUIDs~ that will be inserted into the =/etc/fstab=. Lastly, ~mount -a~.
