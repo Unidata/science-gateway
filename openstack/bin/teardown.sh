@@ -34,18 +34,13 @@ if [ -z "$VM_NAME" ];
       exit 1
 fi
 
-if [ -z "$IP" ];
-   then
-      echo "Must supply an IP address:"
-      echo -e $usage
-      openstack server list
-      exit 1
-fi
-
 MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
 
 openstack server stop ${MACHINE_NAME}
 
-openstack server remove floating ip ${MACHINE_NAME} ${IP}
+if [ -v "$IP" ];
+   then
+       openstack server remove floating ip ${MACHINE_NAME} ${IP}
+fi
 
 openstack server delete ${MACHINE_NAME}

@@ -64,14 +64,6 @@ if [ -z "$VM_SIZE" ];
       exit 1
 fi
 
-if [ -z "$IP" ];
-   then
-      echo "Must supply an IP address:"
-      echo -e $usage
-      openstack floating ip list
-      exit 1
-fi
-
 if [ -z "$IMAGE_NAME" ];
 then
       # Grab an Ubuntu 16 Featured Image
@@ -108,4 +100,9 @@ sleep 30
 
 # Associate your VM with an IP
 
-openstack server add floating ip ${MACHINE_NAME} ${IP}
+if [ -v "$IP" ];
+   then
+       openstack server add floating ip ${MACHINE_NAME} ${IP}
+fi
+
+

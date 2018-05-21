@@ -14,6 +14,7 @@
     - [Create and Attach Data Volumes](#h:9BEEAB97)
     - [Opening TCP Ports](#h:D6B1D4C2)
     - [Tearing Down VMs](#h:1B38941F)
+    - [Swapping VMs](#h:56B1F4AC)
 
 
 
@@ -349,3 +350,52 @@ openstack server add security group my-vm global-my-vm-ports
     ```
 
     For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
+
+
+<a id="h:56B1F4AC"></a>
+
+### Swapping VMs
+
+Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that will have the same IP address and attached volume disk storage. However, before swapping out VMs, we should do a bit of homework and careful preparation so that the swap can go as smoothly as possible.
+
+1.  Prerequisites
+
+    Create the VM that will be swapped in. Make sure to:
+
+    -   [initialize new VM](https://github.com/Unidata/xsede-jetstream/blob/master/vm-init-readme.md)
+    -   build or fetch relevant Docker containers
+    -   copy over the relevant configuration files. E.g., check with `git diff` and scrutinize `~/config`
+    -   check the crontab with `crontab -l`
+    -   beware of any `10.0` address changes that need to be made (e.g., NFS mounts)
+    -   consider other ancillary stuff (e.g., check home directory, `docker-compose` files)
+    -   think before you type
+
+2.  /etc/fstab and umount
+
+    Examine `/etc/fstab` to find all relevant mounts on "old" VM. Copy over `fstab` to new host (the `UUIDs` should remain the same but double check). Then `umount` mounts.
+
+3.  OpenStack Swap
+
+    From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
+
+    ```shell
+    openstack volume list && openstack server list
+    ```
+
+    Then swap out both the IP address as well as zero or more external data volumes with the new server.
+
+    ```shell
+
+    openstack server remove floating ip ${VM_ID_OLD} ${IP}
+    openstack server add floating ip ${VM_ID_NEW} ${IP}
+
+    for i in ${VOLUME_IDS}
+    do
+         openstack server remove volume ${VM_ID_OLD} $i
+         openstack server add volume ${VM_ID_NEW} $i
+    done
+    ```
+
+4.  /etc/fstab and mount
+
+    Issue `blkid` (or `ls -la /dev/disk/by-uuid`) command to find `UUIDs` that will be inserted into the `/etc/fstab`. Lastly, `mount -a`.
