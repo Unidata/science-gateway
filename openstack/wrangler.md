@@ -135,7 +135,7 @@ echo rpcbind : 10.5.0.96/28 127.0.0.1 | tee --append /etc/hosts.allow > /dev/nul
 
 ### ifconfig
 
-Add this point, you have to add the correct network to `/etc/udev/rules.d/70-persistent-net.rules` and `/etc/network/interfaces`. To achieve this run `ifconfig -a` which will generate something like:
+At this point, you have to add the correct network to `/etc/udev/rules.d/70-persistent-net.rules` and `/etc/network/interfaces`. To achieve this run `ifconfig -a` which will generate something like:
 
 ```shell
 ens3      Link encap:Ethernet  HWaddr fa:16:3e:0c:70:6c
