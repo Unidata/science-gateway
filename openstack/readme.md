@@ -292,7 +292,7 @@ There is a `mount.sh` convenience script to mount **uninitialized** data volumes
         --append /etc/fstab > /dev/null
     ```
 
-    where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
+    where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` (or `ls -la /dev/disk/by-uuid`) command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
 
 
 <a id="h:D6B1D4C2"></a>
