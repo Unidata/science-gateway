@@ -8,8 +8,10 @@ alias mv='mv -i'
 
 # open stack aliases
 
-alias iplist='openstack floating ip list'
-alias vmlist='openstack server list'
+alias ofl='openstack floating ip list'
+alias osl='openstack server list'
+alias onl='openstack network list'
+alias ovl='openstack volume list'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
