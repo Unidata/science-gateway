@@ -37,7 +37,7 @@ As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.
 
 [[https://jupyter-jetstream.unidata.ucar.edu][JupyterHub server on Jetstream]]
 
-[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can be used to serve programmatic, interactive notebooks to a class of students or for scientific researchers. An [[https://jupyter-jetstream.unidata.ucar.edu][experimental JupyterHub server]] is running on Jetstream containing Unidata Jupyter notebook projects: 
+[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can be used to serve programmatic, interactive notebooks to a class of students or for scientific researchers. An [[https://jupyter-jetstream.unidata.ucar.edu][experimental JupyterHub server]] is running on Jetstream containing Unidata Jupyter notebook projects:
 
 - [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
 - [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]
@@ -81,7 +81,7 @@ AWIPS is a meteorological display and analysis system used by the National Weath
 
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][LDM installation on Jetstream]]
 
-The Unidata [[http://www.unidata.ucar.edu/software/ldm/][Local Data Manager]] (LDM) system is a peer-to-peer network for event-driven data distribution, and is the fundamental component of the Unidata Internet Data ([[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][IDD]]) system. Two *internal* LDM nodes supply data to our Jetstream resources. 
+The Unidata [[http://www.unidata.ucar.edu/software/ldm/][Local Data Manager]] (LDM) system is a peer-to-peer network for event-driven data distribution, and is the fundamental component of the Unidata Internet Data ([[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][IDD]]) system. Two *internal* LDM nodes supply data to our Jetstream resources.
 
 * ADDE
   :PROPERTIES:
@@ -99,7 +99,7 @@ ADDE installation on Jetstream: ~adde://adde-jetstream.unidata.ucar.edu:112~
 
 The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://science-gateway.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
 
-* Conference Presentations 
+* Conference Presentations
   :PROPERTIES:
   :CUSTOM_ID: h:20A85AD4
   :END:
@@ -115,14 +115,16 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://doi.org/10.6084/m9.figshare.5479648.v1][Gateways 2017 |  October 23–25, 2017 – Ann Arbor, MI USA]]
 - [[https://doi.org/10.6084/m9.figshare.5660128.v1][2017 AGU Fall Meeting | December 11–15, 2017 – New Orleans, LA USA]]
 - [[https://doi.org/10.6084/m9.figshare.5756643.v1][2018 AMS Annual Meeting | January 7–11, 2018 – Austin, TX USA]]
+- [[https://meetingorganizer.copernicus.org/EGU2018/EGU2018-5302.pdf][EGU General Assembly 2018 | April 8–13, 2018 - Vienna, Austria]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h:BD0797EC
    :END:
 
-- EGU General Assembly 2018 | April 8–13, 2018 - Vienna, Austria
-- PEARC 18 | July 22-27, 2018 - Pittsburgh, PA USA
+- [[https://sites.google.com/a/nd.edu/iwsg2018][IWSG 2018 | June 13-15 2018 - Edinburgh, Scotland]]
+- [[https://www.pearc18.pearc.org/][PEARC 18 | July 22-27, 2018 - Pittsburgh, PA USA]]
+- [[http://www.esipfed.org/meetings/upcoming-meetings/esip-summer-meeting-2018][ESIP Summer Meeting 2018 | July 17-20, 2018 – Tucson, AZ USA]]
 
 * Under the Hood
   :PROPERTIES:
