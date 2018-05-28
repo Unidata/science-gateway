@@ -118,6 +118,3 @@ kubectl --namespace=atm-jupyterhub describe pod hub-XXXXX-XXXXX
 sudo helm upgrade atm-jupyterhub jupyterhub/jupyterhub -f config_jupyterhub.yaml
 ```
 
-
-
-
