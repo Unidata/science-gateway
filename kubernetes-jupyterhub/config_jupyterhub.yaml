@@ -1,0 +1,40 @@
+hub:
+  # output of first execution of 'openssl rand -hex 32'
+  cookieSecret: "XXXXXXXXXX"
+  db:
+    type: sqlite-pvc
+    pvc:
+      accessModes:
+        - ReadWriteOnce
+      storage: 1Gi
+      storageClassName: rook-block
+
+proxy:
+  # output of second execution of 'openssl rand -hex 32'
+  secretToken: "XXXXXXXXXX"
+
+singleuser:
+  memory:
+    guarantee: 1G
+    limit: 2G
+  cpu:
+    guarantee: 0.2
+    limit: 1
+  storage:
+    type: dynamic
+    capacity: 1Gi
+    dynamic:
+      storageClass: rook-block
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    - js-XXX-XXX.jetstream-cloud.org
+  tls:
+   - hosts:
+      - js-XXX-XXX.jetstream-cloud.org
+     secretName: kubelego-tls-jupyterhub
+
