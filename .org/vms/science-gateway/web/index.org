@@ -116,6 +116,7 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://doi.org/10.6084/m9.figshare.5660128.v1][2017 AGU Fall Meeting | December 11–15, 2017 – New Orleans, LA USA]]
 - [[https://doi.org/10.6084/m9.figshare.5756643.v1][2018 AMS Annual Meeting | January 7–11, 2018 – Austin, TX USA]]
 - [[https://meetingorganizer.copernicus.org/EGU2018/EGU2018-5302.pdf][EGU General Assembly 2018 | April 8–13, 2018 - Vienna, Austria]]
+- [[https://doi.org/10.6084/m9.figshare.6451508.v1][OGC TC/PC Meetings | June 4-8, 2018 - Fort Collins, Colorado, USA]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
