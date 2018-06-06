@@ -183,19 +183,29 @@ In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][http
 
 It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the Jupyter VM and backing up user data to that mounted partition.
 
-See [[https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md][Wrangler documentation]] for creating an NFS mount from Wrangler to Jetstream with a mount point of =/wrangler=. Once the mount is established, we are employing [[https://github.com/laurent22/rsync-time-backup][rsync-time-backup]] to do "time machine" style backups to =/wrangler/backup-notebooks=:
+See [[https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md][Wrangler documentation]] for creating an NFS mount from Wrangler to Jetstream with a mount point of =/wrangler=. Once the mount is established, we are employing [[https://github.com/laurent22/rsync-time-backup][rsync-time-backup]] (which should be installed in =/usr/local/bin= install with ~sudo~ privileges) to do "time machine" style backups to =/wrangler/backup-notebooks=:
 
 #+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh :shebang "#!/bin/bash"
-  git clone https://github.com/laurent22/rsync-time-backup ~/rsync-time-backup \
-      && chmod +x ~/rsync-time-backup/rsync_tmbackup.sh
+  if [ "$EUID" -ne 0 ]
+    then echo "Please run as root"
+    exit
+  fi
+
+  git clone https://github.com/laurent22/rsync-time-backup /tmp/rsync-time-backup && \
+      cp /tmp/rsync-time-backup/rsync_tmbackup.sh /usr/local/bin/
+
   mkdir -p -- "/wrangler/backup-notebooks"
+
   # Required by rsync-time-backup
   touch "/wrangler/backup-notebooks/backup.marker"
 #+END_SRC
 
-Backup from cron:
+Backup from cron once per day as root:
 
 #+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh
   (crontab -l ; echo \
-       "0 */1 * * * ~/xsede-jetstream/vms/jupyter/backup-notebooks.sh") | crontab -
+       "0 0 * * * /usr/local/bin/rsync_tmbackup.sh --rsync-set-flags \"--recursive --numeric-ids --no-perms --itemize-changes\"  /notebooks /wrangler/backup-notebooks") | crontab -
 #+END_SRC
+
+
+
