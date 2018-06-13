@@ -16,7 +16,7 @@ services:
       - ~/config/ssl/:/etc/jupyterhub/ssl/
       - /notebooks:/notebooks
       - /scratch:/scratch
-      - /backup-notebooks:/wrangler/backup-notebooks
+      - /wrangler/backup-notebooks:/backup-notebooks
     ports:
       - "8000:8000"
       - "443:443"
