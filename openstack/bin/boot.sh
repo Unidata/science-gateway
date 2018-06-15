@@ -100,9 +100,7 @@ sleep 30
 
 # Associate your VM with an IP
 
-if [ -v "$IP" ];
-   then
-       openstack server add floating ip ${MACHINE_NAME} ${IP}
+if [ -n "$IP" ];
+then
+    openstack server add floating ip ${MACHINE_NAME} ${IP}
 fi
-
-
