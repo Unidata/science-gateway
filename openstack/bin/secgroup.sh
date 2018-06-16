@@ -46,7 +46,7 @@ fi
 
 if [ -z "$REMOTE_IP" ];
   then
-      $REMOTE_IP="0.0.0.0/0"
+      REMOTE_IP="0.0.0.0/0"
       echo "No remote IP so going with 0.0.0.0/0 (i.e., everyone)."
 fi
 
