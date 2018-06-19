@@ -2,7 +2,7 @@
 # jupyterhub base dockerfile
 ###
 
-FROM jupyterhub/jupyterhub:latest
+FROM jupyterhub/jupyterhub:master
 
 RUN apt-get update && apt-get -y upgrade
 
