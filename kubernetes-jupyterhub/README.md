@@ -123,12 +123,20 @@ sudo helm upgrade atm-jupyterhub jupyterhub/jupyterhub -f config_jupyterhub.yaml
 Deploying Kubernetes cluster
 
 ```Bash
-magnum cluster-template-create --keypair YOUR-API-key --coe kubernetes \
---name kubernetes_cluster --external-network-id public --image \
-fedora-atomic-ocata --flavor m1.small --master-flavor m1.small \
---volume-driver cinder --fixed-network OS_ssemir-api-net --fixed-subnet \
-OS_ssemir-api-subnet1 --network-driver flannel --docker-volume-size 10 \
---docker-storage-driver overlay --floating-ip-enabled
+magnum cluster-template-create --keypair YOUR-API-key \
+	--coe kubernetes \
+	--name kubernetes_cluster \
+	--external-network-id public \
+	--image fedora-atomic-ocata \
+	--flavor m1.small \
+	--master-flavor m1.small \
+	--volume-driver cinder \
+	--fixed-network YOUR-api-net \
+	--fixed-subnet YOUR-api-subnet1 
+	--network-driver flannel \
+	--docker-volume-size 10 \
+	--docker-storage-driver overlay \
+	--floating-ip-enabled
 ```
 
 Adding node to cluster
