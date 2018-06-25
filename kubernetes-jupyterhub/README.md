@@ -118,3 +118,29 @@ kubectl --namespace=atm-jupyterhub describe pod hub-XXXXX-XXXXX
 sudo helm upgrade atm-jupyterhub jupyterhub/jupyterhub -f config_jupyterhub.yaml
 ```
 
+### How to deploy and scale Kubernetes cluster using Magnum ###
+
+Deploying Kubernetes cluster
+
+```Bash
+magnum cluster-template-create --keypair YOUR-API-key --coe kubernetes --name kubernetes_cluster --external-network-id public --image fedora-atomic-ocata --flavor m1.small --master-flavor m1.small --volume-driver cinder --fixed-network OS_ssemir-api-net --fixed-subnet OS_ssemir-api-subnet1 --network-driver flannel --docker-volume-size 10 --docker-storage-driver overlay --floating-ip-enabled
+```
+
+Adding node to cluster
+```Bash
+magnum bay-create --name k8_jupyter_cluster --baymodel k8_cluster --node-count 1
+```
+
+Updating nodes for cluster
+```Bash
+magnum bay-update kubernetes_cluster replace node_count=3
+```
+
+Useful commands for checking on the cluster
+```Bash
+magnum baymodel-list
+magnum bay-list
+magnum cluster-show xxxx
+```
+
+
