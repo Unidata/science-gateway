@@ -1,0 +1,326 @@
+#+TITLE: Unidata Science Gateway JupyterHub
+#+SUBTITLE: ESIP Summer 2018 Meeting
+#+DATE: Friday, 20 July 2018
+#+DESCRIPTION: Unidata Science Gateway JupyterHub
+#+KEYWORDS: Unidata Docker Jetstream XSEDE Science Gateway Jupyter JupyterHub
+#+AUTHOR: Julien Chastang 
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.3.1 (Org mode 9.1.13)
+#+OPTIONS: auto-id:t
+
+#+STARTUP: beamer
+#+STARTUP: oddeven
+
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger,notes=show]
+
+# unidata bottom banner
+#+LATEX_HEADER: \setbeamertemplate{background canvas}{ \raisebox{-\paperheight}[0pt][0pt]{ \makebox[\paperwidth][c]{ \includegraphics[width=\paperwidth,height=0.8cm]{../common/Unidata_gradient_for_poster.png} } } }
+# https://github.com/matze/mtheme `make sty`. Install sty files in ~/Library/texmf/tex/latex
+#+BEAMER_THEME: metropolis
+
+#+OPTIONS:   H:2 toc:t
+
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+
+# for a column view of options and configurations for the individual
+# frames
+#+COLUMNS: %20ITEM %13BEAMER_env(Env) %6BEAMER_envargs(Args) %4BEAMER_col(Col) %7BEAMER_extra(Extra)
+
+* Background
+** Unidata Five-Year Plan
+
+/Transition to a remote-access "cloud" environment for geoscience data is vital to our community's ability to pursue research and education in the 21st century./
+\\
+-Unidata Five-year plan 2013-2018
+
+** Forces at Play
+
+- Data are becoming unwieldy and expensive to move
+- Cloud-computing and technologies like Docker, Kubernetes etc. allow easy deployments of complex environments at scale
+- Web browser is the de facto cross-platform "app".
+- Economic advantages to running VMs in the cloud
+
+** Consequences of These Forces
+
+- Computation, visualization, analysis should be done where data live
+- Workflows should be cloud-based and accessible through a web browser
+- Opportunity to unify these workflows under the concept of *science gateway*
+
+** Target Audience 
+- Core Unidata Community
+- Atmospheric science departments and their students
+- Professors and students get to _science faster_
+
+* Jupyter 
+** What is Literate Programming?
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+- Prose, diagrams, equations _first_, code second.
+- Excels at teaching and expository objectives and "executable" scientific papers. 
+- Despite long roots in programming, LP is finally popular thanks to *Jupyter Notebooks*.
+  
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/lp.jpg]]
+
+** What is a Jupyter Notebook?
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+Cells of:
+- Markdown
+- Equations (w/ MathJax, LaTeX)
+- Executable code (Python, R etc.)
+- Figures
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/lorenz.png]]
+
+** A Tool of Thought
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :END:
+
+- Concept by Ken Iverson and APL programming language.
+- *Foreshadowed interactive, exploratory, scientific programming*
+- Instead of APL we have Python
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.6
+   :END:
+
+_APL_:
+#+BEGIN_SRC APL
+1,↑¨+.×\N⍴⊂2 2⍴1 1 1 0
+#+END_SRC
+
+_Python_:
+#+BEGIN_SRC python
+def fb(n):
+    if n < 2:
+        return n
+    else:
+        return fb(n-1) + fb(n-2)
+#+END_SRC
+
+** Success of Jupyter Notebooks
+
+#+ATTR_LATEX: :width 7.5cm
+[[file:images/award.png]]
+
+* JupyterHub as a Science Gateway Companion
+** JupyterHub: Multi-user Jupyter Notebooks 
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+- Users log in to a JupyterHub server
+- Users have their own work space
+- Excellent for workshops or in the classroom
+- Administrator can configure ahead of time on behalf of user
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: width=\textwidth
+[[file:../ogc2018/images/jupyterhub.png]]
+
+** More Than Just Notebooks
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+- ~git~ utilities
+- software carpentry tools
+- Data transfer utilities (e.g., Globus personal connect)
+- Powerful b/c command lines are powerful.
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: width=\textwidth
+file:images/terminal.png
+
+** Jupyter Extensions
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+- Jupyter and JupyterHub can be extended by software developers
+- Dozens of extensions have been written, e.g.,
+- code folding
+- code formatting
+- Web VNC client
+
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: width=\textwidth
+file:images/novnc.png
+
+* Unidata Science Gateway JupyterHub
+** Unidata Science Gateway JupyterHub
+
+https://jupyter-jetstream.unidata.ucar.edu
+
+Three PyAOS notebook projects w/ pre-configured environments:
+
+1. Unidata Python Workshop
+2. Unidata Notebook Gallery
+3. Unidata Online Python Training
+
+_67 PyAOS notebooks total_
+
+** Pre-configured Environments
+
+Complex environments already built w/ conda package manager
+
+- conda environments e.g.,
+  - numpy
+  - netCDF4-Python
+  - cartopy
+  - metpy
+  - xarray
+  - etc.
+
+- Select appropriate kernel from kernel menu
+
+** JupyterHub Workflows
+
+- Data-proximate analysis and viz:
+  - LDM/IDD → THREDDS Data Server → *Jupyter Notebooks* 
+  - XSEDE HPC → Terminal Globus Tools → *Jupyter Notebooks* 
+- Remote access:
+  - *JupyterHub and Notebooks* hitting  (e.g., NOMADS)
+
+** Example 1: Satellite + GFS
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:images/satellite.png]]
+
+** Example 2: Vorticity Advection
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:images/avor.png]]
+
+** Example 3: Miller Composite
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:images/miller.png]]
+
+* Implementation Details, Software Carpentry
+** GitHub Repository
+
+- Collaborative development on GitHub
+- https://github.com/Unidata/xsede-jetstream
+- https://github.com/Unidata/xsede-jetstream/tree/master/vms/jupyter
+ 
+** Unidata JupyterHub Docker Container
+
+- Based on official ~jupyterhub/jupyterhub:master~
+- Pre-built conda/pip environments (available via Kernel menu in Jupyter)
+- Globus Personal Connect for moving data locally
+- Environments are complex, take a long time to build
+- Best if we do the work so you get to science faster
+- Using ~docker-compose~ w/ stock ~nginx~ container
+
+** OpenStack VM on Jetstream Cloud
+
+- JupyterHub Deployed On Jetstream Cloud "XLarge VM" 24 CPUs  60 GB of RAM
+_Caveat emptor_:
+  - No Kubernetes /yet/ so will not scale to an influx of concurrent users
+  - OK for a number of occasional users
+
+** OAuth
+
+- Leveraging other authentication systems
+- Globus OAuth via XSEDE
+- Need login at https://portal.xsede.org
+- Configured in =jupyterhub_config.py=
+
+** JupyterLab
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+- Next generation Jupyter interface
+- Easier to navigate and more functionality
+- Classic view still available
+  
+*** Column 2
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :END:
+
+#+ATTR_LATEX: :width 6cm
+[[file:images/jupyterlab.png]]
+
+** Upon First Login
+
+- User directory space created with three notebook projects
+- Responsibility then falls on the user for maintaining the projects up to date with ~git~ via the terminal
+- User data (e.g., notebooks) is persisted and backed up
+
+** Best Practices for Sharing Notebook Projects
+
+- Ensure you have a conda =environment.yml= at the root of the notebook project
+- Remember that notebooks are more than a series of code cells
+- It is an expository exercise  
+
+* Future Plans
+** Scaling for Cloud
+
+- Kubernetes on Jetstream
+- Continue collaboration w/ XSEDE ECSS (Semir Sarajlic and Suresh Marru)
+- Andrea Zonca's Zero to JupyterHub solution (once ready)
+
+** nbnovnc Jupyter Extension
+
+- May solve "last mile" problem to CloudIDV
+- AWIPS CAVE client also a possibility
+- "Hub" in JupyterHub leveraged to solve problems beyond Jupyter
+
+** Final Thoughts
+
+- The technology hurdles surround JupyterHub will be solved
+- Content creation will be the rate limiting step
+- Domain expertise and effort required to create quality, literate programming notebooks
+
+** Unidata JupyterHub
+
+- http://science-gateway.unidata.ucar.edu
+- https://jupyter-jetstream.unidata.ucar.edu
+- https://github.com/Unidata/xsede-jetstream
