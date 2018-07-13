@@ -660,6 +660,6 @@ c.LocalGlobusOAuthenticator.exclude = ['auth.globus.org']
 # 'GLOBUS_LOCAL_ENDPOINT'.  c.LocalGlobusOAuthenticator.globus_local_endpoint =
 # '<Your Local JupyterHub UUID>' specify users and admin
 c.Authenticator.admin_users = {}
-c.Authenticator.whitelist = {}
+# c.Authenticator.whitelist = {}
 # create system users that don't exist yet
 c.LocalAuthenticator.create_system_users = True
