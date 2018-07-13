@@ -17,6 +17,7 @@ services:
       - /notebooks:/notebooks
       - /scratch:/scratch
       - /wrangler/backup-notebooks:/backup-notebooks
+      - ./login.html:/opt/conda/share/jupyterhub/templates/login.html
     ports:
       - "8000:8000"
       - "443:443"

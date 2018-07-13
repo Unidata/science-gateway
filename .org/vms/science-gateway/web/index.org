@@ -35,15 +35,16 @@ As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.
   :CUSTOM_ID: h:D1710E1B
   :END:
 
-[[https://jupyter-jetstream.unidata.ucar.edu][JupyterHub server on Jetstream]]
+[[https://jupyter-jetstream.unidata.ucar.edu][JupyterHub server on Jetstream]] ([[https://portal.xsede.org/][XSEDE portal login]] required)
 
-[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can be used to serve programmatic, interactive notebooks to a class of students or for scientific researchers. An [[https://jupyter-jetstream.unidata.ucar.edu][experimental JupyterHub server]] is running on Jetstream containing Unidata Jupyter notebook projects:
+This JupyterHub is now open to anyone with an [[https://portal.xsede.org/][XSEDE portal login]]. Also please sign up to our mail-list to be made aware of developments and down times. Subscribe at:  [[mailto:jupyter-jetstream+subscribe@ucar.edu][jupyter-jetstream+subscribe@ucar.edu]]. After logging in, please read the =Welcome.ipynb= notebook that is periodically updated with relevant information concerning this JupyterHub installation.
+
+[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyter-jetstream.unidata.ucar.edu][Unidata JupyterHub server]] running on Jetstream contains three Unidata Jupyter notebook projects:
 
 - [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
 - [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]
 - [[https://github.com/Unidata/online-python-training][Unidata Online Python Training]]
 
-This JupyterHub server is currently experimental. If you would like to be granted access, please contact ~support@unidata.ucar.edu~.
 
 * THREDDS Data Server
   :PROPERTIES:
@@ -144,7 +145,6 @@ The implementation of this effort is described here: https://github.com/Unidata/
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-relay.jetstream-cloud.org][IDD Relay RTSTATS]]
 
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-archiver.jetstream-cloud.org][IDD Archiver RTSTATS]]
-
 
 * Contact
   :PROPERTIES:
