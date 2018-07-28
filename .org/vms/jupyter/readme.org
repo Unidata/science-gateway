@@ -104,11 +104,37 @@ The nginx log directory:
    :CUSTOM_ID: h:7D97FA52
    :END:
 
-In the =~/config/ssl/= directory, obtain a ~ssl.key~, ~ssl.crt~ certificate pair from a certificate authority (e.g., letsencrypt).
+In the =~/config/ssl/= directory, obtain a ~ssl.key~, ~ssl.crt~ certificate pair from a certificate authority (e.g., letsencrypt) or a self-signed one.
 
 #+BEGIN_SRC shell :tangle ../../../vms/jupyter/jupyter-install.sh
   mkdir -p ~/config/ssl/
 #+END_SRC
+
+*** Letsencrypt
+    :PROPERTIES:
+    :CUSTOM_ID: h:E7B3CD90
+    :END:
+
+First, ensure ports ~80~ and ~443~ [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][are open]] on the VM in question. Generating a letsencrypt certificate with the ~linuxserver/letsencrypt~ Docker container is quite easy with this command:
+
+#+BEGIN_SRC shell :tangle no
+  docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
+         -e EMAIL=<email> -e URL=<URL of host> \
+         -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
+#+END_SRC
+
+Running this container will generate output indicating where to fetch the certificates. The Jetstream URL, if you did not obtain a DNS name from Unidata sys admin staff, is of the form https://js-X-Y.jetstream-cloud.org with ~X~ and ~Y~ being the last two parts of the dotted decimal notation of the IP address. For example, if the IP is ~129.114.17.236~, the URL will be https://js-17-236.jetstream-cloud.org.
+
+You can then copy the certificates out of the container with
+
+#+BEGIN_SRC shell :tangle no
+  docker cp <contain id>:<path to certs> ~/config/ssl/
+#+END_SRC
+
+*** Self-signed
+    :PROPERTIES:
+    :CUSTOM_ID: h:C8C8A91D
+    :END:
 
 Or generate a self-signed certificate with ~openssl~, but this is not recommended:
 
@@ -208,6 +234,3 @@ Backup from cron once per day as root:
   (crontab -l ; echo \
        "0 0 * * * /usr/local/bin/rsync_tmbackup.sh --rsync-set-flags \"--recursive --numeric-ids --no-perms --itemize-changes\"  /notebooks /wrangler/backup-notebooks") | crontab -
 #+END_SRC
-
-
-
