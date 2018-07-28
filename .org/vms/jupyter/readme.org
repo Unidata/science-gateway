@@ -185,12 +185,14 @@ It is not reasonable to expect users to backup their own notebooks. Unidata has 
 
 See [[https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md][Wrangler documentation]] for creating an NFS mount from Wrangler to Jetstream with a mount point of =/wrangler=. Once the mount is established, we are employing [[https://github.com/laurent22/rsync-time-backup][rsync-time-backup]] (which should be installed in =/usr/local/bin= install with ~sudo~ privileges) to do "time machine" style backups to =/wrangler/backup-notebooks=:
 
-#+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh :shebang "#!/bin/bash"
+#+BEGIN_SRC shell :exports none :tangle ../../../vms/jupyter/setup-backup.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
     exit
   fi
+#+END_SRC
 
+#+BEGIN_SRC shell :tangle ../../../vms/jupyter/setup-backup.sh
   git clone https://github.com/laurent22/rsync-time-backup /tmp/rsync-time-backup && \
       cp /tmp/rsync-time-backup/rsync_tmbackup.sh /usr/local/bin/
 
