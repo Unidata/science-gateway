@@ -172,6 +172,8 @@ services:
       - ~/config/ssl/:/etc/jupyterhub/ssl/
       - /notebooks:/notebooks
       - /scratch:/scratch
+      - /wrangler/backup-notebooks:/backup-notebooks
+      - ./login.html:/opt/conda/share/jupyterhub/templates/login.html
     ports:
       - "8000:8000"
       - "443:443"
@@ -221,19 +223,21 @@ In a web browser, navigate to [https://jupyter-jetstream.unidata.ucar.edu](https
 
 It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the Jupyter VM and backing up user data to that mounted partition.
 
-See [Wrangler documentation](https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md) for creating an NFS mount from Wrangler to Jetstream with a mount point of `/wrangler`. Once the mount is established, we are employing [rsync-time-backup](https://github.com/laurent22/rsync-time-backup) to do "time machine" style backups to `/wrangler/backup-notebooks`:
+See [Wrangler documentation](https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md) for creating an NFS mount from Wrangler to Jetstream with a mount point of `/wrangler`. Once the mount is established, we are employing [rsync-time-backup](https://github.com/laurent22/rsync-time-backup) (which should be installed in `/usr/local/bin` install with `sudo` privileges) to do "time machine" style backups to `/wrangler/backup-notebooks`:
 
 ```shell
-git clone https://github.com/laurent22/rsync-time-backup ~/rsync-time-backup \
-    && chmod +x ~/rsync-time-backup/rsync_tmbackup.sh
+git clone https://github.com/laurent22/rsync-time-backup /tmp/rsync-time-backup && \
+    cp /tmp/rsync-time-backup/rsync_tmbackup.sh /usr/local/bin/
+
 mkdir -p -- "/wrangler/backup-notebooks"
+
 # Required by rsync-time-backup
 touch "/wrangler/backup-notebooks/backup.marker"
 ```
 
-Backup from cron:
+Backup from cron once per day as root:
 
 ```shell
 (crontab -l ; echo \
-     "0 */1 * * * ~/xsede-jetstream/vms/jupyter/backup-notebooks.sh") | crontab -
+     "0 0 * * * /usr/local/bin/rsync_tmbackup.sh --rsync-set-flags \"--recursive --numeric-ids --no-perms --itemize-changes\"  /notebooks /wrangler/backup-notebooks") | crontab -
 ```
