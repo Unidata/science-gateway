@@ -9,6 +9,8 @@
     - [JupyterHub](#h:A1CDED76)
     - [nginx](#h:69CC6370)
   - [SSL Certificate](#h:7D97FA52)
+    - [Letsencrypt](#h:E7B3CD90)
+    - [Self-signed](#h:C8C8A91D)
   - [Ports 80, 443, and 8000](#h:ED417641)
   - [Globus OAuth Setup](#h:524FAF4B)
   - [docker-compose.yml](#h:8F37201D)
@@ -108,11 +110,37 @@ mkdir -p ~/logs/nginx/
 
 ## SSL Certificate
 
-In the `~/config/ssl/` directory, obtain a `ssl.key`, `ssl.crt` certificate pair from a certificate authority (e.g., letsencrypt).
+In the `~/config/ssl/` directory, obtain a `ssl.key`, `ssl.crt` certificate pair from a certificate authority (e.g., letsencrypt) or a self-signed one.
 
 ```shell
 mkdir -p ~/config/ssl/
 ```
+
+
+<a id="h:E7B3CD90"></a>
+
+### Letsencrypt
+
+First, ensure ports `80` and `443` [are open](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) on the VM in question. Generating a letsencrypt certificate with the `linuxserver/letsencrypt` Docker container is quite easy with this command:
+
+```shell
+docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
+       -e EMAIL=<email> -e URL=<URL of host> \
+       -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
+```
+
+Running this container will generate output indicating where to fetch the certificates. The Jetstream URL, if you did not obtain a DNS name from Unidata sys admin staff, is of the form <https://js-X-Y.jetstream-cloud.org> with `X` and `Y` being the last two parts of the dotted decimal notation of the IP address. For example, if the IP is `129.114.17.236`, the URL will be <https://js-17-236.jetstream-cloud.org>.
+
+You can then copy the certificates out of the container with
+
+```shell
+docker cp <contain id>:<path to certs> ~/config/ssl/
+```
+
+
+<a id="h:C8C8A91D"></a>
+
+### Self-signed
 
 Or generate a self-signed certificate with `openssl`, but this is not recommended:
 
