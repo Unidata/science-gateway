@@ -1,7 +1,7 @@
-- [Creating a Jupyter VM on Jetstream](#h:CF2006B5)
-  - [Create a Jupyter VM on Jetstream](#h:CD4EE10C)
+- [Creating a JupyterHub VM on Jetstream](#h:CF2006B5)
+  - [Create a JupyterHub VM on Jetstream](#h:CD4EE10C)
   - [Clone the xsede-jetstream Repository](#h:30553515)
-  - [Prepare Jupyter VM for Docker and docker-compose](#h:00BDD041)
+  - [Prepare JupyterHub VM for Docker and docker-compose](#h:00BDD041)
   - [JupyterHub Configuration](#h:1217328A)
     - [jupyterhub\_config.py](#h:25E29186)
     - [nginx](#h:90A0BF68)
@@ -22,12 +22,12 @@
 
 <a id="h:CF2006B5"></a>
 
-# Creating a Jupyter VM on Jetstream
+# Creating a JupyterHub VM on Jetstream
 
 
 <a id="h:CD4EE10C"></a>
 
-## Create a Jupyter VM on Jetstream
+## Create a JupyterHub VM on Jetstream
 
 Create an `m1.xlarge` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 1TB `/notebooks` and `/scratch` volumes to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `jupyter-jetstream.unidata.ucar.edu`.
 
@@ -45,7 +45,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 <a id="h:00BDD041"></a>
 
-## Prepare Jupyter VM for Docker and docker-compose
+## Prepare JupyterHub VM for Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM containing a JupyterHub server is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
 
@@ -156,7 +156,7 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 
 ## Ports 80, 443, and 8000
 
-[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, `443`, and `8000` on the Jupyter VM via OpenStack.
+[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, `443`, and `8000` on the JupyterHub VM via OpenStack.
 
 
 <a id="h:524FAF4B"></a>
@@ -249,7 +249,7 @@ In a web browser, navigate to [https://jupyter-jetstream.unidata.ucar.edu](https
 
 ## Backing Up /notebooks
 
-It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the Jupyter VM and backing up user data to that mounted partition.
+It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the JupyterHub VM and backing up user data to that mounted partition.
 
 See [Wrangler documentation](https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md) for creating an NFS mount from Wrangler to Jetstream with a mount point of `/wrangler`. Once the mount is established, we are employing [rsync-time-backup](https://github.com/laurent22/rsync-time-backup) (which should be installed in `/usr/local/bin` install with `sudo` privileges) to do "time machine" style backups to `/wrangler/backup-notebooks`:
 
