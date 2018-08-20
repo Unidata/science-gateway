@@ -14,7 +14,7 @@
 
 #+PROPERTY: header-args :noweb yes :eval no
 
-* Create a Science Gateway VM on Jetstream
+* Creating a Science Gateway VM on Jetstream
   :PROPERTIES:
   :CUSTOM_ID: h:49CACBE8
   :END:

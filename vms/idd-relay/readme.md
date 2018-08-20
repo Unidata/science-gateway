@@ -1,4 +1,4 @@
-- [Creating an IDD Relay on Jetstream](#h:840E89CB)
+- [Creating an IDD Relay VM on Jetstream](#h:840E89CB)
   - [Create an IDD Relay VM on Jetstream](#h:4BF1C37C)
   - [Clone the xsede-jetstream Repository](#h:7544DE64)
   - [Start IDD Relay With Docker and docker-compose](#h:C89E3FF5)
@@ -14,7 +14,7 @@
 
 <a id="h:840E89CB"></a>
 
-# Creating an IDD Relay on Jetstream
+# Creating an IDD Relay VM on Jetstream
 
 
 <a id="h:4BF1C37C"></a>

@@ -1,4 +1,4 @@
-- [Create a Science Gateway VM on Jetstream](#h:49CACBE8)
+- [Creating a Science Gateway VM on Jetstream](#h:49CACBE8)
   - [Create a Science Gateway VM on Jetstream](#h:593C3161)
   - [Clone the xsede-jetstream Repository](#h:1EA54D54)
   - [Prepare Science Gateway VM for Docker and docker-compose](#h:D311EB0F)
@@ -10,7 +10,7 @@
 
 <a id="h:49CACBE8"></a>
 
-# Create a Science Gateway VM on Jetstream
+# Creating a Science Gateway VM on Jetstream
 
 
 <a id="h:593C3161"></a>

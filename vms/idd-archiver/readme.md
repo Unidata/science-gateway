@@ -1,4 +1,4 @@
-- [Creating an IDD Archiver on Jetstream](#h:046F9FE1)
+- [Creating an IDD Archiver VM on Jetstream](#h:046F9FE1)
   - [Create an IDD Archiver VM on Jetstream](#h:304AA966)
   - [Clone the xsede-jetstream and TdsConfig Repositories](#h:00BE67D7)
   - [Prepare IDD Archiver for Docker and docker-compose](#h:FF66923F)
@@ -24,7 +24,7 @@
 
 <a id="h:046F9FE1"></a>
 
-# Creating an IDD Archiver on Jetstream
+# Creating an IDD Archiver VM on Jetstream
 
 
 <a id="h:304AA966"></a>
