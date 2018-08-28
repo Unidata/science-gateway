@@ -3,6 +3,8 @@
   - [Clone the xsede-jetstream Repository](#h:1EA54D54)
   - [Prepare Science Gateway VM for Docker and docker-compose](#h:D311EB0F)
   - [Logging](#h:7FF2F781)
+  - [SSL Certificate](#h:35A542AF)
+    - [Letsencrypt](#h:97AC4D3C)
   - [Ports 80, 443](#h:5BF405FC)
   - [Start Ngnix](#h:B30CBDF8)
 
@@ -46,6 +48,36 @@ The nginx log directory:
 
 ```shell
 mkdir -p ~/logs/nginx/
+```
+
+
+<a id="h:35A542AF"></a>
+
+## SSL Certificate
+
+In the `~/config/ssl/` directory, obtain a `ssl.key`, `ssl.crt` certificate pair from a certificate authority (e.g., letsencrypt).
+
+```shell
+mkdir -p ~/config/ssl/
+```
+
+
+<a id="h:97AC4D3C"></a>
+
+### Letsencrypt
+
+First, ensure ports `80` and `443` [are open](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) on the VM in question. Generating a letsencrypt certificate with the `linuxserver/letsencrypt` Docker container is quite easy with this command:
+
+```shell
+docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
+       -e EMAIL=<email> -e URL=<URL of host> \
+       -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
+```
+
+Running this container will generate output indicating where to fetch the certificates. You can then copy the certificates out of the container with
+
+```shell
+docker cp <contain id>:<path to certs> ~/config/ssl/
 ```
 
 

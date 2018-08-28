@@ -40,7 +40,7 @@ Create an ~m1.small~ VM with the [[https://github.com/Unidata/xsede-jetstream/bl
    :CUSTOM_ID: h:D311EB0F
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
 
 ** Logging
    :PROPERTIES:
@@ -49,9 +49,39 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD ar
 
 The nginx log directory:
 
-#+BEGIN_SRC shell 
+#+BEGIN_SRC shell
   mkdir -p ~/logs/nginx/
  #+END_SRC
+
+** SSL Certificate
+   :PROPERTIES:
+   :CUSTOM_ID: h:35A542AF
+   :END:
+
+In the =~/config/ssl/= directory, obtain a ~ssl.key~, ~ssl.crt~ certificate pair from a certificate authority (e.g., letsencrypt).
+
+#+BEGIN_SRC shell
+  mkdir -p ~/config/ssl/
+#+END_SRC
+
+*** Letsencrypt
+    :PROPERTIES:
+    :CUSTOM_ID: h:97AC4D3C
+    :END:
+
+First, ensure ports ~80~ and ~443~ [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][are open]] on the VM in question. Generating a letsencrypt certificate with the ~linuxserver/letsencrypt~ Docker container is quite easy with this command:
+
+#+BEGIN_SRC shell :tangle no
+  docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
+         -e EMAIL=<email> -e URL=<URL of host> \
+         -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
+#+END_SRC
+
+Running this container will generate output indicating where to fetch the certificates. You can then copy the certificates out of the container with
+
+#+BEGIN_SRC shell :tangle no
+  docker cp <contain id>:<path to certs> ~/config/ssl/
+#+END_SRC
 
 ** Ports 80, 443
    :PROPERTIES:

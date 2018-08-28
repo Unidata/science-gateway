@@ -14,7 +14,7 @@
 {{ custom_html | safe }}
 {% elif login_service %}
 <div class="service-login">
-  <h4>This JupyterHub is now open to anyone with an <a href="https://portal.xsede.org/">XSEDE portal login</a>. Also please sign up to our mail-list to be made aware of developments and down times. Subscribe at:  <a href="mailto:jupyter-jetstream+subscribe@ucar.edu">jupyter-jetstream+subscribe@ucar.edu</a>. After logging in, please read the <code>Welcome.ipynb</code> notebook that is periodically updated with relevant information concerning this JupyterHub installation. For additional information, see the <a href="http://science-gateway.unidata.ucar.edu/"> Unidata Science Gateway</a>.
+  <h4>This JupyterHub is now open to anyone with an <a href="https://portal.xsede.org/">XSEDE portal login</a>. Also please sign up to our mail-list to be made aware of developments and down times. Subscribe at:  <a href="mailto:jupyter-jetstream+subscribe@ucar.edu">jupyter-jetstream+subscribe@ucar.edu</a>. After logging in, please read the <code>Welcome.ipynb</code> notebook that is periodically updated with relevant information concerning this JupyterHub installation. For additional information, see the <a href="https://science-gateway.unidata.ucar.edu/"> Unidata Science Gateway</a>.
   </h4>
   <a role="button" class='btn btn-jupyter btn-lg' href='{{authenticator_login_url}}'>
     Sign in with {{login_service}}
