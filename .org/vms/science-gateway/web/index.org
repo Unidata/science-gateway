@@ -127,7 +127,8 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
    :CUSTOM_ID: h:BD0797EC
    :END:
 
-To be announced.
+- [[https://sciencegateways.org/web/gateways2018][Gateways 2018 | September 25–27, 2018 – Ann Arbor, MI USA]]
+- [[https://annual.ametsoc.org/index.cfm/2019/][2019 AMS Annual Meeting | January 6–10, 2019 – Phoenix, AZ USA]]
 
 * Under the Hood
   :PROPERTIES:
