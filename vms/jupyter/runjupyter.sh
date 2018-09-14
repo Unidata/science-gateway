@@ -14,4 +14,9 @@ do
     chmod 711 $i
 done
 
+# Make /scratch accessible to all
+
+chown -R root:docker /scratch/
+chmod -R 775 /scratch/
+
 jupyterhub -f /etc/jupyterhub/jupyterhub_config.py >> /var/log/jupyterhub.log 2>&1
