@@ -93,10 +93,24 @@ ADDE installation on Jetstream: ~adde://adde-jetstream.unidata.ucar.edu:112~
 
 [[https://www.ssec.wisc.edu/mcidas/doc/learn_guide/2015/adde.html][ADDE]] (Abstract Data Distribution Environment) is a data server developed by the University of Wisconsin, Space Science Engineering Center. It primarily serves satellite and radar imagery and point observations to the  [[http://www.unidata.ucar.edu/software/idv/][IDV]], [[http://www.ssec.wisc.edu/mcidas/software/v/][McIDAS-V]], [[https://www.ssec.wisc.edu/mcidas/][McIDAS-X]]. An ADDE server is available at ~adde-jetstream.unidata.ucar.edu~ over (the usual) port ~112~.
 
-* IDV Jetstream Plugin
+* IDV Resources
   :PROPERTIES:
-  :CUSTOM_ID: h:05438731
+  :CUSTOM_ID: h:D0BA253D
   :END:
+
+The [[https://www.unidata.ucar.edu/software/idv/][Unidata Integrated Data Viewer]] (IDV) is a desktop application for viewing data in two and three dimensions. It excels at bringing together geoscience data from disparate sources into one integrated display.
+
+** Running the IDV on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:D76F2C8F
+   :END:
+
+For those who have a Jetstream allocation (e.g., startup, education, research), an IDV image is available when selecting VMs through the [[https://use.jetstream-cloud.org/application/images][Jetstream Atmosphere dashboard]]. If you do not have a Jetstream allocation, it is possible to obtain a [[https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/76150553/Get+a+Jetstream+Trial+Access+account][Jetstream Trial Access account]]. When searching for images, search for "IDV". You will find the =Unidata IDV <version>= image. Launching that image will then allow you to "Open Web Desktop" where the IDV will be available pre-loaded with the Jetstream plugin. The catalogs available via the IDV Dashboard, Data Choosers will default to the TDS and RAMADDA servers running on Jetstream enabling data-proximate performance, especially for large datasets. You can also select image sizes that are appropriate to your goals. For example, if working with a data intensive bundle, you could choose an m1.medium VM with 6 vCPUS, 16 GB RAM.
+
+** IDV Jetstream Plugin
+   :PROPERTIES:
+   :CUSTOM_ID: h:05438731
+   :END:
 
 The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://science-gateway.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
 
