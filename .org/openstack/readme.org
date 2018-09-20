@@ -22,7 +22,7 @@
    :CUSTOM_ID: h:11F59F95
    :END:
 
-It is preferable to interface with the XSEDE Jetstream cloud via the [[https://use.jetstream-cloud.org/application/dashboard][Atmosphere web interface]]. However, this web dashboard is limited in two important ways:
+It is preferable to interface with the NSF Jetstream cloud via the [[https://use.jetstream-cloud.org/application/dashboard][Atmosphere web interface]]. However, this web dashboard is limited in two important ways:
 
   1. Users cannot obtain VMs with static IPs
   2. Users cannot open low number ports (i.e., < ~1024~) with the exception of ports ~22~, ~80~ and ~443~ which are open by default.
