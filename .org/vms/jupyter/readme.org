@@ -119,7 +119,7 @@ First, ensure ports ~80~ and ~443~ [[https://github.com/Unidata/xsede-jetstream/
 
 #+BEGIN_SRC shell :tangle no
   docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
-         -e EMAIL=<email> -e URL=<URL of host> \
+         -e EMAIL=<email> -e URL=<FQDN> \
          -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
 #+END_SRC
 

@@ -125,7 +125,7 @@ First, ensure ports `80` and `443` [are open](https://github.com/Unidata/xsede-j
 
 ```shell
 docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
-       -e EMAIL=<email> -e URL=<URL of host> \
+       -e EMAIL=<email> -e URL=<FQDN> \
        -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
 ```
 
