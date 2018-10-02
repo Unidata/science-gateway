@@ -113,15 +113,8 @@ COPY Welcome.ipynb $HOME/git
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 
 # jupyterlab
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-#                                @jupyterlab/hub-extension
-
-# @jupyterlab/hub-extension currently broken so must install "by hand"
-RUN git clone https://github.com/jupyterhub/jupyterlab-hub.git $HOME/jupyterlab-hub
-WORKDIR $HOME/jupyterlab-hub
-RUN npm install --unsafe-perm && npm run build && jupyter labextension install .
-
-WORKDIR $HOME
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
+                                 @jupyterlab/hub-extension
 
 ###
 # Create a few directories
