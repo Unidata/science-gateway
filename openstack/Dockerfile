@@ -29,7 +29,7 @@ ENV PATH=$HOME/bin:$PATH
 ###
 
 ADD bin/boot.sh bin/mount.sh bin/secgroup.sh bin/teardown.sh \
-   bin/unidata-ports.sh bin/wrangler-jetstream.sh bin/wrangler-secgroup.sh \
+   bin/unidata-secgroups.sh bin/wrangler-jetstream.sh bin/wrangler-secgroup.sh \
    bin/swap-vm.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
