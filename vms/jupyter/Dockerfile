@@ -112,9 +112,21 @@ COPY Welcome.ipynb $HOME/git
 # To support Dask dashboard
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 
-# jupyterlab
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-                                 @jupyterlab/hub-extension
+# Should be able to install extension this way, but it never works due version
+# mismatches so install from source instead
+
+# RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
+#                                  @jupyterlab/hub-extension
+
+RUN git clone https://github.com/jupyterhub/jupyterlab-hub.git $HOME/jupyterlab-hub
+WORKDIR $HOME/jupyterlab-hub
+RUN npm install --unsafe-perm && npm run build && jupyter labextension link .
+
+RUN git clone https://github.com/jupyter-widgets/ipywidgets.git $HOME/ipywidgets
+WORKDIR $HOME/ipywidgets/packages/jupyterlab-manager
+RUN npm install --unsafe-perm && npm run build && jupyter labextension link .
+
+WORKDIR $HOME
 
 ###
 # Create a few directories
