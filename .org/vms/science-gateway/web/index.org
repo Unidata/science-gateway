@@ -135,13 +135,13 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://sites.google.com/a/nd.edu/iwsg2018][IWSG 2018 | June 13-15 2018 - Edinburgh, Scotland]]
 - [[https://www.pearc18.pearc.org/][PEARC 18 | July 22-27, 2018 - Pittsburgh, PA USA]]
 - [[https://doi.org/10.6084/m9.figshare.6856733.v1][ESIP Summer Meeting 2018 | July 17-20, 2018 – Tucson, AZ USA]]
+- [[https://sciencegateways.org/web/gateways2018][Gateways 2018 | September 25–27, 2018 – Austin, TX USA]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h:BD0797EC
    :END:
 
-- [[https://sciencegateways.org/web/gateways2018][Gateways 2018 | September 25–27, 2018 – Ann Arbor, MI USA]]
 - [[https://annual.ametsoc.org/index.cfm/2019/][2019 AMS Annual Meeting | January 6–10, 2019 – Phoenix, AZ USA]]
 
 * Under the Hood
