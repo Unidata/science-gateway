@@ -4,9 +4,11 @@
 
 FROM jupyterhub/jupyterhub:0.9.4
 
-RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y curl vim zip unzip
+RUN apt-get update && apt-get -y upgrade && \
+    apt-get install -y --no-install-recommends curl vim zip unzip && \
+    rm -rf /var/lib/apt/lists/*
+
 ###
 # Setting HOME
 ###
@@ -19,33 +21,27 @@ WORKDIR $HOME
 # Install Python Stuff
 ###
 
-# root environment
-
-RUN conda update --yes --quiet conda
+# root environment and pip
 
 ADD environment.yml $HOME/
 
-RUN conda env update --name root -f $HOME/environment.yml
-
-RUN pip install --upgrade pip
-
 ADD pip.txt $HOME/
 
-RUN pip install -r pip.txt
+RUN conda update --yes --quiet conda && \
+    conda env update --name root -f $HOME/environment.yml && \
+    pip install --upgrade pip && \
+    pip install -r pip.txt
 
 # globus environment
 
 ADD globus_env.yml $HOME/
 
-RUN conda env create -f $HOME/globus_env.yml
-
-RUN curl https://s3.amazonaws.com/connect.globusonline.org/linux/stable/globusconnectpersonal-latest.tgz | tar xz
-
 ADD globusconnectpersonal.patch $HOME/
 
-RUN patch -p0 < globusconnectpersonal.patch
-
-RUN rm globusconnectpersonal.patch
+RUN conda env create -f $HOME/globus_env.yml && \
+    curl https://s3.amazonaws.com/connect.globusonline.org/linux/stable/globusconnectpersonal-latest.tgz | tar xz && \
+    patch -p0 < globusconnectpersonal.patch && \
+    rm globusconnectpersonal.patch
 
 ###
 # /etc/skel
@@ -61,47 +57,37 @@ RUN cat $HOME/bashrc_extra | tee --append /etc/skel/.bashrc > /dev/null
 
 # To not conflict with UID, GIDs from Docker host
 
-RUN sed -i 's/FIRST_UID=1000/FIRST_UID=1001/g' /etc/adduser.conf
-
-RUN sed -i 's/FIRST_GID=1000/FIRST_GID=1001/g' /etc/adduser.conf
+RUN sed -i 's/FIRST_UID=1000/FIRST_UID=1001/g' /etc/adduser.conf && \
+    sed -i 's/FIRST_GID=1000/FIRST_GID=1001/g' /etc/adduser.conf
 
 # Ensure all new users belong to docker group
 # Assuming Docker host has a Docker group with GID of 999
 
-RUN groupadd docker -g 999
-
-RUN sed -i 's/USERGROUPS=yes/USERGROUPS=no/g' /etc/adduser.conf
-
-RUN sed -i 's/USERS_GID=100/USERS_GID=999/g' /etc/adduser.conf
+RUN groupadd docker -g 999 && \
+    sed -i 's/USERGROUPS=yes/USERGROUPS=no/g' /etc/adduser.conf && \
+    sed -i 's/USERS_GID=100/USERS_GID=999/g' /etc/adduser.conf
 
 ###
-# Clone Unidata Python notebook git repositories
+# Clone Unidata Python notebook git repositories and create related conda
+# environments
 ###
 
 RUN mkdir -p $HOME/git
 
 WORKDIR $HOME/git
 
-RUN git clone https://github.com/Unidata/unidata-python-workshop 
-
-RUN git clone https://github.com/Unidata/notebook-gallery && \
+RUN git clone https://github.com/Unidata/unidata-python-workshop && \
+    git clone https://github.com/Unidata/notebook-gallery && \
     git --git-dir=notebook-gallery/.git --work-tree notebook-gallery/ \
     checkout gh-pages && git clone -b master notebook-gallery/.git \
-    /tmp/notebook-gallery
-
-RUN git clone -b master https://github.com/Unidata/online-python-training
-
-
-###
-# Create related conda environments
-###
-
-RUN conda env update --name unidata-python-workshop \
-  -f unidata-python-workshop/environment.yml
-RUN conda env update --name notebook-gallery \
-  -f /tmp/notebook-gallery/environment.yml && rm -rf /tmp/notebook-gallery
-RUN conda env update --name online-python-training \
-  -f online-python-training/environment.yml
+    /tmp/notebook-gallery && \
+    git clone -b master https://github.com/Unidata/online-python-training && \
+    conda env update --name unidata-python-workshop \
+    -f unidata-python-workshop/environment.yml && \
+    conda env update --name notebook-gallery \
+    -f /tmp/notebook-gallery/environment.yml && rm -rf /tmp/notebook-gallery && \
+    conda env update --name online-python-training \
+    -f online-python-training/environment.yml
 
 COPY Welcome.ipynb $HOME/git
 
@@ -118,12 +104,16 @@ RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 # RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
 #                                  @jupyterlab/hub-extension
 
-RUN git clone https://github.com/jupyterhub/jupyterlab-hub.git $HOME/jupyterlab-hub
-WORKDIR $HOME/jupyterlab-hub
-RUN npm install --unsafe-perm && npm run build && jupyter labextension link .
+RUN git clone https://github.com/jupyterhub/jupyterlab-hub.git \
+    $HOME/jupyterlab-hub
 
-RUN git clone https://github.com/jupyter-widgets/ipywidgets.git $HOME/ipywidgets
+WORKDIR $HOME/jupyterlab-hub
+
+RUN npm install --unsafe-perm && npm run build && jupyter labextension link . && \
+    git clone https://github.com/jupyter-widgets/ipywidgets.git $HOME/ipywidgets
+
 WORKDIR $HOME/ipywidgets/packages/jupyterlab-manager
+
 RUN npm install --unsafe-perm && npm run build && jupyter labextension link .
 
 WORKDIR $HOME
@@ -132,13 +122,11 @@ WORKDIR $HOME
 # Create a few directories
 ###
 
-RUN mkdir -p /etc/jupyterhub /var/log 
+RUN mkdir -p /etc/jupyterhub /var/log $HOME/bin
 
 ###
 # Script to start JupyterHub
 ###
-
-RUN mkdir -p $HOME/bin
 
 COPY runjupyter.sh $HOME/bin
 
