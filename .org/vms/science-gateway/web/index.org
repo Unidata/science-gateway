@@ -35,11 +35,11 @@ As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.
   :CUSTOM_ID: h:D1710E1B
   :END:
 
-[[https://jupyter-jetstream.unidata.ucar.edu][JupyterHub server on Jetstream]] ([[https://portal.xsede.org/][XSEDE portal login]] required)
+[[https://jupyterhub.unidata.ucar.edu][JupyterHub server on Jetstream]] ([[https://github.com/][GitHub login]] required)
 
-This JupyterHub is now open to anyone with an [[https://portal.xsede.org/][XSEDE portal login]]. Also please sign up to our mail-list to be made aware of developments and down times. Subscribe at:  [[mailto:jupyter-jetstream+subscribe@ucar.edu][jupyter-jetstream+subscribe@ucar.edu]]. After logging in, please read the =Welcome.ipynb= notebook that is periodically updated with relevant information concerning this JupyterHub installation.
+This JupyterHub is now open to anyone with an [[https://github.com][GitHub login]]. Also please sign up to our mailing list to be made aware of developments and down times. Subscribe at:  [[mailto:jupyter-jetstream+subscribe@ucar.edu][jupyter-jetstream+subscribe@ucar.edu]]. After logging in, please read the =README_FIRST.ipynb= notebook that is periodically updated with relevant information concerning this JupyterHub installation.
 
-[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyter-jetstream.unidata.ucar.edu][Unidata JupyterHub server]] running on Jetstream contains three Unidata Jupyter notebook projects:
+[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub server]] running on Jetstream contains three Unidata Jupyter notebook projects:
 
 - [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
 - [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]

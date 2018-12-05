@@ -1,271 +1,164 @@
-- [Creating a JupyterHub VM on Jetstream](#h:CF2006B5)
-  - [Create a JupyterHub VM on Jetstream](#h:CD4EE10C)
-  - [Clone the xsede-jetstream Repository](#h:30553515)
-  - [Prepare JupyterHub VM for Docker and docker-compose](#h:00BDD041)
-  - [JupyterHub Configuration](#h:1217328A)
-    - [jupyterhub\_config.py](#h:25E29186)
-    - [nginx](#h:90A0BF68)
-  - [Log Directories](#h:098522DC)
-    - [JupyterHub](#h:A1CDED76)
-    - [nginx](#h:69CC6370)
-  - [SSL Certificate](#h:7D97FA52)
-    - [Letsencrypt](#h:E7B3CD90)
-    - [Self-signed](#h:C8C8A91D)
-  - [Ports 80, 443, and 8000](#h:ED417641)
-  - [Globus OAuth Setup](#h:524FAF4B)
-  - [docker-compose.yml](#h:8F37201D)
-  - [Start JupyterHub](#h:62B48A14)
-  - [Navigate to JupyterHub](#h:4DCCED79)
-  - [Backing Up /notebooks](#h:EB684CA9)
+- [Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project](#h:D73CBC56)
+  - [Kubernetes Cluster](#h:65F9358E)
+  - [unidata/unidatahub Docker Container](#h:CD007D2A)
+  - [Configure and Deploy the JupyterHub](#h:E5CA5D99)
+    - [Letsencrypt versus Certificate from a Certificate Authority](#h:294A4A20)
+    - [OAuth Authentication](#h:8A3C5434)
+    - [unidata/unidatahub](#h:214D1D4C)
+  - [Navigate to JupyterHub](#h:209E2FBC)
 
 
 
-<a id="h:CF2006B5"></a>
+<a id="h:D73CBC56"></a>
 
-# Creating a JupyterHub VM on Jetstream
-
-
-<a id="h:CD4EE10C"></a>
-
-## Create a JupyterHub VM on Jetstream
-
-Create an `m1.xlarge` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 1TB `/notebooks` and `/scratch` volumes to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `jupyter-jetstream.unidata.ucar.edu`.
+# Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
 
 
-<a id="h:30553515"></a>
+<a id="h:65F9358E"></a>
 
-## Clone the xsede-jetstream Repository
+## Kubernetes Cluster
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+[Create a Kubernetes cluster](https://github.com/Unidata/xsede-jetstream/tree/master/openstack#building-a-kubernetes-cluster) with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
 
-```shell
-git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+
+<a id="h:CD007D2A"></a>
+
+## unidata/unidatahub Docker Container
+
+Build the Docker container in this directory and push it to dockerhub.
+
+```sh
+docker build -t unidata/unidatahub:`openssl rand -hex 6` . > /tmp/docker.out 2>&1 &
+docker push unidata/unidatahub:<container id>
 ```
 
 
-<a id="h:00BDD041"></a>
+<a id="h:E5CA5D99"></a>
 
-## Prepare JupyterHub VM for Docker and docker-compose
+## Configure and Deploy the JupyterHub
 
-With the help of Docker and `docker-compose`, starting a VM containing a JupyterHub server is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+SSH into the master node of the Kubernetes cluster and follow [Andrea Zonca's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html).
 
-
-<a id="h:1217328A"></a>
-
-## JupyterHub Configuration
+After you have created the `secrets.yaml` as instructed, customize it with the choices below
 
 
-<a id="h:25E29186"></a>
+<a id="h:294A4A20"></a>
 
-### jupyterhub\_config.py
+### Letsencrypt versus Certificate from a Certificate Authority
 
-Copy the `jupyterhub_config.py` file to the `~/config/` directory. [Subsequently](#h:524FAF4B), you will have to make minor edits to supply the user and admin white list.
+1.  Letsencrypt
 
-```shell
-mkdir -p ~/config/
-cp jupyterhub_config.py ~/config/
-```
+    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up letsencrypt along with this yaml snippet:
+    
+    ```yaml
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+      hosts:
+        - jupyterhub.unidata.ucar.edu
+      tls:
+          - hosts:
+             - jupyterhub.unidata.ucar.edu
+            secretName: certmanager-tls-jupyterhub
+    ```
 
+2.  Certificate from CA
 
-<a id="h:90A0BF68"></a>
-
-### nginx
-
-Must run nginx in parallel to JupyterHub to redirect `http` to `https`.
-
-```shell
-mkdir -p ~/nginx/
-cp nginx.conf ~/nginx/
-```
-
-
-<a id="h:098522DC"></a>
-
-## Log Directories
-
-
-<a id="h:A1CDED76"></a>
-
-### JupyterHub
-
-The JupyterHub log directory:
-
-```shell
-mkdir -p ~/logs/jupyter/
-```
-
-
-<a id="h:69CC6370"></a>
-
-### nginx
-
-The nginx log directory:
-
-```shell
-mkdir -p ~/logs/nginx/
-```
+    Work with sys admin staff to obtain a certificate from a CA.
+    
+    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up HTTPS with custom certificates.
+    
+    ```yaml
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+      hosts:
+        - jupyterhub.unidata.ucar.edu
+      tls:
+          - hosts:
+             - jupyterhub.unidata.ucar.edu
+            secretName: <cert-secret>
+    ```
 
 
-<a id="h:7D97FA52"></a>
+<a id="h:8A3C5434"></a>
 
-## SSL Certificate
+### OAuth Authentication
 
-In the `~/config/ssl/` directory, obtain a `ssl.key`, `ssl.crt` certificate pair from a certificate authority (e.g., letsencrypt) or a self-signed one.
+1.  Globus
 
-```shell
-mkdir -p ~/config/ssl/
-```
+    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward.
+    
+    ```yaml
+    auth:
+      type: globus
+      globus:
+        clientId: "xxx"
+        clientSecret: "xxx"
+        callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
+        identityProvider: "xsede.org"
+      admin:
+        users:
+          - adminuser1
+    ```
 
+2.  GitHub
 
-<a id="h:E7B3CD90"></a>
-
-### Letsencrypt
-
-First, ensure ports `80` and `443` [are open](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) on the VM in question. Generating a letsencrypt certificate with the `linuxserver/letsencrypt` Docker container is quite easy with this command:
-
-```shell
-docker run --name=letsencrypt -e PGID=1000 -e PUID=1000 \
-       -e EMAIL=<email> -e URL=<FQDN> \
-       -e VALIDATION=http  -p 80:80 -p 443:443  linuxserver/letsencrypt
-```
-
-Running this container will generate output indicating where to fetch the certificates. The Jetstream URL, if you did not obtain a DNS name from Unidata sys admin staff, is of the form <https://js-X-Y.jetstream-cloud.org> with `X` and `Y` being the last two parts of the dotted decimal notation of the IP address. For example, if the IP is `129.114.17.236`, the URL will be <https://js-17-236.jetstream-cloud.org>.
-
-You can then copy the certificates out of the container with
-
-```shell
-docker cp <contain id>:<path to certs> ~/config/ssl/
-```
-
-
-<a id="h:C8C8A91D"></a>
-
-### Self-signed
-
-Or generate a self-signed certificate with `openssl`, but this is not recommended:
-
-```shell
-openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
-  "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/config/ssl/ssl.key \
-  -out ~/config/ssl/ssl.crt
-```
+    Setup an OAuth app on GitHub
+    
+    ```yaml
+    auth:
+      type: github
+      github:
+        clientId: "xxx"
+        clientSecret: "xxx"
+        callbackUrl: "https://<your-domain-name>:443/oauth_callback"
+      admin:
+        users:
+          - adminuser1
+    ```
 
 
-<a id="h:ED417641"></a>
+<a id="h:214D1D4C"></a>
 
-## Ports 80, 443, and 8000
+### unidata/unidatahub
 
-[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, `443`, and `8000` on the JupyterHub VM via OpenStack.
-
-
-<a id="h:524FAF4B"></a>
-
-## Globus OAuth Setup
-
-This JupyterHub server makes use of [Globus OAuth capability](https://developers.globus.org/) for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward and mostly implemented in the [jupyterhub\_config.py](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/jupyterhub_config.py) JupyterHub configuration file. The only tricky part is to supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables which you obtain when registering the JupyterHub server application (e.g., `https://jupyter-jetstream.unidata.ucar.edu`) with Globus.
-
-Supply the `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` environment variables in the `compose.env` file co-located with `docker-compose.yml`. Make sure you have correctly grabbed those variables from the <https://developers.globus.org/>. Not copying these variables correctly can be the source of errors and headaches.
-
-Also in `jupyterhub_config.py`, supply the white list of administrator and users with `c.Authenticator.admin_users`, `c.Authenticator.whitelist` variables. For example,
-
-```python
-c.Authenticator.admin_users = {'jane','joe'}
-c.Authenticator.whitelist = {'jen','james'}
-```
-
-
-<a id="h:8F37201D"></a>
-
-## docker-compose.yml
-
-Based on the directory set we have defined, the `docker-compose.yml` file will look something like:
+Add the Unidata JupyterHub configuration (`unidata/unidatahub`). Customize cpu and memory according to size of cluster and expected number of students. Based on those assumptions shoot for 80% capacity. For example, if your cluster has 100 CPUs and you expect 80 students allow for a cpu limit of 1. The same reasoning applies for the memory settings. Adjust your arithmetic accordingly for cluster size and expected number of users.
 
 ```yaml
-###
-# JupyterHub + nginx
-###
-
-version: '3'
-
-services:
-  jupyter:
-    image: unidata/unidatahub
-    container_name: jupyter
-    # restart: always
-    volumes:
-      # Directories outside of the container that need to be accessible
-      - ~/config:/etc/jupyterhub
-      - ~/logs/jupyter:/var/log
-      - ~/config/ssl/:/etc/jupyterhub/ssl/
-      - /notebooks:/notebooks
-      - /scratch:/scratch
-      - /wrangler/backup-notebooks:/backup-notebooks
-      - ./login.html:/opt/conda/share/jupyterhub/templates/login.html
-    ports:
-      - "8000:8000"
-      - "443:443"
-    env_file:
-      - "compose.env"
-  web:
-    image: nginx
-    container_name: nginx
-    # restart: always
-    volumes:
-      - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ~/logs/nginx:/var/log/nginx
-    ports:
-      - "80:80"
+singleuser:
+  startTimeout: 600
+  memory:
+    guarantee: 1G
+    limit: 4G
+  cpu:
+    guarantee: 1
+    limit: 2
+  defaultUrl: "/lab"
+  image:
+    name: unidata/unidatahub
+    tag: <container id>
+  lifecycleHooks:
+    postStart:
+      exec:
+          command:
+            - "sh"
+            - "-c"
+            - >
+              gitpuller https://github.com/Unidata/python-workshop master python-workshop;
+              gitpuller https://github.com/julienchastang/unidata-python-gallery-mirror master notebook-gallery;
+              gitpuller https://github.com/Unidata/online-python-training master online-python-training;
+              cp /README_FIRST.ipynb /home/jovyan
+hub:
+  extraConfig: |-
+    c.Spawner.cmd = ['jupyter-labhub']
 ```
 
 
-<a id="h:62B48A14"></a>
-
-## Start JupyterHub
-
-Once you have done the work of setting up JupyterHub related directories, you need to build the container (which may take a while),
-
-```shell
-docker build -t unidata/unidatahub .
-```
-
-and issue the command
-
-```shell
-docker-compose up -d
-```
-
-to start JupyterHub
-
-
-<a id="h:4DCCED79"></a>
+<a id="h:209E2FBC"></a>
 
 ## Navigate to JupyterHub
 
-In a web browser, navigate to [https://jupyter-jetstream.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
-
-
-<a id="h:EB684CA9"></a>
-
-## Backing Up /notebooks
-
-It is not reasonable to expect users to backup their own notebooks. Unidata has a sizable allocation on the XSEDE Wrangler system. The strategy we are employing is NFS mounting Wrangler disk space onto the JupyterHub VM and backing up user data to that mounted partition.
-
-See [Wrangler documentation](https://github.com/Unidata/xsede-jetstream/blob/backup/openstack/wrangler.md) for creating an NFS mount from Wrangler to Jetstream with a mount point of `/wrangler`. Once the mount is established, we are employing [rsync-time-backup](https://github.com/laurent22/rsync-time-backup) (which should be installed in `/usr/local/bin` install with `sudo` privileges) to do "time machine" style backups to `/wrangler/backup-notebooks`:
-
-```shell
-git clone https://github.com/laurent22/rsync-time-backup /tmp/rsync-time-backup && \
-    cp /tmp/rsync-time-backup/rsync_tmbackup.sh /usr/local/bin/
-
-mkdir -p -- "/wrangler/backup-notebooks"
-
-# Required by rsync-time-backup
-touch "/wrangler/backup-notebooks/backup.marker"
-```
-
-Backup from cron once per day as root:
-
-```shell
-(crontab -l ; echo \
-     "0 0 * * * /usr/local/bin/rsync_tmbackup.sh --rsync-set-flags \"--recursive --numeric-ids --no-perms --itemize-changes\"  /notebooks /wrangler/backup-notebooks") | crontab -
-```
+In a web browser, navigate to [https://jupyterhub.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
