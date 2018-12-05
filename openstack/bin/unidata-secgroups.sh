@@ -32,4 +32,3 @@ openstack security group rule create local-nfs --protocol tcp --dst-port 1110:11
 openstack security group rule create local-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 10.0.0.0/24
 openstack security group rule create local-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 10.0.0.0/24
 openstack security group list
-secgroup.sh  -p 8000 -n global-jupyter-8000
