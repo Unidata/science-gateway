@@ -34,13 +34,11 @@ if [ -z "$VM_NAME" ];
       exit 1
 fi
 
-MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
-
-openstack server stop ${MACHINE_NAME}
+openstack server stop ${VM_NAME}
 
 if [ -v "$IP" ];
    then
-       openstack server remove floating ip ${MACHINE_NAME} ${IP}
+       openstack server remove floating ip ${VM_NAME} ${IP}
 fi
 
-openstack server delete ${MACHINE_NAME}
+openstack server delete ${VM_NAME}
