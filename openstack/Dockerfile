@@ -56,25 +56,6 @@ RUN pip install --upgrade pip
 
 RUN pip install -r $HOME/jetstream_kubespray/requirements.txt
 
-###
-# Terraform setup
-###
-
-RUN sed -i 's/MODIFY_THIS_TO_UNIQUE_VALUE/unidata_kube_network/g' \
-   $HOME/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf
-
-ENV CLUSTER unidata-k8
-
-RUN cp -LRp $HOME/jetstream_kubespray/inventory/zonca_kubespray \
-   $HOME/jetstream_kubespray/inventory/$CLUSTER
-
-###
-# kubectl
-###
-
-RUN sed -i 's/# kubectl_localhost: false/kubectl_localhost: true/g' \
-   $HOME/jetstream_kubespray/inventory/unidata-k8/group_vars/k8s-cluster/k8s-cluster.yml
-
 RUN mkdir $HOME/.kube
 
 
@@ -84,7 +65,7 @@ RUN mkdir $HOME/.kube
 
 ADD bin/boot.sh bin/mount.sh bin/secgroup.sh bin/teardown.sh \
    bin/unidata-secgroups.sh bin/wrangler-jetstream.sh bin/wrangler-secgroup.sh \
-   bin/swap-vm.sh $HOME/bin/
+   bin/swap-vm.sh bin/kube-setup.sh bin/swap-vm.sh bin/kube-setup2.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
