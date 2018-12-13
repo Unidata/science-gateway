@@ -15,6 +15,11 @@
     - [Opening TCP Ports](#h:D6B1D4C2)
     - [Tearing Down VMs](#h:1B38941F)
     - [Swapping VMs](#h:56B1F4AC)
+  - [Building a Kubernetes Cluster](#h:DA34BC11)
+    - [cluster.tf](#h:F44D1317)
+    - [kube-setup.sh](#h:0C658E7B)
+    - [kube-setup2.sh](#h:05F9D0A2)
+    - [Check Master Node](#h:D833684A)
 
 
 
@@ -399,3 +404,72 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 4.  /etc/fstab and mount
 
     Issue `blkid` (or `ls -la /dev/disk/by-uuid`) command to find `UUIDs` that will be inserted into the `/etc/fstab`. Lastly, `mount -a`.
+
+
+<a id="h:DA34BC11"></a>
+
+## Building a Kubernetes Cluster
+
+It is possible to create a Kubernetes cluster with the Docker container described here. We employ [Andrea Zonca's modification of the kubespray project](https://github.com/zonca/jetstream_kubespray). Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [here](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html). These instructions have been codified with the `kube-setup.sh` and `kube-setup2.sh` scripts.
+
+
+<a id="h:F44D1317"></a>
+
+### cluster.tf
+
+First, modify `~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf` to specify the number of nodes in the cluster and the size of the VMs. For example,
+
+```sh
+# nodes
+number_of_k8s_nodes = 0
+number_of_k8s_nodes_no_floating_ip = 2
+flavor_k8s_node = "4"
+```
+
+will create a 2 node cluster of m1.large VMs. [See Andrea's instructions for more details](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html).
+
+Also, note that `cluster.tf` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tf`.
+
+
+<a id="h:0C658E7B"></a>
+
+### kube-setup.sh
+
+At this point, to build a cluster named "k8s-unidata", run
+
+`kube-setup.sh -n k8s-unidata`
+
+Sometimes, this process does not go completely smoothly with VMs stuck in `ERROR` state. You may be able to fix this problem with:
+
+```sh
+cd ./jetstream_kubespray/inventory/k8s-unidata/
+CLUSTER=k8s-unidata bash -c 'terraform_apply.sh'
+```
+
+
+<a id="h:05F9D0A2"></a>
+
+### kube-setup2.sh
+
+Next, run
+
+`kube-setup2.sh -n k8s-unidata`
+
+If this command is giving you errors, you can try rebooting VMs with:
+
+```sh
+osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
+```
+
+and running `kube-setup2.sh -n k8s-unidata` again.
+
+
+<a id="h:D833684A"></a>
+
+### Check Master Node
+
+`ssh` into master node of cluster (discover the IP through `openstack server list`) and run:
+
+```
+kubectl get pods --all-namespaces
+```
