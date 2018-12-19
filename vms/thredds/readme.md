@@ -190,6 +190,7 @@ services:
       - ./files/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ./files/tdsCat.css:/usr/local/tomcat/webapps/thredds/tdsCat.css
       - ./files/folder.gif:/usr/local/tomcat/webapps/thredds/folder.gif
+      - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
       - /data/:/data/
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds
     env_file:
