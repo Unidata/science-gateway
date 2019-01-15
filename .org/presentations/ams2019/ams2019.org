@@ -1,0 +1,363 @@
+#+TITLE: JupyterHub for Atmospheric Science Research and Education on the NSF Jetstream Cloud
+#+SUBTITLE: AMS 2019
+#+DATE: Thursday, 10 January 2019
+#+TIME: 09:00
+#+DESCRIPTION: JupyterHub for Atmospheric Science Research and Education on the NSF Jetstream Cloud
+#+KEYWORDS: Unidata Docker Jetstream NSF XSEDE Science Gateway Jupyter JupyterHub
+#+AUTHOR: Julien Chastang 
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.3.1 (Org mode 9.1.13)
+#+OPTIONS: auto-id:t
+
+#+STARTUP: beamer
+#+STARTUP: oddeven
+
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger,notes=show]
+
+# unidata bottom banner
+#+LATEX_HEADER: \setbeamertemplate{background canvas}{ \raisebox{-\paperheight}[0pt][0pt]{ \makebox[\paperwidth][c]{ \includegraphics[width=\paperwidth,height=0.8cm]{../common/Unidata_gradient_for_poster.png} } } }
+# https://github.com/matze/mtheme `make sty`. Install sty files in ~/Library/texmf/tex/latex
+#+BEAMER_THEME: metropolis
+
+#+OPTIONS:   H:2 toc:t
+
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+
+# for a column view of options and configurations for the individual
+# frames
+#+COLUMNS: %20ITEM %13BEAMER_env(Env) %6BEAMER_envargs(Args) %4BEAMER_col(Col) %7BEAMER_extra(Extra)
+
+
+* Background
+  :PROPERTIES:
+  :CUSTOM_ID: h:A07A1D73
+  :END:
+** Unidata 2024 Proposal: Science as a Service
+   :PROPERTIES:
+   :CUSTOM_ID: h:596C9550
+   :END:
+
+/The Science as a Service concept draws together Unidata's ongoing work to provide geoscience data and software for analysis and visualization with access to workflows designed to take advantage of cloud computing resources./
+
+** Current Trends
+   :PROPERTIES:
+   :CUSTOM_ID: h:98D13D28
+   :END:
+
+- Web browser is the de facto cross-platform 'app'.
+- Cloud-computing enables easy deployments of complex software at scale
+  - Virtual Machines
+  - Containerization
+  - Software orchestration across data center
+- Data are becoming unwieldy and expensive to move
+
+** Opportunity for Research and Education
+   :PROPERTIES:
+   :CUSTOM_ID: h:71B13D07
+   :END:
+
+- Difficult to install and configure scientific software can be installed on cloud on user's behalf by experts
+- Allowing researchers and student to *focus on science instead of installing and configuring software*
+
+* Jupyter and Related Technologies
+  :PROPERTIES:
+  :CUSTOM_ID: h:9C5F855D
+  :END:
+** What is a Jupyter Notebook?
+   :PROPERTIES:
+   :CUSTOM_ID: h:A067123A
+   :END:
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:8600FD82
+    :END:
+
+A narrative of:
+- Explanatory and expository text
+- Software code (Python, R, etc.) and output
+- Equations (MathJax, LaTeX)
+- Figures and multimedia 
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:559EB25E
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:../esip2018/images/lorenz.png]]
+
+** Success of Jupyter in Research and Education
+   :PROPERTIES:
+   :CUSTOM_ID: h:CF10E59D
+   :END:
+
+# https://www.nature.com/articles/d41586-018-07196-1
+#+ATTR_LATEX: :width 9cm
+[[file:./images/nature.png]]
+
+/[Jupyter] notebooks are really a killer app for teaching computing in science and engineering/ - Lorena Barba, Engineering Professor, GWU
+
+** JupyterLab: Next Generation UI
+   :PROPERTIES:
+   :CUSTOM_ID: h:51B90577
+   :END:
+
+#+ATTR_LATEX: :width 9cm
+[[file:images/jupyterlab.png]]
+
+- Terminal (~git~, ~conda~, etc.)
+- Text Editor
+
+** JupyterHub: Multi-user Jupyter Notebooks 
+   :PROPERTIES:
+   :CUSTOM_ID: h:A3BB9B86
+   :END:
+
+Fernando Pérez: It is infeasible for IT support to assist 800 students install complex software on their laptops.
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:B431BBF4
+    :END:
+
+- Users log in to a JupyterHub server
+- Users have their own work space
+- Excellent for workshops or in the classroom
+- Administrator can configure ahead of time on behalf of user
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:9AEA757A
+    :END:
+
+#+ATTR_LATEX: width=\textwidth
+[[file:../ogc2018/images/jupyterhub.png]]
+
+** Unidata JupyterHubs
+   :PROPERTIES:
+   :CUSTOM_ID: h:ED569509
+   :END:
+
+- Notre Dame of Maryland University
+- Southern Arkansas University
+- 2018 IS-GEO Workshop
+- 2018 Fall Unidata Python Workshop
+
+** Zero to JupyterHub Project
+   :PROPERTIES:
+   :CUSTOM_ID: h:6AF12B78
+   :END:
+
+_Problem_: A single JupyterHub server running on a large VM can only serve a small number of students (< 10).
+
+_Solution_: *Zero to JupyterHub* project aims to take advantage of the elastic computational capacity of the cloud.
+  - Virtual Machine
+  - Software Containers (i.e., Docker)
+  - Data center software orchestration (i.e., Kubernetes)
+
+_Zero to JupyterHub allows for many more users._
+
+** Zero to JupyterHub 
+   :PROPERTIES:
+   :CUSTOM_ID: h:FEE3A039
+   :END:
+
+#+ATTR_LATEX: :width 8.5cm
+[[file:./images/z2j.png]]
+
+* NSF Jetstream Cloud
+  :PROPERTIES:
+  :CUSTOM_ID: h:B7F0A048
+  :END:
+** Cloud Computing
+   :PROPERTIES:
+   :CUSTOM_ID: h:37540AE5
+   :END:
+
+# https://blogs.wsj.com/cio/2018/03/12/harvard-mits-broad-institute-powers-genomic-research-in-the-cloud/
+#+ATTR_LATEX: :width 9cm
+[[file:./images/wsj.png]]
+
+/a more scalable and accessible computing infrastructure better serves researchers and spurs advances in the field./
+
+** Commercial Cloud Computing Is $$$
+   :PROPERTIES:
+   :CUSTOM_ID: h:57A69FC4
+   :END:
+
+- GEMPAK product generation server running on Amazon cloud 
+- m1.large: 2 vCPU, 7.5GB memory, 2x 420GB disk
+- *Costs Unidata $3,000/year!*
+** NSF Jetstream Cloud
+   :PROPERTIES:
+   :CUSTOM_ID: h:2F8B3079
+   :END:
+
+- What is Jetstream?
+  - A National Science and Engineering Cloud funded by an $11 million NSF grant.
+  - Data centers at IU and TACC.
+- Attached to fast Internet2 capability.
+- Cloud based on *OpenStack* for creation of VMs, networks etc.
+- Unidata has been operating on Jetstream for 3 years through research grants
+
+** NSF Jetstream Cloud
+   :PROPERTIES:
+   :CUSTOM_ID: h:3932317F
+   :END:
+
+# https://www.jetstream-cloud.org/images/Jetstream_topology_diagram-crop.png
+
+#+ATTR_LATEX: width=\textwidth
+[[file:images/jetstream.png]]
+ 
+* A JupyterHub for Atmospheric Science 
+  :PROPERTIES:
+  :CUSTOM_ID: h:D6CCF1ED
+  :END:
+
+** Unidata JupyterHub on Jetstream
+   :PROPERTIES:
+   :CUSTOM_ID: h:EBA13FCD
+   :END:
+
+- Three Unidata Notebook projects with environments pre-configured
+  - *Notebook Gallery*, example atmos science notebooks 
+  - *Python Workshop*, netcdf4-python, metpy, siphon training
+  - *Online Python Training* Teaching Python with an atmos focus
+- Zero to JupyterHub
+- Login with GitHub credentials
+- JupyterLab
+
+** Technical Specifications 
+   :PROPERTIES:
+   :CUSTOM_ID: h:FD4619FD
+   :END:
+
+- Two Kubernetes clusters running at Jetstream TACC data center
+- Each cluster has:
+  - 50 vCPUs
+  - 150 GB RAM
+  - spread over 5 VMs
+- Each user has 1GB of persistent disk storage
+- Can accommodate 40 users per cluster
+
+** Example Notebook: Miller Composite
+   :PROPERTIES:
+   :CUSTOM_ID: h:6271DF73
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:../esip2018/images/miller.png]]
+
+** Example Notebook: Satellite + GFS Model
+   :PROPERTIES:
+   :CUSTOM_ID: h:8CCC5C4C
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:../esip2018/images/satellite.png]]
+
+** Example Notebook: Upper Air SkewT
+   :PROPERTIES:
+   :CUSTOM_ID: h:BD4FD725
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:images/skewt.png]]
+
+** JupyterHub URLs
+   :PROPERTIES:
+   :CUSTOM_ID: h:CDB7FE93
+   :END:
+
+https://www.unidata.ucar.edu/projects/#jupyterlab
+https://js-104-95.jetstream-cloud.org
+https://js-16-87.jetstream-cloud.org
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:FC168F5B
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/ams2019b.png]]
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:5C9DB258
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/ams2019a.png]]
+
+** Future Plans
+   :PROPERTIES:
+   :CUSTOM_ID: h:0E2197AD
+   :END:
+
+- Better URL name -- jupyterhub.unidata.ucar.edu
+- Supporting two classes at Southern Arkansas University -- roughly 50 students
+- Community outreach (i.e., more users)
+- *You?*
+
+** Acknowledgments
+   :PROPERTIES:
+   :CUSTOM_ID: h:5E86609E
+   :END:
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :CUSTOM_ID: h:EA5348C2
+    :END:
+
+We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenlaub, Suresh Marru, Lance Moxley, Marlon Pierce, Semir Sarajlic, Craig Alan Stewart, George Wm Turner, Nancy Wilkins-Diehr, Nicole Wolter and Andrea Zonca for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :CUSTOM_ID: h:76470094
+    :END:
+
+Special thanks to Andrea
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/zonca.jpeg]]
+
+** Questions
+   :PROPERTIES:
+   :CUSTOM_ID: h:4B112F5B
+   :END:
+
+https://www.unidata.ucar.edu/projects/#jupyterlab
+https://js-104-95.jetstream-cloud.org
+https://js-16-87.jetstream-cloud.org
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:22E42BE5
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/ams2019b.png]]
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:4B57A0FB
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:images/ams2019a.png]]
