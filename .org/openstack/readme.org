@@ -554,7 +554,7 @@ Sometimes, this process does not go completely smoothly with VMs stuck in ~ERROR
 
 #+BEGIN_SRC sh
   cd ./jetstream_kubespray/inventory/k8s-unidata/
-  CLUSTER=k8s-unidata bash -c 'terraform_apply.sh'
+  CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 #+END_SRC
 
 *** kube-setup2.sh
