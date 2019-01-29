@@ -523,12 +523,12 @@ Issue ~blkid~ (or ~ls -la /dev/disk/by-uuid~) command to find ~UUIDs~ that will 
 
 It is possible to create a Kubernetes cluster with the Docker container described here. We employ [[https://github.com/zonca/jetstream_kubespray][Andrea Zonca's modification of the kubespray project]]. Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html][here]]. These instructions have been codified with the ~kube-setup.sh~ and ~kube-setup2.sh~ scripts.
 
-*** cluster.tf
+*** Define cluster with cluster.tf
     :PROPERTIES:
     :CUSTOM_ID: h:F44D1317
     :END:
 
-First, modify =~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf= to specify the number of nodes in the cluster and the size of the VMs. For example,
+First, modify =~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf= to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
 
 #+BEGIN_SRC sh
   # nodes
@@ -539,16 +539,20 @@ First, modify =~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf= to sp
 
 will create a 2 node cluster of m1.large VMs. [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html][See Andrea's instructions for more details]].
 
+~openstack flavor list~ will give the IDs of the desired VM size.
+
 Also, note that ~cluster.tf~ assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of ~cluster.tf~.
 
-*** kube-setup.sh
+*** Create VMs with kube-setup.sh
     :PROPERTIES:
     :CUSTOM_ID: h:0C658E7B
     :END:
 
-At this point, to build a cluster named "k8s-unidata", run
+At this point, to create the VMs that will house the kubernetes cluster (named "k8s-unidata", for example) run
 
 ~kube-setup.sh -n k8s-unidata~
+
+This script essentially wraps terraform install scripts to launch the VMs according to ~cluster.tf~.
 
 Sometimes, this process does not go completely smoothly with VMs stuck in ~ERROR~ state. You may be able to fix this problem with:
 
@@ -557,16 +561,22 @@ Sometimes, this process does not go completely smoothly with VMs stuck in ~ERROR
   CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 #+END_SRC
 
-*** kube-setup2.sh
+Once, the script is complete,  let the VMs settle for a while (let's say an hour). Behind the scenes ~dpkg~ is running on the newly created VMs which can take some time to complete.
+
+*** Install Kubernetes with kube-setup2.sh
     :PROPERTIES:
     :CUSTOM_ID: h:05F9D0A2
     :END:
 
 Next, run
 
-~kube-setup2.sh -n k8s-unidata~
+#+BEGIN_SRC sh
+  kube-setup2.sh -n k8s-unidata
+#+END_SRC
 
-If this command is giving you errors, you can try rebooting VMs with:
+If seeing errors related to ~dpkg~, wait and try again.
+
+If this command is still giving  errors, try rebooting VMs with:
 
 #+BEGIN_SRC sh
   osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
@@ -579,8 +589,50 @@ and running ~kube-setup2.sh -n k8s-unidata~ again.
     :CUSTOM_ID: h:D833684A
     :END:
 
-~ssh~ into master node of cluster (discover the IP through ~openstack server list~) and run:
+~ssh~ into master node of the cluster (discover the IP through ~openstack server list~) and run:
 
 #+BEGIN_SRC
   kubectl get pods --all-namespaces
 #+END_SRC
+
+to ensure the Kubernetes cluster is running.
+
+*** Adding Nodes to Cluster
+    :PROPERTIES:
+    :CUSTOM_ID: h:1991828D
+    :END:
+
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in ~cluster.tf~ followed by running
+
+#+BEGIN_SRC sh
+  cd ./jetstream_kubespray/inventory/k8s-unidata/
+  CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
+#+END_SRC
+
+and
+
+#+BEGIN_SRC sh
+  kube-setup2.sh -n k8s-unidata
+#+END_SRC
+
+The problem is the latter command may give errors pertaining to unavailable namespaces in the Kubernetes cluster. If this happens, you may have to try again a few times until it works.
+
+*** Removing Nodes from Cluster
+    :PROPERTIES:
+    :CUSTOM_ID: h:0324031E
+    :END:
+
+It is also possible to remove nodes from a Kubernetes cluster. From the Kubernetes master node:
+
+#+BEGIN_SRC sh
+  kubectl get nodes
+  kubectl drain <node-name> --ignore-daemonsets
+#+END_SRC
+
+followed by running
+
+#+BEGIN_SRC sh
+  teardown.sh -n <VM name of node>
+#+END_SRC
+
+from the openstack command line.

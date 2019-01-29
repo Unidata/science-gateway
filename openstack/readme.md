@@ -16,10 +16,12 @@
     - [Tearing Down VMs](#h:1B38941F)
     - [Swapping VMs](#h:56B1F4AC)
   - [Building a Kubernetes Cluster](#h:DA34BC11)
-    - [cluster.tf](#h:F44D1317)
-    - [kube-setup.sh](#h:0C658E7B)
-    - [kube-setup2.sh](#h:05F9D0A2)
+    - [Define cluster with cluster.tf](#h:F44D1317)
+    - [Create VMs with kube-setup.sh](#h:0C658E7B)
+    - [Install Kubernetes with kube-setup2.sh](#h:05F9D0A2)
     - [Check Master Node](#h:D833684A)
+    - [Adding Nodes to Cluster](#h:1991828D)
+    - [Removing Nodes from Cluster](#h:0324031E)
 
 
 
@@ -415,9 +417,9 @@ It is possible to create a Kubernetes cluster with the Docker container describe
 
 <a id="h:F44D1317"></a>
 
-### cluster.tf
+### Define cluster with cluster.tf
 
-First, modify `~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf` to specify the number of nodes in the cluster and the size of the VMs. For example,
+First, modify `~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf` to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
 
 ```sh
 # nodes
@@ -428,34 +430,44 @@ flavor_k8s_node = "4"
 
 will create a 2 node cluster of m1.large VMs. [See Andrea's instructions for more details](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html).
 
+`openstack flavor list` will give the IDs of the desired VM size.
+
 Also, note that `cluster.tf` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tf`.
 
 
 <a id="h:0C658E7B"></a>
 
-### kube-setup.sh
+### Create VMs with kube-setup.sh
 
-At this point, to build a cluster named "k8s-unidata", run
+At this point, to create the VMs that will house the kubernetes cluster (named "k8s-unidata", for example) run
 
 `kube-setup.sh -n k8s-unidata`
+
+This script essentially wraps terraform install scripts to launch the VMs according to `cluster.tf`.
 
 Sometimes, this process does not go completely smoothly with VMs stuck in `ERROR` state. You may be able to fix this problem with:
 
 ```sh
 cd ./jetstream_kubespray/inventory/k8s-unidata/
-CLUSTER=k8s-unidata bash -c 'terraform_apply.sh'
+CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
+
+Once, the script is complete, let the VMs settle for a while (let's say an hour). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
 
 
 <a id="h:05F9D0A2"></a>
 
-### kube-setup2.sh
+### Install Kubernetes with kube-setup2.sh
 
 Next, run
 
-`kube-setup2.sh -n k8s-unidata`
+```sh
+kube-setup2.sh -n k8s-unidata
+```
 
-If this command is giving you errors, you can try rebooting VMs with:
+If seeing errors related to `dpkg`, wait and try again.
+
+If this command is still giving errors, try rebooting VMs with:
 
 ```sh
 osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
@@ -468,8 +480,50 @@ and running `kube-setup2.sh -n k8s-unidata` again.
 
 ### Check Master Node
 
-`ssh` into master node of cluster (discover the IP through `openstack server list`) and run:
+`ssh` into master node of the cluster (discover the IP through `openstack server list`) and run:
 
 ```
 kubectl get pods --all-namespaces
 ```
+
+to ensure the Kubernetes cluster is running.
+
+
+<a id="h:1991828D"></a>
+
+### Adding Nodes to Cluster
+
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in `cluster.tf` followed by running
+
+```sh
+cd ./jetstream_kubespray/inventory/k8s-unidata/
+CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
+```
+
+and
+
+```sh
+kube-setup2.sh -n k8s-unidata
+```
+
+The problem is the latter command may give errors pertaining to unavailable namespaces in the Kubernetes cluster. If this happens, you may have to try again a few times until it works.
+
+
+<a id="h:0324031E"></a>
+
+### Removing Nodes from Cluster
+
+It is also possible to remove nodes from a Kubernetes cluster. From the Kubernetes master node:
+
+```sh
+kubectl get nodes
+kubectl drain <node-name> --ignore-daemonsets
+```
+
+followed by running
+
+```sh
+teardown.sh -n <VM name of node>
+```
+
+from the openstack command line.
