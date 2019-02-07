@@ -57,6 +57,14 @@ The Unidata [[http://www.unidata.ucar.edu/software/thredds/current/tds/][THREDDS
 
 This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][IDV]] or from Python with the [[https://github.com/Unidata/netcdf4-python][netCDF-Python]] or [[https://github.com/Unidata/siphon][Siphon]] APIs or any THREDDS client (e.g., PyCSW).
 
+* THREDDS AWS Nexrad Server
+  :PROPERTIES:
+  :END:
+
+[[http://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
+
+In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data Project]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream. 
+
 * AWIPS EDEX
   :PROPERTIES:
   :CUSTOM_ID: h:9ADDB20C
@@ -147,7 +155,6 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 
 - [[https://www.esipfed.org/meetings][ESIP Summer Meeting 2019 | July 16-19, 2019 – Tacoma, WA USA]]
 - [[https://sciencegateways.org/web/gateways2019/home][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
-
 
 * Under the Hood
   :PROPERTIES:
