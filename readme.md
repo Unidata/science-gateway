@@ -6,6 +6,7 @@ Welcome to Unidata on the NSF Jetstream cloud. This document points to a collect
 
 -   [Creating a Zero To JupyterHub Cluster on Jetstream](https://github.com/Unidata/xsede-jetstream/blob/master/vms/jupyter/readme.md)
 -   [Creating a THREDDS VM on Jetstream](https://github.com/Unidata/xsede-jetstream/blob/master/vms/thredds/readme.md)
+-   [Creating a THREDDS AWS Nexrad VM on Jetstream](https://github.com/Unidata/xsede-jetstream/blob/master/vms/thredds-aws/readme.md)
 -   [Creating a Science Gateway VM on Jetstream](https://github.com/Unidata/xsede-jetstream/blob/master/vms/science-gateway/readme.md)
 -   [Creating an IDD Relay VM on Jetstream](https://github.com/Unidata/xsede-jetstream/tree/master/vms/idd-relay)
 -   [Creating an IDD Archiver VM on Jetstream](https://github.com/Unidata/xsede-jetstream/tree/master/vms/idd-archiver)
