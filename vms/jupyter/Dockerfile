@@ -8,7 +8,7 @@ LABEL maintainer="Unidata <support-python@unidata.ucar.edu>"
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg && \
+    apt-get install -y --no-install-recommends ffmpeg vim curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
