@@ -34,6 +34,9 @@ export CLUSTER=$NAME
 
 export OS_TENANT_ID=$OS_PROJECT_ID
 
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+
 ansible-playbook --become -i \
                  $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts \
                  $HOME/jetstream_kubespray/cluster.yml

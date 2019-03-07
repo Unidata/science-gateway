@@ -12,7 +12,7 @@ RUN cat /tmp/kubectl.repo >> /etc/yum.repos.d/kubernetes.repo && \
 RUN yum update yum -y
 
 RUN yum install -y vim telnet openssh openssh-clients git vi less nano wget \
-    unzip kubectl
+    unzip kubectl openssl sudo
 
 RUN yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
 
@@ -39,6 +39,10 @@ RUN  wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terrafor
 
 RUN useradd -ms /bin/bash openstack
 
+RUN echo "openstack ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+RUN echo 'openstack:docker' | chpasswd
+
 ENV HOME /home/openstack
 
 RUN mkdir -p $HOME/bin
@@ -50,7 +54,10 @@ ENV PATH=$HOME/bin:$PATH
 ###
 
 RUN git clone https://github.com/zonca/jetstream_kubespray \
-    $HOME/jetstream_kubespray
+    $HOME/jetstream_kubespray -b branch_v2.8.2
+
+RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream \
+    $HOME/jupyterhub-deploy-kubernetes-jetstream
 
 RUN pip install --upgrade pip
 
@@ -58,6 +65,19 @@ RUN pip install -r $HOME/jetstream_kubespray/requirements.txt
 
 RUN mkdir $HOME/.kube
 
+###
+# Install helm
+###
+
+ENV HELM_VERSION=2.11.0
+
+RUN cd /home \
+	&& curl https://storage.googleapis.com/kubernetes-helm/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz \
+	&& tar -xvf helm.tar.gz \
+	&& rm helm.tar.gz \
+	&& mv linux-amd64/helm /usr/local/bin/helm \
+	&& chmod +x /usr/local/bin/helm \
+	&& cd
 
 ###
 # Add various utilities
