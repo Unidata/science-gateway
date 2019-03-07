@@ -33,21 +33,18 @@ fi
 export CLUSTER=$NAME
 
 sed -i "s/MODIFY_THIS_TO_UNIQUE_VALUE/"$CLUSTER"_kube_network/g" \
-    $HOME/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf
+    $HOME/jetstream_kubespray/inventory/zonca/cluster.tf
 
 sed -i 's/# kubectl_localhost: false/kubectl_localhost: true/g' \
-   $HOME/jetstream_kubespray/inventory/zonca_kubespray/group_vars/k8s-cluster/k8s-cluster.yml
+   $HOME/jetstream_kubespray/inventory/zonca/group_vars/k8s-cluster/k8s-cluster.yml
 
 
 cd $HOME/jetstream_kubespray/
-cp -LRp inventory/zonca_kubespray inventory/$CLUSTER
+cp -LRp inventory/zonca inventory/$CLUSTER
 cd inventory/$CLUSTER
 
 bash terraform_init.sh
 bash terraform_apply.sh
-
-eval $(ssh-agent -s)
-ssh-add ~/.ssh/id_rsa
 
 openstack server list
 
