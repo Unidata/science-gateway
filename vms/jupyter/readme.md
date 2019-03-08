@@ -6,6 +6,9 @@
     - [OAuth Authentication](#h:8A3C5434)
     - [unidata/unidatahub](#h:214D1D4C)
   - [Navigate to JupyterHub](#h:209E2FBC)
+  - [Tearing Down JupyterHub](#h:1E027567)
+    - [Total Destructive Tear Down](#h:A69ADD92)
+    - [Tear Down While Preserving User Volumes and Master Node IP](#h:5F2AA05F)
 
 
 
@@ -162,3 +165,33 @@ hub:
 ## Navigate to JupyterHub
 
 In a web browser, navigate to [https://jupyterhub.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
+
+
+<a id="h:1E027567"></a>
+
+## Tearing Down JupyterHub
+
+
+<a id="h:A69ADD92"></a>
+
+### Total Destructive Tear Down
+
+Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
+
+```sh
+helm delete jhub --purge
+kubectl delete namespace jhub
+```
+
+followed by
+
+```sh
+terraform_destroy.sh.
+```
+
+
+<a id="h:5F2AA05F"></a>
+
+### Tear Down While Preserving User Volumes and Master Node IP
+
+A gentler tear down that preserves the user volumes and master node IP is described in [Andrea's documentation](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html). See the section on "persistence of user data".
