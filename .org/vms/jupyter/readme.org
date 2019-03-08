@@ -41,7 +41,7 @@ Build the Docker container in this directory and push it to dockerhub.
    :CUSTOM_ID: h:E5CA5D99
    :END:
 
-SSH into the master node of the Kubernetes cluster and follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea Zonca's instructions]].
+From the client host where you created the Kubernetes cluster, follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea Zonca's instructions]].
 
 After you have created the ~secrets.yaml~ as instructed, customize it with the choices below
 
