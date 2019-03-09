@@ -419,7 +419,7 @@ It is possible to create a Kubernetes cluster with the Docker container describe
 
 ### Define cluster with cluster.tf
 
-First, modify `~/jetstream_kubespray/inventory/zonca_kubespray/cluster.tf` to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
+First, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
 
 ```sh
 # nodes
@@ -443,12 +443,12 @@ At this point, to create the VMs that will house the kubernetes cluster (named "
 
 `kube-setup.sh -n k8s-unidata`
 
-This script essentially wraps terraform install scripts to launch the VMs according to `cluster.tf`.
+This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tf`.
 
 Sometimes, this process does not go completely smoothly with VMs stuck in `ERROR` state. You may be able to fix this problem with:
 
 ```sh
-cd ./jetstream_kubespray/inventory/k8s-unidata/
+cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
@@ -496,7 +496,7 @@ to ensure the Kubernetes cluster is running.
 You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in `cluster.tf` followed by running
 
 ```sh
-cd ./jetstream_kubespray/inventory/k8s-unidata/
+cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
