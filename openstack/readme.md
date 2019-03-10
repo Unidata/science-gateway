@@ -19,7 +19,7 @@
     - [Define cluster with cluster.tf](#h:F44D1317)
     - [Create VMs with kube-setup.sh](#h:0C658E7B)
     - [Install Kubernetes with kube-setup2.sh](#h:05F9D0A2)
-    - [Check Master Node](#h:D833684A)
+    - [Check Cluster](#h:D833684A)
     - [Adding Nodes to Cluster](#h:1991828D)
     - [Removing Nodes from Cluster](#h:0324031E)
 
@@ -289,7 +289,7 @@ openstack server add volume <vm-uid-number> <volume-uid-number>
 
 You will then be able to log in to your VM and mount your data volume with typical Unix `mount`, `umount`, and `df` commands. If running these command manually (not using the `mount.sh` script) you will need to run `kfs.ext4 /dev/sdb` to create an `ext4` partition using the entire disk.
 
-There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or sudo on the newly created VM not from the OpenStack CL.
+There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or `sudo` on the newly created VM not from the OpenStack CL.
 
 1.  Ensure Volume Availability Upon Machine Restart
 
@@ -414,6 +414,8 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 
 It is possible to create a Kubernetes cluster with the Docker container described here. We employ [Andrea Zonca's modification of the kubespray project](https://github.com/zonca/jetstream_kubespray). Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [here](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html). These instructions have been codified with the `kube-setup.sh` and `kube-setup2.sh` scripts.
 
+Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443`)into the master node as described in the instructions.
+
 
 <a id="h:F44D1317"></a>
 
@@ -428,7 +430,7 @@ number_of_k8s_nodes_no_floating_ip = 2
 flavor_k8s_node = "4"
 ```
 
-will create a 2 node cluster of m1.large VMs. [See Andrea's instructions for more details](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html).
+will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for more details](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html).
 
 `openstack flavor list` will give the IDs of the desired VM size.
 
@@ -452,7 +454,7 @@ cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
-Once, the script is complete, let the VMs settle for a while (let's say an hour). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
+Once, the script is complete, let the VMs settle for a while (let's say ten minutes). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
 
 
 <a id="h:05F9D0A2"></a>
@@ -478,52 +480,64 @@ and running `kube-setup2.sh -n k8s-unidata` again.
 
 <a id="h:D833684A"></a>
 
-### Check Master Node
+### Check Cluster
 
-`ssh` into master node of the cluster (discover the IP through `openstack server list`) and run:
+Ensure the Kubernetes cluster is running:
 
 ```
 kubectl get pods --all-namespaces
 ```
-
-to ensure the Kubernetes cluster is running.
 
 
 <a id="h:1991828D"></a>
 
 ### Adding Nodes to Cluster
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in `cluster.tf` followed by running
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in `cluster.tf` followed by running:
 
 ```sh
 cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
-and
+Wait a bit to allow `dpkg` to finish running on the new node(s) followed by:
 
 ```sh
-kube-setup2.sh -n k8s-unidata
+cd ~/jetstream_kubespray
+CLUSTER=k8s-unidata bash -c 'sh k8s_scale.sh'
 ```
-
-The problem is the latter command may give errors pertaining to unavailable namespaces in the Kubernetes cluster. If this happens, you may have to try again a few times until it works.
 
 
 <a id="h:0324031E"></a>
 
 ### Removing Nodes from Cluster
 
-It is also possible to remove nodes from a Kubernetes cluster. From the Kubernetes master node:
+It is also possible to remove nodes from a Kubernetes cluster. First see what nodes are running:
 
 ```sh
-kubectl get nodes
-kubectl drain <node-name> --ignore-daemonsets
+kubectl get nodes --all-namespaces
 ```
 
-followed by running
+which will yield something like:
 
 ```sh
-teardown.sh -n <VM name of node>
+NAME                     STATUS   ROLES    AGE   VERSION
+k8s-unidata-k8s-master-1    Ready    master   42h   v1.12.5
+k8s-unidata-k8s-node-nf-1   Ready    node     42h   v1.12.5
+k8s-unidata-k8s-node-nf-2   Ready    node     41h   v1.12.5
+```
+
+From the Kubernetes master node:
+
+```sh
+cd ~/jetstream_kubespray
+CLUSTER=k8s-unidata bash -c 'sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-2'
+```
+
+followed by running:
+
+```sh
+teardown.sh -n  k8s-unidata-k8s-node-nf-2
 ```
 
 from the openstack command line.
