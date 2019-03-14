@@ -651,3 +651,33 @@ followed by running:
 #+END_SRC
 
 from the openstack command line.
+
+*** Tearing Down the Cluster
+    :PROPERTIES:
+    :CUSTOM_ID: h:DABDACC7
+    :END:
+**** Without Preserving IP of Master Node
+     :PROPERTIES:
+     :CUSTOM_ID: h:25092B48
+     :END:
+
+Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
+
+#+BEGIN_SRC sh
+  cd ~/jetstream_kubespray/inventory/k8s-unidata/
+  CLUSTER=k8s-unidata bash -c 'sh terraform_destroy.sh'
+#+END_SRC
+
+**** With Preserving IP of Master Node
+     :PROPERTIES:
+     :CUSTOM_ID: h:AA4B8849
+     :END:
+
+You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
+
+#+BEGIN_SRC sh
+  cd ~/jetstream_kubespray/inventory/k8s-unidata/
+  CLUSTER=k8s-unidata bash -c 'sh terraform_destroy_keep_floatingip.sh'
+#+END_SRC
+
+Subsequently, when you invoke ~terraform_apply.sh~, the master node should have the same IP number as before.
