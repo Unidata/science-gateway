@@ -8,7 +8,7 @@
   - [Navigate to JupyterHub](#h:209E2FBC)
   - [Tearing Down JupyterHub](#h:1E027567)
     - [Total Destructive Tear Down](#h:A69ADD92)
-    - [Tear Down While Preserving User Volumes and Master Node IP](#h:5F2AA05F)
+    - [Tear Down While Preserving User Volumes](#h:5F2AA05F)
 
 
 
@@ -183,15 +183,11 @@ helm delete jhub --purge
 kubectl delete namespace jhub
 ```
 
-followed by
-
-```sh
-terraform_destroy.sh.
-```
+To futher teardown the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
 
 
 <a id="h:5F2AA05F"></a>
 
-### Tear Down While Preserving User Volumes and Master Node IP
+### Tear Down While Preserving User Volumes
 
-A gentler tear down that preserves the user volumes and master node IP is described in [Andrea's documentation](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html). See the section on "persistence of user data".
+A gentler tear down that preserves the user volumes is described in [Andrea's documentation](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html). See the section on "persistence of user data".
