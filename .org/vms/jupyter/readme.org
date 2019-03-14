@@ -190,19 +190,15 @@ In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][http
 Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
 
 #+BEGIN_SRC sh
-helm delete jhub --purge
-kubectl delete namespace jhub
+  helm delete jhub --purge
+  kubectl delete namespace jhub
 #+END_SRC
 
-followed by
+To futher teardown the Kubernetes cluster see [[file:../../openstack/readme.org::#h:DABDACC7][Tearing Down the Cluster]].
 
-#+BEGIN_SRC sh
-terraform_destroy.sh.
-#+END_SRC
-
-*** Tear Down While Preserving User Volumes and Master Node IP
+*** Tear Down While Preserving User Volumes
     :PROPERTIES:
     :CUSTOM_ID: h:5F2AA05F
     :END:
 
-A gentler tear down that preserves the user volumes and master node IP is described in [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's documentation]]. See the section on "persistence of user data".
+A gentler tear down that preserves the user volumes is described in [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's documentation]]. See the section on "persistence of user data".
