@@ -1,0 +1,80 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:nil c:nil
+#+OPTIONS: creator:nil d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t
+#+OPTIONS: num:nil p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t timestamp:t
+#+OPTIONS: title:t toc:nil todo:t |:t
+#+TITLE: Julien Chastang
+#+SUBTITLE: Curriculum Vitæ
+#+DATE: <2016-12-17 Sat>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 26.1 (Org mode 9.2.1)
+
+# latex
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [onecolumn,12pt,hidelinks]
+
+# small caps, bold section headers
+#+LATEX_HEADER: \usepackage[sc]{titlesec}
+#+LATEX_HEADER: \titleformat{\section}[hang]{\bfseries\scshape}{\thesection}{2ex}{}[]
+
+# latex margins
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+
+# no paragraph indentation
+#+LATEX_HEADER: \setlength{\parindent}{0em}
+
+# Bibliography
+#+LATEX_HEADER: \usepackage[backend=bibtex]{biblatex}
+#+LATEX_HEADER: \bibliography{jetstream.bib}
+
+#+ATTR_LATEX: :center nil
+| Unidata Program Center  |
+| UCAR Community Programs |
+| 1850 Table Mesa Drive   |
+| Boulder, CO 80305       |
+| USA                     |
+* Contact
+#+ATTR_LATEX: :center nil
+| phone       | +1.303.497.2825            |
+| email       | chastang@ucar.edu          |
+| URL         | http://julienchastang.com  |
+| Citizenship | USA and French             |
+* Educational Background
+#+ATTR_LATEX: :center nil
+| M. Sc. | University of Colorado | 2000 |
+| B. Sc. | University of Colorado | 1994 |
+* Positions Held
+#+ATTR_LATEX: :center nil
+|     2010- | Software Engineer III | Unidata Program Center            | UCAR |
+| 2006-2010 | Software Engineer III | Computational Information Systems | UCAR |
+|           |                       | Laboratory                        |      |
+| 2000-2006 | Software Engineer II  | Research Application Laboratory   | UCAR |
+| 1999-2000 | Student Assistant     | Research Application Laboratory   | UCAR |
+* 
+UCAR is the University Corporation for Atmospheric Research located in Boulder, Colorado USA
+* Conference Presentations
+\fullcite{Ramamurthy2019a}\\
+
+
+\fullcite{Chastang2019a}\\
+
+
+\fullcite{Ramamurthy2018d}\\
+
+
+\fullcite{Chastang2018c}\\
+
+
+\fullcite{Ramamurthy2018b}\\
+
+
+\fullcite{Sarajlic2018a}\\
+
+
+\fullcite{Chastang2018a}\\
+
+
+\fullcite{Chastang2017f}
