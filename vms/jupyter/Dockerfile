@@ -30,6 +30,12 @@ RUN conda install --quiet --yes \
     cd && \
     rm -rf /tmp/notebook-gallery && \
     cd /tmp && \
+    git clone https://github.com/Unidata/python-awips && \
+    cd python-awips && \
+    conda env update --name python-awips -f environment.yml && \
+    cd && \
+    rm -rf /tmp/python-awips && \
+    cd /tmp && \
     git clone -b master https://github.com/Unidata/online-python-training && \
     cd online-python-training && \
     conda env update --name online-python-training -f environment.yml && \
