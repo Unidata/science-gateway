@@ -56,7 +56,7 @@ Note, you do not have to employ this Docker container. It is merely provided as 
 
 ## Install Docker (Do This Once)
 
-[Install Docker](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md) in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
+[Install Docker](../vm-init-readme.md) in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
 
 <a id="h:968FA51C"></a>
@@ -370,7 +370,7 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 
     Create the VM that will be swapped in. Make sure to:
 
-    -   [initialize new VM](https://github.com/Unidata/xsede-jetstream/blob/master/vm-init-readme.md)
+    -   [initialize new VM](../vm-init-readme.md)
     -   build or fetch relevant Docker containers
     -   copy over the relevant configuration files. E.g., check with `git diff` and scrutinize `~/config`
     -   check the crontab with `crontab -l`

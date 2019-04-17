@@ -22,7 +22,7 @@
    :CUSTOM_ID: h:06E230D1
    :END:
 
-Create an ~m1.large~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-aws.unidata.ucar.edu=
+Create an ~m1.large~ VM with the [[file:../../openstack/readme.org][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-aws.unidata.ucar.edu=
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
@@ -51,7 +51,7 @@ From the =~/xsede-jetstream/vms/thredds-aws= directory:
    :CUSTOM_ID: h:74EEEE2C
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
 
 ** TDS Configuration
    :PROPERTIES:
@@ -156,7 +156,7 @@ In the =~/xsede-jetstream/vms/thredds-aws/files/= directory, generate a self-sig
    :CUSTOM_ID: h:1541998B
    :END:
 
-[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
+[[file:../../openstack/readme.org::#h:D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
 
 ** docker-compose.yml
    :PROPERTIES:

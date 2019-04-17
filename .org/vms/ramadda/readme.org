@@ -23,7 +23,7 @@
    :CUSTOM_ID: h:F4023EC5
    :END:
 
-Create an ~m1.medium~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Create and attach]] a 100GB =/repository= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =ramadda-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h:9BEEAB97][Create and attach]] a 100GB =/repository= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =ramadda-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
@@ -41,14 +41,14 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
    :CUSTOM_ID: h:2E18E909
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM with the RAMADDA content management system should be fairly easy. There are a few directories you will need to map from outside to within the container. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM with the RAMADDA content management system should be fairly easy. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
 
 ** /repository Directory
    :PROPERTIES:
    :CUSTOM_ID: h:2F1A5636
    :END:
 
-The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs) or however much data you anticipate your RAMADDA users will consume. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#create-and-attach-data-volumes][See here if creating data volumes via the Jetstream OpenStack API]].
+The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs) or however much data you anticipate your RAMADDA users will consume. [[file:../../openstack/readme.org::#h:9BEEAB97][See here if creating data volumes via the JetStream OpenStack API]].
 
 ** Create RAMADDA default password
    :PROPERTIES:
@@ -110,7 +110,7 @@ If you plan on employing the [[http://ramadda.org//repository/userguide/develope
    :CUSTOM_ID: h:6423976C
    :END:
 
-[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97][Ensure the =/repository= volume availability upon machine restart]].
+[[file:../../openstack/readme.org::#h:9BEEAB97][Ensure the =/repository= volume availability upon machine restart]].
 
 #+BEGIN_SRC shell
   sudo echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e	 /repository	ext4	defaults	1	 1 | tee --append /etc/fstab > /dev/null
@@ -132,7 +132,7 @@ In addition, you will want to ensure the NFS =/data= volume is also available wi
    :CUSTOM_ID: h:404D9595
    :END:
 
-[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open port]] ~80~ on the RAMADDA VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container.
+[[file:../../openstack/readme.org::#h:D6B1D4C2][Open port]] ~80~ on the RAMADDA VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the RAMADDA Docker container.
 
 ** docker-compose.yml
    :PROPERTIES:

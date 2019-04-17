@@ -29,7 +29,7 @@
 
 ## Create a THREDDS VM on Jetstream
 
-Create an `m1.large` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-aws.unidata.ucar.edu`
+Create an `m1.large` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-aws.unidata.ucar.edu`
 
 
 <a id="h:966B0207"></a>
@@ -58,7 +58,7 @@ docker build -t unidata/nexrad-tds-docker:latest .
 
 ## Start TDS With Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
 <a id="h:717697EB"></a>
@@ -162,7 +162,7 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 
 ## Ports 80, 443 and 8443
 
-[Open port](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80` on the THREDDS VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the THEREDDS Docker container. In addition, open ports `443` and `8443` for SSL and communication from the TDM.
+[Open port](../../openstack/readme.md) `80` on the THREDDS VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the THEREDDS Docker container. In addition, open ports `443` and `8443` for SSL and communication from the TDM.
 
 
 <a id="h:B1EEBC0A"></a>

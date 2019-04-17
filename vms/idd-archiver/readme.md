@@ -31,7 +31,7 @@
 
 ## Create an IDD Archiver VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). [Create and attach](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:00BE67D7"></a>
@@ -55,7 +55,7 @@ git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 
 ## Prepare IDD Archiver for Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
 <a id="h:B5A9CA86"></a>
@@ -178,7 +178,7 @@ mkdir -p /data/ldm/logs/
 
 ## Ensure /data Volume Availability Upon Machine Restart
 
-[Ensure `/data` volume availability upon machine restart](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:9BEEAB97).
+[Ensure the `/data` volume availability upon machine restart](../../openstack/readme.md).
 
 
 <a id="h:358A22F4"></a>

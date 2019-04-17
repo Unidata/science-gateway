@@ -21,7 +21,7 @@
 
 ## Create an IDD Relay VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:7544DE64"></a>
@@ -39,7 +39,7 @@ git clone https://github.com/Unidata/xsede-jetstream
 
 ## Start IDD Relay With Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
 <a id="h:E4AB4451"></a>
@@ -82,7 +82,7 @@ mkdir -p ~/logs/ldm
 
 ## Port 388
 
-Open LDM port `388` so that this VM may function as an IDD relay node. [See here](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) for more information on opening ports.
+[Open LDM port](../../openstack/readme.md) `388` so that this VM may function as an IDD relay node.
 
 
 <a id="h:95441A93"></a>
