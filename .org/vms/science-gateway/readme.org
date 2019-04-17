@@ -23,7 +23,7 @@
    :PROPERTIES:
    :CUSTOM_ID: h:593C3161
    :END:
-Create an ~m1.small~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =science-gateway.unidata.ucar.edu=.
+Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =science-gateway.unidata.ucar.edu=.
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
    :CUSTOM_ID: h:1EA54D54
@@ -40,7 +40,7 @@ Create an ~m1.small~ VM with the [[https://github.com/Unidata/xsede-jetstream/bl
    :CUSTOM_ID: h:D311EB0F
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
 
 ** Logging
    :PROPERTIES:
@@ -58,7 +58,7 @@ The nginx log directory:
    :CUSTOM_ID: h:5BF405FC
    :END:
 
-[[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][Open ports]] ~80~, and ~443~ on the Science Gateway VM via OpenStack.
+[[file:../../openstack/readme.org::#h:D6B1D4C2][Open ports]] ~80~, and ~443~ on the Science Gateway VM via OpenStack.
 
 ** Start Ngnix
    :PROPERTIES:

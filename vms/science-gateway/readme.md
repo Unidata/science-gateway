@@ -17,7 +17,7 @@
 
 ## Create a Science Gateway VM on Jetstream
 
-Create an `m1.small` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `science-gateway.unidata.ucar.edu`.
+Create an `m1.small` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `science-gateway.unidata.ucar.edu`.
 
 
 <a id="h:1EA54D54"></a>
@@ -35,7 +35,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 ## Prepare Science Gateway VM for Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
 <a id="h:7FF2F781"></a>
@@ -53,7 +53,7 @@ mkdir -p ~/logs/nginx/
 
 ## Ports 80, 443
 
-[Open ports](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `80`, and `443` on the Science Gateway VM via OpenStack.
+[Open ports](../../openstack/readme.md) `80`, and `443` on the Science Gateway VM via OpenStack.
 
 
 <a id="h:B30CBDF8"></a>

@@ -21,7 +21,7 @@
 
 ## Create an ADDE VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `adde-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `adde-jetstream.unidata.ucar.edu`.
 
 
 <a id="h:E6D3D21F"></a>
@@ -39,7 +39,7 @@ git clone https://github.com/Unidata/xsede-jetstream
 
 ## Start ADDE With Docker and docker-compose
 
-With the help of Docker and `docker-compose`, starting a VM with an ADDE server should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md).
+With the help of Docker and `docker-compose`, starting a VM with an ADDE server should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
 <a id="h:C9A644E9"></a>
@@ -83,7 +83,7 @@ echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee -
 
 ## Port 112
 
-ADDE operates via port `112`. [Open port](https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2) `112` on the ADDE VM via OpenStack.
+ADDE operates via port `112`. [Open port](../../openstack/readme.md) `112` on the ADDE VM via OpenStack.
 
 
 <a id="h:E8896F4D"></a>

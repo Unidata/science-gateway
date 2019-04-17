@@ -22,7 +22,7 @@
    :CUSTOM_ID: h:65F9358E
    :END:
 
-[[https://github.com/Unidata/xsede-jetstream/tree/master/openstack#building-a-kubernetes-cluster][Create a Kubernetes cluster]] with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
+[[file:../../openstack/readme.org::#h:DA34BC11][Create a Kuernetes cluster]] with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
 
 ** unidata/unidatahub Docker Container
    :PROPERTIES:

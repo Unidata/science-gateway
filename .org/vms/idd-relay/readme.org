@@ -23,7 +23,7 @@
    :CUSTOM_ID: h:4BF1C37C
    :END:
 
-Create an ~m1.medium~ VM with the [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-relay-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-relay-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
@@ -41,7 +41,7 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
    :CUSTOM_ID: h:C89E3FF5
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [[https://github.com/Unidata/xsede-jetstream/blob/master/docker-readme.md][See here to install Docker and docker-compose]]. 
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
 
 ** ~/etc Directory
    :PROPERTIES:
@@ -84,7 +84,7 @@ Create the LDM =logs= directory.
    :CUSTOM_ID: h:FB14DD93
    :END:
 
-Open LDM port ~388~ so that this VM may function as an IDD relay node. [[https://github.com/Unidata/xsede-jetstream/blob/master/openstack/readme.md#h:D6B1D4C2][See here]] for more information on opening ports.
+[[file:../../openstack/readme.org::#h:D6B1D4C2][Open LDM port]] ~388~ so that this VM may function as an IDD relay node.
 
 ** docker-compose.yml
    :PROPERTIES:
