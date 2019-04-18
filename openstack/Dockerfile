@@ -22,7 +22,7 @@ RUN yum install -y python-glanceclient python-openstackclient
 # pip
 ###
 
-RUN yum -y install epel-release python-pip
+RUN yum install -y epel-release && yum install -y python-pip
 
 ###
 # Terraform
