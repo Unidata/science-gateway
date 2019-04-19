@@ -448,14 +448,52 @@ At this point, to create the VMs that will house the kubernetes cluster (named "
 
 This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tf`.
 
-Sometimes, this process does not go completely smoothly with VMs stuck in `ERROR` state. You may be able to fix this problem with:
-
-```sh
-cd ~/jetstream_kubespray/inventory/k8s-unidata/
-CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
-```
-
 Once, the script is complete, let the VMs settle for a while (let's say ten minutes). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
+
+1.  Check Status of VMs
+
+    Check to see the status of the VMs with:
+
+    ```sh
+    openstack server list | grep k8s-unidata
+    ```
+
+    and
+
+    ```sh
+    watch -n 15 \
+         ansible -i $HOME/jetstream_kubespray/inventory/k8s-unidata/hosts -m ping all
+    ```
+
+    1.  Steps if VMs are Unhappy
+
+        If the check status process did not go smoothly, here are some thing you can try to remedy the problem.
+
+        If you see any errors, you can try to wait a bit more or reboot the offending VM with:
+
+        ```sh
+        openstack server reboot <vm>
+        ```
+
+        or you can reboot all VMs with:
+
+        ```sh
+        osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
+        ```
+
+        If VMs stuck in `ERROR` state. You may be able to fix this problem with:
+
+        ```sh
+        cd ~/jetstream_kubespray/inventory/k8s-unidata/
+        CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
+        ```
+
+        or you can destroy the VMs and try again
+
+        ```sh
+        cd ~/jetstream_kubespray/inventory/k8s-unidata/
+        CLUSTER=k8s-unidata bash -c 'sh terraform_destroy.sh'
+        ```
 
 
 <a id="h:05F9D0A2"></a>
@@ -468,15 +506,9 @@ Next, run
 kube-setup2.sh -n k8s-unidata
 ```
 
-If seeing errors related to `dpkg`, wait and try again.
+If seeing errors related to `dpkg`, wait and try again or [try these steps](#h:F4401658).
 
-If this command is still giving errors, try rebooting VMs with:
-
-```sh
-osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
-```
-
-and running `kube-setup2.sh -n k8s-unidata` again.
+Run `kube-setup2.sh -n k8s-unidata` again.
 
 
 <a id="h:D833684A"></a>
@@ -489,24 +521,32 @@ Ensure the Kubernetes cluster is running:
 kubectl get pods --all-namespaces
 ```
 
+and get a list of the nodes:
+
+```sh
+kubectl get nodes --all-namespaces
+```
+
 
 <a id="h:1991828D"></a>
 
 ### Adding Nodes to Cluster
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of adding worker nodes in `cluster.tf` followed by running:
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h:F44D1317) in `jetstream_kubespray/inventory/k8s-unidata/cluster.tf` followed by running:
 
 ```sh
 cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
-Wait a bit to allow `dpkg` to finish running on the new node(s) followed by:
+Wait a bit to allow `dpkg` to finish running on the new node(s). [Check the VMS](#h:136A4851). Next:
 
 ```sh
 cd ~/jetstream_kubespray
 CLUSTER=k8s-unidata bash -c 'sh k8s_scale.sh'
 ```
+
+[Check the cluster](#h:D833684A).
 
 
 <a id="h:0324031E"></a>
@@ -542,6 +582,8 @@ teardown.sh -n  k8s-unidata-k8s-node-nf-2
 ```
 
 from the openstack command line.
+
+[Check the cluster](#h:D833684A).
 
 
 <a id="h:DABDACC7"></a>
