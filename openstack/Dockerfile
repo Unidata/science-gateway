@@ -14,15 +14,13 @@ RUN yum update yum -y
 RUN yum install -y vim telnet openssh openssh-clients git vi less nano wget \
     unzip kubectl openssl sudo
 
-RUN yum install -y http://rdo.fedorapeople.org/rdo-release.rpm
-
-RUN yum install -y python-glanceclient python-openstackclient
-
 ###
 # pip
 ###
 
-RUN yum install -y epel-release && yum install -y python-pip
+# https://linuxize.com/post/how-to-install-pip-on-centos-7/
+RUN yum install -y epel-release && yum install -y python-pip && \
+    yum install -y python-devel && yum groupinstall -y 'development tools'
 
 ###
 # Terraform
@@ -62,6 +60,8 @@ RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream \
 RUN pip install --upgrade pip
 
 RUN pip install -r $HOME/jetstream_kubespray/requirements.txt
+
+RUN pip install --upgrade python-openstackclient --ignore-installed
 
 RUN mkdir $HOME/.kube
 
