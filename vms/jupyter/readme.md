@@ -51,7 +51,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 1.  Letsencrypt
 
-    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up letsencrypt along with this yaml snippet:
+    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up letsencrypt along with this yaml snippet below. Replace the hostname where appropriate.
     
     ```yaml
     ingress:
@@ -82,7 +82,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       tls:
           - hosts:
              - jupyterhub.unidata.ucar.edu
-            secretName: <cert-secret>
+            secretName: certmanager-tls-jupyterhub
     ```
 
 
