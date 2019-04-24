@@ -63,10 +63,10 @@ ingress:
   annotations:
     kubernetes.io/tls-acme: "true"
   hosts:
-    - jupyterhub.unidata.ucar.edu
+    - <jupyterhub-host>
   tls:
       - hosts:
-         - jupyterhub.unidata.ucar.edu
+         - <jupyterhub-host>
         secretName: certmanager-tls-jupyterhub
 #+END_SRC
 
@@ -85,10 +85,10 @@ ingress:
   annotations:
     kubernetes.io/tls-acme: "true"
   hosts:
-    - jupyterhub.unidata.ucar.edu
+    - <jupyterhub-host>
   tls:
       - hosts:
-         - jupyterhub.unidata.ucar.edu
+         - <jupyterhub-host>
         secretName: certmanager-tls-jupyterhub
 #+END_SRC
 
@@ -110,7 +110,7 @@ ingress:
     globus:
       clientId: "xxx"
       clientSecret: "xxx"
-      callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
+      callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
       identityProvider: "xsede.org"
     admin:
       users:
@@ -130,7 +130,7 @@ Setup an OAuth app on GitHub
     github:
       clientId: "xxx"
       clientSecret: "xxx"
-      callbackUrl: "https://<your-domain-name>:443/oauth_callback"
+      callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
     admin:
       users:
         - adminuser1
@@ -175,7 +175,7 @@ hub:
    :CUSTOM_ID: h:209E2FBC
    :END:
 
-In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][https://jupyterhub.unidata.ucar.edu]].
+In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][https://<jupyterhub-host>]].
 
 ** Tearing Down JupyterHub
    :PROPERTIES:

@@ -59,10 +59,10 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       annotations:
         kubernetes.io/tls-acme: "true"
       hosts:
-        - jupyterhub.unidata.ucar.edu
+        - <jupyterhub-host>
       tls:
           - hosts:
-             - jupyterhub.unidata.ucar.edu
+             - <jupyterhub-host>
             secretName: certmanager-tls-jupyterhub
     ```
 
@@ -78,10 +78,10 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       annotations:
         kubernetes.io/tls-acme: "true"
       hosts:
-        - jupyterhub.unidata.ucar.edu
+        - <jupyterhub-host>
       tls:
           - hosts:
-             - jupyterhub.unidata.ucar.edu
+             - <jupyterhub-host>
             secretName: certmanager-tls-jupyterhub
     ```
 
@@ -100,7 +100,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       globus:
         clientId: "xxx"
         clientSecret: "xxx"
-        callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
+        callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
         identityProvider: "xsede.org"
       admin:
         users:
@@ -117,7 +117,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       github:
         clientId: "xxx"
         clientSecret: "xxx"
-        callbackUrl: "https://<your-domain-name>:443/oauth_callback"
+        callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
       admin:
         users:
           - adminuser1
@@ -164,7 +164,7 @@ hub:
 
 ## Navigate to JupyterHub
 
-In a web browser, navigate to [https://jupyterhub.unidata.ucar.edu](https://jupyter-jetstream.unidata.ucar.edu).
+In a web browser, navigate to [https://<jupyterhub-host>](https://jupyter-jetstream.unidata.ucar.edu).
 
 
 <a id="h:1E027567"></a>
