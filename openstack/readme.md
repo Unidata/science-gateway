@@ -23,6 +23,7 @@
     - [Adding Nodes to Cluster](#h:1991828D)
     - [Removing Nodes from Cluster](#h:0324031E)
     - [Tearing Down the Cluster](#h:DABDACC7)
+    - [Monitoring the Cluster with Grafana and Prometheus](#h:005364BF)
 
 
 
@@ -609,3 +610,12 @@ from the openstack command line.
     ```
 
     Subsequently, when you invoke `terraform_apply.sh`, the master node should have the same IP number as before.
+
+
+<a id="h:005364BF"></a>
+
+### Monitoring the Cluster with Grafana and Prometheus
+
+[Grafana](https://grafana.com/) is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [Prometheus](https://github.com/camilb/prometheus-kubernetes) allows for monitoring of Kubernetes clusters.
+
+Installing these monitoring technologies is fairly straightforward and [described here](https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html).
