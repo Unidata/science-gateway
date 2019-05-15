@@ -82,7 +82,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
       tls:
           - hosts:
              - <jupyterhub-host>
-            secretName: certmanager-tls-jupyterhub
+            secretName: <secret_name>
     ```
 
 
@@ -128,21 +128,23 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 ### unidata/unidatahub
 
-Add the Unidata JupyterHub configuration (`unidata/unidatahub`). Customize cpu and memory according to size of cluster and expected number of students. Based on those assumptions shoot for 80% capacity. For example, if your cluster has 100 CPUs and you expect 80 students allow for a cpu limit of 1. The same reasoning applies for the memory settings. Adjust your arithmetic accordingly for cluster size and expected number of users.
+Add the Unidata JupyterHub configuration (`unidata/unidatahub`) and related items (e.g., pulling of Unidata Python projects). Customize cpu and memory according to size of cluster and expected number of students. Based on those assumptions shoot for 80% capacity. For example, if your cluster has 100 CPUs and you expect 80 students allow for a cpu limit of 1. The same reasoning applies for the memory settings. Adjust your arithmetic accordingly for cluster size and expected number of users.
 
 ```yaml
 singleuser:
+  storage:
+    capacity: 10Gi
   startTimeout: 600
   memory:
-    guarantee: 1G
-    limit: 4G
+    guarantee: 2G
+    limit: 2G
   cpu:
-    guarantee: 1
-    limit: 2
+    guarantee: 0.5
+    limit: 0.75
   defaultUrl: "/lab"
   image:
     name: unidata/unidatahub
-    tag: <container id>
+    tag: 5d5d0301d334
   lifecycleHooks:
     postStart:
       exec:
@@ -150,13 +152,15 @@ singleuser:
             - "sh"
             - "-c"
             - >
-              gitpuller https://github.com/Unidata/python-workshop master python-workshop;
+              gitpuller https://github.com/julienchastang/unidata-python-workshop master python-workshop;
               gitpuller https://github.com/julienchastang/unidata-python-gallery-mirror master notebook-gallery;
-              gitpuller https://github.com/Unidata/online-python-training master online-python-training;
+              gitpuller https://github.com/julienchastang/online-python-training master online-python-training;
               cp /README_FIRST.ipynb /home/jovyan
+
 hub:
   extraConfig: |-
     c.Spawner.cmd = ['jupyter-labhub']
+    c.JupyterHub.template_vars = {'announcement': '<h3>This JupyterHub server will be down for maintenance Friday, June 8. PLEASE make local backups of your important notebooks!</h3>'}
 ```
 
 
@@ -164,7 +168,7 @@ hub:
 
 ## Navigate to JupyterHub
 
-In a web browser, navigate to [https://<jupyterhub-host>](https://jupyter-jetstream.unidata.ucar.edu).
+In a web browser, navigate to your newly minted JupyterHub and see if it is as you expect.
 
 
 <a id="h:1E027567"></a>
