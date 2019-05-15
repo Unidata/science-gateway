@@ -58,16 +58,16 @@ After you have created the ~secrets.yaml~ as instructed, customize it with the c
 Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up letsencrypt along with this yaml snippet below. Replace the hostname where appropriate.
 
 #+BEGIN_SRC yaml
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/tls-acme: "true"
-  hosts:
-    - <jupyterhub-host>
-  tls:
-      - hosts:
-         - <jupyterhub-host>
-        secretName: certmanager-tls-jupyterhub
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - <jupyterhub-host>
+    tls:
+        - hosts:
+           - <jupyterhub-host>
+          secretName: certmanager-tls-jupyterhub
 #+END_SRC
 
 **** Certificate from CA
@@ -80,16 +80,16 @@ Work with sys admin staff to obtain a certificate from a CA.
 Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up HTTPS with custom certificates.
 
 #+BEGIN_SRC yaml
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/tls-acme: "true"
-  hosts:
-    - <jupyterhub-host>
-  tls:
-      - hosts:
-         - <jupyterhub-host>
-        secretName: certmanager-tls-jupyterhub
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - <jupyterhub-host>
+    tls:
+        - hosts:
+           - <jupyterhub-host>
+          secretName: <secret_name>
 #+END_SRC
 
 *** OAuth Authentication
@@ -140,42 +140,16 @@ Setup an OAuth app on GitHub
     :CUSTOM_ID: h:214D1D4C
     :END:
 
-Add the Unidata JupyterHub configuration (~unidata/unidatahub~). Customize cpu and memory according to size of cluster and expected number of students. Based on those assumptions shoot for 80% capacity. For example, if your cluster has 100 CPUs and you expect 80 students allow for a cpu limit of 1. The same reasoning applies for the memory settings. Adjust your arithmetic accordingly for cluster size and expected number of users.
+Add the Unidata JupyterHub configuration (~unidata/unidatahub~) and related items (e.g., pulling of Unidata Python projects). Customize cpu and memory according to size of cluster and expected number of students. Based on those assumptions shoot for 80% capacity. For example, if your cluster has 100 CPUs and you expect 80 students allow for a cpu limit of 1. The same reasoning applies for the memory settings. Adjust your arithmetic accordingly for cluster size and expected number of users.
 
-#+BEGIN_SRC yaml
-singleuser:
-  startTimeout: 600
-  memory:
-    guarantee: 1G
-    limit: 4G
-  cpu:
-    guarantee: 1
-    limit: 2
-  defaultUrl: "/lab"
-  image:
-    name: unidata/unidatahub
-    tag: <container id>
-  lifecycleHooks:
-    postStart:
-      exec:
-          command:
-            - "sh"
-            - "-c"
-            - >
-              gitpuller https://github.com/Unidata/python-workshop master python-workshop;
-              gitpuller https://github.com/julienchastang/unidata-python-gallery-mirror master notebook-gallery;
-              gitpuller https://github.com/Unidata/online-python-training master online-python-training;
-              cp /README_FIRST.ipynb /home/jovyan
-hub:
-  extraConfig: |-
-    c.Spawner.cmd = ['jupyter-labhub']
-#+END_SRC
+#+INCLUDE: "../../../vms/jupyter/example_secrets.yaml" src yaml :lines "21-51"
+
 ** Navigate to JupyterHub
    :PROPERTIES:
    :CUSTOM_ID: h:209E2FBC
    :END:
 
-In a web browser, navigate to [[https://jupyter-jetstream.unidata.ucar.edu][https://<jupyterhub-host>]].
+In a web browser, navigate to your newly minted JupyterHub and see if it is as you expect.
 
 ** Tearing Down JupyterHub
    :PROPERTIES:
