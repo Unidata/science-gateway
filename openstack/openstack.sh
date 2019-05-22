@@ -40,8 +40,11 @@ if [ -z "$OPENRC" ];
       exit 1
 fi
 
+MONITORING=$(shuf -i 3000-3100 -n 1)
+
 docker run -it  \
        -v ${SSH_DIR}:/home/openstack/.ssh/ \
        -v ${OPENRC}:/home/openstack/bin/openrc.sh \
+       -p ${MONITORING}:3000 \
        unidata/xsede-jetstream /bin/bash
 

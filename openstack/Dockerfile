@@ -91,6 +91,13 @@ RUN chmod +x $HOME/bin/*.sh
 
 ADD .bashrc $HOME/
 
+
+###
+# Expose 3000 for Prometheus/Grafana
+###
+
+EXPOSE 3000
+
 ###
 # Finalize
 ###

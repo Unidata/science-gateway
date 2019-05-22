@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] -- no argument script to create Unidata related ports; 22, 80, 112, 388, 443, 8080, 8443 .:\n
+usage="$(basename "$0") [-h] -- no argument script to create Unidata related ports.:\n
     -h  show this help text\n"
 
 while [[ $# > 0 ]]
@@ -31,4 +31,6 @@ secgroup.sh  -p 111 -n local-nfs --remote-ip 10.0.0.0/24
 openstack security group rule create local-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 10.0.0.0/24
 openstack security group rule create local-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 10.0.0.0/24
 openstack security group rule create local-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 10.0.0.0/24
+secgroup.sh -p 3000 -n global-jh-monitor
+openstack security group rule create global-jh-monitor --protocol tcp --dst-port 3000:3100 --remote-ip 0.0.0.0/0
 openstack security group list
