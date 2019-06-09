@@ -613,6 +613,8 @@ from the openstack command line.
 
     Subsequently, when you invoke `terraform_apply.sh`, the master node should have the same IP number as before.
 
+    **Note**: AFTER invoking `terraform_apply.sh` remove the `~/.ssh/known_hosts` line that corresponds to the old master node! This can easily be achieved by sshing into the new master node which will indicate the offending line in `~/.ssh/known_hosts`. This will avoid headaches when invoking `kube-setup2.sh`.
+
 
 <a id="h:005364BF"></a>
 
