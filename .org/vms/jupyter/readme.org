@@ -77,7 +77,15 @@ Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterh
 
 Work with sys admin staff to obtain a certificate from a CA.
 
-Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up HTTPS with custom certificates.
+Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up HTTPS with custom certificates. Note that when adding the key with
+
+#+BEGIN_SRC shell
+ kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
+#+END_SRC
+
+supply the regular and not full chain certificate.
+
+Here is a snippet of what the ingress configuration will look like in the ~secrets.yaml~.
 
 #+BEGIN_SRC yaml
   ingress:

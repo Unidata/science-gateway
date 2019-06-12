@@ -52,7 +52,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 1.  Letsencrypt
 
     Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up letsencrypt along with this yaml snippet below. Replace the hostname where appropriate.
-    
+
     ```yaml
     ingress:
       enabled: true
@@ -69,9 +69,17 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 2.  Certificate from CA
 
     Work with sys admin staff to obtain a certificate from a CA.
-    
-    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up HTTPS with custom certificates.
-    
+
+    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up HTTPS with custom certificates. Note that when adding the key with
+
+    ```shell
+    kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
+    ```
+
+    supply the regular and not full chain certificate.
+
+    Here is a snippet of what the ingress configuration will look like in the `secrets.yaml`.
+
     ```yaml
     ingress:
       enabled: true
@@ -93,7 +101,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 1.  Globus
 
     [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward.
-    
+
     ```yaml
     auth:
       type: globus
@@ -110,7 +118,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 2.  GitHub
 
     Setup an OAuth app on GitHub
-    
+
     ```yaml
     auth:
       type: github
