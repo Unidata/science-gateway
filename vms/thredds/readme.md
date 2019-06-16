@@ -55,7 +55,7 @@ With the help of Docker and `docker-compose`, starting a VM with the TDS should 
 
 ```shell
 mkdir -p ~/tdsconfig/
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/newThredds/config.zip -O ~/tdsconfig/config.zip
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 ```
 
