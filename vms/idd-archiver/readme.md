@@ -117,7 +117,7 @@ Unpack the pqacts configurations from the `TdsConfig` project and put them in th
 
 ```shell
 mkdir -p ~/tdsconfig/ ~/etc/TDS
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/newThredds/config.zip -O ~/tdsconfig/config.zip
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 ```
