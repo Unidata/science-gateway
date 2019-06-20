@@ -1,0 +1,430 @@
+#+TITLE: Deploying a Unidata JupyterHub on the NSF Jetstream Cloud,  Lessons Learned  and Challenges Going Forward
+#+SUBTITLE: ESIP Summer 2019 Meeting
+#+DATE: Wednesday, 17 July 2019
+#+DESCRIPTION: Unidata Science Gateway JupyterHub
+#+KEYWORDS: Unidata Docker Jetstream XSEDE Science Gateway Jupyter JupyterHub
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 25.3.1 (Org mode 9.1.13)
+#+OPTIONS: auto-id:t
+
+#+STARTUP: beamer
+#+STARTUP: oddeven
+
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger,notes=show]
+
+# unidata bottom banner
+#+LATEX_HEADER: \setbeamertemplate{background canvas}{ \raisebox{-\paperheight}[0pt][0pt]{ \makebox[\paperwidth][c]{ \includegraphics[width=\paperwidth,height=0.8cm]{../common/Unidata_gradient_for_poster.png} } } }
+# https://github.com/matze/mtheme `make sty`. Install sty files in ~/Library/texmf/tex/latex
+#+BEAMER_THEME: metropolis
+
+#+OPTIONS:   H:2 toc:t
+
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+
+# for a column view of options and configurations for the individual
+# frames
+#+COLUMNS: %20ITEM %13BEAMER_env(Env) %6BEAMER_envargs(Args) %4BEAMER_col(Col) %7BEAMER_extra(Extra)
+
+* Background and Context
+  :PROPERTIES:
+  :CUSTOM_ID: h:5B22D256
+  :END:
+** Audience                                                         :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:BEE7ED1A
+   :END:
+
+- Who is the audience? Technical geoscience folks
+- They'll want to know how the benefits to science for this endeavor
+- I'll assume a geoscience audience with some technical background
+
+** Unidata: Who and What We Are                                    :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:15F19C3B
+   :END:
+
+NSF-funded center for developing tools, data access, and community support
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:1286EFEB
+    :END:
+
+- netCDF
+- LDM / IDD
+- THREDDS
+- IDV
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:959FD26C
+    :END:
+
+- AWIPS/GEMPAK
+- Python
+- McIDAS ADDE
+- RAMADDA
+
+** Unidata 2024 Proposal: Science as a Service
+   :PROPERTIES:
+   :CUSTOM_ID: h:200D2E62
+   :END:
+
+/The *Science as a Service* concept draws together Unidata's ongoing work to provide geoscience data and software for analysis and visualization with access to workflows designed to take advantage of *cloud computing* resources./
+
+** NSF Jetstream Cloud Collaboration
+   :PROPERTIES:
+   :CUSTOM_ID: h:95396D4D
+   :END:
+
+- What is Jetstream?
+  - A National Science and Engineering Cloud funded by an $11 million NSF grant.
+  - Data centers at IU and TACC.
+- Attached to fast Internet2 capability.
+- Cloud based on *OpenStack* for creation of VMs, routers, networks, subnets, security groups  etc.
+- Unidata has been operating on Jetstream for 3 years through a large research grants
+- Once you get through granting process, *Jetstream is free*
+
+** Unidata's Exploration of the Jetstream Cloud Thus Far
+   :PROPERTIES:
+   :CUSTOM_ID: h:64E9402E
+   :END:
+
+- Started by containerizing Unidata technology offerings
+  - THREDDS
+  - LDM
+  - McIDAS ADDE
+  - RAMADDA
+- Deployed containers to create near complete Unidata data center
+- Plenty of NCEP at [[https://thredds-jetstream.unidata.ucar.edu][thredds-jetstream.unidata.ucar.edu]]
+- But what about client-side offerings in cloud?
+- /Next obvious step: "data-proximate" analysis and visualization/
+
+** Jetstream Architecture                                          :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:D0A355B2
+   :END:
+
+#+ATTR_LATEX: :width 10cm
+[[file:../../../jetstream.png]]
+
+* Deploying a Geoscience JupyterHub on NSF Jetstream Cloud
+  :PROPERTIES:
+  :CUSTOM_ID: h:40AB0523
+  :END:
+** What is a Jupyter Notebook?
+   :PROPERTIES:
+   :CUSTOM_ID: h:E66D1675
+   :END:
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:E135BFF2
+    :END:
+
+A narrative of:
+- Explanatory and expository text
+- Software code (Python, R, etc.) and output
+- Equations (MathJax, LaTeX)
+- Figures and multimedia
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:7404FDF3
+    :END:
+
+#+ATTR_LATEX: :width 4cm
+[[file:../esip2018/images/lorenz.png]]
+
+** Success of Jupyter in Research and Education
+   :PROPERTIES:
+   :CUSTOM_ID: h:6E96D982
+   :END:
+
+# https://www.nature.com/articles/d41586-018-07196-1
+#+ATTR_LATEX: :width 9cm
+[[file:../ams2019/images/nature.png]]
+
+/[Jupyter] notebooks are really a killer app for teaching computing in science and engineering/ - Lorena Barba, Engineering Professor, GWU
+
+** JupyterLab: Next Generation UI
+   :PROPERTIES:
+   :CUSTOM_ID: h:B1CE7FD5
+   :END:
+
+#+ATTR_LATEX: :width 9cm
+[[file:../ams2019/images/jupyterlab.png]]
+
+- Terminal (~git~, ~conda~, etc.)
+- Text Editor
+
+** JupyterHub: Multi-user Jupyter Notebook Server
+   :PROPERTIES:
+   :CUSTOM_ID: h:EFCFD603
+   :END:
+
+Fernando Pérez: It is infeasible for IT support to assist 800 students install complex software on their laptops.
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:B2A4CC6A
+    :END:
+
+- Users log in to a JupyterHub server
+- Users have their own work space w/ notebooks
+- Excellent for workshops or in the classroom
+- Administrator can configure ahead of time on behalf of user
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:F1080226
+    :END:
+
+#+ATTR_LATEX: width=\textwidth
+[[file:../ogc2018/images/jupyterhub.png]]
+
+** Zero to JupyterHub Project
+   :PROPERTIES:
+   :CUSTOM_ID: h:06120E7D
+   :END:
+
+_Problem_: A single JupyterHub server running on a large VM can only serve a small number of students (< 10).
+
+_Solution_: *Zero to JupyterHub* project aims to install JupyterHub across several orchestrated VMs to accommodate many more users
+  - Virtual Machines
+  - Software Containers (i.e., Docker)
+  - Data center software orchestration (i.e., *Kubernetes*)
+
+_Zero to JupyterHub allows for many more users._
+
+** Zero to JupyterHub
+   :PROPERTIES:
+   :CUSTOM_ID: h:BEB30D5A
+   :END:
+
+#+ATTR_LATEX: :width 8.5cm
+[[file:../ams2019/images/z2j.png]]
+
+** Zero to JupyterHub on Jetstream/OpenStack
+   :PROPERTIES:
+   :CUSTOM_ID: h:7EA950F2
+   :END:
+
+- z2j ported to Jetstream by _Andrea Zonca_ SDSC, w/ help from _Jeremy Fischer_ at IU
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:489432B8
+    :END:
+
+#+ATTR_LATEX: :width 2cm
+file:../ams2019/images/zonca.jpeg
+
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :CUSTOM_ID: h:B5DE7920
+    :END:
+
+#+ATTR_LATEX: :width 2cm
+file:./images/jf.jpg
+
+** K8s Deployed on Jetstream with KubeSpray Project
+   :PROPERTIES:
+   :CUSTOM_ID: h:CAC78004
+   :END:
+
+- Deploy Kubernetes clusters with:
+  - Terraform: creation on VMs, routers, networks, subnets, security groups
+  - Ansible: kubernetes cluster software installation
+- Added layer of scripts to streamline deployment
+  - ~setup-kube.sh~
+  - ~setup-kube2.sh~
+- Initially, must decide on size/number of VMs via ~terraform.tf~
+- Can be scaled "manually" thereafter (no autoscaling)
+** Scaling Spreadsheet                                             :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:C75BB8EE
+   :END:
+
+#+ATTR_LATEX: :width 9cm
+file:./images/spreadsheet.png
+
+** Zero to JupyterHub Customization and Configuration
+   :PROPERTIES:
+   :CUSTOM_ID: h:5DEF7813
+   :END:
+
+- YAML configuration file
+- HTTPS available with LetsEncrypt or custom certificates
+- Authentication via oauth (github, globus, etc.)
+- Custom Unidata Docker Container:
+  - Gallery: PyAOS examples
+  - Workshop: PyAOS training
+  - Online Python Training
+- Environments to run these projects already installed
+- JupyterLab
+
+** Persistent Storage Allocation for Each User
+   :PROPERTIES:
+   :CUSTOM_ID: h:9AE9F74B
+   :END:
+- Each user gets a 10 GB disk allocation
+- This disk space remains available to them for ? amount of time
+
+** Unidata Community JupyterHub
+   :PROPERTIES:
+   :CUSTOM_ID: h:6C7ADD1B
+   :END:
+
+- jupyterhub.unidata.ucar.edu
+- 5 "m1.medium" size VMs totaling 30 CPUs 80 RAM
+- 60 users (not concurrent) most of which try it one time, though some return customers
+
+** Other Unidata JupyterHubs
+   :PROPERTIES:
+   :CUSTOM_ID: h:59E76067
+   :END:
+
+- Notre Dame of Maryland University (no kubernetes)
+- Southern Arkansas University (no kubernetes)
+- JupyterHub for UCAR SOARS summer internship program
+
+** Example Notebook: Miller Composite
+   :PROPERTIES:
+   :CUSTOM_ID: h:7E6B13DC
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:../esip2018/images/miller.png]]
+
+** Example Notebook: Satellite + GFS Model
+   :PROPERTIES:
+   :CUSTOM_ID: h:117D8A24
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:../esip2018/images/satellite.png]]
+
+** Example Notebook: Upper Air SkewT
+   :PROPERTIES:
+   :CUSTOM_ID: h:C7031E31
+   :END:
+
+#+ATTR_LATEX: :width 6.5cm
+[[file:../ams2019/images/skewt.png]]
+
+* Lessons Learned, Challenges Going Forward
+  :PROPERTIES:
+  :CUSTOM_ID: h:9F1BE94F
+  :END:
+** Problems with JupyterHub Deployments and Maintenance
+   :PROPERTIES:
+   :CUSTOM_ID: h:5EC69A7E
+   :END:
+
+- Finicky VMs during cluster creation (takes several tries)
+- Timeout errors at every level (deployment and running)
+- Complexity associated with software running on clusters
+- JupyterHub spawn errors
+- Disk allocation errors
+- Network problems at TACC
+- General lack of reliability throughout entire tech stack
+
+** Spawn Errors :-(                                                :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: h:702D6293
+   :END:
+
+#+ATTR_LATEX: :width 9cm
+file:./images/spawn.png
+
+** Trough of Sorrow
+   :PROPERTIES:
+   :CUSTOM_ID: h:33F703A3
+   :END:
+
+#+ATTR_LATEX: :width 7cm
+file:./images/trough.png
+
+/Source: Paul Graham via andrewchen.co/
+
+** Additional Caveats
+   :PROPERTIES:
+   :CUSTOM_ID: h:1179E568
+   :END:
+
+- What to do with user data over long term? What guarantees?
+- This project is not Pangeo
+  - Goals are more modest and Unidata focused
+  - Would be happy to deploy Pangeo on Unidata Jetstream allocation
+
+** Lessons Learned
+   :PROPERTIES:
+   :CUSTOM_ID: h:35A87BA8
+   :END:
+
+- Scriptifying your deployments to make your life easier
+- Interview your users before so cluster can be accurately sized
+- Tech stack is new and fragile and will take time before it is stable
+- Don't advertise too early, scale gradually by introducing to incrementally wider audiences to address problems
+- Need to be persistent to overcome tech challenges: ask for help on github issues and gitter
+- Science professionals have a high threshold for problems as long as they can arrive at a desired objective
+
+** Future Plans
+   :PROPERTIES:
+   :CUSTOM_ID: h:BC28FC54
+   :END:
+
+- Get technology problems under control, don't build on a Swiss cheese foundation
+- Experiment more with IU Jetstream data center
+- Autoscaling on OpenStack with Zonca collaboration
+- Address github issues
+- Once things stabilize, promote to wider community
+
+** Acknowledgments
+   :PROPERTIES:
+   :CUSTOM_ID: h:A80D6FBA
+   :END:
+
+*** Column 1
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :CUSTOM_ID: h:4DBD473E
+    :END:
+
+We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenlaub, Suresh Marru, Lance Moxley, Marlon Pierce, Semir Sarajlic, Craig Alan Stewart, George Wm Turner, Nancy Wilkins-Diehr, Nicole Wolter and Andrea Zonca for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
+
+*** Column 2
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :CUSTOM_ID: h:D18BDB84
+    :END:
+
+Special thanks to Andrea And Jeremy
+
+#+ATTR_LATEX: :width 2cm
+file:../ams2019/images/zonca.jpeg
+
+#+ATTR_LATEX: :width 2cm
+file:./images/jf.jpg
+
+** Resource and Questions
+   :PROPERTIES:
+   :CUSTOM_ID: h:C4CFEE53
+   :END:
+
+https://github.com/Unidata/xsede-jetstream
