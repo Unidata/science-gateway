@@ -46,6 +46,19 @@ cd inventory/$CLUSTER
 bash terraform_init.sh
 bash terraform_apply.sh
 
+echo Give a chance for dpkg to run on newly minted VMs for 5 minutes
+
+sleep 300
+
+echo Now reboot VMs
+
+openstack server list | grep $CLUSTER | awk '{print $2}' \
+    | xargs -n1 openstack server reboot
+
+echo Give a chance for VMs to reboot for 5 minutes
+
+sleep 300
+
 openstack server list
 
 echo watch -n 15 \
