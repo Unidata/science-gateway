@@ -9,18 +9,18 @@
      xmlns:georss="http://www.georss.org/georss"
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
      xmlns:media="http://search.yahoo.com/mrss/"><channel>
-  <title>news</title>
+  <title>Unidata Science Gateway News</title>
   <atom:link href="http://science-gateway.unidata.ucar.edu/news.xml" rel="self" type="application/rss+xml" />
   <link>http://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Thu, 29 Aug 2019 14:20:56 -0600</pubDate>
-  <lastBuildDate>Thu, 29 Aug 2019 14:20:56 -0600</lastBuildDate>
+  <pubDate>Tue, 17 Sep 2019 16:24:23 -0600</pubDate>
+  <lastBuildDate>Tue, 17 Sep 2019 16:24:23 -0600</lastBuildDate>
   <generator>Emacs 26.2 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
     <url>https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4</url>
-    <title>news</title>
+    <title>Unidata Science Gateway News</title>
     <link>http://science-gateway.unidata.ucar.edu/</link>
   </image>
 
@@ -28,16 +28,31 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h:7AC1E6CA">9/17/2019, 2019 Gateways and eScience Conferences</a></li>
         <li><a href="#h:7E4293A6">8/28/2019, Unidata JupyterHub Back Online</a></li>
       </ul>
     </div>
   </div>
 
+
+  <item>
+    <title>9/17/2019, 2019 Gateways and eScience Conferences</title>
+    <link>http://science-gateway.unidata.ucar.edu/index.html#h:7AC1E6CA</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">http://science-gateway.unidata.ucar.edu/index.html#h:7AC1E6CA</guid>
+    <pubDate>Tue, 17 Sep 2019 14:18:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    The Gateways 2019 and co-located eScience 2019 conferences will be held in San Diego, California September 23–27. We will be presenting a poster entitled: <a href="https://doi.org/10.17605/OSF.IO/W7SV8">A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway</a>.
+    </p>
+    ]]></description>
+  </item>
+
   <item>
     <title>8/28/2019, Unidata JupyterHub Back Online</title>
-    <link>http://science-gateway.unidata.ucar.edu/index.html#h:161F43B1</link>
+    <link>http://science-gateway.unidata.ucar.edu/index.html#h:7E4293A6</link>
     <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">http://science-gateway.unidata.ucar.edu/index.html#h:161F43B1</guid>
+    <guid isPermaLink="false">http://science-gateway.unidata.ucar.edu/index.html#h:7E4293A6</guid>
     <pubDate>Thu, 29 Aug 2019 11:13:00 -0600</pubDate>
 
     <description><![CDATA[<p>
