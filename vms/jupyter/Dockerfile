@@ -39,5 +39,7 @@ RUN conda install --quiet --yes \
     fix-permissions /home/$NB_USER
 
 COPY README_FIRST.ipynb /
-    
+
+COPY .condarc /
+
 USER $NB_UID
