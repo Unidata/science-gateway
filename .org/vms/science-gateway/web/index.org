@@ -28,7 +28,7 @@
 
 Welcome to the [[http://www.unidata.ucar.edu/][Unidata]] Science Gateway on the National Science Foundation [[https://portal.xsede.org/jetstream][Jetstream Cloud]]. Unidata is a diverse community of education and research institutions with the common goal of sharing geoscience data and the tools to access and visualize that data. For more than 30 years, Unidata has been providing data, software tools, and support to enhance Earth-system education and research. Funded primarily by the National Science Foundation (NSF), Unidata is one of the University Corporation for Atmospheric Research (UCAR)'s Community Programs (UCP).
 
-As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.pdf][five-year plan (PDF)]] "Unidata 2018: Transforming Geoscience through Innovative Data Service", Unidata is exploring cloud computing technologies in the context of accessing, analyzing, and visualizing geoscience data. This site collects Unidata-related technologies hosted on Jetstream; you can make use of these resources either directly in your browser or using one of the client applications described below. Our hope is that by combining the resources available in this gateway -- and perhaps coupling them with XSEDE HPC resources -- community members can create end-to-end scientific computing workflows in the Jetstream Cloud.
+As part of our current [[https://www.unidata.ucar.edu/publications/Unidata_2018.pdf][five-year plan (PDF)]] "Unidata 2024: Next-generation Data Services and Workflows to Advance Geoscience Research and Education", Unidata is exploring cloud computing technologies in the context of accessing, analyzing, and visualizing geoscience data. This site collects Unidata-related technologies hosted on Jetstream; you can make use of these resources either directly in your browser or using one of the client applications described below. Our hope is that by combining the resources available in this gateway -- and perhaps coupling them with XSEDE HPC resources -- community members can create end-to-end scientific computing workflows in the Jetstream Cloud.
 
 * JupyterHub
   :PROPERTIES:
@@ -44,7 +44,6 @@ This JupyterHub is now open to anyone with an [[https://github.com][GitHub login
 - [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
 - [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]
 - [[https://github.com/Unidata/online-python-training][Unidata Online Python Training]]
-
 
 * THREDDS Data Server
   :PROPERTIES:
