@@ -1,4 +1,5 @@
 # Heavily borrowed from docker-stacks/scipy-notebook/
+# https://github.com/jupyter/docker-stacks/blob/master/scipy-notebook/Dockerfile
 
 ARG BASE_CONTAINER=jupyter/minimal-notebook:2ce7c06a61a1
 FROM $BASE_CONTAINER
@@ -26,11 +27,12 @@ RUN conda install --quiet --yes \
     wget https://raw.githubusercontent.com/Unidata/online-python-training/master/environment.yml && \
     conda env update --name online-python-training -f environment.yml && \
     rm environment.yml && \
-    conda clean -tipsy && \
     pip install --no-cache-dir nbgitpuller && \
+    conda clean --all -f -y && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager@^1.0.1 --no-build && \
     jupyter labextension install jupyterlab_bokeh@1.0.0 --no-build && \
+    jupyter lab build --dev-build=False && \
     npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \
