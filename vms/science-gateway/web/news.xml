@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:media="http://search.yahoo.com/mrss/"><channel>
+  <title>news</title>
+  <atom:link href="http://science-gateway.unidata.ucar.edu/news.xml" rel="self" type="application/rss+xml" />
+  <link>http://science-gateway.unidata.ucar.edu/</link>
+  <description><![CDATA[]]></description>
+  <language>en</language>
+  <pubDate>Thu, 29 Aug 2019 14:20:56 -0600</pubDate>
+  <lastBuildDate>Thu, 29 Aug 2019 14:20:56 -0600</lastBuildDate>
+  <generator>Emacs 26.2 Org-mode 9.2.1</generator>
+  <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
+  <image>
+    <url>https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4</url>
+    <title>news</title>
+    <link>http://science-gateway.unidata.ucar.edu/</link>
+  </image>
+
+  <div id="table-of-contents">
+    <h2>Table of Contents</h2>
+    <div id="text-table-of-contents">
+      <ul>
+        <li><a href="#h:7E4293A6">8/28/2019, Unidata JupyterHub Back Online</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <item>
+    <title>8/28/2019, Unidata JupyterHub Back Online</title>
+    <link>http://science-gateway.unidata.ucar.edu/index.html#h:161F43B1</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">http://science-gateway.unidata.ucar.edu/index.html#h:161F43B1</guid>
+    <pubDate>Thu, 29 Aug 2019 11:13:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    After a summer outage, the <a href="https://jupyterhub.unidata.ucar.edu">Unidata JupyterHub</a> is back online. Login with your GitHub credentials to explore one of many Unidata Jupyter notebooks.
+    </p>
+    ]]></description>
+  </item>
+</channel>
+</rss>

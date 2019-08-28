@@ -1,6 +1,6 @@
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:nil
 #+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
-#+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+OPTIONS: email:nil f:t inline:t num:nil p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:nil title:t toc:t todo:t |:t
 #+OPTIONS: auto-id:t
 
@@ -20,6 +20,16 @@
 #+CAPTION: Credits: NASA
 #+NAME: Hurricane
 [[file:hurricane.jpg]]
+
+#+MACRO: imglnk @@html:<a href="$1"><img src="$2"></a>@@
+
+* News
+  :PROPERTIES:
+  :CUSTOM_ID: h:161F43B1
+  :END:
+
+{{{imglnk(news.xml,https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/32px-Feed-icon.svg.png)}}}
+#+INCLUDE: news.org :lines "17-"
 
 * Introduction
   :PROPERTIES:
@@ -62,7 +72,7 @@ This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][
 
 [[http://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
 
-In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data Project]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream. 
+In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data Project]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream.
 
 * AWIPS EDEX
   :PROPERTIES:
