@@ -68,6 +68,7 @@ This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][
 
 * THREDDS AWS Nexrad Server
   :PROPERTIES:
+  :CUSTOM_ID: h:6B491DAA
   :END:
 
 [[http://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
