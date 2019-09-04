@@ -24,6 +24,8 @@
     - [Removing Nodes from Cluster](#h-0324031E)
     - [Tearing Down the Cluster](#h-DABDACC7)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
+- [Appendix](#h-78283D4A)
+  - [Jetstream VM Flavors](#h-958EA909)
 
 
 
@@ -423,7 +425,7 @@ Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ss
 
 ### Define cluster with cluster.tf
 
-First, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
+First, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
 
 ```sh
 # nodes
@@ -623,3 +625,25 @@ from the openstack command line.
 [Grafana](https://grafana.com/) is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [Prometheus](https://github.com/camilb/prometheus-kubernetes) allows for monitoring of Kubernetes clusters.
 
 Installing these monitoring technologies is fairly straightforward and [described here](https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html).
+
+
+<a id="h-78283D4A"></a>
+
+# Appendix
+
+
+<a id="h-958EA909"></a>
+
+## Jetstream VM Flavors
+
+| ID | Name       | RAM(GB) | Disk(GB) | VCPUs |
+|--- |---------- |------- |-------- |----- |
+| 1  | m1.tiny    | 2       | 8        | 1     |
+| 2  | m1.small   | 4       | 20       | 2     |
+| 3  | m1.medium  | 16      | 60       | 6     |
+| 4  | m1.large   | 30      | 60       | 10    |
+| 5  | m1.xlarge  | 60      | 60       | 24    |
+| 6  | m1.xxlarge | 120     | 60       | 44    |
+| 14 | s1.large   | 30      | 120      | 10    |
+| 15 | s1.xlarge  | 60      | 240      | 24    |
+| 16 | s1.xxlarge | 120     | 480      | 44    |

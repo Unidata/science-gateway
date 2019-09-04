@@ -530,7 +530,7 @@ Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ss
     :CUSTOM_ID: h-F44D1317
     :END:
 
-First, modify =~/jetstream_kubespray/inventory/zonca/cluster.tf= to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
+First, modify =~/jetstream_kubespray/inventory/zonca/cluster.tf= to specify the number of nodes in the cluster and the size ([[#h-958EA909][flavor]]) of the VMs. For example,
 
 #+BEGIN_SRC sh
   # nodes
@@ -742,3 +742,23 @@ Subsequently, when you invoke ~terraform_apply.sh~, the master node should have 
 [[https://grafana.com/][Grafana]] is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [[https://github.com/camilb/prometheus-kubernetes][Prometheus]] allows for monitoring of Kubernetes clusters.
 
 Installing these monitoring technologies is fairly straightforward and [[https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html][described here]].
+* Appendix
+  :PROPERTIES:
+  :CUSTOM_ID: h-78283D4A
+  :END:
+** Jetstream VM Flavors
+   :PROPERTIES:
+   :CUSTOM_ID: h-958EA909
+   :END:
+
+| ID | Name       | RAM(GB) | Disk(GB) | VCPUs |
+|----+------------+---------+----------+-------|
+|  1 | m1.tiny    |       2 |        8 |     1 |
+|  2 | m1.small   |       4 |       20 |     2 |
+|  3 | m1.medium  |      16 |       60 |     6 |
+|  4 | m1.large   |      30 |       60 |    10 |
+|  5 | m1.xlarge  |      60 |       60 |    24 |
+|  6 | m1.xxlarge |     120 |       60 |    44 |
+| 14 | s1.large   |      30 |      120 |    10 |
+| 15 | s1.xlarge  |      60 |      240 |    24 |
+| 16 | s1.xxlarge |     120 |      480 |    44 |
