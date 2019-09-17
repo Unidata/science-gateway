@@ -26,7 +26,7 @@
    :RSS_PERMALINK: index.html#h:7AC1E6CA
    :END:
 
-The Gateways 2019 and co-located eScience 2019 conferences will be held in San Diego, California September 23–27. We will be presenting a poster entitled: [[https://doi.org/10.17605/OSF.IO/W7SV8][A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway]].
+The [[https://sciencegateways.org/web/gateways2019][Gateways 2019 and co-located eScience 2019 conferences]] will be held in San Diego, California September 23–27. We will be presenting a poster entitled: [[https://doi.org/10.17605/OSF.IO/W7SV8][A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway]].
 
 * 8/28/2019, Unidata JupyterHub Back Online
    :PROPERTIES:
