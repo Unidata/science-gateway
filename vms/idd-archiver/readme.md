@@ -1,40 +1,40 @@
-- [Creating an IDD Archiver VM on Jetstream](#h:046F9FE1)
-  - [Create an IDD Archiver VM on Jetstream](#h:304AA966)
-  - [Clone the xsede-jetstream and TdsConfig Repositories](#h:00BE67D7)
-  - [Prepare IDD Archiver for Docker and docker-compose](#h:FF66923F)
-  - [~/etc Directory](#h:B5A9CA86)
-    - [~/etc/ldmd.conf](#h:A598B286)
-    - [~/etc/registry.xml](#h:27A09559)
-  - [Data Scouring](#h:1CA59DB7)
-  - [pqacts](#h:4BDFE35D)
-  - [Edit ldmfile.sh](#h:D2BD1E3A)
-  - [/data/ldm/queues Directory](#h:2428D469)
-  - [/data/ldm/logs Directory](#h:57DC40FF)
-  - [Ensure /data Volume Availability Upon Machine Restart](#h:3CE81256)
-  - [Sharing /data directory via NFS](#h:358A22F4)
-    - [Open NFS Related Ports](#h:1AFDC551)
-  - [THREDDS Data Manager (TDM)](#h:DB469C8D)
-    - [TDM Logging Directory](#h:865C1FF8)
-    - [Configuring the TDM to work with the TDS](#h:2C5BF1CA)
-  - [docker-compose.yml](#h:498535EC)
-    - [LDM Environment Variable Parameterization](#h:A6C77825)
-  - [Start the IDD Archiver Node](#h:4167D52C)
+- [Creating an IDD Archiver VM on Jetstream](#h-046F9FE1)
+  - [Create an IDD Archiver VM on Jetstream](#h-304AA966)
+  - [Clone the xsede-jetstream and TdsConfig Repositories](#h-00BE67D7)
+  - [Prepare IDD Archiver for Docker and docker-compose](#h-FF66923F)
+  - [~/etc Directory](#h-B5A9CA86)
+    - [~/etc/ldmd.conf](#h-A598B286)
+    - [~/etc/registry.xml](#h-27A09559)
+  - [Data Scouring](#h-1CA59DB7)
+  - [pqacts](#h-4BDFE35D)
+  - [Edit ldmfile.sh](#h-D2BD1E3A)
+  - [/data/ldm/queues Directory](#h-2428D469)
+  - [/data/ldm/logs Directory](#h-57DC40FF)
+  - [Ensure /data Volume Availability Upon Machine Restart](#h-3CE81256)
+  - [Sharing /data directory via NFS](#h-358A22F4)
+    - [Open NFS Related Ports](#h-1AFDC551)
+  - [THREDDS Data Manager (TDM)](#h-DB469C8D)
+    - [TDM Logging Directory](#h-865C1FF8)
+    - [Configuring the TDM to work with the TDS](#h-2C5BF1CA)
+  - [docker-compose.yml](#h-498535EC)
+    - [LDM Environment Variable Parameterization](#h-A6C77825)
+  - [Start the IDD Archiver Node](#h-4167D52C)
 
 
 
-<a id="h:046F9FE1"></a>
+<a id="h-046F9FE1"></a>
 
 # Creating an IDD Archiver VM on Jetstream
 
 
-<a id="h:304AA966"></a>
+<a id="h-304AA966"></a>
 
 ## Create an IDD Archiver VM on Jetstream
 
 Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
 
 
-<a id="h:00BE67D7"></a>
+<a id="h-00BE67D7"></a>
 
 ## Clone the xsede-jetstream and TdsConfig Repositories
 
@@ -51,14 +51,14 @@ git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 ```
 
 
-<a id="h:FF66923F"></a>
+<a id="h-FF66923F"></a>
 
 ## Prepare IDD Archiver for Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM containing an IDD archiver is relatively simple. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
-<a id="h:B5A9CA86"></a>
+<a id="h-B5A9CA86"></a>
 
 ## ~/etc Directory
 
@@ -70,7 +70,7 @@ cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
 ```
 
 
-<a id="h:A598B286"></a>
+<a id="h-A598B286"></a>
 
 ### ~/etc/ldmd.conf
 
@@ -95,21 +95,21 @@ REQUEST ANY-NEXRAD3-NOTHER-NGRID-CONDUIT ".*" 10.0.0.21
 to break apart the requests.
 
 
-<a id="h:27A09559"></a>
+<a id="h-27A09559"></a>
 
 ### ~/etc/registry.xml
 
 Verify the `registry.xml` file is updated the `hostname` element with `idd-archiver.jetstream-cloud.org` so that Real-Time IDD statistics can be properly reported back to Unidata. Finally, you may have to adjust the size of the queue currently at `6G`.
 
 
-<a id="h:1CA59DB7"></a>
+<a id="h-1CA59DB7"></a>
 
 ## Data Scouring
 
 Scouring the `/data/ldm` directory is achieved through the LDM `scour.conf` mechanism and scouring utilities. See the [ldm-docker project README](https://github.com/Unidata/ldm-docker) for details. Examine the `etc/scour.conf`, `cron/ldm`, and `docker-compose.yml` to ensure scouring of data happens in the time frame you wish.
 
 
-<a id="h:4BDFE35D"></a>
+<a id="h-4BDFE35D"></a>
 
 ## pqacts
 
@@ -123,7 +123,7 @@ cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 ```
 
 
-<a id="h:D2BD1E3A"></a>
+<a id="h-D2BD1E3A"></a>
 
 ## Edit ldmfile.sh
 
@@ -152,7 +152,7 @@ chmod +x ~/etc/TDS/util/ldmfile.sh
 ```
 
 
-<a id="h:2428D469"></a>
+<a id="h-2428D469"></a>
 
 ## /data/ldm/queues Directory
 
@@ -163,7 +163,7 @@ mkdir -p /data/ldm/queues
 ```
 
 
-<a id="h:57DC40FF"></a>
+<a id="h-57DC40FF"></a>
 
 ## /data/ldm/logs Directory
 
@@ -174,14 +174,14 @@ mkdir -p /data/ldm/logs/
 ```
 
 
-<a id="h:3CE81256"></a>
+<a id="h-3CE81256"></a>
 
 ## Ensure /data Volume Availability Upon Machine Restart
 
 [Ensure the `/data` volume availability upon machine restart](../../openstack/readme.md).
 
 
-<a id="h:358A22F4"></a>
+<a id="h-358A22F4"></a>
 
 ## Sharing /data directory via NFS
 
@@ -210,7 +210,7 @@ update-rc.d nfs-kernel-server defaults
 ```
 
 
-<a id="h:1AFDC551"></a>
+<a id="h-1AFDC551"></a>
 
 ### Open NFS Related Ports
 
@@ -231,14 +231,14 @@ openstack server add security group <VM name or ID> local-nfs
 ```
 
 
-<a id="h:DB469C8D"></a>
+<a id="h-DB469C8D"></a>
 
 ## THREDDS Data Manager (TDM)
 
 While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `thredds-jetstream` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver-jetstream` VM.
 
 
-<a id="h:865C1FF8"></a>
+<a id="h-865C1FF8"></a>
 
 ### TDM Logging Directory
 
@@ -262,7 +262,7 @@ mkdir -p ~/logs/tdm
     ```
 
 
-<a id="h:2C5BF1CA"></a>
+<a id="h-2C5BF1CA"></a>
 
 ### Configuring the TDM to work with the TDS
 
@@ -341,7 +341,7 @@ Let's consider each environment variable (i.e., configuration option), in turn.
         TDM_XMS_SIZE=1G
 
 
-<a id="h:498535EC"></a>
+<a id="h-498535EC"></a>
 
 ## docker-compose.yml
 
@@ -391,7 +391,7 @@ services:
 ```
 
 
-<a id="h:A6C77825"></a>
+<a id="h-A6C77825"></a>
 
 ### LDM Environment Variable Parameterization
 
@@ -429,7 +429,7 @@ LDM_GROUP_ID=1000
 ```
 
 
-<a id="h:4167D52C"></a>
+<a id="h-4167D52C"></a>
 
 ## Start the IDD Archiver Node
 

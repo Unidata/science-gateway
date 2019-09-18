@@ -17,11 +17,11 @@
 
 * Establishing an NFS Mount from Wrangler to Jetstream VMs
   :PROPERTIES:
-  :CUSTOM_ID: h:6F2C5533
+  :CUSTOM_ID: h-6F2C5533
   :END:
 ** Introduction
    :PROPERTIES:
-   :CUSTOM_ID: h:21834535
+   :CUSTOM_ID: h-21834535
    :END:
 
 Wrangler is an XSEDE data storage system available both at TACC and IU. Unidata has a sizable disk storage allocation on Wrangler. This document describes how to establish an NFS Mount from Wrangler to a Jetstream VM.
@@ -30,7 +30,7 @@ These instructions assume an Ubuntu VM. In the future, we will have a similar do
 
 ** Prerequisites
    :PROPERTIES:
-   :CUSTOM_ID: h:F402F677
+   :CUSTOM_ID: h-F402F677
    :END:
 
 Setup the VM in [[https://github.com/Unidata/xsede-jetstream/blob/master/vm-init-readme.md][the usual manner]].
@@ -50,7 +50,7 @@ $ openstack network list
 
 ** Attaching the unidata-wrangler Network onto Your VM
    :PROPERTIES:
-   :CUSTOM_ID: h:4295622E
+   :CUSTOM_ID: h-4295622E
    :END:
 
 #+BEGIN_SRC shell :exports none :shebang "#!/bin/bash" :tangle "../../openstack/bin/wrangler-jetstream.sh"
@@ -116,14 +116,14 @@ $ openstack server list
 
 ** Opening NFS Related Ports
    :PROPERTIES:
-   :CUSTOM_ID: h:86EAF003
+   :CUSTOM_ID: h-86EAF003
    :END:
 
 Next you must open a series of NFS related ports both TCP and UDP: ~111~, ~875~, ~892~, ~2049~, ~10053~, ~32803~. To be on the safe side, limit those ports to the to the Wrangler IP (~149.165.238.47~).
 
 *** Create the Wrangler Security Group
     :PROPERTIES:
-    :CUSTOM_ID: h:C3E31F14
+    :CUSTOM_ID: h-C3E31F14
     :END:
 
 Create a Wrangler security group that we can subsequently re-use. Do this once.
@@ -147,7 +147,7 @@ Create a Wrangler security group that we can subsequently re-use. Do this once.
 
 *** Attach Wrangler Security Group to VM
     :PROPERTIES:
-    :CUSTOM_ID: h:FE477C60
+    :CUSTOM_ID: h-FE477C60
     :END:
 
 From the OpenStack command line, attach the ~wrangler~ security group to the VM.
@@ -158,12 +158,12 @@ From the OpenStack command line, attach the ~wrangler~ security group to the VM.
 
 ** Additional Networking Setup On VM
    :PROPERTIES:
-   :CUSTOM_ID: h:8CC1C481
+   :CUSTOM_ID: h-8CC1C481
    :END:
 
 *** rpcbind
     :PROPERTIES:
-    :CUSTOM_ID: h:4F9D6A34
+    :CUSTOM_ID: h-4F9D6A34
     :END:
 
 #+BEGIN_SRC shell :exports none :shebang "#!/bin/bash" :tangle "../../openstack/bin/wrangler-mount.sh"
@@ -224,7 +224,7 @@ The ~rpcbind~ IP is provided by the Jetstream team when they set up the VPN. It 
 
 *** ifconfig
     :PROPERTIES:
-    :CUSTOM_ID: h:BF5FABB7
+    :CUSTOM_ID: h-BF5FABB7
     :END:
 
 At this point, you have to add the correct network to =/etc/udev/rules.d/70-persistent-net.rules= and =/etc/network/interfaces=. To achieve this run ~ifconfig -a~ which will generate something like:
@@ -260,7 +260,7 @@ Examine the output of ~ifconfig~ and find the network that is not in ~UP~ state,
 
 *** /etc/network/interfaces
     :PROPERTIES:
-    :CUSTOM_ID: h:95D34D99
+    :CUSTOM_ID: h-95D34D99
     :END:
 
 As ~sudo~, add the following snippet to =/etc/network/interfaces=:
@@ -276,7 +276,7 @@ As ~sudo~, add the following snippet to =/etc/network/interfaces=:
 
 *** /etc/udev/rules.d/70-persistent-net.rules
     :PROPERTIES:
-    :CUSTOM_ID: h:C4236EE6
+    :CUSTOM_ID: h-C4236EE6
     :END:
 
 Again, as ~sudo~ user, add this bit to =/etc/udev/rules.d/70-persistent-net.rules=:
@@ -289,7 +289,7 @@ Again, as ~sudo~ user, add this bit to =/etc/udev/rules.d/70-persistent-net.rule
 
 *** ifup
     :PROPERTIES:
-    :CUSTOM_ID: h:2188C4A9
+    :CUSTOM_ID: h-2188C4A9
     :END:
 
 Finally issue:
@@ -300,7 +300,7 @@ Finally issue:
 
 ** Mounting Wrangler
    :PROPERTIES:
-   :CUSTOM_ID: h:26D0062F
+   :CUSTOM_ID: h-26D0062F
    :END:
 
 We are ready to mount our Wrangler data directory onto, say, =/wrangler=. First, create the mount point:
@@ -318,7 +318,7 @@ Then mount:
 
 ** Ensure Volume Availability Upon Machine Restart
    :PROPERTIES:
-   :CUSTOM_ID: h:D458816F
+   :CUSTOM_ID: h-D458816F
    :END:
 
 You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the =/etc/fstab= file:

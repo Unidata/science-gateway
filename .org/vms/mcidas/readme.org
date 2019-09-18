@@ -16,18 +16,18 @@
 
 * Creating an ADDE VM on Jetstream
   :PROPERTIES:
-  :CUSTOM_ID: h:E8DA29EC
+  :CUSTOM_ID: h-E8DA29EC
   :END:
 ** Create an ADDE VM on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:10109CCE
+   :CUSTOM_ID: h-10109CCE
    :END:
 
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =adde-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =adde-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
-   :CUSTOM_ID: h:E6D3D21F
+   :CUSTOM_ID: h-E6D3D21F
    :END:
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -38,14 +38,14 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 ** Start ADDE With Docker and docker-compose
    :PROPERTIES:
-   :CUSTOM_ID: h:0897ADA4
+   :CUSTOM_ID: h-0897ADA4
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM with an ADDE server should be fairly easy. There are a few directories you will need to map from outside to within the container.  [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM with an ADDE server should be fairly easy. There are a few directories you will need to map from outside to within the container.  [[file:../../vm-init-readme.org::#h-786799C4][See here to install Docker and docker-compose]].
 
 ** ADDE Configuration
    :PROPERTIES:
-   :CUSTOM_ID: h:C9A644E9
+   :CUSTOM_ID: h-C9A644E9
    :END:
 
 A minor amount of configuration is required to get ADDE going.
@@ -58,7 +58,7 @@ A minor amount of configuration is required to get ADDE going.
 
 ** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:
-   :CUSTOM_ID: h:D58FB64C
+   :CUSTOM_ID: h-D58FB64C
    :END:
 
 ADDE will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
@@ -78,7 +78,7 @@ ADDE will need access to the =/data/ldm/= directory from ~idd-archiver~ in order
 
 *** Ensure /data Availability Upon Machine Restart
     :PROPERTIES:
-    :CUSTOM_ID: h:C586CD26
+    :CUSTOM_ID: h-C586CD26
     :END:
 
 You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
@@ -89,14 +89,14 @@ You will want to ensure the NFS =/data= volume is available with the help of =fs
 
 ** Port 112
    :PROPERTIES:
-   :CUSTOM_ID: h:3E2295A4
+   :CUSTOM_ID: h-3E2295A4
    :END:
 
-ADDE operates via port ~112~. [[file:../../openstack/readme.org::#h:D6B1D4C2][Open port]] ~112~ on the ADDE VM via OpenStack.
+ADDE operates via port ~112~. [[file:../../openstack/readme.org::#h-D6B1D4C2][Open port]] ~112~ on the ADDE VM via OpenStack.
 
 ** docker-compose.yml
    :PROPERTIES:
-   :CUSTOM_ID: h:E8896F4D
+   :CUSTOM_ID: h-E8896F4D
    :END:
 
 Based on the directory set we have defined, the =docker-compose.yml= file that looks like:
@@ -108,7 +108,7 @@ Note the ~unidata/mcidas~ container is closed source so is unavailable at Docker
 
 ** Start ADDE
    :PROPERTIES:
-   :CUSTOM_ID: h:CD5F66AF
+   :CUSTOM_ID: h-CD5F66AF
    :END:
 
 Once you have done the work of setting up ADDE related directories in the way you like,
@@ -121,7 +121,7 @@ to start ADDE.
 
 ** Access ADDE from the IDV
    :PROPERTIES:
-   :CUSTOM_ID: h:F5719715
+   :CUSTOM_ID: h-F5719715
    :END:
 
 To verify all is in order, access this ADDE server from the Unidata IDV by pointing to the =adde-jetstream.unidata.ucar.edu= server in the Image Data Chooser.

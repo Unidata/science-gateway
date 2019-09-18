@@ -1,38 +1,38 @@
-- [Running VMs on Jetstream with OpenStack](#h:90A8A74D)
-  - [Introduction](#h:11F59F95)
-  - [Install Docker (Do This Once)](#h:DE5B47F1)
-  - [Clone the xsede-jetstream Repository (Do This Once)](#h:968FA51C)
-  - [Pull or Build Docker Container (Do This Once)](#h:4A9632CC)
-    - [Pull Container](#h:B5690030)
-    - [Build Container](#h:1C54F677)
-  - [API Setup](#h:CBD5EC54)
-    - [Download and Edit openrc.sh (Do This Once)](#h:8B3E8EEE)
-    - [Fire Up Container and More Setup](#h:30B73273)
-  - [Working with Jetstream API to Create VMs](#h:03303143)
-    - [IP Numbers](#h:5E7A7E65)
-    - [Boot VM](#h:EA17C2D9)
-    - [Create and Attach Data Volumes](#h:9BEEAB97)
-    - [Opening TCP Ports](#h:D6B1D4C2)
-    - [Tearing Down VMs](#h:1B38941F)
-    - [Swapping VMs](#h:56B1F4AC)
-  - [Building a Kubernetes Cluster](#h:DA34BC11)
-    - [Define cluster with cluster.tf](#h:F44D1317)
-    - [Create VMs with kube-setup.sh](#h:0C658E7B)
-    - [Install Kubernetes with kube-setup2.sh](#h:05F9D0A2)
-    - [Check Cluster](#h:D833684A)
-    - [Adding Nodes to Cluster](#h:1991828D)
-    - [Removing Nodes from Cluster](#h:0324031E)
-    - [Tearing Down the Cluster](#h:DABDACC7)
-    - [Monitoring the Cluster with Grafana and Prometheus](#h:005364BF)
+- [Running VMs on Jetstream with OpenStack](#h-90A8A74D)
+  - [Introduction](#h-11F59F95)
+  - [Install Docker (Do This Once)](#h-DE5B47F1)
+  - [Clone the xsede-jetstream Repository (Do This Once)](#h-968FA51C)
+  - [Pull or Build Docker Container (Do This Once)](#h-4A9632CC)
+    - [Pull Container](#h-B5690030)
+    - [Build Container](#h-1C54F677)
+  - [API Setup](#h-CBD5EC54)
+    - [Download and Edit openrc.sh (Do This Once)](#h-8B3E8EEE)
+    - [Fire Up Container and More Setup](#h-30B73273)
+  - [Working with Jetstream API to Create VMs](#h-03303143)
+    - [IP Numbers](#h-5E7A7E65)
+    - [Boot VM](#h-EA17C2D9)
+    - [Create and Attach Data Volumes](#h-9BEEAB97)
+    - [Opening TCP Ports](#h-D6B1D4C2)
+    - [Tearing Down VMs](#h-1B38941F)
+    - [Swapping VMs](#h-56B1F4AC)
+  - [Building a Kubernetes Cluster](#h-DA34BC11)
+    - [Define cluster with cluster.tf](#h-F44D1317)
+    - [Create VMs with kube-setup.sh](#h-0C658E7B)
+    - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
+    - [Check Cluster](#h-D833684A)
+    - [Adding Nodes to Cluster](#h-1991828D)
+    - [Removing Nodes from Cluster](#h-0324031E)
+    - [Tearing Down the Cluster](#h-DABDACC7)
+    - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
 
 
 
-<a id="h:90A8A74D"></a>
+<a id="h-90A8A74D"></a>
 
 # Running VMs on Jetstream with OpenStack
 
 
-<a id="h:11F59F95"></a>
+<a id="h-11F59F95"></a>
 
 ## Introduction
 
@@ -53,14 +53,14 @@ If you are in either of these scenarios, you have to interface with Jetstream vi
 Note, you do not have to employ this Docker container. It is merely provided as a convenience. If you choose, you can go through the Jetstream OpenStack API instructions directly and ignore all that follows.
 
 
-<a id="h:DE5B47F1"></a>
+<a id="h-DE5B47F1"></a>
 
 ## Install Docker (Do This Once)
 
 [Install Docker](../vm-init-readme.md) in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
 
-<a id="h:968FA51C"></a>
+<a id="h-968FA51C"></a>
 
 ## Clone the xsede-jetstream Repository (Do This Once)
 
@@ -71,7 +71,7 @@ git clone https://github.com/Unidata/xsede-jetstream
 ```
 
 
-<a id="h:4A9632CC"></a>
+<a id="h-4A9632CC"></a>
 
 ## Pull or Build Docker Container (Do This Once)
 
@@ -82,7 +82,7 @@ cd xsede-jetstream/openstack
 At this point, you can either pull or build the `xsede-jetstream` container:
 
 
-<a id="h:B5690030"></a>
+<a id="h-B5690030"></a>
 
 ### Pull Container
 
@@ -91,7 +91,7 @@ docker pull unidata/xsede-jetstream
 ```
 
 
-<a id="h:1C54F677"></a>
+<a id="h-1C54F677"></a>
 
 ### Build Container
 
@@ -100,18 +100,18 @@ docker build -t unidata/xsede-jetstream .
 ```
 
 
-<a id="h:CBD5EC54"></a>
+<a id="h-CBD5EC54"></a>
 
 ## API Setup
 
 We will be using the Jetstream API directly and via convenience scripts.
 
 
-<a id="h:8B3E8EEE"></a>
+<a id="h-8B3E8EEE"></a>
 
 ### Download and Edit openrc.sh (Do This Once)
 
-The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h:9C0700C5) in the `openrc.sh` file for convenience.
+The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h-9C0700C5) in the `openrc.sh` file for convenience.
 
 1.  [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/)
 
@@ -126,7 +126,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
     For convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
 
-    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h:8B3E8EEE):
+    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h-8B3E8EEE):
 
     ```sh
     export OS_PASSWORD="changeme!"
@@ -140,7 +140,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     ```
 
 
-<a id="h:30B73273"></a>
+<a id="h-30B73273"></a>
 
 ### Fire Up Container and More Setup
 
@@ -190,7 +190,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     If not, check your setup.
 
 
-<a id="h:03303143"></a>
+<a id="h-03303143"></a>
 
 ## Working with Jetstream API to Create VMs
 
@@ -209,7 +209,7 @@ If you have not done so already:
 ```
 
 
-<a id="h:5E7A7E65"></a>
+<a id="h-5E7A7E65"></a>
 
 ### IP Numbers
 
@@ -223,7 +223,7 @@ openstack floating ip list
 or you can just `openstack floating ip list` if you have IP numbers left around from previous VMs.
 
 
-<a id="h:EA17C2D9"></a>
+<a id="h-EA17C2D9"></a>
 
 ### Boot VM
 
@@ -235,7 +235,7 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
     boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
     ```
 
-    The `boot.sh` command takes a VM name, [ssh key name](#h:EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `openstack image list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
+    The `boot.sh` command takes a VM name, [ssh key name](#h-EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `openstack image list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
 
     ```sh
     $ openstack image list | grep -i featured
@@ -275,7 +275,7 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
     Once you are in your VM, it is probably best to add additional ssh public keys into the `authorized_keys` file to make logging in easier from whatever host you are connecting from.
 
 
-<a id="h:9BEEAB97"></a>
+<a id="h-9BEEAB97"></a>
 
 ### Create and Attach Data Volumes
 
@@ -305,7 +305,7 @@ There is a `mount.sh` convenience script to mount **uninitialized** data volumes
     where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` (or `ls -la /dev/disk/by-uuid`) command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
 
 
-<a id="h:D6B1D4C2"></a>
+<a id="h-D6B1D4C2"></a>
 
 ### Opening TCP Ports
 
@@ -328,7 +328,7 @@ openstack server add security group my-vm global-my-vm-ports
 ```
 
 
-<a id="h:1B38941F"></a>
+<a id="h-1B38941F"></a>
 
 ### Tearing Down VMs
 
@@ -361,7 +361,7 @@ openstack server add security group my-vm global-my-vm-ports
     For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
 
 
-<a id="h:56B1F4AC"></a>
+<a id="h-56B1F4AC"></a>
 
 ### Swapping VMs
 
@@ -410,7 +410,7 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
     Issue `blkid` (or `ls -la /dev/disk/by-uuid`) command to find `UUIDs` that will be inserted into the `/etc/fstab`. Lastly, `mount -a`.
 
 
-<a id="h:DA34BC11"></a>
+<a id="h-DA34BC11"></a>
 
 ## Building a Kubernetes Cluster
 
@@ -419,7 +419,7 @@ It is possible to create a Kubernetes cluster with the Docker container describe
 Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443`)into the master node as described in the instructions.
 
 
-<a id="h:F44D1317"></a>
+<a id="h-F44D1317"></a>
 
 ### Define cluster with cluster.tf
 
@@ -441,7 +441,7 @@ will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for m
 Also, note that `cluster.tf` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tf`.
 
 
-<a id="h:0C658E7B"></a>
+<a id="h-0C658E7B"></a>
 
 ### Create VMs with kube-setup.sh
 
@@ -499,7 +499,7 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
         ```
 
 
-<a id="h:05F9D0A2"></a>
+<a id="h-05F9D0A2"></a>
 
 ### Install Kubernetes with kube-setup2.sh
 
@@ -509,12 +509,12 @@ Next, run
 kube-setup2.sh -n k8s-unidata
 ```
 
-If seeing errors related to `dpkg`, wait and try again or [try these steps](#h:F4401658).
+If seeing errors related to `dpkg`, wait and try again or [try these steps](#h-F4401658).
 
 Run `kube-setup2.sh -n k8s-unidata` again.
 
 
-<a id="h:D833684A"></a>
+<a id="h-D833684A"></a>
 
 ### Check Cluster
 
@@ -531,28 +531,28 @@ kubectl get nodes --all-namespaces
 ```
 
 
-<a id="h:1991828D"></a>
+<a id="h-1991828D"></a>
 
 ### Adding Nodes to Cluster
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h:F44D1317) in `jetstream_kubespray/inventory/k8s-unidata/cluster.tf` followed by running:
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/k8s-unidata/cluster.tf` followed by running:
 
 ```sh
 cd ~/jetstream_kubespray/inventory/k8s-unidata/
 CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 ```
 
-Wait a bit to allow `dpkg` to finish running on the new node(s). [Check the VMS](#h:136A4851). Next:
+Wait a bit to allow `dpkg` to finish running on the new node(s). [Check the VMS](#h-136A4851). Next:
 
 ```sh
 cd ~/jetstream_kubespray
 CLUSTER=k8s-unidata bash -c 'sh k8s_scale.sh'
 ```
 
-[Check the cluster](#h:D833684A).
+[Check the cluster](#h-D833684A).
 
 
-<a id="h:0324031E"></a>
+<a id="h-0324031E"></a>
 
 ### Removing Nodes from Cluster
 
@@ -586,10 +586,10 @@ teardown.sh -n  k8s-unidata-k8s-node-nf-2
 
 from the openstack command line.
 
-[Check the cluster](#h:D833684A).
+[Check the cluster](#h-D833684A).
 
 
-<a id="h:DABDACC7"></a>
+<a id="h-DABDACC7"></a>
 
 ### Tearing Down the Cluster
 
@@ -616,7 +616,7 @@ from the openstack command line.
     **Note**: AFTER invoking `terraform_apply.sh` remove the `~/.ssh/known_hosts` line that corresponds to the old master node! This can easily be achieved by sshing into the new master node which will indicate the offending line in `~/.ssh/known_hosts`. This will avoid headaches when invoking `kube-setup2.sh`.
 
 
-<a id="h:005364BF"></a>
+<a id="h-005364BF"></a>
 
 ### Monitoring the Cluster with Grafana and Prometheus
 

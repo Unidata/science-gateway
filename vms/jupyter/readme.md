@@ -1,30 +1,30 @@
-- [Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project](#h:D73CBC56)
-  - [Kubernetes Cluster](#h:65F9358E)
-  - [unidata/unidatahub Docker Container](#h:CD007D2A)
-  - [Configure and Deploy the JupyterHub](#h:E5CA5D99)
-    - [Letsencrypt versus Certificate from a Certificate Authority](#h:294A4A20)
-    - [OAuth Authentication](#h:8A3C5434)
-    - [unidata/unidatahub](#h:214D1D4C)
-  - [Navigate to JupyterHub](#h:209E2FBC)
-  - [Tearing Down JupyterHub](#h:1E027567)
-    - [Total Destructive Tear Down](#h:A69ADD92)
-    - [Tear Down While Preserving User Volumes](#h:5F2AA05F)
+- [Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project](#h-D73CBC56)
+  - [Kubernetes Cluster](#h-65F9358E)
+  - [unidata/unidatahub Docker Container](#h-CD007D2A)
+  - [Configure and Deploy the JupyterHub](#h-E5CA5D99)
+    - [Letsencrypt versus Certificate from a Certificate Authority](#h-294A4A20)
+    - [OAuth Authentication](#h-8A3C5434)
+    - [unidata/unidatahub](#h-214D1D4C)
+  - [Navigate to JupyterHub](#h-209E2FBC)
+  - [Tearing Down JupyterHub](#h-1E027567)
+    - [Total Destructive Tear Down](#h-A69ADD92)
+    - [Tear Down While Preserving User Volumes](#h-5F2AA05F)
 
 
 
-<a id="h:D73CBC56"></a>
+<a id="h-D73CBC56"></a>
 
 # Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
 
 
-<a id="h:65F9358E"></a>
+<a id="h-65F9358E"></a>
 
 ## Kubernetes Cluster
 
 [Create a Kubernetes cluster](../../openstack/readme.md) with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
 
 
-<a id="h:CD007D2A"></a>
+<a id="h-CD007D2A"></a>
 
 ## unidata/unidatahub Docker Container
 
@@ -36,7 +36,7 @@ docker push unidata/unidatahub:<container id>
 ```
 
 
-<a id="h:E5CA5D99"></a>
+<a id="h-E5CA5D99"></a>
 
 ## Configure and Deploy the JupyterHub
 
@@ -45,7 +45,7 @@ From the client host where you created the Kubernetes cluster, follow [Andrea Zo
 After you have created the `secrets.yaml` as instructed, customize it with the choices below
 
 
-<a id="h:294A4A20"></a>
+<a id="h-294A4A20"></a>
 
 ### Letsencrypt versus Certificate from a Certificate Authority
 
@@ -94,7 +94,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
     ```
 
 
-<a id="h:8A3C5434"></a>
+<a id="h-8A3C5434"></a>
 
 ### OAuth Authentication
 
@@ -132,7 +132,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
     ```
 
 
-<a id="h:214D1D4C"></a>
+<a id="h-214D1D4C"></a>
 
 ### unidata/unidatahub
 
@@ -172,19 +172,19 @@ hub:
 ```
 
 
-<a id="h:209E2FBC"></a>
+<a id="h-209E2FBC"></a>
 
 ## Navigate to JupyterHub
 
 In a web browser, navigate to your newly minted JupyterHub and see if it is as you expect.
 
 
-<a id="h:1E027567"></a>
+<a id="h-1E027567"></a>
 
 ## Tearing Down JupyterHub
 
 
-<a id="h:A69ADD92"></a>
+<a id="h-A69ADD92"></a>
 
 ### Total Destructive Tear Down
 
@@ -198,7 +198,7 @@ kubectl delete namespace jhub
 To futher teardown the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
 
 
-<a id="h:5F2AA05F"></a>
+<a id="h-5F2AA05F"></a>
 
 ### Tear Down While Preserving User Volumes
 

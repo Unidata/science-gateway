@@ -14,19 +14,19 @@
 
 * Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
   :PROPERTIES:
-  :CUSTOM_ID: h:D73CBC56
+  :CUSTOM_ID: h-D73CBC56
   :END:
 
 ** Kubernetes Cluster
    :PROPERTIES:
-   :CUSTOM_ID: h:65F9358E
+   :CUSTOM_ID: h-65F9358E
    :END:
 
-[[file:../../openstack/readme.org::#h:DA34BC11][Create a Kubernetes cluster]] with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
+[[file:../../openstack/readme.org::#h-DA34BC11][Create a Kubernetes cluster]] with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
 
 ** unidata/unidatahub Docker Container
    :PROPERTIES:
-   :CUSTOM_ID: h:CD007D2A
+   :CUSTOM_ID: h-CD007D2A
    :END:
 
 Build the Docker container in this directory and push it to dockerhub.
@@ -38,7 +38,7 @@ Build the Docker container in this directory and push it to dockerhub.
 
 ** Configure and Deploy the JupyterHub
    :PROPERTIES:
-   :CUSTOM_ID: h:E5CA5D99
+   :CUSTOM_ID: h-E5CA5D99
    :END:
 
 From the client host where you created the Kubernetes cluster, follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea Zonca's instructions]].
@@ -47,12 +47,12 @@ After you have created the ~secrets.yaml~ as instructed, customize it with the c
 
 *** Letsencrypt versus Certificate from a Certificate Authority
     :PROPERTIES:
-    :CUSTOM_ID: h:294A4A20
+    :CUSTOM_ID: h-294A4A20
     :END:
 
 **** Letsencrypt
      :PROPERTIES:
-     :CUSTOM_ID: h:E1082806
+     :CUSTOM_ID: h-E1082806
      :END:
 
 Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up letsencrypt along with this yaml snippet below. Replace the hostname where appropriate.
@@ -72,7 +72,7 @@ Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterh
 
 **** Certificate from CA
      :PROPERTIES:
-     :CUSTOM_ID: h:205AEDAB
+     :CUSTOM_ID: h-205AEDAB
      :END:
 
 Work with sys admin staff to obtain a certificate from a CA.
@@ -102,12 +102,12 @@ Here is a snippet of what the ingress configuration will look like in the ~secre
 
 *** OAuth Authentication
   :PROPERTIES:
-  :CUSTOM_ID: h:8A3C5434
+  :CUSTOM_ID: h-8A3C5434
   :END:
 
 **** Globus
   :PROPERTIES:
-  :CUSTOM_ID: h:C0E8193F
+  :CUSTOM_ID: h-C0E8193F
   :END:
 
 [[https://developers.globus.org/][Globus OAuth capability]] is available for user authentication. The instructions [[https://github.com/jupyterhub/oauthenticator#globus-setup][here]] are relatively straightforward.
@@ -127,7 +127,7 @@ Here is a snippet of what the ingress configuration will look like in the ~secre
 
 **** GitHub
      :PROPERTIES:
-     :CUSTOM_ID: h:BB3C66CD
+     :CUSTOM_ID: h-BB3C66CD
      :END:
 
 Setup an OAuth app on GitHub
@@ -145,7 +145,7 @@ Setup an OAuth app on GitHub
 #+END_SRC
 *** unidata/unidatahub
     :PROPERTIES:
-    :CUSTOM_ID: h:214D1D4C
+    :CUSTOM_ID: h-214D1D4C
     :END:
 
 Add the Unidata JupyterHub configuration (~unidata/unidatahub~) and related items (e.g., pulling of Unidata Python projects). Customize the desired CPU / RAM usage. [[https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing][This spreadsheet]] will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
@@ -154,19 +154,19 @@ Add the Unidata JupyterHub configuration (~unidata/unidatahub~) and related item
 
 ** Navigate to JupyterHub
    :PROPERTIES:
-   :CUSTOM_ID: h:209E2FBC
+   :CUSTOM_ID: h-209E2FBC
    :END:
 
 In a web browser, navigate to your newly minted JupyterHub and see if it is as you expect.
 
 ** Tearing Down JupyterHub
    :PROPERTIES:
-   :CUSTOM_ID: h:1E027567
+   :CUSTOM_ID: h-1E027567
    :END:
 
 *** Total Destructive Tear Down
     :PROPERTIES:
-    :CUSTOM_ID: h:A69ADD92
+    :CUSTOM_ID: h-A69ADD92
     :END:
 
 Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
@@ -176,11 +176,11 @@ Tearing down the JupyterHub including user OpenStack volumes is possible. From t
   kubectl delete namespace jhub
 #+END_SRC
 
-To futher teardown the Kubernetes cluster see [[file:../../openstack/readme.org::#h:DABDACC7][Tearing Down the Cluster]].
+To futher teardown the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
 
 *** Tear Down While Preserving User Volumes
     :PROPERTIES:
-    :CUSTOM_ID: h:5F2AA05F
+    :CUSTOM_ID: h-5F2AA05F
     :END:
 
 A gentler tear down that preserves the user volumes is described in [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's documentation]]. See the section on "persistence of user data".

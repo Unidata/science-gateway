@@ -16,18 +16,18 @@
 
 * Creating an IDD Relay VM on Jetstream
   :PROPERTIES:
-  :CUSTOM_ID: h:840E89CB
+  :CUSTOM_ID: h-840E89CB
   :END:
 ** Create an IDD Relay VM on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:4BF1C37C
+   :CUSTOM_ID: h-4BF1C37C
    :END:
 
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-relay-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-relay-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
-   :CUSTOM_ID: h:7544DE64
+   :CUSTOM_ID: h-7544DE64
    :END:
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -38,14 +38,14 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 ** Start IDD Relay With Docker and docker-compose
    :PROPERTIES:
-   :CUSTOM_ID: h:C89E3FF5
+   :CUSTOM_ID: h-C89E3FF5
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h-786799C4][See here to install Docker and docker-compose]].
 
 ** ~/etc Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:E4AB4451
+   :CUSTOM_ID: h-E4AB4451
    :END:
 
 This =~/etc= directory will contain your LDM configuration files.
@@ -58,7 +58,7 @@ You may have to tailor the =ldmd.conf= to your data feed requirements. Also edit
 
 ** ~/queues Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:F3D77CEF
+   :CUSTOM_ID: h-F3D77CEF
    :END:
 
 This =~/queues= directory will contain the LDM queue file.
@@ -69,7 +69,7 @@ This =~/queues= directory will contain the LDM queue file.
 
 ** ~/logs Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:515DAD84
+   :CUSTOM_ID: h-515DAD84
    :END:
 
 
@@ -81,14 +81,14 @@ Create the LDM =logs= directory.
 
 ** Port 388
    :PROPERTIES:
-   :CUSTOM_ID: h:FB14DD93
+   :CUSTOM_ID: h-FB14DD93
    :END:
 
-[[file:../../openstack/readme.org::#h:D6B1D4C2][Open LDM port]] ~388~ so that this VM may function as an IDD relay node.
+[[file:../../openstack/readme.org::#h-D6B1D4C2][Open LDM port]] ~388~ so that this VM may function as an IDD relay node.
 
 ** docker-compose.yml
    :PROPERTIES:
-   :CUSTOM_ID: h:95441A93
+   :CUSTOM_ID: h-95441A93
    :END:
 
 Based on the directory set we have defined, the =docker-compose.yml= file will look something like:
@@ -97,7 +97,7 @@ Based on the directory set we have defined, the =docker-compose.yml= file will l
 
 *** LDM Environment Variable Parameterization
     :PROPERTIES:
-    :CUSTOM_ID: h:031CD94A
+    :CUSTOM_ID: h-031CD94A
     :END:
 
 You can provide additional LDM parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
@@ -106,7 +106,7 @@ You can provide additional LDM parameterization via the =compose.env= file refer
 
 ** Start the IDD Relay Node
    :PROPERTIES:
-   :CUSTOM_ID: h:80DA881B
+   :CUSTOM_ID: h-80DA881B
    :END:
 
 To start the IDD relay node:
