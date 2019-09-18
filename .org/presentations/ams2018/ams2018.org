@@ -32,7 +32,7 @@
 
 * Publishing Configuration                                         :noexport:
   :PROPERTIES:
-  :CUSTOM_ID: h:839794BE
+  :CUSTOM_ID: h-839794BE
   :END:
 
 #+BEGIN_SRC emacs-lisp  :eval yes :results silent
@@ -53,17 +53,17 @@
 *   
     :PROPERTIES:
     :BEAMER_OPT: t,label=
-    :CUSTOM_ID: h:658155E1
+    :CUSTOM_ID: h-658155E1
     :END:
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.333
-    :CUSTOM_ID: h:C2DC2302
+    :CUSTOM_ID: h-C2DC2302
     :END:
 **** Abstract
       :PROPERTIES:
       :BEAMER_env: exampleblock
-      :CUSTOM_ID: h:7448991A
+      :CUSTOM_ID: h-7448991A
       :END:
 
 In recent years, the Python programming language coupled with Jupyter notebooks have become vital tools for atmospheric science educators and their students. Python's batteries-included philosophy along with an increasingly vast array of scientific libraries make it an excellent choice for explaining scientific concepts. Programming notebooks excel at teaching objectives by allowing expository prose and equations to be interspersed with executable cells of code performing data analysis and visualization. Installing this software, however, can be intimidating, time-consuming and confusing. We describe the deployment of a JupyterHub server on the NSF-funded Jetstream cloud\cite{10.1145/2792745.2792774}\cite{10.1109/MCSE.2014.80} targeted at students and educators. JupyterHub is a multi-user server for Jupyter notebooks. We provide Jupyter notebooks from three Unidata projects: Unidata Python Workshop, Unidata Notebook Gallery, Unidata Online Python Training. These notebooks include pre-built Python environments needed to run them. The notebooks can be used for instruction and as templates for scientific experimentation. This Unidata JupyterHub server will enable students and educators to spend less time managing their software and more time learning and teaching.
@@ -71,7 +71,7 @@ In recent years, the Python programming language coupled with Jupyter notebooks 
 **** http://science-gateway.unidata.ucar.edu
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:D4B1BBDF
+     :CUSTOM_ID: h-D4B1BBDF
      :END:
 
  #+ATTR_LATEX: width=\textwidth
@@ -80,13 +80,13 @@ In recent years, the Python programming language coupled with Jupyter notebooks 
 *** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.333
-   :CUSTOM_ID: h:CEC88C7B
+   :CUSTOM_ID: h-CEC88C7B
    :END:
 
 **** JupyterHub with Unidata Notebooks 
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:4C18B4FF
+     :CUSTOM_ID: h-4C18B4FF
      :END:
 
  #+ATTR_LATEX: width=\textwidth
@@ -95,13 +95,13 @@ In recent years, the Python programming language coupled with Jupyter notebooks 
 *** Column 3
    :PROPERTIES:
    :BEAMER_col: 0.333
-   :CUSTOM_ID: h:B916410A
+   :CUSTOM_ID: h-B916410A
    :END:
 
 **** Methods
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:E3B7189B
+     :CUSTOM_ID: h-E3B7189B
      :END:
 
 - Cloud Technologies: Jetstream, OpenStack, Linux VMs, Docker
@@ -110,7 +110,7 @@ In recent years, the Python programming language coupled with Jupyter notebooks 
 **** Conclusions
      :PROPERTIES:
      :BEAMER_env: alertblock
-     :CUSTOM_ID: h:B2A4450C
+     :CUSTOM_ID: h-B2A4450C
      :END:
 
 Deploying a multi-user JupyterHub server on the Jetstream cloud with pre-configured Unidata notebooks has many benefits. Cloud computing environments are fast, reliable and scalable. Students and educators analyze, and visualize data using only browser-based Jupyter notebook and JupyterHub technology. No local specialized desktop software or fast Internet connection are required. Future work will explore cloud elasticity, in a classroom setting for example, where students may be running many Jupyter notebooks at once. This effort is part of Unidata's broader cloud-based science gateway project\cite{Chastang2017d}\cite{Chastang2017b} aimed at Unidata's investigation of cloud computing\cite{Unidata2013}.
@@ -118,7 +118,7 @@ Deploying a multi-user JupyterHub server on the Jetstream cloud with pre-configu
 **** Acknowledgments
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:6E760B4F
+     :CUSTOM_ID: h-6E760B4F
      :END:
 
 We thank B. Beck, M. Dahan, J. Fischer, V. Hazlewood, P. Lindenlaub, S. Marru, L. Moxley, M. Pierce, C. A. Stewart, G. W. Turner, N. Wilkins-Diehr and N. Wolter for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
@@ -126,7 +126,7 @@ We thank B. Beck, M. Dahan, J. Fischer, V. Hazlewood, P. Lindenlaub, S. Marru, L
 **** References
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:05B5E47C
+     :CUSTOM_ID: h-05B5E47C
      :END:
 
   \printbibliography

@@ -35,11 +35,11 @@
 
 * Motivation/Goals
   :PROPERTIES:
-  :CUSTOM_ID: h:A1744034
+  :CUSTOM_ID: h-A1744034
   :END:
 ** Unidata Five-Year Plan
    :PROPERTIES:
-   :CUSTOM_ID: h:701F61F8
+   :CUSTOM_ID: h-701F61F8
    :END:
 
 /Transition to a remote-access "cloud" environment for geoscience data is vital to our community's ability to pursue research and education in the 21st century./
@@ -48,7 +48,7 @@
 
 ** Everyone is Doing It!
    :PROPERTIES:
-   :CUSTOM_ID: h:362DC71F
+   :CUSTOM_ID: h-362DC71F
    :END:
 
 # https://blogs.wsj.com/cio/2018/01/19/cloud-computing-evolves-into-the-supply-chain-of-digital-services/
@@ -59,7 +59,7 @@
 ** NOTE: Everyone is Doing It!                                       :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:7BCAB72F
+    :CUSTOM_ID: h-7BCAB72F
     :END:
 
 - This is a headline from the WSJ.
@@ -67,7 +67,7 @@
 
 ** Time/Cost Savings
    :PROPERTIES:
-   :CUSTOM_ID: h:AEA51470
+   :CUSTOM_ID: h-AEA51470
    :END:
 
 # https://images.pexels.com/photos/128867/coins-currency-investment-insurance-128867.jpeg
@@ -78,14 +78,14 @@
 ** NOTE: Time/Cost Savings                                           :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:1FD1B27F
+    :CUSTOM_ID: h-1FD1B27F
     :END:
 
 - Shifting local IT to data centers managed by cloud-computing vendors theoretically yields economies of scale.
 
 ** Enable Science Not Easily Possible With Traditional Methods
    :PROPERTIES:
-   :CUSTOM_ID: h:8F8CD77E
+   :CUSTOM_ID: h-8F8CD77E
    :END:
 
 *Data proximate* analysis and visualization of data on machines that can scale to vastly more horsepower.
@@ -93,7 +93,7 @@
 ** NOTE: Enable Science Not Easily...                                :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:9636CC26
+    :CUSTOM_ID: h-9636CC26
     :END:
 
 - Most importantly for this science oriented group...
@@ -102,12 +102,12 @@
 
 ** Remove Data Friction, Reduce Time to Science
    :PROPERTIES:
-   :CUSTOM_ID: h:9674C291
+   :CUSTOM_ID: h-9674C291
    :END:
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:7C510C16
+    :CUSTOM_ID: h-7C510C16
     :END:
 
 Unidata Employee
@@ -120,7 +120,7 @@ Unidata Employee
 *** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.5
-   :CUSTOM_ID: h:61ACFCBB
+   :CUSTOM_ID: h-61ACFCBB
    :END:
 
 End User
@@ -133,7 +133,7 @@ End User
 ** NOTE: Remove Data Friction, Reduce Time to Science                :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:29660AF5
+    :CUSTOM_ID: h-29660AF5
     :END:
 
 - In short, we bang our heads against the wall so you don't have to!
@@ -144,11 +144,11 @@ End User
 
 * Docker
   :PROPERTIES:
-  :CUSTOM_ID: h:B4921CDC
+  :CUSTOM_ID: h-B4921CDC
   :END:
 ** What is Docker?
    :PROPERTIES:
-   :CUSTOM_ID: h:D31AED3B
+   :CUSTOM_ID: h-D31AED3B
    :END:
 
 # https://www.pexels.com/photo/business-cargo-cargo-container-city-262353/
@@ -159,7 +159,7 @@ End User
 ** NOTE: What is Docker in a Nutshell?                               :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:4BCC9BE2
+    :CUSTOM_ID: h-4BCC9BE2
     :END:
 
 - Docker is an open source platform for uniformly building, deploying and running software in the cloud.
@@ -171,7 +171,7 @@ End User
 ** NOTE: What is a Dockerfile?                                       :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:4C527204
+    :CUSTOM_ID: h-4C527204
     :END:
 
 - Containers are defined in a ~Dockerfile~.
@@ -181,7 +181,7 @@ End User
 
 ** What Have We Containerized?
    :PROPERTIES:
-   :CUSTOM_ID: h:CEFF2D21
+   :CUSTOM_ID: h-CEFF2D21
    :END:
 
 - Local Data Manager (LDM) Peer-to-Peer Data Transfer Package
@@ -194,7 +194,7 @@ End User
 ** NOTE: What Have We Containerized?                                 :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:F14AABE6
+    :CUSTOM_ID: h-F14AABE6
     :END:
 
 - We've containerized a suite of Unidata technologies.
@@ -207,7 +207,7 @@ End User
 
 ** NSF Jetstream Cloud
    :PROPERTIES:
-   :CUSTOM_ID: h:F08F6E20
+   :CUSTOM_ID: h-F08F6E20
    :END:
 
 # https://www.jetstream-cloud.org/images/Jetstream_topology_diagram-crop.png
@@ -218,7 +218,7 @@ End User
 ** NOTE: NSF Jetstream Cloud                                         :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:981EFA17
+    :CUSTOM_ID: h-981EFA17
     :END:
 
 - What is Jetstream?
@@ -229,7 +229,7 @@ End User
 
 ** Deployed Unidata Containers on Jetstream Cloud
    :PROPERTIES:
-   :CUSTOM_ID: h:51EDFD13
+   :CUSTOM_ID: h-51EDFD13
    :END:
 
 #+ATTR_LATEX: width=\textwidth
@@ -238,18 +238,18 @@ End User
 ** NOTE: Deployed Unidata Containers on Jetstream Cloud              :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:A92A96BE
+    :CUSTOM_ID: h-A92A96BE
     :END:
 
 - This slide simply shows we have a variety of VMs running on Jetstream each with their own containers and also, in some cases, attached disk storage.
 
 * Unidata Science Gateway
   :PROPERTIES:
-  :CUSTOM_ID: h:E6ADA2C0
+  :CUSTOM_ID: h-E6ADA2C0
   :END:
 ** Group Deployed Resources Under One Site
    :PROPERTIES:
-   :CUSTOM_ID: h:3A0FDE2D
+   :CUSTOM_ID: h-3A0FDE2D
    :END:
 
 #+ATTR_LATEX: :width 7.5cm
@@ -258,7 +258,7 @@ file:../gatewayconf2017/gateway.png
 ** NOTE: Group Deployed Resources Under One Site                     :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:6B18DD0D
+    :CUSTOM_ID: h-6B18DD0D
     :END:
 
 - Decided to advertise these resources through one web portal.
@@ -269,14 +269,14 @@ file:../gatewayconf2017/gateway.png
 
 ** URL
    :PROPERTIES:
-   :CUSTOM_ID: h:4E6CD505
+   :CUSTOM_ID: h-4E6CD505
    :END:
 
 http://science-gateway.unidata.ucar.edu
 
 ** Mostly Server-Side Stuff
    :PROPERTIES:
-   :CUSTOM_ID: h:CDB4060E
+   :CUSTOM_ID: h-CDB4060E
    :END:
 
 - LDM receiving large quantities (33 GBs/hour) of NCEP data delivered via IDD
@@ -288,7 +288,7 @@ http://science-gateway.unidata.ucar.edu
 ** NOTE: Mostly Server-Side Stuff                                    :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:E9F3ADE2
+    :CUSTOM_ID: h-E9F3ADE2
     :END:
 
 - IDD: Unidata Internet Data Distribution Network.
@@ -299,7 +299,7 @@ http://science-gateway.unidata.ucar.edu
 
 ** Great! How Do I Use the Thing?
    :PROPERTIES:
-   :CUSTOM_ID: h:2F23F0E7
+   :CUSTOM_ID: h-2F23F0E7
    :END:
 
 # https://www.pexels.com/photo/adult-attractive-contemplating-face-269334/
@@ -309,7 +309,7 @@ file:images/how.jpeg
 
 ** Integrated Data Viewer (w/ Jetstream Plugin)
    :PROPERTIES:
-   :CUSTOM_ID: h:4B7FD0FA
+   :CUSTOM_ID: h-4B7FD0FA
    :END:
 
 #+ATTR_LATEX: :width 7.5cm
@@ -318,7 +318,7 @@ file:../gatewayconf2017/idv.png
 ** NOTE: IDV                                                         :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:EF3E1FB4
+    :CUSTOM_ID: h-EF3E1FB4
     :END:
 
 - IDV: a client application to integrate, and visualize geoscience data in two, three, and four dimensions.
@@ -326,7 +326,7 @@ file:../gatewayconf2017/idv.png
 
 ** AWIPS CAVE Client Application
    :PROPERTIES:
-   :CUSTOM_ID: h:9401934F
+   :CUSTOM_ID: h-9401934F
    :END:
 
 #+ATTR_LATEX: :width 7.5cm
@@ -335,14 +335,14 @@ file:../gatewayconf2017/cave.png
 ** NOTE: AWIPS CAVE Client Application                               :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:C1F0E985
+    :CUSTOM_ID: h-C1F0E985
     :END:
 
 - A bit more value added here since the server side component, EDEX, is a behemoth requiring lots of resources that can be accommodated by a cloud data center.
 
 ** Unidata Jupyter Notebooks
    :PROPERTIES:
-   :CUSTOM_ID: h:CADF8EA5
+   :CUSTOM_ID: h-CADF8EA5
    :END:
 
 #+ATTR_LATEX: :width 7.5cm
@@ -351,7 +351,7 @@ file:../ams2018/miller.png
 ** NOTE: Unidata Jupyter Notebooks                                   :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:E74A7D88
+    :CUSTOM_ID: h-E74A7D88
     :END:
 
 - What is Jupyter? A series of executable cells interspersed with expository text.
@@ -361,11 +361,11 @@ file:../ams2018/miller.png
 
 * Jupyter and JupyterHub VM
   :PROPERTIES:
-  :CUSTOM_ID: h:591C60A7
+  :CUSTOM_ID: h-591C60A7
   :END:
 **  Unidata Jupyter Notebook Projects
    :PROPERTIES:
-   :CUSTOM_ID: h:D265D6AF
+   :CUSTOM_ID: h-D265D6AF
    :END:
 
 | Project                  | [[http://github.com/unidata/][github.com/Unidata/]]     |
@@ -378,7 +378,7 @@ file:../ams2018/miller.png
 ** NOTE: Unidata Jupyter Notebook Projects                           :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:DDCFB63D
+    :CUSTOM_ID: h-DDCFB63D
     :END:
 
 - We have a variety of Unidata notebook projects mostly focused on Python and its application to meteorology.
@@ -388,7 +388,7 @@ file:../ams2018/miller.png
 
 ** JupyterHub VM
    :PROPERTIES:
-   :CUSTOM_ID: h:0A1FD912
+   :CUSTOM_ID: h-0A1FD912
    :END:
 
 #+ATTR_LATEX: width=\textwidth
@@ -397,7 +397,7 @@ file:../ams2018/miller.png
 ** NOTE: JupyterHub VM                                               :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:44FAC81B
+    :CUSTOM_ID: h-44FAC81B
     :END:
 
 - Allows users to spawn their own Jupyter notebook servers.
@@ -407,7 +407,7 @@ file:../ams2018/miller.png
 
 ** Terminal!
    :PROPERTIES:
-   :CUSTOM_ID: h:9937DEC3
+   :CUSTOM_ID: h-9937DEC3
    :END:
 
 # https://www.pexels.com/photo/blur-bright-business-codes-207580/
@@ -418,7 +418,7 @@ file:../ams2018/miller.png
 ** NOTE: Terminal!                                                   :B_note:
     :PROPERTIES:
     :BEAMER_env: note
-    :CUSTOM_ID: h:28B90A36
+    :CUSTOM_ID: h-28B90A36
     :END:
 
 - JupyterHub also allows users to start a Unix terminal. Therefore...
@@ -429,11 +429,11 @@ file:../ams2018/miller.png
 
 * Future Plans
   :PROPERTIES:
-  :CUSTOM_ID: h:6C567E8C
+  :CUSTOM_ID: h-6C567E8C
   :END:
 ** Improve JupyterHub Server
    :PROPERTIES:
-   :CUSTOM_ID: h:114173C8
+   :CUSTOM_ID: h-114173C8
    :END:
 
 - After initial testing, we would like to get more users
@@ -442,7 +442,7 @@ file:../ams2018/miller.png
 
 ** Other Plans
    :PROPERTIES:
-   :CUSTOM_ID: h:8BEC3A48
+   :CUSTOM_ID: h-8BEC3A48
    :END:
 
 - Collaborate with Science Gateways Community Institute (SGCI)

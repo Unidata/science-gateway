@@ -16,17 +16,17 @@
 
 * Creating a Science Gateway VM on Jetstream
   :PROPERTIES:
-  :CUSTOM_ID: h:49CACBE8
+  :CUSTOM_ID: h-49CACBE8
   :END:
 
 ** Create a Science Gateway VM on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:593C3161
+   :CUSTOM_ID: h-593C3161
    :END:
-Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =science-gateway.unidata.ucar.edu=.
+Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =science-gateway.unidata.ucar.edu=.
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
-   :CUSTOM_ID: h:1EA54D54
+   :CUSTOM_ID: h-1EA54D54
    :END:
 
  We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -37,14 +37,14 @@ Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h:03303143
 
 ** Prepare Science Gateway VM for Docker and docker-compose
    :PROPERTIES:
-   :CUSTOM_ID: h:D311EB0F
+   :CUSTOM_ID: h-D311EB0F
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[file:../../vm-init-readme.org::#h-786799C4][See here to install Docker and docker-compose]].
 
 ** Logging
    :PROPERTIES:
-   :CUSTOM_ID: h:7FF2F781
+   :CUSTOM_ID: h-7FF2F781
    :END:
 
 The nginx log directory:
@@ -55,14 +55,14 @@ The nginx log directory:
 
 ** Ports 80, 443
    :PROPERTIES:
-   :CUSTOM_ID: h:5BF405FC
+   :CUSTOM_ID: h-5BF405FC
    :END:
 
-[[file:../../openstack/readme.org::#h:D6B1D4C2][Open ports]] ~80~, and ~443~ on the Science Gateway VM via OpenStack.
+[[file:../../openstack/readme.org::#h-D6B1D4C2][Open ports]] ~80~, and ~443~ on the Science Gateway VM via OpenStack.
 
 ** Start Ngnix
    :PROPERTIES:
-   :CUSTOM_ID: h:B30CBDF8
+   :CUSTOM_ID: h-B30CBDF8
    :END:
 
 Once you have done the work of setting up nginx related directories,
@@ -74,7 +74,7 @@ Once you have done the work of setting up nginx related directories,
 to start the web server.
 ** Publishing Configuration                                           :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:723E78A4
+   :CUSTOM_ID: h-723E78A4
    :END:
 
 #+BEGIN_SRC emacs-lisp  :eval yes :results silent

@@ -15,11 +15,11 @@
 
 * Running VMs on Jetstream with OpenStack
   :PROPERTIES:
-  :CUSTOM_ID: h:90A8A74D
+  :CUSTOM_ID: h-90A8A74D
   :END:
 ** Introduction
    :PROPERTIES:
-   :CUSTOM_ID: h:11F59F95
+   :CUSTOM_ID: h-11F59F95
    :END:
 
 It is preferable to interface with the NSF Jetstream cloud via the [[https://use.jetstream-cloud.org/application/dashboard][Atmosphere web interface]]. However, this web dashboard is limited in two important ways:
@@ -40,14 +40,14 @@ Note, you do not have to employ this Docker container. It is merely provided as 
 
 ** Install Docker (Do This Once)
    :PROPERTIES:
-   :CUSTOM_ID: h:DE5B47F1
+   :CUSTOM_ID: h-DE5B47F1
    :END:
 
-[[file:../vm-init-readme.org::#h:786799C4][Install Docker]] in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
+[[file:../vm-init-readme.org::#h-786799C4][Install Docker]] in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
 ** Clone the xsede-jetstream Repository (Do This Once)
    :PROPERTIES:
-   :CUSTOM_ID: h:968FA51C
+   :CUSTOM_ID: h-968FA51C
    :END:
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -58,7 +58,7 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 ** Pull or Build Docker Container (Do This Once)
    :PROPERTIES:
-   :CUSTOM_ID: h:4A9632CC
+   :CUSTOM_ID: h-4A9632CC
    :END:
 
 #+BEGIN_SRC sh :eval no
@@ -69,7 +69,7 @@ At this point, you can either pull or build the ~xsede-jetstream~ container:
 
 *** Pull Container
     :PROPERTIES:
-    :CUSTOM_ID: h:B5690030
+    :CUSTOM_ID: h-B5690030
     :END:
 #+BEGIN_SRC sh :eval no
   docker pull unidata/xsede-jetstream
@@ -77,7 +77,7 @@ At this point, you can either pull or build the ~xsede-jetstream~ container:
 
 *** Build Container
     :PROPERTIES:
-    :CUSTOM_ID: h:1C54F677
+    :CUSTOM_ID: h-1C54F677
     :END:
 #+BEGIN_SRC sh :eval no
   docker build -t unidata/xsede-jetstream .
@@ -85,26 +85,26 @@ At this point, you can either pull or build the ~xsede-jetstream~ container:
 
 ** API Setup
    :PROPERTIES:
-   :CUSTOM_ID: h:CBD5EC54
+   :CUSTOM_ID: h-CBD5EC54
    :END:
 
 We will be using the Jetstream API directly and via convenience scripts.
 
 *** Download and Edit openrc.sh (Do This Once)
     :PROPERTIES:
-    :CUSTOM_ID: h:8B3E8EEE
+    :CUSTOM_ID: h-8B3E8EEE
     :END:
 
-The next part involves downloading the =openrc.sh= file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [[#h:9C0700C5][you may want to add it]] in the =openrc.sh= file for convenience.
+The next part involves downloading the =openrc.sh= file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [[#h-9C0700C5][you may want to add it]] in the =openrc.sh= file for convenience.
 
 **** [[https://portal.tacc.utexas.edu/password-reset/][Reset your OpenStack TACC dashboard password]]
      :PROPERTIES:
-     :CUSTOM_ID: h:3E2185E5
+     :CUSTOM_ID: h-3E2185E5
      :END:
 
 **** Download your =openrc.sh= file from the IU (not TACC) dashboard at  [[https://iu.jetstream-cloud.org]] and move it to the =openstack/bin= directory.
      :PROPERTIES:
-     :CUSTOM_ID: h:B34CC3AF
+     :CUSTOM_ID: h-B34CC3AF
      :END:
 
    - See /"Use the Horizon dashboard to generate openrc.sh"/ in the [[https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh][Jetstream API instructions]].
@@ -114,12 +114,12 @@ The next part involves downloading the =openrc.sh= file to work with our OpenSta
 
 **** Edit =bin/openrc.sh= Password (Optional)
      :PROPERTIES:
-     :CUSTOM_ID: h:9C0700C5
+     :CUSTOM_ID: h-9C0700C5
      :END:
 
 For convenience, you may wish to add your password to the =openrc.sh= file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
 
-Edit the =openrc.sh= file and the supply the TACC resource =OS_PASSWORD= you [[#h:8B3E8EEE][reset earlier]]:
+Edit the =openrc.sh= file and the supply the TACC resource =OS_PASSWORD= you [[#h-8B3E8EEE][reset earlier]]:
 
 #+BEGIN_SRC sh :eval no
   export OS_PASSWORD="changeme!"
@@ -134,11 +134,11 @@ Comment out
 
 *** Fire Up Container and More Setup
     :PROPERTIES:
-    :CUSTOM_ID: h:30B73273
+    :CUSTOM_ID: h-30B73273
     :END:
 **** openstack.sh
      :PROPERTIES:
-     :CUSTOM_ID: h:5F4AFF6F
+     :CUSTOM_ID: h-5F4AFF6F
      :END:
 
 Start the ~unidata/xsede-jetstream~ container with =openstack.sh= convenience script. The script take a ~-o~ argument for your =openrc.sh= file and a ~-s~ argument for the directory containing or will contain your ssh keys (e.g., =/home/jane/xsede-jetstream/openstack/ssh= or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). *Both arguments must be supplied with fully qualified path names.*
@@ -160,7 +160,7 @@ You can use this =run.sh= script as a template for you to parameterize, perhaps 
 
 **** Create ssh Keys (Do This Once)
      :PROPERTIES:
-     :CUSTOM_ID: h:EE48476C
+     :CUSTOM_ID: h-EE48476C
      :END:
 
 This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~openstack keypair create~.
@@ -177,7 +177,7 @@ The =ssh= directory was mounted from outside the Docker container you are curren
 
 **** Testing Setup
      :PROPERTIES:
-     :CUSTOM_ID: h:257FBBBE
+     :CUSTOM_ID: h-257FBBBE
      :END:
 
 At this point, you should be able to run ~openstack image list~ which should yield something like:
@@ -194,7 +194,7 @@ If not, check your setup.
 
 ** Working with Jetstream API to Create VMs
    :PROPERTIES:
-   :CUSTOM_ID: h:03303143
+   :CUSTOM_ID: h-03303143
    :END:
 
 At this point, we are past the hard work. You will employ the ~unidata/xsede-jetstream~ container accessed via the =openstack.sh= convenience script to
@@ -213,7 +213,7 @@ If you have not done so already:
 
 *** IP Numbers
     :PROPERTIES:
-    :CUSTOM_ID: h:5E7A7E65
+    :CUSTOM_ID: h-5E7A7E65
     :END:
 
 We are ready to fire up VMs. First create an IP number which we will be using shortly:
@@ -227,12 +227,12 @@ or you can just ~openstack floating ip list~ if you have IP numbers left around 
 
 *** Boot VM
     :PROPERTIES:
-    :CUSTOM_ID: h:EA17C2D9
+    :CUSTOM_ID: h-EA17C2D9
     :END:
 
 **** Create VM
     :PROPERTIES:
-    :CUSTOM_ID: h:7E8034E7
+    :CUSTOM_ID: h-7E8034E7
     :END:
 Now you can boot up a VM with something like the following command:
 
@@ -240,7 +240,7 @@ Now you can boot up a VM with something like the following command:
   boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 #+END_SRC
 
-The ~boot.sh~ command takes a VM name, [[#h:EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with ~openstack image list | grep -i featured~. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
+The ~boot.sh~ command takes a VM name, [[#h-EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with ~openstack image list | grep -i featured~. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
 
 #+BEGIN_SRC sh :eval no
 $ openstack image list | grep -i featured
@@ -261,7 +261,7 @@ Also see ~boot.sh -h~ and ~openstack flavor list~ for more information.
 
 **** SSH Into New VM
     :PROPERTIES:
-    :CUSTOM_ID: h:10ACA1BC
+    :CUSTOM_ID: h-10ACA1BC
     :END:
 
 At this point, you can ~ssh~ into our newly minted VM. Explicitly providing the key name with the ~ssh~ ~-i~ argument and a user name (e.g., ~ubuntu~ or ~centos~) may be important:
@@ -280,14 +280,14 @@ Usually waiting for a few minutes resolves the issue. If you are still have trou
 
 **** Adding Additional SSH Keys (Optional)
      :PROPERTIES:
-     :CUSTOM_ID: h:A66BED33
+     :CUSTOM_ID: h-A66BED33
      :END:
 
 Once you are in your VM, it is probably best to add additional ssh public keys into the ~authorized_keys~ file to make logging in easier from whatever host you are connecting from.
 
 *** Create and Attach Data Volumes
     :PROPERTIES:
-    :CUSTOM_ID: h:9BEEAB97
+    :CUSTOM_ID: h-9BEEAB97
     :END:
 
 You can create data volumes via the OpenStack API. As an example, here, we will be creating a 750GB ~data~ volume. You will subsequently attach the data volume:
@@ -306,7 +306,7 @@ There is a ~mount.sh~ convenience script to mount *uninitialized* data volumes. 
 
 **** Ensure Volume Availability Upon Machine Restart
      :PROPERTIES:
-     :CUSTOM_ID: h:F6AF5F18
+     :CUSTOM_ID: h-F6AF5F18
      :END:
 
 You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the ~/etc/fstab~ file:
@@ -320,7 +320,7 @@ where the ~UUID~ represents the ID of the data volume device name (e.g., ~/dev/s
 
 *** Opening TCP Ports
     :PROPERTIES:
-    :CUSTOM_ID: h:D6B1D4C2
+    :CUSTOM_ID: h-D6B1D4C2
     :END:
 
 Opening TCP ports on VMs must be done via OpenStack with the ~openstack security group~ command line interfaces. In addition, this can be For example, to create a security group that will enable the opening of TCP port ~80~:
@@ -342,11 +342,11 @@ Finally, you can attach the security group to the VM (e.g., ~my-vm~) with:
 #+END_SRC
 *** Tearing Down VMs
     :PROPERTIES:
-    :CUSTOM_ID: h:1B38941F
+    :CUSTOM_ID: h-1B38941F
     :END:
 **** umount External Volumes
      :PROPERTIES:
-     :CUSTOM_ID: h:B367439E
+     :CUSTOM_ID: h-B367439E
      :END:
 
 There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~umount~ any data volumes before deleting a VM. For example on the VM in question,
@@ -367,7 +367,7 @@ In addition, just to be on the safe side, remove the volume from the VM via Open
 
 **** Tear Down
      :PROPERTIES:
-     :CUSTOM_ID: h:8FDA03F6
+     :CUSTOM_ID: h-8FDA03F6
      :END:
 
 Then finally from the OpenStack CL,
@@ -379,14 +379,14 @@ Then finally from the OpenStack CL,
 For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
 *** Swapping VMs
     :PROPERTIES:
-    :CUSTOM_ID: h:56B1F4AC
+    :CUSTOM_ID: h-56B1F4AC
     :END:
 
 Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that will have the same IP address and attached volume disk storage. However, before swapping out VMs, we should do a bit of homework and careful preparation so that the swap can go as smoothly as possible.
 
 **** Prerequisites
      :PROPERTIES:
-     :CUSTOM_ID: h:82627F76
+     :CUSTOM_ID: h-82627F76
      :END:
 
 Create the VM that will be swapped in. Make sure to:
@@ -400,14 +400,14 @@ Create the VM that will be swapped in. Make sure to:
 
 **** /etc/fstab and umount
      :PROPERTIES:
-     :CUSTOM_ID: h:5122BD67
+     :CUSTOM_ID: h-5122BD67
      :END:
 
 Examine =/etc/fstab= to find all relevant mounts on "old" VM. Copy over =fstab= to new host (the ~UUIDs~ should remain the same but double check). Then ~umount~ mounts.
 
 **** OpenStack Swap
      :PROPERTIES:
-     :CUSTOM_ID: h:45D6670A
+     :CUSTOM_ID: h-45D6670A
      :END:
 
 From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
@@ -512,13 +512,13 @@ Then swap out both the IP address as well as zero or more external data volumes 
 
 **** /etc/fstab and mount
      :PROPERTIES:
-     :CUSTOM_ID: h:152E6DAB
+     :CUSTOM_ID: h-152E6DAB
      :END:
 
 Issue ~blkid~ (or ~ls -la /dev/disk/by-uuid~) command to find ~UUIDs~ that will be inserted into the =/etc/fstab=. Lastly, ~mount -a~.
 ** Building a Kubernetes Cluster
    :PROPERTIES:
-   :CUSTOM_ID: h:DA34BC11
+   :CUSTOM_ID: h-DA34BC11
    :END:
 
 It is possible to create a Kubernetes cluster with the Docker container described here. We employ [[https://github.com/zonca/jetstream_kubespray][Andrea Zonca's modification of the kubespray project]]. Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html][here]].  These instructions have been codified with the ~kube-setup.sh~ and ~kube-setup2.sh~ scripts.
@@ -527,7 +527,7 @@ Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ss
 
 *** Define cluster with cluster.tf
     :PROPERTIES:
-    :CUSTOM_ID: h:F44D1317
+    :CUSTOM_ID: h-F44D1317
     :END:
 
 First, modify =~/jetstream_kubespray/inventory/zonca/cluster.tf= to specify the number of nodes in the cluster and the size (flavor) of the VMs. For example,
@@ -549,7 +549,7 @@ Also, note that ~cluster.tf~ assumes you are building a cluster at the TACC data
 
 *** Create VMs with kube-setup.sh
     :PROPERTIES:
-    :CUSTOM_ID: h:0C658E7B
+    :CUSTOM_ID: h-0C658E7B
     :END:
 
 At this point, to create the VMs that will house the kubernetes cluster (named "k8s-unidata", for example) run
@@ -562,7 +562,7 @@ Once, the script is complete,  let the VMs settle for a while (let's say ten min
 
 **** Check Status of VMs
      :PROPERTIES:
-     :CUSTOM_ID: h:136A4851
+     :CUSTOM_ID: h-136A4851
      :END:
 
 Check to see the status of the VMs with:
@@ -580,7 +580,7 @@ and
 
 ***** Steps if VMs are Unhappy
      :PROPERTIES:
-     :CUSTOM_ID: h:F4401658
+     :CUSTOM_ID: h-F4401658
      :END:
 
 If the check status process did not go smoothly, here are some thing you can try to remedy the problem.
@@ -613,7 +613,7 @@ or you can destroy the VMs and try again
 
 *** Install Kubernetes with kube-setup2.sh
     :PROPERTIES:
-    :CUSTOM_ID: h:05F9D0A2
+    :CUSTOM_ID: h-05F9D0A2
     :END:
 
 Next, run
@@ -622,13 +622,13 @@ Next, run
   kube-setup2.sh -n k8s-unidata
 #+END_SRC
 
-If seeing errors related to ~dpkg~, wait and try again or [[#h:F4401658][try these steps]].
+If seeing errors related to ~dpkg~, wait and try again or [[#h-F4401658][try these steps]].
 
 Run ~kube-setup2.sh -n k8s-unidata~ again.
 
 *** Check Cluster
     :PROPERTIES:
-    :CUSTOM_ID: h:D833684A
+    :CUSTOM_ID: h-D833684A
     :END:
 
 Ensure the Kubernetes cluster is running:
@@ -645,28 +645,28 @@ and get a list of the nodes:
 
 *** Adding Nodes to Cluster
     :PROPERTIES:
-    :CUSTOM_ID: h:1991828D
+    :CUSTOM_ID: h-1991828D
     :END:
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [[#h:F44D1317][adding worker nodes]] in =jetstream_kubespray/inventory/k8s-unidata/cluster.tf= followed by running:
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [[#h-F44D1317][adding worker nodes]] in =jetstream_kubespray/inventory/k8s-unidata/cluster.tf= followed by running:
 
 #+BEGIN_SRC sh
   cd ~/jetstream_kubespray/inventory/k8s-unidata/
   CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
 #+END_SRC
 
-Wait a bit to allow ~dpkg~ to finish running on the new node(s). [[#h:136A4851][Check the VMS]]. Next:
+Wait a bit to allow ~dpkg~ to finish running on the new node(s). [[#h-136A4851][Check the VMS]]. Next:
 
 #+BEGIN_SRC sh
   cd ~/jetstream_kubespray
   CLUSTER=k8s-unidata bash -c 'sh k8s_scale.sh'
 #+END_SRC
 
-[[#h:D833684A][Check the cluster]].
+[[#h-D833684A][Check the cluster]].
 
 *** Removing Nodes from Cluster
     :PROPERTIES:
-    :CUSTOM_ID: h:0324031E
+    :CUSTOM_ID: h-0324031E
     :END:
 
 It is also possible to remove nodes from a Kubernetes cluster. First see what nodes are running:
@@ -700,15 +700,15 @@ followed by running:
 
 from the openstack command line.
 
-[[#h:D833684A][Check the cluster]].
+[[#h-D833684A][Check the cluster]].
 
 *** Tearing Down the Cluster
     :PROPERTIES:
-    :CUSTOM_ID: h:DABDACC7
+    :CUSTOM_ID: h-DABDACC7
     :END:
 **** Without Preserving IP of Master Node
      :PROPERTIES:
-     :CUSTOM_ID: h:25092B48
+     :CUSTOM_ID: h-25092B48
      :END:
 
 Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
@@ -720,7 +720,7 @@ Once you are finished with your Kubernetes cluster you can completely wipe it ou
 
 **** With Preserving IP of Master Node
      :PROPERTIES:
-     :CUSTOM_ID: h:AA4B8849
+     :CUSTOM_ID: h-AA4B8849
      :END:
 
 You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
@@ -736,7 +736,7 @@ Subsequently, when you invoke ~terraform_apply.sh~, the master node should have 
 
 *** Monitoring the Cluster with Grafana and Prometheus
     :PROPERTIES:
-    :CUSTOM_ID: h:005364BF
+    :CUSTOM_ID: h-005364BF
     :END:
 
 [[https://grafana.com/][Grafana]] is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [[https://github.com/camilb/prometheus-kubernetes][Prometheus]] allows for monitoring of Kubernetes clusters.

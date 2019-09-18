@@ -33,11 +33,11 @@
 
 * Background and Context
   :PROPERTIES:
-  :CUSTOM_ID: h:5B22D256
+  :CUSTOM_ID: h-5B22D256
   :END:
 ** Audience                                                         :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:BEE7ED1A
+   :CUSTOM_ID: h-BEE7ED1A
    :END:
 
 - Who is the audience? Technical geoscience folks
@@ -46,7 +46,7 @@
 
 ** Unidata: Who and What We Are                                    :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:15F19C3B
+   :CUSTOM_ID: h-15F19C3B
    :END:
 
 NSF-funded center for developing tools, data access, and community support
@@ -54,7 +54,7 @@ NSF-funded center for developing tools, data access, and community support
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:1286EFEB
+    :CUSTOM_ID: h-1286EFEB
     :END:
 
 - netCDF
@@ -65,7 +65,7 @@ NSF-funded center for developing tools, data access, and community support
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:959FD26C
+    :CUSTOM_ID: h-959FD26C
     :END:
 
 - AWIPS/GEMPAK
@@ -75,14 +75,14 @@ NSF-funded center for developing tools, data access, and community support
 
 ** Unidata 2024 Proposal: Science as a Service
    :PROPERTIES:
-   :CUSTOM_ID: h:200D2E62
+   :CUSTOM_ID: h-200D2E62
    :END:
 
 /The *Science as a Service* concept draws together Unidata's ongoing work to provide geoscience data and software for analysis and visualization with access to workflows designed to take advantage of *cloud computing* resources./
 
 ** NSF Jetstream Cloud Collaboration
    :PROPERTIES:
-   :CUSTOM_ID: h:95396D4D
+   :CUSTOM_ID: h-95396D4D
    :END:
 
 - What is Jetstream?
@@ -95,7 +95,7 @@ NSF-funded center for developing tools, data access, and community support
 
 ** Unidata's Exploration of the Jetstream Cloud Thus Far
    :PROPERTIES:
-   :CUSTOM_ID: h:64E9402E
+   :CUSTOM_ID: h-64E9402E
    :END:
 
 - Started by containerizing Unidata technology offerings
@@ -110,7 +110,7 @@ NSF-funded center for developing tools, data access, and community support
 
 ** Jetstream Architecture                                          :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:D0A355B2
+   :CUSTOM_ID: h-D0A355B2
    :END:
 
 #+ATTR_LATEX: :width 10cm
@@ -118,16 +118,16 @@ NSF-funded center for developing tools, data access, and community support
 
 * Deploying a Geoscience JupyterHub on NSF Jetstream Cloud
   :PROPERTIES:
-  :CUSTOM_ID: h:40AB0523
+  :CUSTOM_ID: h-40AB0523
   :END:
 ** What is a Jupyter Notebook?
    :PROPERTIES:
-   :CUSTOM_ID: h:E66D1675
+   :CUSTOM_ID: h-E66D1675
    :END:
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:E135BFF2
+    :CUSTOM_ID: h-E135BFF2
     :END:
 
 A narrative of:
@@ -139,7 +139,7 @@ A narrative of:
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:7404FDF3
+    :CUSTOM_ID: h-7404FDF3
     :END:
 
 #+ATTR_LATEX: :width 4cm
@@ -147,7 +147,7 @@ A narrative of:
 
 ** Success of Jupyter in Research and Education
    :PROPERTIES:
-   :CUSTOM_ID: h:6E96D982
+   :CUSTOM_ID: h-6E96D982
    :END:
 
 # https://www.nature.com/articles/d41586-018-07196-1
@@ -158,7 +158,7 @@ A narrative of:
 
 ** JupyterLab: Next Generation UI
    :PROPERTIES:
-   :CUSTOM_ID: h:B1CE7FD5
+   :CUSTOM_ID: h-B1CE7FD5
    :END:
 
 #+ATTR_LATEX: :width 9cm
@@ -169,7 +169,7 @@ A narrative of:
 
 ** JupyterHub: Multi-user Jupyter Notebook Server
    :PROPERTIES:
-   :CUSTOM_ID: h:EFCFD603
+   :CUSTOM_ID: h-EFCFD603
    :END:
 
 Fernando Pérez: It is infeasible for IT support to assist 800 students install complex software on their laptops.
@@ -177,7 +177,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:B2A4CC6A
+    :CUSTOM_ID: h-B2A4CC6A
     :END:
 
 - Users log in to a JupyterHub server
@@ -188,7 +188,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:F1080226
+    :CUSTOM_ID: h-F1080226
     :END:
 
 #+ATTR_LATEX: width=\textwidth
@@ -196,7 +196,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 
 ** Zero to JupyterHub Project
    :PROPERTIES:
-   :CUSTOM_ID: h:06120E7D
+   :CUSTOM_ID: h-06120E7D
    :END:
 
 _Problem_: A single JupyterHub server running on a large VM can only serve a small number of students (< 10).
@@ -210,7 +210,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Zero to JupyterHub
    :PROPERTIES:
-   :CUSTOM_ID: h:BEB30D5A
+   :CUSTOM_ID: h-BEB30D5A
    :END:
 
 #+ATTR_LATEX: :width 8.5cm
@@ -218,7 +218,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Zero to JupyterHub on Jetstream/OpenStack
    :PROPERTIES:
-   :CUSTOM_ID: h:7EA950F2
+   :CUSTOM_ID: h-7EA950F2
    :END:
 
 - z2j ported to Jetstream by _Andrea Zonca_ SDSC, w/ help from _Jeremy Fischer_ at IU
@@ -226,7 +226,7 @@ _Zero to JupyterHub allows for many more users._
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:489432B8
+    :CUSTOM_ID: h-489432B8
     :END:
 
 #+ATTR_LATEX: :width 2cm
@@ -236,7 +236,7 @@ file:../ams2019/images/zonca.jpeg
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:B5DE7920
+    :CUSTOM_ID: h-B5DE7920
     :END:
 
 #+ATTR_LATEX: :width 2cm
@@ -244,7 +244,7 @@ file:./images/jf.jpg
 
 ** K8s Deployed on Jetstream with KubeSpray Project
    :PROPERTIES:
-   :CUSTOM_ID: h:CAC78004
+   :CUSTOM_ID: h-CAC78004
    :END:
 
 - Deploy Kubernetes clusters with:
@@ -257,7 +257,7 @@ file:./images/jf.jpg
 - Can be scaled "manually" thereafter (no autoscaling)
 ** Scaling Spreadsheet                                             :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:C75BB8EE
+   :CUSTOM_ID: h-C75BB8EE
    :END:
 
 #+ATTR_LATEX: :width 9cm
@@ -265,7 +265,7 @@ file:./images/spreadsheet.png
 
 ** Zero to JupyterHub Customization and Configuration
    :PROPERTIES:
-   :CUSTOM_ID: h:5DEF7813
+   :CUSTOM_ID: h-5DEF7813
    :END:
 
 - YAML configuration file
@@ -280,14 +280,14 @@ file:./images/spreadsheet.png
 
 ** Persistent Storage Allocation for Each User
    :PROPERTIES:
-   :CUSTOM_ID: h:9AE9F74B
+   :CUSTOM_ID: h-9AE9F74B
    :END:
 - Each user gets a 10 GB disk allocation
 - This disk space remains available to them for ? amount of time
 
 ** Unidata Community JupyterHub
    :PROPERTIES:
-   :CUSTOM_ID: h:6C7ADD1B
+   :CUSTOM_ID: h-6C7ADD1B
    :END:
 
 - jupyterhub.unidata.ucar.edu
@@ -296,7 +296,7 @@ file:./images/spreadsheet.png
 
 ** Other Unidata JupyterHubs
    :PROPERTIES:
-   :CUSTOM_ID: h:59E76067
+   :CUSTOM_ID: h-59E76067
    :END:
 
 - Notre Dame of Maryland University (no kubernetes)
@@ -305,7 +305,7 @@ file:./images/spreadsheet.png
 
 ** Example Notebook: Miller Composite
    :PROPERTIES:
-   :CUSTOM_ID: h:7E6B13DC
+   :CUSTOM_ID: h-7E6B13DC
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -313,7 +313,7 @@ file:./images/spreadsheet.png
 
 ** Example Notebook: Satellite + GFS Model
    :PROPERTIES:
-   :CUSTOM_ID: h:117D8A24
+   :CUSTOM_ID: h-117D8A24
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -321,7 +321,7 @@ file:./images/spreadsheet.png
 
 ** Example Notebook: Upper Air SkewT
    :PROPERTIES:
-   :CUSTOM_ID: h:C7031E31
+   :CUSTOM_ID: h-C7031E31
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -329,11 +329,11 @@ file:./images/spreadsheet.png
 
 * Lessons Learned, Challenges Going Forward
   :PROPERTIES:
-  :CUSTOM_ID: h:9F1BE94F
+  :CUSTOM_ID: h-9F1BE94F
   :END:
 ** Problems with JupyterHub Deployments and Maintenance
    :PROPERTIES:
-   :CUSTOM_ID: h:5EC69A7E
+   :CUSTOM_ID: h-5EC69A7E
    :END:
 
 - Finicky VMs during cluster creation (takes several tries)
@@ -346,7 +346,7 @@ file:./images/spreadsheet.png
 
 ** Spawn Errors :-(                                                :noexport:
    :PROPERTIES:
-   :CUSTOM_ID: h:702D6293
+   :CUSTOM_ID: h-702D6293
    :END:
 
 #+ATTR_LATEX: :width 9cm
@@ -354,7 +354,7 @@ file:./images/spawn.png
 
 ** Trough of Sorrow
    :PROPERTIES:
-   :CUSTOM_ID: h:33F703A3
+   :CUSTOM_ID: h-33F703A3
    :END:
 
 #+ATTR_LATEX: :width 7cm
@@ -364,7 +364,7 @@ file:./images/trough.png
 
 ** Additional Caveats
    :PROPERTIES:
-   :CUSTOM_ID: h:1179E568
+   :CUSTOM_ID: h-1179E568
    :END:
 
 - What to do with user data over long term? What guarantees?
@@ -374,7 +374,7 @@ file:./images/trough.png
 
 ** Lessons Learned
    :PROPERTIES:
-   :CUSTOM_ID: h:35A87BA8
+   :CUSTOM_ID: h-35A87BA8
    :END:
 
 - Scriptifying your deployments to make your life easier
@@ -386,7 +386,7 @@ file:./images/trough.png
 
 ** Future Plans
    :PROPERTIES:
-   :CUSTOM_ID: h:BC28FC54
+   :CUSTOM_ID: h-BC28FC54
    :END:
 
 - Get technology problems under control, don't build on a Swiss cheese foundation
@@ -397,13 +397,13 @@ file:./images/trough.png
 
 ** Acknowledgments
    :PROPERTIES:
-   :CUSTOM_ID: h:A80D6FBA
+   :CUSTOM_ID: h-A80D6FBA
    :END:
 
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.6
-    :CUSTOM_ID: h:4DBD473E
+    :CUSTOM_ID: h-4DBD473E
     :END:
 
 We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenlaub, Suresh Marru, Lance Moxley, Marlon Pierce, Semir Sarajlic, Craig Alan Stewart, George Wm Turner, Nancy Wilkins-Diehr, Nicole Wolter and Andrea Zonca for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
@@ -411,7 +411,7 @@ We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenl
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.4
-    :CUSTOM_ID: h:D18BDB84
+    :CUSTOM_ID: h-D18BDB84
     :END:
 
 Special thanks to Andrea And Jeremy
@@ -424,7 +424,7 @@ file:./images/jf.jpg
 
 ** Resource and Questions
    :PROPERTIES:
-   :CUSTOM_ID: h:C4CFEE53
+   :CUSTOM_ID: h-C4CFEE53
    :END:
 
 https://github.com/Unidata/xsede-jetstream

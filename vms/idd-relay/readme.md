@@ -1,30 +1,30 @@
-- [Creating an IDD Relay VM on Jetstream](#h:840E89CB)
-  - [Create an IDD Relay VM on Jetstream](#h:4BF1C37C)
-  - [Clone the xsede-jetstream Repository](#h:7544DE64)
-  - [Start IDD Relay With Docker and docker-compose](#h:C89E3FF5)
-  - [~/etc Directory](#h:E4AB4451)
-  - [~/queues Directory](#h:F3D77CEF)
-  - [~/logs Directory](#h:515DAD84)
-  - [Port 388](#h:FB14DD93)
-  - [docker-compose.yml](#h:95441A93)
-    - [LDM Environment Variable Parameterization](#h:031CD94A)
-  - [Start the IDD Relay Node](#h:80DA881B)
+- [Creating an IDD Relay VM on Jetstream](#h-840E89CB)
+  - [Create an IDD Relay VM on Jetstream](#h-4BF1C37C)
+  - [Clone the xsede-jetstream Repository](#h-7544DE64)
+  - [Start IDD Relay With Docker and docker-compose](#h-C89E3FF5)
+  - [~/etc Directory](#h-E4AB4451)
+  - [~/queues Directory](#h-F3D77CEF)
+  - [~/logs Directory](#h-515DAD84)
+  - [Port 388](#h-FB14DD93)
+  - [docker-compose.yml](#h-95441A93)
+    - [LDM Environment Variable Parameterization](#h-031CD94A)
+  - [Start the IDD Relay Node](#h-80DA881B)
 
 
 
-<a id="h:840E89CB"></a>
+<a id="h-840E89CB"></a>
 
 # Creating an IDD Relay VM on Jetstream
 
 
-<a id="h:4BF1C37C"></a>
+<a id="h-4BF1C37C"></a>
 
 ## Create an IDD Relay VM on Jetstream
 
 Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay-jetstream.unidata.ucar.edu`.
 
 
-<a id="h:7544DE64"></a>
+<a id="h-7544DE64"></a>
 
 ## Clone the xsede-jetstream Repository
 
@@ -35,14 +35,14 @@ git clone https://github.com/Unidata/xsede-jetstream
 ```
 
 
-<a id="h:C89E3FF5"></a>
+<a id="h-C89E3FF5"></a>
 
 ## Start IDD Relay With Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM containing an IDD relay is simple. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
-<a id="h:E4AB4451"></a>
+<a id="h-E4AB4451"></a>
 
 ## ~/etc Directory
 
@@ -56,7 +56,7 @@ cp ~/xsede-jetstream/vms/idd-relay/etc/* ~/etc/
 You may have to tailor the `ldmd.conf` to your data feed requirements. Also edit the `registry.xml` file to update the `hostname` element so that Real-Time IDD Statistics can be properly reported. Finally, you may have to adjust the size of the queue currently at 10GBs.
 
 
-<a id="h:F3D77CEF"></a>
+<a id="h-F3D77CEF"></a>
 
 ## ~/queues Directory
 
@@ -67,7 +67,7 @@ mkdir -p ~/queues
 ```
 
 
-<a id="h:515DAD84"></a>
+<a id="h-515DAD84"></a>
 
 ## ~/logs Directory
 
@@ -78,14 +78,14 @@ mkdir -p ~/logs/ldm
 ```
 
 
-<a id="h:FB14DD93"></a>
+<a id="h-FB14DD93"></a>
 
 ## Port 388
 
 [Open LDM port](../../openstack/readme.md) `388` so that this VM may function as an IDD relay node.
 
 
-<a id="h:95441A93"></a>
+<a id="h-95441A93"></a>
 
 ## docker-compose.yml
 
@@ -117,7 +117,7 @@ services:
 ```
 
 
-<a id="h:031CD94A"></a>
+<a id="h-031CD94A"></a>
 
 ### LDM Environment Variable Parameterization
 
@@ -132,7 +132,7 @@ LDM_GROUP_ID=1000
 ```
 
 
-<a id="h:80DA881B"></a>
+<a id="h-80DA881B"></a>
 
 ## Start the IDD Relay Node
 

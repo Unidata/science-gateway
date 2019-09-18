@@ -16,18 +16,18 @@
 
 * Creating an IDD Archiver VM on Jetstream
   :PROPERTIES:
-  :CUSTOM_ID: h:046F9FE1
+  :CUSTOM_ID: h-046F9FE1
   :END:
 ** Create an IDD Archiver VM on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:304AA966
+   :CUSTOM_ID: h-304AA966
    :END:
 
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h:9BEEAB97][Create and attach]] a 5TB =/data= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-archiver-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h-9BEEAB97][Create and attach]] a 5TB =/data= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-archiver-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream and TdsConfig Repositories
    :PROPERTIES:
-   :CUSTOM_ID: h:00BE67D7
+   :CUSTOM_ID: h-00BE67D7
    :END:
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -44,14 +44,14 @@ In addition, we will employ the ~Unidata/TdsConfig~ repository to obtain our LDM
 
 ** Prepare IDD Archiver for Docker and docker-compose
    :PROPERTIES:
-   :CUSTOM_ID: h:FF66923F
+   :CUSTOM_ID: h-FF66923F
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM containing an IDD archiver is relatively simple. [[file:../../vm-init-readme.org::#h-786799C4][See here to install Docker and docker-compose]].
 
 ** ~/etc Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:B5A9CA86
+   :CUSTOM_ID: h-B5A9CA86
    :END:
 
 This =~/etc= directory will contain your LDM configuration files.
@@ -63,7 +63,7 @@ This =~/etc= directory will contain your LDM configuration files.
 
 *** ~/etc/ldmd.conf
     :PROPERTIES:
-    :CUSTOM_ID: h:A598B286
+    :CUSTOM_ID: h-A598B286
     :END:
 
 You may have to tailor the =ldmd.conf= to your data feed requirements. In addition, change the following request line
@@ -88,19 +88,19 @@ to break apart the requests.
 
 *** ~/etc/registry.xml
     :PROPERTIES:
-    :CUSTOM_ID: h:27A09559
+    :CUSTOM_ID: h-27A09559
     :END:
 
 Verify the =registry.xml= file is updated the ~hostname~ element with ~idd-archiver.jetstream-cloud.org~ so that Real-Time IDD statistics can be properly reported back to Unidata. Finally, you may have to adjust the size of the queue currently at ~6G~.
 
 ** Data Scouring
    :PROPERTIES:
-   :CUSTOM_ID: h:1CA59DB7
+   :CUSTOM_ID: h-1CA59DB7
    :END:
 Scouring the =/data/ldm= directory is achieved through the LDM =scour.conf= mechanism and scouring utilities. See the [[https://github.com/Unidata/ldm-docker][ldm-docker project README]] for details. Examine the =etc/scour.conf=, =cron/ldm=, and =docker-compose.yml= to ensure scouring of data happens in the time frame you wish.
 ** pqacts
    :PROPERTIES:
-   :CUSTOM_ID: h:4BDFE35D
+   :CUSTOM_ID: h-4BDFE35D
    :END:
 
 Unpack the pqacts configurations from the ~TdsConfig~ project and put them in the expected =~/etc/TDS= location.
@@ -114,7 +114,7 @@ Unpack the pqacts configurations from the ~TdsConfig~ project and put them in th
 
 ** Edit ldmfile.sh
    :PROPERTIES:
-   :CUSTOM_ID: h:D2BD1E3A
+   :CUSTOM_ID: h-D2BD1E3A
    :END:
 
 Examine the =~/etc/TDS/util/ldmfile.sh= file. As the top of this file indicates, you must change the =logfile= to suit your needs. Change the 
@@ -147,7 +147,7 @@ Also ensure that =ldmfile.sh= is executable.
 
 ** /data/ldm/queues Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:2428D469
+   :CUSTOM_ID: h-2428D469
    :END:
 
 This =queues= directory will contain the LDM queue file.
@@ -158,7 +158,7 @@ This =queues= directory will contain the LDM queue file.
 
 ** /data/ldm/logs Directory
    :PROPERTIES:
-   :CUSTOM_ID: h:57DC40FF
+   :CUSTOM_ID: h-57DC40FF
    :END:
 
 Create the LDM =logs= directory.
@@ -169,14 +169,14 @@ Create the LDM =logs= directory.
 
 ** Ensure /data Volume Availability Upon Machine Restart
    :PROPERTIES:
-   :CUSTOM_ID: h:3CE81256
+   :CUSTOM_ID: h-3CE81256
    :END:
 
-[[file:../../openstack/readme.org::#h:9BEEAB97][Ensure the =/data= volume availability upon machine restart]].
+[[file:../../openstack/readme.org::#h-9BEEAB97][Ensure the =/data= volume availability upon machine restart]].
 
 ** Sharing /data directory via NFS
    :PROPERTIES:
-   :CUSTOM_ID: h:358A22F4
+   :CUSTOM_ID: h-358A22F4
    :END:
 
 Because volume multi-attach is not yet available via OpenStack, we will want to share the =/data= directory via NFS to client VMs over the ~10.0~ network by adding and an entry to the =/etc/exports= file. For example, here we are sharing the =/data= directory to the VM at ~10.0.0.18~.
@@ -212,7 +212,7 @@ Finally, ensure NFS will be available when the VM starts:
 
 *** Open NFS Related Ports
      :PROPERTIES:
-     :CUSTOM_ID: h:1AFDC551
+     :CUSTOM_ID: h-1AFDC551
      :END:
 
 Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it does not exist already, create the ~local-nfs~ security group with the ~secgroup.sh~ convenience script and additional ~openstack~ commands.
@@ -233,14 +233,14 @@ Finally, attach the ~local-nfs~ security group to the newly created VM. The VM I
 
 ** THREDDS Data Manager (TDM)
    :PROPERTIES:
-   :CUSTOM_ID: h:DB469C8D
+   :CUSTOM_ID: h-DB469C8D
    :END:
 
 While not related to IDD archival, the [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the ~thredds-jetstream~ VM via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
 
 *** TDM Logging Directory
     :PROPERTIES:
-    :CUSTOM_ID: h:865C1FF8
+    :CUSTOM_ID: h-865C1FF8
     :END:
 
 Create a logging directory for the TDM:
@@ -251,7 +251,7 @@ Create a logging directory for the TDM:
 
 **** Running the TDM Out the TDM Log Directory
      :PROPERTIES:
-     :CUSTOM_ID: h:94768FE5
+     :CUSTOM_ID: h-94768FE5
      :END:
 
 [[https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container][TDM logging will not be configurable until TDS 5.0]]. Until then we are running the TDM out of the =~/logs/tdm= directory:
@@ -267,7 +267,7 @@ Create a logging directory for the TDM:
 
 *** Configuring the TDM to work with the TDS
     :PROPERTIES:
-    :CUSTOM_ID: h:2C5BF1CA
+    :CUSTOM_ID: h-2C5BF1CA
     :END:
 
 In the ~docker-compose.yml~ shown below, there is a reference to a ~compose.env~ file that contains TDM related environment variables. 
@@ -278,14 +278,14 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
 **** ~TDS_CONTENT_ROOT_PATH~
      :PROPERTIES:
-     :CUSTOM_ID: h:DB951BAE
+     :CUSTOM_ID: h-DB951BAE
      :END:
 
 This environment variable relates to the TDS content root *inside* the container and probably does not need to be changed.
 
 **** ~TDM_PW~
      :PROPERTIES:
-     :CUSTOM_ID: h:DB951BAE
+     :CUSTOM_ID: h-DB951BAE
      :END:
 
 Supply the TDM password. For example,
@@ -311,7 +311,7 @@ Ensure you are using the correct hashing algorithm in the ~server.xml~ on the TD
 
 **** ~TDS_HOST~
      :PROPERTIES:
-     :CUSTOM_ID: h:02D6C753
+     :CUSTOM_ID: h-02D6C753
      :END:
 
 Supply the hostname of the TDS that the TDM will notify:
@@ -322,7 +322,7 @@ Supply the hostname of the TDS that the TDM will notify:
 
 **** ~TDM_XMX_SIZE~, ~TDM_XMS_SIZE~
      :PROPERTIES:
-     :CUSTOM_ID: h:F5791708
+     :CUSTOM_ID: h-F5791708
      :END:
 
 Define the maximum and minimum size of the Java heap under which the TDM can operate:
@@ -335,7 +335,7 @@ Define the maximum and minimum size of the Java heap under which the TDM can ope
 
 ** docker-compose.yml
    :PROPERTIES:
-   :CUSTOM_ID: h:498535EC
+   :CUSTOM_ID: h-498535EC
    :END:
 
 Based on the directory set we have defined, the =docker-compose.yml= file will look like this:
@@ -344,7 +344,7 @@ Based on the directory set we have defined, the =docker-compose.yml= file will l
 
 *** LDM Environment Variable Parameterization
     :PROPERTIES:
-    :CUSTOM_ID: h:A6C77825
+    :CUSTOM_ID: h-A6C77825
     :END:
 
 You can provide additional LDM parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
@@ -354,7 +354,7 @@ You can provide additional LDM parameterization via the =compose.env= file refer
 
 ** Start the IDD Archiver Node
    :PROPERTIES:
-   :CUSTOM_ID: h:4167D52C
+   :CUSTOM_ID: h-4167D52C
    :END:
 
 To start the IDD archiver node:

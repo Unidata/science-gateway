@@ -19,22 +19,22 @@
 
 * 9/17/2019, 2019 Gateways and eScience Conferences
    :PROPERTIES:
-   :CUSTOM_ID: h:7AC1E6CA
+   :CUSTOM_ID: h-7AC1E6CA
    :RSS_TITLE: 9/17/2019, 2019 Gateways and eScience Conferences
    :ID:       C28DF9D8-604F-4D2B-9FED-E5F2DE2FCA5F
    :PUBDATE:  <2019-09-17 Tue 14:18>
-   :RSS_PERMALINK: index.html#h:7AC1E6CA
+   :RSS_PERMALINK: index.html#h-7AC1E6CA
    :END:
 
 The [[https://sciencegateways.org/web/gateways2019][Gateways 2019 and co-located eScience 2019 conferences]] will be held in San Diego, California September 23–27. We will be presenting a poster entitled: [[https://doi.org/10.17605/OSF.IO/W7SV8][A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway]].
 
 * 8/28/2019, Unidata JupyterHub Back Online
    :PROPERTIES:
-   :CUSTOM_ID: h:7E4293A6
+   :CUSTOM_ID: h-7E4293A6
    :RSS_TITLE: 8/28/2019, Unidata JupyterHub Back Online
    :ID:       55F3C081-70B5-466D-9C99-C8753822193C
    :PUBDATE:  <2019-08-29 Thu 11:13>
-   :RSS_PERMALINK: index.html#h:7E4293A6
+   :RSS_PERMALINK: index.html#h-7E4293A6
    :END:
 
 After a summer outage, the [[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub]] is back online. Login with your GitHub credentials to explore one of many Unidata Jupyter notebooks.

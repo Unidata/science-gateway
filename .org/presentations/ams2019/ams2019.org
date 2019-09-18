@@ -35,18 +35,18 @@
 
 * Background
   :PROPERTIES:
-  :CUSTOM_ID: h:A07A1D73
+  :CUSTOM_ID: h-A07A1D73
   :END:
 ** Unidata 2024 Proposal: Science as a Service
    :PROPERTIES:
-   :CUSTOM_ID: h:596C9550
+   :CUSTOM_ID: h-596C9550
    :END:
 
 /The Science as a Service concept draws together Unidata's ongoing work to provide geoscience data and software for analysis and visualization with access to workflows designed to take advantage of cloud computing resources./
 
 ** Current Trends
    :PROPERTIES:
-   :CUSTOM_ID: h:98D13D28
+   :CUSTOM_ID: h-98D13D28
    :END:
 
 - Web browser is the de facto cross-platform 'app'.
@@ -58,7 +58,7 @@
 
 ** Opportunity for Research and Education
    :PROPERTIES:
-   :CUSTOM_ID: h:71B13D07
+   :CUSTOM_ID: h-71B13D07
    :END:
 
 - Difficult to install and configure scientific software can be installed on cloud on user's behalf by experts
@@ -66,16 +66,16 @@
 
 * Jupyter and Related Technologies
   :PROPERTIES:
-  :CUSTOM_ID: h:9C5F855D
+  :CUSTOM_ID: h-9C5F855D
   :END:
 ** What is a Jupyter Notebook?
    :PROPERTIES:
-   :CUSTOM_ID: h:A067123A
+   :CUSTOM_ID: h-A067123A
    :END:
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:8600FD82
+    :CUSTOM_ID: h-8600FD82
     :END:
 
 A narrative of:
@@ -87,7 +87,7 @@ A narrative of:
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:559EB25E
+    :CUSTOM_ID: h-559EB25E
     :END:
 
 #+ATTR_LATEX: :width 4cm
@@ -95,7 +95,7 @@ A narrative of:
 
 ** Success of Jupyter in Research and Education
    :PROPERTIES:
-   :CUSTOM_ID: h:CF10E59D
+   :CUSTOM_ID: h-CF10E59D
    :END:
 
 # https://www.nature.com/articles/d41586-018-07196-1
@@ -106,7 +106,7 @@ A narrative of:
 
 ** JupyterLab: Next Generation UI
    :PROPERTIES:
-   :CUSTOM_ID: h:51B90577
+   :CUSTOM_ID: h-51B90577
    :END:
 
 #+ATTR_LATEX: :width 9cm
@@ -117,7 +117,7 @@ A narrative of:
 
 ** JupyterHub: Multi-user Jupyter Notebooks 
    :PROPERTIES:
-   :CUSTOM_ID: h:A3BB9B86
+   :CUSTOM_ID: h-A3BB9B86
    :END:
 
 Fernando Pérez: It is infeasible for IT support to assist 800 students install complex software on their laptops.
@@ -125,7 +125,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:B431BBF4
+    :CUSTOM_ID: h-B431BBF4
     :END:
 
 - Users log in to a JupyterHub server
@@ -136,7 +136,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:9AEA757A
+    :CUSTOM_ID: h-9AEA757A
     :END:
 
 #+ATTR_LATEX: width=\textwidth
@@ -144,7 +144,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 
 ** Unidata JupyterHubs
    :PROPERTIES:
-   :CUSTOM_ID: h:ED569509
+   :CUSTOM_ID: h-ED569509
    :END:
 
 - Notre Dame of Maryland University
@@ -154,7 +154,7 @@ Fernando Pérez: It is infeasible for IT support to assist 800 students install 
 
 ** Zero to JupyterHub Project
    :PROPERTIES:
-   :CUSTOM_ID: h:6AF12B78
+   :CUSTOM_ID: h-6AF12B78
    :END:
 
 _Problem_: A single JupyterHub server running on a large VM can only serve a small number of students (< 10).
@@ -168,7 +168,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Zero to JupyterHub 
    :PROPERTIES:
-   :CUSTOM_ID: h:FEE3A039
+   :CUSTOM_ID: h-FEE3A039
    :END:
 
 #+ATTR_LATEX: :width 8.5cm
@@ -176,11 +176,11 @@ _Zero to JupyterHub allows for many more users._
 
 * NSF Jetstream Cloud
   :PROPERTIES:
-  :CUSTOM_ID: h:B7F0A048
+  :CUSTOM_ID: h-B7F0A048
   :END:
 ** Cloud Computing
    :PROPERTIES:
-   :CUSTOM_ID: h:37540AE5
+   :CUSTOM_ID: h-37540AE5
    :END:
 
 # https://blogs.wsj.com/cio/2018/03/12/harvard-mits-broad-institute-powers-genomic-research-in-the-cloud/
@@ -191,7 +191,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Commercial Cloud Computing Is $$$
    :PROPERTIES:
-   :CUSTOM_ID: h:57A69FC4
+   :CUSTOM_ID: h-57A69FC4
    :END:
 
 - GEMPAK product generation server running on Amazon cloud 
@@ -199,7 +199,7 @@ _Zero to JupyterHub allows for many more users._
 - *Costs Unidata $3,000/year!*
 ** NSF Jetstream Cloud
    :PROPERTIES:
-   :CUSTOM_ID: h:2F8B3079
+   :CUSTOM_ID: h-2F8B3079
    :END:
 
 - What is Jetstream?
@@ -211,7 +211,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** NSF Jetstream Cloud
    :PROPERTIES:
-   :CUSTOM_ID: h:3932317F
+   :CUSTOM_ID: h-3932317F
    :END:
 
 # https://www.jetstream-cloud.org/images/Jetstream_topology_diagram-crop.png
@@ -221,12 +221,12 @@ _Zero to JupyterHub allows for many more users._
  
 * A JupyterHub for Atmospheric Science 
   :PROPERTIES:
-  :CUSTOM_ID: h:D6CCF1ED
+  :CUSTOM_ID: h-D6CCF1ED
   :END:
 
 ** Unidata JupyterHub on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:EBA13FCD
+   :CUSTOM_ID: h-EBA13FCD
    :END:
 
 - Three Unidata Notebook projects with environments pre-configured
@@ -239,7 +239,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Technical Specifications 
    :PROPERTIES:
-   :CUSTOM_ID: h:FD4619FD
+   :CUSTOM_ID: h-FD4619FD
    :END:
 
 - Two Kubernetes clusters running at Jetstream TACC data center
@@ -252,7 +252,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Example Notebook: Miller Composite
    :PROPERTIES:
-   :CUSTOM_ID: h:6271DF73
+   :CUSTOM_ID: h-6271DF73
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -260,7 +260,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Example Notebook: Satellite + GFS Model
    :PROPERTIES:
-   :CUSTOM_ID: h:8CCC5C4C
+   :CUSTOM_ID: h-8CCC5C4C
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -268,7 +268,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** Example Notebook: Upper Air SkewT
    :PROPERTIES:
-   :CUSTOM_ID: h:BD4FD725
+   :CUSTOM_ID: h-BD4FD725
    :END:
 
 #+ATTR_LATEX: :width 6.5cm
@@ -276,7 +276,7 @@ _Zero to JupyterHub allows for many more users._
 
 ** JupyterHub URLs
    :PROPERTIES:
-   :CUSTOM_ID: h:CDB7FE93
+   :CUSTOM_ID: h-CDB7FE93
    :END:
 
 https://www.unidata.ucar.edu/projects/#jupyterlab
@@ -286,7 +286,7 @@ https://js-16-87.jetstream-cloud.org
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:FC168F5B
+    :CUSTOM_ID: h-FC168F5B
     :END:
 
 #+ATTR_LATEX: :width 4cm
@@ -295,7 +295,7 @@ https://js-16-87.jetstream-cloud.org
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:5C9DB258
+    :CUSTOM_ID: h-5C9DB258
     :END:
 
 #+ATTR_LATEX: :width 4cm
@@ -303,7 +303,7 @@ https://js-16-87.jetstream-cloud.org
 
 ** Future Plans
    :PROPERTIES:
-   :CUSTOM_ID: h:0E2197AD
+   :CUSTOM_ID: h-0E2197AD
    :END:
 
 - Better URL name -- jupyterhub.unidata.ucar.edu
@@ -313,13 +313,13 @@ https://js-16-87.jetstream-cloud.org
 
 ** Acknowledgments
    :PROPERTIES:
-   :CUSTOM_ID: h:5E86609E
+   :CUSTOM_ID: h-5E86609E
    :END:
 
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.6
-    :CUSTOM_ID: h:EA5348C2
+    :CUSTOM_ID: h-EA5348C2
     :END:
 
 We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenlaub, Suresh Marru, Lance Moxley, Marlon Pierce, Semir Sarajlic, Craig Alan Stewart, George Wm Turner, Nancy Wilkins-Diehr, Nicole Wolter and Andrea Zonca for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
@@ -327,7 +327,7 @@ We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenl
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.4
-    :CUSTOM_ID: h:76470094
+    :CUSTOM_ID: h-76470094
     :END:
 
 Special thanks to Andrea
@@ -337,7 +337,7 @@ Special thanks to Andrea
 
 ** Questions
    :PROPERTIES:
-   :CUSTOM_ID: h:4B112F5B
+   :CUSTOM_ID: h-4B112F5B
    :END:
 
 https://www.unidata.ucar.edu/projects/#jupyterlab
@@ -347,7 +347,7 @@ https://js-16-87.jetstream-cloud.org
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:22E42BE5
+    :CUSTOM_ID: h-22E42BE5
     :END:
 
 #+ATTR_LATEX: :width 4cm
@@ -356,7 +356,7 @@ https://js-16-87.jetstream-cloud.org
 *** Column 2
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:4B57A0FB
+    :CUSTOM_ID: h-4B57A0FB
     :END:
 
 #+ATTR_LATEX: :width 4cm

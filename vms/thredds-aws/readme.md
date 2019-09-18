@@ -1,38 +1,38 @@
-- [Create a THREDDS AWS Nexrad VM on Jetstream](#h:4D049C67)
-  - [Create a THREDDS VM on Jetstream](#h:06E230D1)
-  - [Clone the xsede-jetstream Repository](#h:966B0207)
-  - [Build the AWS Nexrad TDS Docker Container](#h:154BBC9F)
-  - [Start TDS With Docker and docker-compose](#h:74EEEE2C)
-  - [TDS Configuration](#h:717697EB)
-    - [Supply Contact and Host Information in threddsConfig.xml](#h:615B0684)
-  - [TDS log Directories](#h:F52D01A2)
-    - [Create log Directories](#h:99E9AD76)
-    - [Scour log Directories](#h:AC0813AF)
-  - [S3Objects Directory](#h:F6EBEBDF)
-    - [Create S3Objects Directory](#h:763C22DA)
-    - [Scour S3Objects Directory](#h:483C35F9)
-  - [SSL Certificate](#h:0B00E7AE)
-  - [Ports 80, 443 and 8443](#h:1541998B)
-  - [docker-compose.yml](#h:B1EEBC0A)
-    - [THREDDS Environment Variable Parameterization](#h:F0A8F4C2)
-  - [Start the TDS](#h:DF4BC998)
-  - [Navigate to the TDS](#h:628E2897)
+- [Create a THREDDS AWS Nexrad VM on Jetstream](#h-4D049C67)
+  - [Create a THREDDS VM on Jetstream](#h-06E230D1)
+  - [Clone the xsede-jetstream Repository](#h-966B0207)
+  - [Build the AWS Nexrad TDS Docker Container](#h-154BBC9F)
+  - [Start TDS With Docker and docker-compose](#h-74EEEE2C)
+  - [TDS Configuration](#h-717697EB)
+    - [Supply Contact and Host Information in threddsConfig.xml](#h-615B0684)
+  - [TDS log Directories](#h-F52D01A2)
+    - [Create log Directories](#h-99E9AD76)
+    - [Scour log Directories](#h-AC0813AF)
+  - [S3Objects Directory](#h-F6EBEBDF)
+    - [Create S3Objects Directory](#h-763C22DA)
+    - [Scour S3Objects Directory](#h-483C35F9)
+  - [SSL Certificate](#h-0B00E7AE)
+  - [Ports 80, 443 and 8443](#h-1541998B)
+  - [docker-compose.yml](#h-B1EEBC0A)
+    - [THREDDS Environment Variable Parameterization](#h-F0A8F4C2)
+  - [Start the TDS](#h-DF4BC998)
+  - [Navigate to the TDS](#h-628E2897)
 
 
 
-<a id="h:4D049C67"></a>
+<a id="h-4D049C67"></a>
 
 # Create a THREDDS AWS Nexrad VM on Jetstream
 
 
-<a id="h:06E230D1"></a>
+<a id="h-06E230D1"></a>
 
 ## Create a THREDDS VM on Jetstream
 
 Create an `m1.large` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-aws.unidata.ucar.edu`
 
 
-<a id="h:966B0207"></a>
+<a id="h-966B0207"></a>
 
 ## Clone the xsede-jetstream Repository
 
@@ -43,7 +43,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 ```
 
 
-<a id="h:154BBC9F"></a>
+<a id="h-154BBC9F"></a>
 
 ## Build the AWS Nexrad TDS Docker Container
 
@@ -54,14 +54,14 @@ docker build -t unidata/nexrad-tds-docker:latest .
 ```
 
 
-<a id="h:74EEEE2C"></a>
+<a id="h-74EEEE2C"></a>
 
 ## Start TDS With Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
-<a id="h:717697EB"></a>
+<a id="h-717697EB"></a>
 
 ## TDS Configuration
 
@@ -72,7 +72,7 @@ unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 ```
 
 
-<a id="h:615B0684"></a>
+<a id="h-615B0684"></a>
 
 ### Supply Contact and Host Information in threddsConfig.xml
 
@@ -91,12 +91,12 @@ Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution 
     </hostInstitution>
 
 
-<a id="h:F52D01A2"></a>
+<a id="h-F52D01A2"></a>
 
 ## TDS log Directories
 
 
-<a id="h:99E9AD76"></a>
+<a id="h-99E9AD76"></a>
 
 ### Create log Directories
 
@@ -108,7 +108,7 @@ mkdir -p ~/logs/tds/
 ```
 
 
-<a id="h:AC0813AF"></a>
+<a id="h-AC0813AF"></a>
 
 ### Scour log Directories
 
@@ -119,12 +119,12 @@ Scour occasionally so the log directories do not fill up.
 ```
 
 
-<a id="h:F6EBEBDF"></a>
+<a id="h-F6EBEBDF"></a>
 
 ## S3Objects Directory
 
 
-<a id="h:763C22DA"></a>
+<a id="h-763C22DA"></a>
 
 ### Create S3Objects Directory
 
@@ -135,7 +135,7 @@ mkdir -p ~/S3Objects
 ```
 
 
-<a id="h:483C35F9"></a>
+<a id="h-483C35F9"></a>
 
 ### Scour S3Objects Directory
 
@@ -144,7 +144,7 @@ mkdir -p ~/S3Objects
 ```
 
 
-<a id="h:0B00E7AE"></a>
+<a id="h-0B00E7AE"></a>
 
 ## SSL Certificate
 
@@ -158,14 +158,14 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 ```
 
 
-<a id="h:1541998B"></a>
+<a id="h-1541998B"></a>
 
 ## Ports 80, 443 and 8443
 
 [Open port](../../openstack/readme.md) `80` on the THREDDS VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the THEREDDS Docker container. In addition, open ports `443` and `8443` for SSL and communication from the TDM.
 
 
-<a id="h:B1EEBC0A"></a>
+<a id="h-B1EEBC0A"></a>
 
 ## docker-compose.yml
 
@@ -206,7 +206,7 @@ services:
 ```
 
 
-<a id="h:F0A8F4C2"></a>
+<a id="h-F0A8F4C2"></a>
 
 ### THREDDS Environment Variable Parameterization
 
@@ -237,7 +237,7 @@ TOMCAT_GROUP_ID=1000
 ```
 
 
-<a id="h:DF4BC998"></a>
+<a id="h-DF4BC998"></a>
 
 ## Start the TDS
 
@@ -250,7 +250,7 @@ docker-compose up -d
 to start the TDS
 
 
-<a id="h:628E2897"></a>
+<a id="h-628E2897"></a>
 
 ## Navigate to the TDS
 

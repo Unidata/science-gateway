@@ -15,18 +15,18 @@
 #+PROPERTY: header-args :eval no :tangle no
 * Create a THREDDS VM on Jetstream
   :PROPERTIES:
-  :CUSTOM_ID: h:A57251FC
+  :CUSTOM_ID: h-A57251FC
   :END:
 ** Create a THREDDS VM on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:011CFB59
+   :CUSTOM_ID: h-011CFB59
    :END:
    
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h:03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
-   :CUSTOM_ID: h:E1E7DBE4
+   :CUSTOM_ID: h-E1E7DBE4
    :END:
 
 We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
@@ -37,14 +37,14 @@ We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
 
 ** Start TDS With Docker and docker-compose
    :PROPERTIES:
-   :CUSTOM_ID: h:704AF626
+   :CUSTOM_ID: h-704AF626
    :END:
 
-With the help of Docker and ~docker-compose~, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h:786799C4][See here to install Docker and docker-compose]].
+With the help of Docker and ~docker-compose~, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [[file:../../vm-init-readme.org::#h-786799C4][See here to install Docker and docker-compose]].
 
 ** TDS Configuration
    :PROPERTIES:
-   :CUSTOM_ID: h:1E5D6712
+   :CUSTOM_ID: h-1E5D6712
    :END:
 
 #+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
@@ -55,7 +55,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
 
 *** Supply Contact and Host Information in threddsConfig.xml
     :PROPERTIES:
-    :CUSTOM_ID: h:3F46F49F
+    :CUSTOM_ID: h-3F46F49F
     :END:
 
 Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution by filling out the ~contact~ and ~hostInstitution~ XML elements. For example:
@@ -76,12 +76,12 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
 
 ** TDS log Directories
    :PROPERTIES:
-   :CUSTOM_ID: h:E0771AED
+   :CUSTOM_ID: h-E0771AED
    :END:
 
 *** Create log Directories
     :PROPERTIES:
-    :CUSTOM_ID: h:F83FDEE6
+    :CUSTOM_ID: h-F83FDEE6
     :END:
 
 You will need Apache Tomcat and TDS log directories:
@@ -93,7 +93,7 @@ You will need Apache Tomcat and TDS log directories:
 
 *** Scour log Directories
     :PROPERTIES:
-    :CUSTOM_ID: h:7BF272F0
+    :CUSTOM_ID: h-7BF272F0
     :END:
 
 Scour occasionally so the log directories do not fill up.
@@ -104,7 +104,7 @@ Scour occasionally so the log directories do not fill up.
 
 ** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:
-   :CUSTOM_ID: h:F043AB6A
+   :CUSTOM_ID: h-F043AB6A
    :END:
 
 The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.8~:
@@ -124,7 +124,7 @@ The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in or
 
 *** Ensure /data Availability Upon Machine Restart
     :PROPERTIES:
-    :CUSTOM_ID: h:437D2B38
+    :CUSTOM_ID: h-437D2B38
     :END:
 
 You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
@@ -135,7 +135,7 @@ You will want to ensure the NFS =/data= volume is available with the help of =fs
 
 ** SSL Certificate
    :PROPERTIES:
-   :CUSTOM_ID: h:C5008DD9
+   :CUSTOM_ID: h-C5008DD9
    :END:
 
 In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed certificate with ~openssl~ (or better yet, obtain a real certificate from a certificate authority).
@@ -149,22 +149,22 @@ In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed 
 
 ** Ports 80, 443 and 8443
    :PROPERTIES:
-   :CUSTOM_ID: h:68B4119B
+   :CUSTOM_ID: h-68B4119B
    :END:
 
 
-[[file:../../openstack/readme.org::#h:D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
+[[file:../../openstack/readme.org::#h-D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
 
 ** THREDDS Data Manager (TDM)
    :PROPERTIES:
-   :CUSTOM_ID: h:0DA2982B
+   :CUSTOM_ID: h-0DA2982B
    :END:
 
 The [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
 
 ** docker-compose.yml
    :PROPERTIES:
-   :CUSTOM_ID: h:6C55AE58
+   :CUSTOM_ID: h-6C55AE58
    :END:
 
 Based on the directory set we have defined, the =docker-compose.yml= file that looks like:
@@ -173,7 +173,7 @@ Based on the directory set we have defined, the =docker-compose.yml= file that l
 
 *** THREDDS Environment Variable Parameterization
     :PROPERTIES:
-    :CUSTOM_ID: h:4D99AC45
+    :CUSTOM_ID: h-4D99AC45
     :END:
 
 You can provide additional THREDDS parameterization via the =compose.env= file referenced in the =docker-compose.yml= file.
@@ -182,7 +182,7 @@ You can provide additional THREDDS parameterization via the =compose.env= file r
 
 ** Start the TDS
    :PROPERTIES:
-   :CUSTOM_ID: h:71555497
+   :CUSTOM_ID: h-71555497
    :END:
 
 Once you have done the work of setting up THREDDS related directories in the way you like,
@@ -194,6 +194,6 @@ Once you have done the work of setting up THREDDS related directories in the way
 to start the TDS
 ** Navigate to the TDS
    :PROPERTIES:
-   :CUSTOM_ID: h:9BC953A7
+   :CUSTOM_ID: h-9BC953A7
    :END:
 In a web browser, navigate to [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html]] to see if is running. 

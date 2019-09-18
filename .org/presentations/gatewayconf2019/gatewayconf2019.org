@@ -26,16 +26,16 @@
 *
     :PROPERTIES:
     :BEAMER_OPT: t,label=
-    :CUSTOM_ID: h:F6880673
+    :CUSTOM_ID: h-F6880673
     :END:
 *** Column 1
     :PROPERTIES:
     :BEAMER_col: 0.5
-    :CUSTOM_ID: h:708EB26F
+    :CUSTOM_ID: h-708EB26F
     :END:
 **** Conference Abstract                                           :noexport:
      :PROPERTIES:
-     :CUSTOM_ID: h:27D790A9
+     :CUSTOM_ID: h-27D790A9
      :END:
 
 Jupyter notebooks excel at interactive, exploratory scientific programming for researchers and their students. With their mixture of prose, equations, diagrams and interactive code examples, Jupyter notebooks are particularly effective in educational settings and for expository objectives. Their use is prevalent in many scientific disciplines including atmospheric science. JupyterHub enables specialists to deploy pre-configured Jupyter notebook servers typically in cloud computing environments. With JupyterHub, users login to arrive at their own notebook workspace where they can experiment and explore preloaded scientific notebooks or create new notebooks. The advantages of deploying a JupyterHub as part of a science gateway are numerous. A JupyterHub server compliments and enhances other science gateway offerings such as collections of data which may be large or unwieldy in size. Users can develop and run their analysis and visualization codes proximate to these data holdings which may be difficult and expensive to download. Moreover, JupyterHub prevents users from having to download and install complex software environments that can be onerous to configure properly. They can be pre-populated with notebook projects and the environments required to run them. These notebooks can be used for teaching or as templates for research and experimentation. In addition, a JupyterHub can be provisioned with computational resources not found in a desktop computing setting and leverage high speed networks for processing large datasets. JupyterHub servers can be accessed from any web browser-enabled device like laptops and tablets. In sum, they improve "time to science" by removing the complexity and tedium required to access and run a scientific programming environment. This poster will detail how we incorporate an Atmospheric Science JupyterHub as a key component of the Unidata Science Gateway.
@@ -43,7 +43,7 @@ Jupyter notebooks excel at interactive, exploratory scientific programming for r
 **** Abstract
       :PROPERTIES:
       :BEAMER_env: exampleblock
-      :CUSTOM_ID: h:2B4617D6
+      :CUSTOM_ID: h-2B4617D6
       :END:
 
 Jupyter notebooks excel at interactive, exploratory scientific programming for researchers and students. With their mixture of prose, equations, diagrams and interactive code examples, Jupyter notebooks are effective in educational settings and for expository objectives. Their use is prevalent in many scientific disciplines including atmospheric science. JupyterHub enables specialists to deploy pre-configured Jupyter notebook servers typically in cloud computing environments. With JupyterHub, users login to arrive at their own notebook workspace where they can experiment and explore preloaded scientific notebooks or create new notebooks. The advantages of deploying a JupyterHub as part of a science gateway are numerous. A JupyterHub server compliments and enhances other science gateway offerings such as collections of data which may be large or unwieldy in size. Users can develop and run their analysis and visualization codes proximate to these data holdings which may be difficult and expensive to download. They can be pre-populated with notebook projects and the environments required to run them. These notebooks can be used for teaching or as templates for research and experimentation. In addition, a JupyterHub can be provisioned with computational resources not found in a desktop computing setting and leverage high speed networks for processing large datasets. In sum, they improve "time to science" by removing the complexity and tedium required to access and run a scientific programming environment.
@@ -51,7 +51,7 @@ Jupyter notebooks excel at interactive, exploratory scientific programming for r
 **** Jupyter Notebook
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:4F16A399
+     :CUSTOM_ID: h-4F16A399
      :END:
 
 #+NAME: lorenz
@@ -62,7 +62,7 @@ Jupyter notebooks excel at interactive, exploratory scientific programming for r
 **** Background
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:F866DDAD
+     :CUSTOM_ID: h-F866DDAD
      :END:
 
 
@@ -71,13 +71,13 @@ The convergence of web and cloud computing technologies enables straightforward 
 *** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.5
-   :CUSTOM_ID: h:183AC108
+   :CUSTOM_ID: h-183AC108
    :END:
 
 **** Unidata Science Gateway
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:4D3129C3
+     :CUSTOM_ID: h-4D3129C3
      :END:
 
 #+NAME: gateway
@@ -87,12 +87,12 @@ The convergence of web and cloud computing technologies enables straightforward 
 **** Methods
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:9778A73E
+     :CUSTOM_ID: h-9778A73E
      :END:
 ***** Column 1
    :PROPERTIES:
    :BEAMER_col: 0.66
-   :CUSTOM_ID: h:915A421A
+   :CUSTOM_ID: h-915A421A
    :END:
 
    - Jetstream (doi:10.1145/2792745.2792774)
@@ -103,7 +103,7 @@ The convergence of web and cloud computing technologies enables straightforward 
 ***** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.33
-   :CUSTOM_ID: h:9A2D6666
+   :CUSTOM_ID: h-9A2D6666
    :END:
 
    - Kubespray
@@ -113,7 +113,7 @@ The convergence of web and cloud computing technologies enables straightforward 
 
 **** Unidata JupyterHub with JupyterLab
      :PROPERTIES:
-     :CUSTOM_ID: h:FE0E42C5
+     :CUSTOM_ID: h-FE0E42C5
      :END:
 
 #+NAME: jupyterhub
@@ -124,7 +124,7 @@ The convergence of web and cloud computing technologies enables straightforward 
 **** Conclusions
      :PROPERTIES:
      :BEAMER_env: alertblock
-     :CUSTOM_ID: h:C75BE962
+     :CUSTOM_ID: h-C75BE962
      :END:
 
 A JupyterHub serves as an essential component to a science gateway giving users a unique avenue to perform interactive code exploration of science gateway resources. A JupyterHub in such a setting enables researchers and students to arrive at their science faster by providing them a computing environment tailored to their scientific objectives.
@@ -132,7 +132,7 @@ A JupyterHub serves as an essential component to a science gateway giving users 
 **** Acknowledgments
      :PROPERTIES:
      :BEAMER_env: block
-     :CUSTOM_ID: h:E785F13A
+     :CUSTOM_ID: h-E785F13A
      :END:
 
 We thank Jeremy Fischer, Andrea Zonca and the XSEDE Extended Collaborative Support Service (ECSS, doi:10.1007/978-3-319-32243-8_1) program.

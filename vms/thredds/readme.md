@@ -1,37 +1,37 @@
-- [Create a THREDDS VM on Jetstream](#h:A57251FC)
-  - [Create a THREDDS VM on Jetstream](#h:011CFB59)
-  - [Clone the xsede-jetstream Repository](#h:E1E7DBE4)
-  - [Start TDS With Docker and docker-compose](#h:704AF626)
-  - [TDS Configuration](#h:1E5D6712)
-    - [Supply Contact and Host Information in threddsConfig.xml](#h:3F46F49F)
-  - [TDS log Directories](#h:E0771AED)
-    - [Create log Directories](#h:F83FDEE6)
-    - [Scour log Directories](#h:7BF272F0)
-  - [LDM Data Directory from idd-archiver Via NFS](#h:F043AB6A)
-    - [Ensure /data Availability Upon Machine Restart](#h:437D2B38)
-  - [SSL Certificate](#h:C5008DD9)
-  - [Ports 80, 443 and 8443](#h:68B4119B)
-  - [THREDDS Data Manager (TDM)](#h:0DA2982B)
-  - [docker-compose.yml](#h:6C55AE58)
-    - [THREDDS Environment Variable Parameterization](#h:4D99AC45)
-  - [Start the TDS](#h:71555497)
-  - [Navigate to the TDS](#h:9BC953A7)
+- [Create a THREDDS VM on Jetstream](#h-A57251FC)
+  - [Create a THREDDS VM on Jetstream](#h-011CFB59)
+  - [Clone the xsede-jetstream Repository](#h-E1E7DBE4)
+  - [Start TDS With Docker and docker-compose](#h-704AF626)
+  - [TDS Configuration](#h-1E5D6712)
+    - [Supply Contact and Host Information in threddsConfig.xml](#h-3F46F49F)
+  - [TDS log Directories](#h-E0771AED)
+    - [Create log Directories](#h-F83FDEE6)
+    - [Scour log Directories](#h-7BF272F0)
+  - [LDM Data Directory from idd-archiver Via NFS](#h-F043AB6A)
+    - [Ensure /data Availability Upon Machine Restart](#h-437D2B38)
+  - [SSL Certificate](#h-C5008DD9)
+  - [Ports 80, 443 and 8443](#h-68B4119B)
+  - [THREDDS Data Manager (TDM)](#h-0DA2982B)
+  - [docker-compose.yml](#h-6C55AE58)
+    - [THREDDS Environment Variable Parameterization](#h-4D99AC45)
+  - [Start the TDS](#h-71555497)
+  - [Navigate to the TDS](#h-9BC953A7)
 
 
 
-<a id="h:A57251FC"></a>
+<a id="h-A57251FC"></a>
 
 # Create a THREDDS VM on Jetstream
 
 
-<a id="h:011CFB59"></a>
+<a id="h-011CFB59"></a>
 
 ## Create a THREDDS VM on Jetstream
 
 Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-jetstream.unidata.ucar.edu`.
 
 
-<a id="h:E1E7DBE4"></a>
+<a id="h-E1E7DBE4"></a>
 
 ## Clone the xsede-jetstream Repository
 
@@ -42,14 +42,14 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 ```
 
 
-<a id="h:704AF626"></a>
+<a id="h-704AF626"></a>
 
 ## Start TDS With Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM with the TDS should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
-<a id="h:1E5D6712"></a>
+<a id="h-1E5D6712"></a>
 
 ## TDS Configuration
 
@@ -60,7 +60,7 @@ unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 ```
 
 
-<a id="h:3F46F49F"></a>
+<a id="h-3F46F49F"></a>
 
 ### Supply Contact and Host Information in threddsConfig.xml
 
@@ -79,12 +79,12 @@ Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution 
     </hostInstitution>
 
 
-<a id="h:E0771AED"></a>
+<a id="h-E0771AED"></a>
 
 ## TDS log Directories
 
 
-<a id="h:F83FDEE6"></a>
+<a id="h-F83FDEE6"></a>
 
 ### Create log Directories
 
@@ -96,7 +96,7 @@ mkdir -p ~/logs/tds/
 ```
 
 
-<a id="h:7BF272F0"></a>
+<a id="h-7BF272F0"></a>
 
 ### Scour log Directories
 
@@ -107,7 +107,7 @@ Scour occasionally so the log directories do not fill up.
 ```
 
 
-<a id="h:F043AB6A"></a>
+<a id="h-F043AB6A"></a>
 
 ## LDM Data Directory from idd-archiver Via NFS
 
@@ -120,7 +120,7 @@ mount 10.0.0.8:/data /data
 ```
 
 
-<a id="h:437D2B38"></a>
+<a id="h-437D2B38"></a>
 
 ### Ensure /data Availability Upon Machine Restart
 
@@ -131,7 +131,7 @@ echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee -
 ```
 
 
-<a id="h:C5008DD9"></a>
+<a id="h-C5008DD9"></a>
 
 ## SSL Certificate
 
@@ -145,21 +145,21 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 ```
 
 
-<a id="h:68B4119B"></a>
+<a id="h-68B4119B"></a>
 
 ## Ports 80, 443 and 8443
 
 [Open port](../../openstack/readme.md) `80` on the THREDDS VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the THEREDDS Docker container. In addition, open ports `443` and `8443` for SSL and communication from the TDM.
 
 
-<a id="h:0DA2982B"></a>
+<a id="h-0DA2982B"></a>
 
 ## THREDDS Data Manager (TDM)
 
 The [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver-jetstream` VM.
 
 
-<a id="h:6C55AE58"></a>
+<a id="h-6C55AE58"></a>
 
 ## docker-compose.yml
 
@@ -198,7 +198,7 @@ services:
 ```
 
 
-<a id="h:4D99AC45"></a>
+<a id="h-4D99AC45"></a>
 
 ### THREDDS Environment Variable Parameterization
 
@@ -229,7 +229,7 @@ TOMCAT_GROUP_ID=1000
 ```
 
 
-<a id="h:71555497"></a>
+<a id="h-71555497"></a>
 
 ## Start the TDS
 
@@ -242,7 +242,7 @@ docker-compose up -d
 to start the TDS
 
 
-<a id="h:9BC953A7"></a>
+<a id="h-9BC953A7"></a>
 
 ## Navigate to the TDS
 

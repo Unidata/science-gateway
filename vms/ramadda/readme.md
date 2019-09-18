@@ -1,40 +1,40 @@
-- [Creating a RAMADDA VM on Jetstream](#h:07FD791D)
-  - [Create a RAMADDA VM on Jetstream](#h:F4023EC5)
-  - [Clone the xsede-jetstream Repository](#h:968FA51C)
-  - [Start RAMADDA With Docker and docker-compose](#h:2E18E909)
-  - [/repository Directory](#h:2F1A5636)
-  - [Create RAMADDA default password](#h:D5095E2A)
-  - [RAMADDA log Directories](#h:1C3FF741)
-    - [Create log Directories](#h:DABCF6E2)
-    - [Scour log Directories](#h:1121D213)
-  - [LDM Data Directory from idd-archiver Via NFS](#h:85431E50)
-  - [Ensure /repository and /data Availability Upon Machine Restart](#h:6423976C)
-    - [/data NFS Mounted Volume](#h:286B798E)
-  - [Port 80](#h:404D9595)
-  - [docker-compose.yml](#h:7E683535)
-    - [RAMADDA Environment Variable Parameterization](#h:704211AA)
-  - [Start RAMADDA](#h:224A9684)
-  - [Navigate to RAMADDA](#h:81FED1EC)
-  - [Access RAMADDA with the Unidata IDV](#h:73BB6227)
-    - [RAMADDA IDV Plugin](#h:3CCEFC0F)
-    - [RAMADDA Server Side Views](#h:C8481694)
-    - [RAMADDA Catalog Views from the IDV](#h:589449E2)
+- [Creating a RAMADDA VM on Jetstream](#h-07FD791D)
+  - [Create a RAMADDA VM on Jetstream](#h-F4023EC5)
+  - [Clone the xsede-jetstream Repository](#h-968FA51C)
+  - [Start RAMADDA With Docker and docker-compose](#h-2E18E909)
+  - [/repository Directory](#h-2F1A5636)
+  - [Create RAMADDA default password](#h-D5095E2A)
+  - [RAMADDA log Directories](#h-1C3FF741)
+    - [Create log Directories](#h-DABCF6E2)
+    - [Scour log Directories](#h-1121D213)
+  - [LDM Data Directory from idd-archiver Via NFS](#h-85431E50)
+  - [Ensure /repository and /data Availability Upon Machine Restart](#h-6423976C)
+    - [/data NFS Mounted Volume](#h-286B798E)
+  - [Port 80](#h-404D9595)
+  - [docker-compose.yml](#h-7E683535)
+    - [RAMADDA Environment Variable Parameterization](#h-704211AA)
+  - [Start RAMADDA](#h-224A9684)
+  - [Navigate to RAMADDA](#h-81FED1EC)
+  - [Access RAMADDA with the Unidata IDV](#h-73BB6227)
+    - [RAMADDA IDV Plugin](#h-3CCEFC0F)
+    - [RAMADDA Server Side Views](#h-C8481694)
+    - [RAMADDA Catalog Views from the IDV](#h-589449E2)
 
 
 
-<a id="h:07FD791D"></a>
+<a id="h-07FD791D"></a>
 
 # Creating a RAMADDA VM on Jetstream
 
 
-<a id="h:F4023EC5"></a>
+<a id="h-F4023EC5"></a>
 
 ## Create a RAMADDA VM on Jetstream
 
 Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 100GB `/repository` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `ramadda-jetstream.unidata.ucar.edu`.
 
 
-<a id="h:968FA51C"></a>
+<a id="h-968FA51C"></a>
 
 ## Clone the xsede-jetstream Repository
 
@@ -45,21 +45,21 @@ git clone https://github.com/Unidata/xsede-jetstream
 ```
 
 
-<a id="h:2E18E909"></a>
+<a id="h-2E18E909"></a>
 
 ## Start RAMADDA With Docker and docker-compose
 
 With the help of Docker and `docker-compose`, starting a VM with the RAMADDA content management system should be fairly easy. There are a few directories you will need to map from outside to within the container. [See here to install Docker and docker-compose](../../vm-init-readme.md).
 
 
-<a id="h:2F1A5636"></a>
+<a id="h-2F1A5636"></a>
 
 ## /repository Directory
 
 The `/repository` directory should be a fairly beefy data volume (e.g., 100 GBs) or however much data you anticipate your RAMADDA users will consume. [See here if creating data volumes via the JetStream OpenStack API](../../openstack/readme.md).
 
 
-<a id="h:D5095E2A"></a>
+<a id="h-D5095E2A"></a>
 
 ## Create RAMADDA default password
 
@@ -73,12 +73,12 @@ echo ramadda.install.password=changeme! | tee --append \
 ```
 
 
-<a id="h:1C3FF741"></a>
+<a id="h-1C3FF741"></a>
 
 ## RAMADDA log Directories
 
 
-<a id="h:DABCF6E2"></a>
+<a id="h-DABCF6E2"></a>
 
 ### Create log Directories
 
@@ -90,7 +90,7 @@ mkdir -p ~/logs/ramadda/
 ```
 
 
-<a id="h:1121D213"></a>
+<a id="h-1121D213"></a>
 
 ### Scour log Directories
 
@@ -101,7 +101,7 @@ Scour occasionally so the log directories do not fill up.
 ```
 
 
-<a id="h:85431E50"></a>
+<a id="h-85431E50"></a>
 
 ## LDM Data Directory from idd-archiver Via NFS
 
@@ -114,7 +114,7 @@ sudo mount 10.0.0.4:/data /data
 ```
 
 
-<a id="h:6423976C"></a>
+<a id="h-6423976C"></a>
 
 ## Ensure /repository and /data Availability Upon Machine Restart
 
@@ -125,7 +125,7 @@ sudo echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e	 /repository	ext4	defaults	1
 ```
 
 
-<a id="h:286B798E"></a>
+<a id="h-286B798E"></a>
 
 ### /data NFS Mounted Volume
 
@@ -136,14 +136,14 @@ sudo echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | 
 ```
 
 
-<a id="h:404D9595"></a>
+<a id="h-404D9595"></a>
 
 ## Port 80
 
 [Open port](../../openstack/readme.md) `80` on the RAMADDA VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the RAMADDA Docker container.
 
 
-<a id="h:7E683535"></a>
+<a id="h-7E683535"></a>
 
 ## docker-compose.yml
 
@@ -170,7 +170,7 @@ services:
 ```
 
 
-<a id="h:704211AA"></a>
+<a id="h-704211AA"></a>
 
 ### RAMADDA Environment Variable Parameterization
 
@@ -185,7 +185,7 @@ TOMCAT_GROUP_ID=1000
 ```
 
 
-<a id="h:224A9684"></a>
+<a id="h-224A9684"></a>
 
 ## Start RAMADDA
 
@@ -198,35 +198,35 @@ docker-compose up -d
 to start RAMADDA.
 
 
-<a id="h:81FED1EC"></a>
+<a id="h-81FED1EC"></a>
 
 ## Navigate to RAMADDA
 
 In a web browser, navigate to [http://ramadda-jetstream.unidata.ucar.edu/repository](http://ramadda-jetstream.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier.
 
 
-<a id="h:73BB6227"></a>
+<a id="h-73BB6227"></a>
 
 ## Access RAMADDA with the Unidata IDV
 
 RAMADDA has good integration with the [Unidata Integrated Data Viewer (IDV)](http://www.unidata.ucar.edu/software/idv/) and the two technologies work well together.
 
 
-<a id="h:3CCEFC0F"></a>
+<a id="h-3CCEFC0F"></a>
 
 ### RAMADDA IDV Plugin
 
 IDV users may wish to install the [RAMADDA IDV plugin](http://www.unidata.ucar.edu/software/idv/docs/workshop/savingstate/Ramadda.html) to publish IDV bundles to RAMADDA.
 
 
-<a id="h:C8481694"></a>
+<a id="h-C8481694"></a>
 
 ### RAMADDA Server Side Views
 
 RAMADDA also has access to the LDM `/data/` directory so you may want to set up [server-side view of this part of the file system](http://ramadda.org//repository/userguide/developer/filesystem.html). This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
 
 
-<a id="h:589449E2"></a>
+<a id="h-589449E2"></a>
 
 ### RAMADDA Catalog Views from the IDV
 

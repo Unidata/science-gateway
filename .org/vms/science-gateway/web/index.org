@@ -25,7 +25,7 @@
 
 * News
   :PROPERTIES:
-  :CUSTOM_ID: h:161F43B1
+  :CUSTOM_ID: h-161F43B1
   :END:
 
 {{{imglnk(news.xml,https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/32px-Feed-icon.svg.png)}}}
@@ -33,7 +33,7 @@
 
 * Introduction
   :PROPERTIES:
-  :CUSTOM_ID: h:BEB7506B
+  :CUSTOM_ID: h-BEB7506B
   :END:
 
 Welcome to the [[http://www.unidata.ucar.edu/][Unidata]] Science Gateway on the National Science Foundation [[https://portal.xsede.org/jetstream][Jetstream Cloud]]. Unidata is a diverse community of education and research institutions with the common goal of sharing geoscience data and the tools to access and visualize that data. For more than 30 years, Unidata has been providing data, software tools, and support to enhance Earth-system education and research. Funded primarily by the National Science Foundation (NSF), Unidata is one of the University Corporation for Atmospheric Research (UCAR)'s Community Programs (UCP).
@@ -42,7 +42,7 @@ As part of our current [[https://www.unidata.ucar.edu/publications/directorspage
 
 * JupyterHub
   :PROPERTIES:
-  :CUSTOM_ID: h:D1710E1B
+  :CUSTOM_ID: h-D1710E1B
   :END:
 
 [[https://jupyterhub.unidata.ucar.edu][JupyterHub server on Jetstream]] ([[https://github.com/][GitHub login]] required)
@@ -57,7 +57,7 @@ This JupyterHub is now open to anyone with an [[https://github.com][GitHub login
 
 * THREDDS Data Server
   :PROPERTIES:
-  :CUSTOM_ID: h:9690244B
+  :CUSTOM_ID: h-9690244B
   :END:
 
  [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][TDS installation on Jetstream]]
@@ -68,7 +68,7 @@ This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][
 
 * THREDDS AWS Nexrad Server
   :PROPERTIES:
-  :CUSTOM_ID: h:6B491DAA
+  :CUSTOM_ID: h-6B491DAA
   :END:
 
 [[http://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
@@ -77,7 +77,7 @@ In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data
 
 * AWIPS EDEX
   :PROPERTIES:
-  :CUSTOM_ID: h:9ADDB20C
+  :CUSTOM_ID: h-9ADDB20C
   :END:
 
 EDEX installation on Jetstream: ~edex-cloud.unidata.ucar.edu~
@@ -86,7 +86,7 @@ AWIPS is a meteorological display and analysis system used by the National Weath
 
 * RAMADDA Geoscience CMS
   :PROPERTIES:
-  :CUSTOM_ID: h:DBF62CF5
+  :CUSTOM_ID: h-DBF62CF5
   :END:
 
 [[http://ramadda-jetstream.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]]
@@ -95,7 +95,7 @@ AWIPS is a meteorological display and analysis system used by the National Weath
 
 * LDM
   :PROPERTIES:
-  :CUSTOM_ID: h:7DD1393A
+  :CUSTOM_ID: h-7DD1393A
   :END:
 
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][LDM installation on Jetstream]]
@@ -104,7 +104,7 @@ The Unidata [[http://www.unidata.ucar.edu/software/ldm/][Local Data Manager]] (L
 
 * ADDE
   :PROPERTIES:
-  :CUSTOM_ID: h:4AD59494
+  :CUSTOM_ID: h-4AD59494
   :END:
 
 ADDE installation on Jetstream: ~adde://adde-jetstream.unidata.ucar.edu:112~
@@ -113,33 +113,33 @@ ADDE installation on Jetstream: ~adde://adde-jetstream.unidata.ucar.edu:112~
 
 * IDV Resources
   :PROPERTIES:
-  :CUSTOM_ID: h:D0BA253D
+  :CUSTOM_ID: h-D0BA253D
   :END:
 
 The [[https://www.unidata.ucar.edu/software/idv/][Unidata Integrated Data Viewer]] (IDV) is a desktop application for viewing data in two and three dimensions. It excels at bringing together geoscience data from disparate sources into one integrated display.
 
 ** Running the IDV on Jetstream
    :PROPERTIES:
-   :CUSTOM_ID: h:D76F2C8F
+   :CUSTOM_ID: h-D76F2C8F
    :END:
 
 For those who have a Jetstream allocation (e.g., startup, education, research), an IDV image is available when selecting VMs through the [[https://use.jetstream-cloud.org/application/images][Jetstream Atmosphere dashboard]]. If you do not have a Jetstream allocation, it is possible to obtain a [[https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/76150553/Get+a+Jetstream+Trial+Access+account][Jetstream Trial Access account]]. When searching for images, search for "IDV". You will find the =Unidata IDV <version>= image. Launching that image will then allow you to "Open Web Desktop" where the IDV will be available pre-loaded with the Jetstream plugin. The catalogs available via the IDV Dashboard, Data Choosers will default to the TDS and RAMADDA servers running on Jetstream enabling data-proximate performance, especially for large datasets. You can also select image sizes that are appropriate to your goals. For example, if working with a data intensive bundle, you could choose an m1.medium VM with 6 vCPUS, 16 GB RAM.
 
 ** IDV Jetstream Plugin
    :PROPERTIES:
-   :CUSTOM_ID: h:05438731
+   :CUSTOM_ID: h-05438731
    :END:
 
 The IDV Jetstream plugin allows easy access to Jetstream installations of the TDS, RAMADDA and ADDE from the IDV. The plugin URL is ~http://science-gateway.unidata.ucar.edu/jetstream.jar~. [[https://www.unidata.ucar.edu/software/idv/docs/workshop/advanced/PluginManager.html][See here for how to install an IDV plugin from a URL]].
 
 * Conference Presentations
   :PROPERTIES:
-  :CUSTOM_ID: h:20A85AD4
+  :CUSTOM_ID: h-20A85AD4
   :END:
 
 ** Past Presentations
    :PROPERTIES:
-   :CUSTOM_ID: h:796B2372
+   :CUSTOM_ID: h-796B2372
    :END:
 
 - ESIP Summer Meeting 2017 | July 25-28, 2017 – Bloomington, IN USA
@@ -161,21 +161,21 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 
 ** Forthcoming Presentations
    :PROPERTIES:
-   :CUSTOM_ID: h:BD0797EC
+   :CUSTOM_ID: h-BD0797EC
    :END:
 
 - [[https://sciencegateways.org/web/gateways2019/home][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
 
 * Under the Hood
   :PROPERTIES:
-  :CUSTOM_ID: h:632926D5
+  :CUSTOM_ID: h-632926D5
   :END:
 
 The implementation of this effort is described here: https://github.com/Unidata/xsede-jetstream.
 
 * System Status
   :PROPERTIES:
-  :CUSTOM_ID: h:DA850DB8
+  :CUSTOM_ID: h-DA850DB8
   :END:
 
 [[https://conan.unidata.ucar.edu/bb/][Internal only Unidata system monitoring link]]
@@ -186,38 +186,38 @@ The implementation of this effort is described here: https://github.com/Unidata/
 
 * Contact
   :PROPERTIES:
-  :CUSTOM_ID: h:15E3DA2C
+  :CUSTOM_ID: h-15E3DA2C
   :END:
 
 If you wish to contact Unidata concerning this science gateway, please contact ~support@unidata.ucar.edu~.
 
 * Acknowledgments and Bibliography
   :PROPERTIES:
-  :CUSTOM_ID: h:34E7E087
+  :CUSTOM_ID: h-34E7E087
   :END:
 
 ** Acknowledgments
    :PROPERTIES:
-   :CUSTOM_ID: h:98F550D4
+   :CUSTOM_ID: h-98F550D4
    :END:
 
 *** National Science Foundation
     :PROPERTIES:
-    :CUSTOM_ID: h:F709195C
+    :CUSTOM_ID: h-F709195C
     :END:
 
 Funding for this project was generously provided by the National Science Foundation ([[https://www.nsf.gov/awardsearch/showAward?AWD_ID=1901712][Grant NSF-1901712]])
 
 *** XSEDE ECSS
     :PROPERTIES:
-    :CUSTOM_ID: h:B0693B43
+    :CUSTOM_ID: h-B0693B43
     :END:
 
 We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenlaub, Suresh Marru, Lance Moxley, Marlon Pierce, Semir Sarajlic, Craig Alan Stewart, George Wm Turner, Nancy Wilkins-Diehr, Nicole Wolter and Andrea Zonca for their assistance with this effort, which was made possible through the XSEDE Extended Collaborative Support Service (ECSS) program.
 
 ** Bibliography
    :PROPERTIES:
-   :CUSTOM_ID: h:9DC92977
+   :CUSTOM_ID: h-9DC92977
    :END:
 
 #+BIBLIOGRAPHY: ../../../../jetstream plain

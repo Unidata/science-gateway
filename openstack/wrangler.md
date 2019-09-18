@@ -1,27 +1,27 @@
-- [Establishing an NFS Mount from Wrangler to Jetstream VMs](#h:6F2C5533)
-  - [Introduction](#h:21834535)
-  - [Prerequisites](#h:F402F677)
-  - [Attaching the unidata-wrangler Network onto Your VM](#h:4295622E)
-  - [Opening NFS Related Ports](#h:86EAF003)
-    - [Create the Wrangler Security Group](#h:C3E31F14)
-    - [Attach Wrangler Security Group to VM](#h:FE477C60)
-  - [Additional Networking Setup On VM](#h:8CC1C481)
-    - [rpcbind](#h:4F9D6A34)
-    - [ifconfig](#h:BF5FABB7)
-    - [/etc/network/interfaces](#h:95D34D99)
-    - [/etc/udev/rules.d/70-persistent-net.rules](#h:C4236EE6)
-    - [ifup](#h:2188C4A9)
-  - [Mounting Wrangler](#h:26D0062F)
-  - [Ensure Volume Availability Upon Machine Restart](#h:D458816F)
+- [Establishing an NFS Mount from Wrangler to Jetstream VMs](#h-6F2C5533)
+  - [Introduction](#h-21834535)
+  - [Prerequisites](#h-F402F677)
+  - [Attaching the unidata-wrangler Network onto Your VM](#h-4295622E)
+  - [Opening NFS Related Ports](#h-86EAF003)
+    - [Create the Wrangler Security Group](#h-C3E31F14)
+    - [Attach Wrangler Security Group to VM](#h-FE477C60)
+  - [Additional Networking Setup On VM](#h-8CC1C481)
+    - [rpcbind](#h-4F9D6A34)
+    - [ifconfig](#h-BF5FABB7)
+    - [/etc/network/interfaces](#h-95D34D99)
+    - [/etc/udev/rules.d/70-persistent-net.rules](#h-C4236EE6)
+    - [ifup](#h-2188C4A9)
+  - [Mounting Wrangler](#h-26D0062F)
+  - [Ensure Volume Availability Upon Machine Restart](#h-D458816F)
 
 
 
-<a id="h:6F2C5533"></a>
+<a id="h-6F2C5533"></a>
 
 # Establishing an NFS Mount from Wrangler to Jetstream VMs
 
 
-<a id="h:21834535"></a>
+<a id="h-21834535"></a>
 
 ## Introduction
 
@@ -30,7 +30,7 @@ Wrangler is an XSEDE data storage system available both at TACC and IU. Unidata 
 These instructions assume an Ubuntu VM. In the future, we will have a similar document for CentOS.
 
 
-<a id="h:F402F677"></a>
+<a id="h-F402F677"></a>
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ $ openstack network list
 ```
 
 
-<a id="h:4295622E"></a>
+<a id="h-4295622E"></a>
 
 ## Attaching the unidata-wrangler Network onto Your VM
 
@@ -73,14 +73,14 @@ $ openstack server list
 ```
 
 
-<a id="h:86EAF003"></a>
+<a id="h-86EAF003"></a>
 
 ## Opening NFS Related Ports
 
 Next you must open a series of NFS related ports both TCP and UDP: `111`, `875`, `892`, `2049`, `10053`, `32803`. To be on the safe side, limit those ports to the to the Wrangler IP (`149.165.238.47`).
 
 
-<a id="h:C3E31F14"></a>
+<a id="h-C3E31F14"></a>
 
 ### Create the Wrangler Security Group
 
@@ -104,7 +104,7 @@ openstack security group rule create wrangler --protocol icmp
 ```
 
 
-<a id="h:FE477C60"></a>
+<a id="h-FE477C60"></a>
 
 ### Attach Wrangler Security Group to VM
 
@@ -115,12 +115,12 @@ openstack server add security group ${VM_ID} wrangler
 ```
 
 
-<a id="h:8CC1C481"></a>
+<a id="h-8CC1C481"></a>
 
 ## Additional Networking Setup On VM
 
 
-<a id="h:4F9D6A34"></a>
+<a id="h-4F9D6A34"></a>
 
 ### rpcbind
 
@@ -131,7 +131,7 @@ echo rpcbind : 10.5.0.96/28 127.0.0.1 | tee --append /etc/hosts.allow > /dev/nul
 ```
 
 
-<a id="h:BF5FABB7"></a>
+<a id="h-BF5FABB7"></a>
 
 ### ifconfig
 
@@ -167,7 +167,7 @@ lo        Link encap:Local Loopback
 Examine the output of `ifconfig` and find the network that is not in `UP` state, in this case `ens4`.
 
 
-<a id="h:95D34D99"></a>
+<a id="h-95D34D99"></a>
 
 ### /etc/network/interfaces
 
@@ -183,7 +183,7 @@ EOF
 ```
 
 
-<a id="h:C4236EE6"></a>
+<a id="h-C4236EE6"></a>
 
 ### /etc/udev/rules.d/70-persistent-net.rules
 
@@ -196,7 +196,7 @@ echo SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", \
 ```
 
 
-<a id="h:2188C4A9"></a>
+<a id="h-2188C4A9"></a>
 
 ### ifup
 
@@ -207,7 +207,7 @@ ifup ${ENS}
 ```
 
 
-<a id="h:26D0062F"></a>
+<a id="h-26D0062F"></a>
 
 ## Mounting Wrangler
 
@@ -225,7 +225,7 @@ mount -v -t nfs iuwrang-c111.uits.indiana.edu:/data/projects/G-818573 \
 ```
 
 
-<a id="h:D458816F"></a>
+<a id="h-D458816F"></a>
 
 ## Ensure Volume Availability Upon Machine Restart
 

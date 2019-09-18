@@ -1,33 +1,33 @@
-- [Virtual Machine Initialization](#h:BA11A408)
-  - [Linux VM or Bare Metal Linux](#h:FF95E7EC)
-    - [Quick Start](#h:4A4B1084)
-    - [System Maintenance](#h:AE788331)
-    - [Install Docker](#h:786799C4)
-    - [Install docker-compose](#h:02EF6BAD)
-    - [Start Docker Daemon](#h:B6F088A3)
-    - [Reboot](#h:6D94F8D5)
-    - [Docker Hello World](#h:F3633FE6)
-  - [Other Environments (e.g., macOS, Windows)](#h:D1009153)
+- [Virtual Machine Initialization](#h-BA11A408)
+  - [Linux VM or Bare Metal Linux](#h-FF95E7EC)
+    - [Quick Start](#h-4A4B1084)
+    - [System Maintenance](#h-AE788331)
+    - [Install Docker](#h-786799C4)
+    - [Install docker-compose](#h-02EF6BAD)
+    - [Start Docker Daemon](#h-B6F088A3)
+    - [Reboot](#h-6D94F8D5)
+    - [Docker Hello World](#h-F3633FE6)
+  - [Other Environments (e.g., macOS, Windows)](#h-D1009153)
 
 
 
-<a id="h:BA11A408"></a>
+<a id="h-BA11A408"></a>
 
 # Virtual Machine Initialization
 
 The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker and other system maintenance you will need to perform.
 
 
-<a id="h:FF95E7EC"></a>
+<a id="h-FF95E7EC"></a>
 
 ## Linux VM or Bare Metal Linux
 
 
-<a id="h:4A4B1084"></a>
+<a id="h-4A4B1084"></a>
 
 ### Quick Start
 
-Quick start instructions for Linux OS can be found here. For a more complete explanation of the Docker installation start with the [System Maintenance](#h:AE788331) section.
+Quick start instructions for Linux OS can be found here. For a more complete explanation of the Docker installation start with the [System Maintenance](#h-AE788331) section.
 
 ```shell
 git clone https://github.com/Unidata/xsede-jetstream
@@ -41,7 +41,7 @@ sudo ./<linux-distro>-init.sh -u ${USER}
 ```
 
 
-<a id="h:AE788331"></a>
+<a id="h-AE788331"></a>
 
 ### System Maintenance
 
@@ -75,7 +75,7 @@ Do the usual maintenance via `apt-get` or `yum`. Also install a few ancillary pa
     ```
 
 
-<a id="h:786799C4"></a>
+<a id="h-786799C4"></a>
 
 ### Install Docker
 
@@ -87,7 +87,7 @@ usermod -aG docker ${DOCKER_USER}
 ```
 
 
-<a id="h:02EF6BAD"></a>
+<a id="h-02EF6BAD"></a>
 
 ### Install docker-compose
 
@@ -98,7 +98,7 @@ chmod +x /usr/local/bin/docker-compose
 ```
 
 
-<a id="h:B6F088A3"></a>
+<a id="h-B6F088A3"></a>
 
 ### Start Docker Daemon
 
@@ -116,7 +116,7 @@ systemctl start docker.service
 ```
 
 
-<a id="h:6D94F8D5"></a>
+<a id="h-6D94F8D5"></a>
 
 ### Reboot
 
@@ -129,7 +129,7 @@ reboot now
 Log back into Linux machine or VM.
 
 
-<a id="h:F3633FE6"></a>
+<a id="h-F3633FE6"></a>
 
 ### Docker Hello World
 
@@ -140,7 +140,7 @@ docker run hello-world
 ```
 
 
-<a id="h:D1009153"></a>
+<a id="h-D1009153"></a>
 
 ## Other Environments (e.g., macOS, Windows)
 
