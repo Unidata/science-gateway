@@ -16,12 +16,12 @@
 #+SETUPFILE: theme-readtheorg.setup
 #+HTML_HEAD:<style type="text/css">.figure-number {display: none;}</style>
 
-# https://www.nasa.gov/audience/forstudents/5-8/features/nasa-knows/what-are-hurricanes-58.html
-#+CAPTION: Credits: NASA
-#+NAME: Hurricane
-[[file:hurricane.jpg]]
-
 #+MACRO: imglnk @@html:<a href="$1"><img src="$2"></a>@@
+
+#+NAME: JupyterHub
+#+CAPTION: /Unidata Python Gallery GOES-16 true color notebook by Brian Blaylock available via the Unidata JupyterHub./
+#+ATTR_HTML: :style border:2px solid #ccc;
+[[file:jupyterhub.png]]
 
 * News
   :PROPERTIES:
