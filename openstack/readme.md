@@ -442,6 +442,8 @@ will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for m
 
 Also, note that `cluster.tf` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tf`.
 
+**IMPORTANT**: once you define an `image` (e.g., `image = JS-API-Featured-Ubuntu18-May-22-2019`) or a flavor size (e.g., `flavor_k8s_master = 2`), make sure you do not subsequently change it after you have run Terraform and Ansible! This scenario can happen when [adding cluster nodes](#h-1991828D) and the featured image no longer exists because it has been updated. If you must change these values, you'll first have to [preserve your application data](../vms/jupyter/readme.md#h-5F2AA05F) and do a [gentle - IP preserving - cluster tear down](#h-DABDACC7) before rebuilding it and re-installing your application.
+
 
 <a id="h-0C658E7B"></a>
 
