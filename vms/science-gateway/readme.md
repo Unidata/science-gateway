@@ -4,6 +4,8 @@
   - [Prepare Science Gateway VM for Docker and docker-compose](#h-D311EB0F)
   - [Logging](#h-7FF2F781)
   - [Ports 80, 443](#h-5BF405FC)
+  - [DNS Name](#h-F47D384F)
+  - [Obtain HTTPS Certificates](#h-CE6457C8)
   - [Start Ngnix](#h-B30CBDF8)
 
 
@@ -54,6 +56,20 @@ mkdir -p ~/logs/nginx/
 ## Ports 80, 443
 
 [Open ports](../../openstack/readme.md) `80`, and `443` on the Science Gateway VM via OpenStack.
+
+
+<a id="h-F47D384F"></a>
+
+## DNS Name
+
+Work with Unidata sys admin staff to have the IP address of this VM point to science-gateway.unidata.ucar.edu.
+
+
+<a id="h-CE6457C8"></a>
+
+## Obtain HTTPS Certificates
+
+Obtain HTTPS certificates from a certificate authority such as InCommon and put them in ~/ssl, e.g., `science-gateway.unidata.ucar.edu.crt` and `science-gateway.unidata.ucar.edu.key`.
 
 
 <a id="h-B30CBDF8"></a>
