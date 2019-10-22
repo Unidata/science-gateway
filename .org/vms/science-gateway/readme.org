@@ -60,6 +60,16 @@ The nginx log directory:
 
 [[file:../../openstack/readme.org::#h-D6B1D4C2][Open ports]] ~80~, and ~443~ on the Science Gateway VM via OpenStack.
 
+** DNS Name
+   :PROPERTIES:
+   :CUSTOM_ID: h-F47D384F
+   :END:
+Work with Unidata sys admin staff to have the IP address of this VM point to science-gateway.unidata.ucar.edu.
+** Obtain HTTPS Certificates
+   :PROPERTIES:
+   :CUSTOM_ID: h-CE6457C8
+   :END:
+Obtain HTTPS certificates from a certificate authority such as InCommon and put them in ~/ssl, e.g., =science-gateway.unidata.ucar.edu.crt= and =science-gateway.unidata.ucar.edu.key=.
 ** Start Ngnix
    :PROPERTIES:
    :CUSTOM_ID: h-B30CBDF8
