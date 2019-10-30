@@ -13,7 +13,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 26.2 (Org mode 9.2.1)
 
-#+HTML_LINK_HOME: http://science-gateway.unidata.ucar.edu/
+#+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
 

@@ -321,6 +321,6 @@ _Caveat emptor_:
 
 ** Unidata JupyterHub
 
-- http://science-gateway.unidata.ucar.edu
+- https://science-gateway.unidata.ucar.edu
 - https://jupyter-jetstream.unidata.ucar.edu
 - https://github.com/Unidata/xsede-jetstream

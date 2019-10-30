@@ -75,7 +75,7 @@ With the goal of better serving our community and in fulfillment of objectives a
 
 Cloud computing accelerates scientific workflows, discoveries, and collaborations by reducing research and data friction. We aim to improve “time to science” with the NSF-funded XSEDE Jetstream cloud\cite{10.1145/2792745.2792774}\cite{10.1109/MCSE.2014.80}. We describe a Unidata science gateway on Jetstream. With the aid of open-source cloud computing projects such as OpenStack and Docker on Linux VMs, we deploy a variety of scientific computing resources on Jetstream for our scientific community. These systems can be leveraged with data-proximate Jupyter notebooks, and remote visualization clients such as the Unidata Integrated Data Viewer (IDV) and AWIPS CAVE. This gateway will enable students and scientists to spend less time managing their software and more time doing science.
 
-**** http://science-gateway.unidata.ucar.edu
+**** https://science-gateway.unidata.ucar.edu
      :PROPERTIES:
      :BEAMER_env: block
      :CUSTOM_ID: h-E2211F67
