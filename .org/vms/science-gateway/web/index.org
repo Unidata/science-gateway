@@ -158,13 +158,14 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
   - [[https://doi.org/10.6084/m9.figshare.7590869.v1][JupyterHub for Atmospheric Science Research and Education on the NSF Jetstream Cloud]]
   - [[https://ams.confex.com/ams/2019Annual/meetingapp.cgi/Paper/354804][A Cloud-Based Science Gateway for Enabling Open and Reproducible Science]]
 - [[https://doi.org/10.6084/m9.figshare.8945078.v1][ESIP Summer Meeting 2019 | July 16-19, 2019 – Tacoma, WA USA]]
+- [[https://doi.org/10.17605/OSF.IO/W7SV8][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-- [[https://sciencegateways.org/web/gateways2019/home][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
+- [[https://annual.ametsoc.org/index.cfm/2020/programs/conferences-and-symposia/19th-annual-student-conference/][2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA]]
 
 * Under the Hood
   :PROPERTIES:

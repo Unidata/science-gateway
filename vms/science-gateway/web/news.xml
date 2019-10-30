@@ -14,9 +14,9 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Tue, 17 Sep 2019 16:46:22 -0600</pubDate>
-  <lastBuildDate>Tue, 17 Sep 2019 16:46:22 -0600</lastBuildDate>
-  <generator>Emacs 26.2 Org-mode 9.2.1</generator>
+  <pubDate>Wed, 30 Oct 2019 17:43:43 -0600</pubDate>
+  <lastBuildDate>Wed, 30 Oct 2019 17:43:43 -0600</lastBuildDate>
+  <generator>Emacs 26.3 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
     <url>https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4</url>
@@ -28,12 +28,25 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-BD3E46F8">10/30/2019, Python Workshop at the AMS 2020 Student Conference</a></li>
         <li><a href="#h-7AC1E6CA">9/17/2019, 2019 Gateways and eScience Conferences</a></li>
         <li><a href="#h-7E4293A6">8/28/2019, Unidata JupyterHub Back Online</a></li>
       </ul>
     </div>
   </div>
 
+  <item>
+    <title>10/30/2019, Python Workshop at the AMS 2020 Student Conference</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-BD3E46F8</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-BD3E46F8</guid>
+    <pubDate>Wed, 30 Oct 2019 16:28:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    We are excited to announce Unidata will be hosting a Python Workshop at the <a href="https://annual.ametsoc.org/index.cfm/2020/programs/conferences-and-symposia/19th-annual-student-conference/">19th Annual Student Conference</a> for the 2020 American Meteorological Society meeting in Boston, Massachusetts. The workshop will employ a JupyterHub running on the Unidata Science Gateway. Additional details will be forthcoming.
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>9/17/2019, 2019 Gateways and eScience Conferences</title>

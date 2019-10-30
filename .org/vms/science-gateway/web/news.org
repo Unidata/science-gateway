@@ -16,6 +16,16 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 10/30/2019, Python Workshop at the AMS 2020 Student Conference
+  :PROPERTIES:
+  :CUSTOM_ID: h-BD3E46F8
+   :RSS_TITLE: 10/30/2019, Python Workshop at the AMS 2020 Student Conference
+   :PUBDATE: <2019-10-30 Wed 16:28>
+   :RSS_PERMALINK: index.html#h-BD3E46F8
+   :ID:       2DD1E33B-8C59-4508-80DB-8EADB19E5716
+  :END:
+
+We are excited to announce Unidata will be hosting a Python Workshop at the [[https://annual.ametsoc.org/index.cfm/2020/programs/conferences-and-symposia/19th-annual-student-conference/][19th Annual Student Conference]] for the 2020 American Meteorological Society meeting in Boston, Massachusetts. The workshop will employ a JupyterHub running on the Unidata Science Gateway. Additional details will be forthcoming.
 
 * 9/17/2019, 2019 Gateways and eScience Conferences
    :PROPERTIES:
