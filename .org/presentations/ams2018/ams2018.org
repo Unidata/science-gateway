@@ -68,7 +68,7 @@
 
 In recent years, the Python programming language coupled with Jupyter notebooks have become vital tools for atmospheric science educators and their students. Python's batteries-included philosophy along with an increasingly vast array of scientific libraries make it an excellent choice for explaining scientific concepts. Programming notebooks excel at teaching objectives by allowing expository prose and equations to be interspersed with executable cells of code performing data analysis and visualization. Installing this software, however, can be intimidating, time-consuming and confusing. We describe the deployment of a JupyterHub server on the NSF-funded Jetstream cloud\cite{10.1145/2792745.2792774}\cite{10.1109/MCSE.2014.80} targeted at students and educators. JupyterHub is a multi-user server for Jupyter notebooks. We provide Jupyter notebooks from three Unidata projects: Unidata Python Workshop, Unidata Notebook Gallery, Unidata Online Python Training. These notebooks include pre-built Python environments needed to run them. The notebooks can be used for instruction and as templates for scientific experimentation. This Unidata JupyterHub server will enable students and educators to spend less time managing their software and more time learning and teaching.
 
-**** http://science-gateway.unidata.ucar.edu
+**** https://science-gateway.unidata.ucar.edu
      :PROPERTIES:
      :BEAMER_env: block
      :CUSTOM_ID: h-D4B1BBDF

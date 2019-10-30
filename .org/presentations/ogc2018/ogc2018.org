@@ -1,5 +1,5 @@
 #+TITLE: A Cloud-based Science Gateway for the Geoscience Community
-#+SUBTITLE: http://science-gateway.unidata.ucar.edu
+#+SUBTITLE: https://science-gateway.unidata.ucar.edu
 #+DATE: Tuesday, 5 June 2018
 #+DESCRIPTION: A Cloud-based Science Gateway for the Geoscience Community with End-to-end Workflows on the Jetstream Cloud Computing Platform
 #+KEYWORDS:  AWIPS EDEX LDM TDS THREDDS RAMADDA ADDE Unidata Docker Jetstream XSEDE Science Gateway
@@ -272,7 +272,7 @@ file:../gatewayconf2017/gateway.png
    :CUSTOM_ID: h-4E6CD505
    :END:
 
-http://science-gateway.unidata.ucar.edu
+https://science-gateway.unidata.ucar.edu
 
 ** Mostly Server-Side Stuff
    :PROPERTIES:
