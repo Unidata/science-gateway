@@ -29,7 +29,8 @@ Publishing
             :base-directory ,base-dir
             :recursive t
             :base-extension "org"
-            :exclude "xsede-jetstream.org\\|index.org"
+            :exclude
+            "xsede-jetstream.org\\|index.org\\|.*/presentations/.*\\|.*/cv/.*"
             :publishing-directory ,pub-dir
             :publishing-function org-gfm-publish-to-gfm)))
 #+END_SRC
