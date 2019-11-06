@@ -69,7 +69,7 @@ Work with Unidata sys admin staff to have the IP address of this VM point to sci
 
 ## Obtain HTTPS Certificates
 
-Obtain HTTPS certificates from a certificate authority such as InCommon and put them in ~/ssl, e.g., `science-gateway.unidata.ucar.edu.crt` and `science-gateway.unidata.ucar.edu.key`.
+Work with system admin staff to obtain an HTTPS key and certificate from a certificate authority such as InCommon. Put them in `/etc/ssl/science-gateway/`, e.g., `science-gateway.unidata.ucar.edu.key` and `science-gateway.unidata.ucar.edu.crt`. Ensure these are owned by root and set to read only. The certificate must include intermediate certificates for security purposes. You can test the security quality of the website with [ssllabs test](https://www.ssllabs.com/ssltest/).
 
 
 <a id="h-B30CBDF8"></a>
