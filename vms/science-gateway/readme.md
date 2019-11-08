@@ -1,12 +1,13 @@
 - [Creating a Science Gateway VM on Jetstream](#h-49CACBE8)
   - [Create a Science Gateway VM on Jetstream](#h-593C3161)
   - [Clone the xsede-jetstream Repository](#h-1EA54D54)
+  - [Build the Science Gateway Docker Container](#h-4A66EE99)
   - [Prepare Science Gateway VM for Docker and docker-compose](#h-D311EB0F)
   - [Logging](#h-7FF2F781)
   - [Ports 80, 443](#h-5BF405FC)
   - [DNS Name](#h-F47D384F)
   - [Obtain HTTPS Certificates](#h-CE6457C8)
-  - [Start Ngnix](#h-B30CBDF8)
+  - [Start Science Gateway](#h-B30CBDF8)
 
 
 
@@ -30,6 +31,17 @@ We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
 
 ```shell
 git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+```
+
+
+<a id="h-4A66EE99"></a>
+
+## Build the Science Gateway Docker Container
+
+From the `~/xsede-jetstream/vms/science-gateway` directory:
+
+```shell
+docker build -t unidata/science-gateway:latest .
 ```
 
 
@@ -74,7 +86,7 @@ Work with system admin staff to obtain an HTTPS key and certificate from a certi
 
 <a id="h-B30CBDF8"></a>
 
-## Start Ngnix
+## Start Science Gateway
 
 Once you have done the work of setting up nginx related directories,
 
