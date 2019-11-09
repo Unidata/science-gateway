@@ -14,6 +14,7 @@ services:
       - ~/logs/nginx/:/var/log/nginx/
       - /etc/ssl/science-gateway/science-gateway.unidata.ucar.edu.crt:/etc/nginx/science-gateway.unidata.ucar.edu.crt
       - /etc/ssl/science-gateway/science-gateway.unidata.ucar.edu.key:/etc/nginx/science-gateway.unidata.ucar.edu.key
+      - /etc/ssl/science-gateway/ca-certs.pem:/etc/nginx/ca-certs.pem
     ports:
       - "80:80"
       - "443:443"

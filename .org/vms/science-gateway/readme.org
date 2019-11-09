@@ -83,6 +83,17 @@ Work with Unidata sys admin staff to have the IP address of this VM point to sci
 
 Work with system admin staff to obtain an HTTPS key and certificate from a certificate authority such as InCommon. Put them in =/etc/ssl/science-gateway/=, e.g., =science-gateway.unidata.ucar.edu.key= and =science-gateway.unidata.ucar.edu.crt=. Ensure these are owned by root and set to read only. The certificate must include intermediate certificates for security purposes. You can test the security quality of the website with [[https://www.ssllabs.com/ssltest/][ssllabs test]].
 
+*** OCSP stapling
+    :PROPERTIES:
+    :CUSTOM_ID: h-A7B71EC8
+    :END:
+
+[[https://en.wikipedia.org/wiki/OCSP_stapling][OCSP (Online Certificate Status Protocol) stapling]] is recommended for web server communication privacy and efficiency. To enable this feature in an nginx server, have a file containing the intermediate and root certificates. Simply take the full chain certificate file described above and remove the base certificate leaving the intermediate and root certificates only. Call this file =ca-certs.pem= and put it in the =/etc/ssl/= directory along side the ~key~ and ~crt~ file described above. It will be mounted into the container with [[file:../../../vms/science-gateway/docker-compose.yml][docker-compose.yml]] and referred to in =nginx.conf= with
+
+#+BEGIN_SRC fundamental
+  ssl_trusted_certificate /etc/nginx/ca-certs.pem
+#+END_SRC
+
 ** Start Science Gateway
    :PROPERTIES:
    :CUSTOM_ID: h-B30CBDF8
