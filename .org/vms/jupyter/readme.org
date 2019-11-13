@@ -3,7 +3,7 @@
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+OPTIONS: auto-id:t
-#+TITLE: Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
+#+TITLE: Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project
 #+DATE:  <2017-06-26 Mon>
 #+AUTHOR: Julien Chastang
 #+EMAIL: chastang@ucar.edu
@@ -12,7 +12,7 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
 
-* Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
+* Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project
   :PROPERTIES:
   :CUSTOM_ID: h-D73CBC56
   :END:
