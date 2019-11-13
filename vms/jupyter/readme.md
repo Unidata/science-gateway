@@ -1,4 +1,4 @@
-- [Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project](#h-D73CBC56)
+- [Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project](#h-D73CBC56)
   - [Kubernetes Cluster](#h-65F9358E)
   - [unidata/unidatahub Docker Container](#h-CD007D2A)
   - [Configure and Deploy the JupyterHub](#h-E5CA5D99)
@@ -14,7 +14,7 @@
 
 <a id="h-D73CBC56"></a>
 
-# Creating  a JupyterHub on Jetstream with the Zero to JuypyterHub Project
+# Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project
 
 
 <a id="h-65F9358E"></a>
