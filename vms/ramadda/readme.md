@@ -13,6 +13,11 @@
   - [Port 80](#h-404D9595)
   - [docker-compose.yml](#h-7E683535)
     - [RAMADDA Environment Variable Parameterization](#h-704211AA)
+  - [SSL](#h-4DC08484)
+    - [.p12 file](#h-40CDC183)
+    - [Java keystore](#h-04615577)
+    - [Tomcat server.xml](#h-9292E6FC)
+    - [Enable SSL as RAMADDA Administrator](#h-54F74519)
   - [Start RAMADDA](#h-224A9684)
   - [Navigate to RAMADDA](#h-81FED1EC)
   - [Access RAMADDA with the Unidata IDV](#h-73BB6227)
@@ -31,7 +36,7 @@
 
 ## Create a RAMADDA VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 100GB `/repository` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `ramadda-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 100GB `/repository` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `ramadda.scigw.unidata.ucar.edu`.
 
 
 <a id="h-968FA51C"></a>
@@ -63,7 +68,7 @@ The `/repository` directory should be a fairly beefy data volume (e.g., 100 GBs)
 
 ## Create RAMADDA default password
 
-When starting RAMADDA for the first time, you must have a `password.properties` file in the RAMADDA home directory which is `/repository/`. See [RAMADDA documentation](http://ramadda.org//repository/userguide/toc.html) for more details on setting up RAMADDA. Here is a `pw.properties` file to get you going. Change password below to something more secure!
+[When starting RAMADDA for the first time](#h-224A9684), you must have a `password.properties` file in the RAMADDA home directory which is `/repository/`. See [RAMADDA documentation](https://ramadda.org//repository/userguide/toc.html) for more details on setting up RAMADDA. Here is a `pw.properties` file to get you going. Change password below to something more secure!
 
 ```shell
 # Create RAMADDA default password
@@ -105,7 +110,7 @@ Scour occasionally so the log directories do not fill up.
 
 ## LDM Data Directory from idd-archiver Via NFS
 
-If you plan on employing the [server-side view capability of RAMADDA](http://ramadda.org//repository/userguide/developer/filesystem.html) which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., `/data/ldm/`) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the `idd-archiver` machine so you need to mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.4`:
+If you plan on employing the [server-side view capability of RAMADDA](https://ramadda.org//repository/userguide/developer/filesystem.html) which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., `/data/ldm/`) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the `idd-archiver` machine so you need to mount it via NFS on the `10.0.` network. For example, if `idd-archiver` is at `10.0.0.4`:
 
 ```shell
 # create the NFS mount point
@@ -160,11 +165,19 @@ services:
     # restart: always
     ports:
       - "80:8080"
+      - "443:8443"
+      - "8443:8443"
     volumes:
       - /repository/:/data/repository/
       - /data/ldm/:/data/ldm/
       - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
       - ~/logs/ramadda/:/data/repository/logs/
+      - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
+      # Everything below is required for https
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/web.xml:/usr/local/tomcat/conf/web.xml
+      - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
+      - ./files/repository.properties:/usr/local/tomcat/conf/repository.properties
     env_file:
       - "compose.env"
 ```
@@ -185,6 +198,62 @@ TOMCAT_GROUP_ID=1000
 ```
 
 
+<a id="h-4DC08484"></a>
+
+## SSL
+
+We are moving towards an HTTPS only world. As such, you'll want to run a RAMADDA production server on HTTPS. To ensure SSL will require a multi-step process:
+
+-   Obtain a full chain certificate and key (e.g., `ramadda.scigw.unidata.ucar.edu.crt.fullchain` and `ramadda.scigw.unidata.ucar.edu.key`) for the DNS name that will be hosting RAMADDA from sys admin staff.
+-   Create `.p12` file that will house full chain certificate and private key.
+-   Create a Java keystore and add that `.p12` file to it.
+-   Add the password to the Java keystore to `server.xml` that will be referenced inside the Docker container via the `docker-compose.yml`.
+-   Login to RAMADDA as an administrator and ensure SSL everywhere is check on.
+
+
+<a id="h-40CDC183"></a>
+
+### .p12 file
+
+```sh
+openssl pkcs12 -export -in ramadda.scigw.unidata.ucar.edu.crt.fullchain -inkey \
+        ramadda.scigw.unidata.ucar.edu.key -out \
+        ramadda.scigw.unidata.ucar.edu.p12 -name ramadda.scigw.unidata.ucar.edu
+```
+
+Supply a password when prompted.
+
+
+<a id="h-04615577"></a>
+
+### Java keystore
+
+```sh
+keytool -importkeystore -destkeystore keystore.jks -srckeystore \
+        ramadda.scigw.unidata.ucar.edu.p12 -srcstoretype PKCS12
+```
+
+When prompted, enter the `p12` you just created and supply Java keystore password. Keep the password the same to make things simple. Put the `.jks` file `vms/ramadda/files` directory on the production machine. It will be referred to by the `docker-compose.yml`.
+
+
+<a id="h-9292E6FC"></a>
+
+### Tomcat server.xml
+
+On the production machine, supply the password created in the last previous in `vms/ramadda/files/server.xml` referred to by the `vms/ramadda/files/docker-compose.yml` file.
+
+```xml
+keystorePass="xxxx"
+```
+
+
+<a id="h-54F74519"></a>
+
+### Enable SSL as RAMADDA Administrator
+
+[Once RAMADDA is running](#h-224A9684), you'll want to configure RAMADDA for SSL via the administrative account. There is documentation about this topic [here](http://ramadda.org/repository/userguide/installing.html#ssl). The main thing beyond what has been discussed already in this subsection is the Admin → Settings → Site and Contact Information, ensure "Force all connections to be secure" is checked. The `repository.properties` file that is referenced in the `docker-compose.yml` should be configured properly for SSL.
+
+
 <a id="h-224A9684"></a>
 
 ## Start RAMADDA
@@ -202,7 +271,7 @@ to start RAMADDA.
 
 ## Navigate to RAMADDA
 
-In a web browser, navigate to [http://ramadda-jetstream.unidata.ucar.edu/repository](http://ramadda-jetstream.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier.
+In a web browser, navigate to [https://ramadda.scigw.unidata.ucar.edu/repository](https://ramadda.scigw.unidata.ucar.edu/repository). If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password [you defined earlier](#h-D5095E2A).
 
 
 <a id="h-73BB6227"></a>
@@ -223,11 +292,11 @@ IDV users may wish to install the [RAMADDA IDV plugin](http://www.unidata.ucar.e
 
 ### RAMADDA Server Side Views
 
-RAMADDA also has access to the LDM `/data/` directory so you may want to set up [server-side view of this part of the file system](http://ramadda.org//repository/userguide/developer/filesystem.html). This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
+RAMADDA also has access to the LDM `/data/` directory so you may want to set up [server-side view of this part of the file system](https://ramadda.org//repository/userguide/developer/filesystem.html). This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
 
 
 <a id="h-589449E2"></a>
 
 ### RAMADDA Catalog Views from the IDV
 
-Finally, you can enter this catalog URL in the IDV dashboard to examine data holdings shared bundles, etc. on RAMADDA. For example, <http://ramadda-jetstream.unidata.ucar.edu/repository?output=thredds.catalog>.
+Finally, you can enter this catalog URL in the IDV dashboard to examine data holdings shared bundles, etc. on RAMADDA. For example, <https://ramadda.scigw.unidata.ucar.edu/repository?output=thredds.catalog>.

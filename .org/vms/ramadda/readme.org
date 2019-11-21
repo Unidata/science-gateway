@@ -23,7 +23,7 @@
    :CUSTOM_ID: h-F4023EC5
    :END:
 
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h-9BEEAB97][Create and attach]] a 100GB =/repository= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =ramadda-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h-9BEEAB97][Create and attach]] a 100GB =/repository= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =ramadda.scigw.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
    :PROPERTIES:
@@ -55,7 +55,7 @@ The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs)
    :CUSTOM_ID: h-D5095E2A
    :END:
 
-When starting RAMADDA for the first time, you must have  a =password.properties= file in the RAMADDA home directory which is =/repository/=. See [[http://ramadda.org//repository/userguide/toc.html][RAMADDA documentation]] for more details on setting up RAMADDA. Here is a =pw.properties= file to get you going. Change password below to something more secure!
+[[#h-224A9684][When starting RAMADDA for the first time]], you must have  a =password.properties= file in the RAMADDA home directory which is =/repository/=. See [[https://ramadda.org//repository/userguide/toc.html][RAMADDA documentation]] for more details on setting up RAMADDA. Here is a =pw.properties= file to get you going. Change password below to something more secure!
 
 #+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh :shebang "#!/bin/bash"
   # Create RAMADDA default password
@@ -97,7 +97,7 @@ Scour occasionally so the log directories do not fill up.
    :CUSTOM_ID: h-85431E50
    :END:
 
-If you plan on employing the [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the ~idd-archiver~ machine so you need to mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
+If you plan on employing the [[https://ramadda.org//repository/userguide/developer/filesystem.html][server-side view capability of RAMADDA]] which is quite useful for monitoring your LDM data feeds, you will have to make that directory (e.g., =/data/ldm/=) available to the RAMADDA VM and Docker container. In our present configuration, that directory is on the ~idd-archiver~ machine so you need to mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
 
 #+BEGIN_SRC shell
   # create the NFS mount point
@@ -152,6 +152,62 @@ You can provide additional RAMADDA parameterization via the =compose.env= file r
 
 #+INCLUDE: "../../../vms/ramadda/compose.env" src shell
 
+** SSL
+   :PROPERTIES:
+   :CUSTOM_ID: h-4DC08484
+   :END:
+
+We are moving towards an HTTPS only world. As such, you'll want to run a RAMADDA production server on HTTPS. To ensure SSL will require a multi-step process:
+
+- Obtain a full chain certificate and key (e.g., ~ramadda.scigw.unidata.ucar.edu.crt.fullchain~ and ~ramadda.scigw.unidata.ucar.edu.key~) for the DNS name that will be hosting RAMADDA from sys admin staff.
+- Create ~.p12~ file that will house full chain certificate and private key.
+- Create a Java keystore and add that ~.p12~ file to it.
+- Add the password to the Java keystore to ~server.xml~ that will be referenced inside the Docker container via the ~docker-compose.yml~.
+- Login to RAMADDA as an administrator and ensure SSL everywhere is check on.
+ 
+*** .p12 file
+    :PROPERTIES:
+    :CUSTOM_ID: h-40CDC183
+    :END:
+
+#+BEGIN_SRC sh
+  openssl pkcs12 -export -in ramadda.scigw.unidata.ucar.edu.crt.fullchain -inkey \
+          ramadda.scigw.unidata.ucar.edu.key -out \
+          ramadda.scigw.unidata.ucar.edu.p12 -name ramadda.scigw.unidata.ucar.edu
+#+END_SRC
+
+Supply a password when prompted.
+
+*** Java keystore
+    :PROPERTIES:
+    :CUSTOM_ID: h-04615577
+    :END:
+
+#+BEGIN_SRC sh
+  keytool -importkeystore -destkeystore keystore.jks -srckeystore \
+          ramadda.scigw.unidata.ucar.edu.p12 -srcstoretype PKCS12
+#+END_SRC
+
+When prompted, enter the ~p12~ you just created and supply Java keystore password. Keep the password the same to make things simple. Put the ~.jks~ file =vms/ramadda/files= directory on the production machine. It will be referred to by the ~docker-compose.yml~.
+
+*** Tomcat server.xml
+    :PROPERTIES:
+    :CUSTOM_ID: h-9292E6FC
+    :END:
+
+On the production machine, supply the password created in the last previous in =vms/ramadda/files/server.xml= referred to by the =vms/ramadda/files/docker-compose.yml= file.
+
+#+BEGIN_SRC xml
+  keystorePass="xxxx"
+#+END_SRC
+
+*** Enable SSL as RAMADDA Administrator
+    :PROPERTIES:
+    :CUSTOM_ID: h-54F74519
+    :END:
+
+[[#h-224A9684][Once RAMADDA is running]], you'll want to configure RAMADDA for SSL via the administrative account. There is documentation about this topic [[http://ramadda.org/repository/userguide/installing.html#ssl][here]]. The main thing beyond what has been discussed already in this subsection is the Admin → Settings → Site and Contact Information, ensure "Force all connections to be secure" is checked. The ~repository.properties~ file that is referenced in the ~docker-compose.yml~ should be configured properly for SSL.
+
 ** Start RAMADDA
    :PROPERTIES:
    :CUSTOM_ID: h-224A9684
@@ -169,7 +225,7 @@ to start RAMADDA.
    :CUSTOM_ID: h-81FED1EC
    :END:
 
-In a web browser, navigate to [[http://ramadda-jetstream.unidata.ucar.edu/repository][http://ramadda-jetstream.unidata.ucar.edu/repository]]. If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password you defined earlier. 
+In a web browser, navigate to [[https://ramadda.scigw.unidata.ucar.edu/repository][https://ramadda.scigw.unidata.ucar.edu/repository]]. If this is the first time you are accessing RAMADDA, RAMADDA will guide you through a server configuration workflow. You will be prompted for the repository password [[#h-D5095E2A][you defined earlier]].
 ** Access RAMADDA with the Unidata IDV
    :PROPERTIES:
    :CUSTOM_ID: h-73BB6227
@@ -189,11 +245,11 @@ IDV users may wish to install the [[http://www.unidata.ucar.edu/software/idv/doc
     :CUSTOM_ID: h-C8481694
     :END:
 
-RAMADDA also has access to the LDM =/data/= directory so you may want to set up [[http://ramadda.org//repository/userguide/developer/filesystem.html][server-side view of this part of the file system]]. This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
+RAMADDA also has access to the LDM =/data/= directory so you may want to set up [[https://ramadda.org//repository/userguide/developer/filesystem.html][server-side view of this part of the file system]]. This is a two step process where administrators go to the Admin, Access, File Access menu item and lists the allowed directories they potentially wish to expose via RAMADDA. Second, the users are now capable of creating a "Server Side" Files with the usual RAMADDA entry creation mechanisms.
 
 *** RAMADDA Catalog Views from the IDV
     :PROPERTIES:
     :CUSTOM_ID: h-589449E2
     :END:
 
-Finally, you can enter this catalog URL in the IDV dashboard to examine data holdings shared bundles, etc. on RAMADDA. For example, [[http://ramadda-jetstream.unidata.ucar.edu/repository?output=thredds.catalog]].
+Finally, you can enter this catalog URL in the IDV dashboard to examine data holdings shared bundles, etc. on RAMADDA. For example, [[https://ramadda.scigw.unidata.ucar.edu/repository?output=thredds.catalog]].

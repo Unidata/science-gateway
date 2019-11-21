@@ -89,9 +89,9 @@ AWIPS is a meteorological display and analysis system used by the National Weath
   :CUSTOM_ID: h-DBF62CF5
   :END:
 
-[[http://ramadda-jetstream.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]]
+[[https://ramadda.scigw.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]]
 
-[[http://geodesystems.com/][RAMADDA]] is a geoscience content management system (CMS) originally developed at Unidata and now maintained by [[http://geodesystems.com/][Geode Systems]]. The [[http://ramadda-jetstream.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]] contains [[http://ramadda-jetstream.unidata.ucar.edu/repository/entry/show?entryid=0d0cbe65-2f39-4754-801f-a3f996693ed9][IDV bundles]] that retrieve data from Jetstream data servers.
+[[https://geodesystems.com/][RAMADDA]] is a geoscience content management system (CMS) originally developed at Unidata and now maintained by [[http://geodesystems.com/][Geode Systems]]. The [[https://ramadda.scigw.unidata.ucar.edu/repository][RAMADDA installation on Jetstream]] contains [[https://ramadda.scigw.unidata.ucar.edu/repository/entry/show?entryid=0d0cbe65-2f39-4754-801f-a3f996693ed9][IDV bundles]] that retrieve data from Jetstream data servers.
 
 * LDM
   :PROPERTIES:
