@@ -8,10 +8,18 @@ services:
     # restart: always
     ports:
       - "80:8080"
+      - "443:8443"
+      - "8443:8443"
     volumes:
       - /repository/:/data/repository/
       - /data/ldm/:/data/ldm/
       - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
       - ~/logs/ramadda/:/data/repository/logs/
+      - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
+      # Everything below is required for https
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/web.xml:/usr/local/tomcat/conf/web.xml
+      - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
+      - ./files/repository.properties:/usr/local/tomcat/conf/repository.properties
     env_file:
       - "compose.env"
