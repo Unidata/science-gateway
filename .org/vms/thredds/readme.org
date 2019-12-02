@@ -133,10 +133,17 @@ You will want to ensure the NFS =/data= volume is available with the help of =fs
   echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
 #+END_SRC
 
-** SSL Certificate
+** HTTPS and SSL Certificate
    :PROPERTIES:
    :CUSTOM_ID: h-C5008DD9
    :END:
+
+At the very least you will need a self-signed certificate to enable communication from the TDS. In the lonf run, you will want a real certifcate from a certificate authority.
+
+*** Self-signed Ceritifcate
+    :PROPERTIES:
+    :CUSTOM_ID: h-C7ABF183
+    :END:
 
 In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed certificate with ~openssl~ (or better yet, obtain a real certificate from a certificate authority).
 
@@ -147,11 +154,17 @@ In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed 
     -out ~/xsede-jetstream/vms/thredds/files/ssl.crt
 #+END_SRC
 
+*** Certificate from CA
+    :PROPERTIES:
+    :CUSTOM_ID: h-45D11CDB
+    :END:
+
+ [[https://github.com/Unidata/tomcat-docker#h-E0520F81][See the parent Tomcat container for instructions on HTTPS]].
+
 ** Ports 80, 443 and 8443
    :PROPERTIES:
    :CUSTOM_ID: h-68B4119B
    :END:
-
 
 [[file:../../openstack/readme.org::#h-D6B1D4C2][Open port]] ~80~ on the THREDDS VM via OpenStack. Port ~80~ requests will be forwarded to ~8080~ inside the THEREDDS Docker container. In addition, open ports ~443~ and ~8443~ for SSL and communication from the TDM.
 
@@ -196,4 +209,4 @@ to start the TDS
    :PROPERTIES:
    :CUSTOM_ID: h-9BC953A7
    :END:
-In a web browser, navigate to [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html]] to see if is running. 
+In a web browser, navigate to [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][https://tds.scigw.unidata.ucar.edu/thredds/catalog.html]] to see if is running. 

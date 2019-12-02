@@ -9,7 +9,9 @@
     - [Scour log Directories](#h-7BF272F0)
   - [LDM Data Directory from idd-archiver Via NFS](#h-F043AB6A)
     - [Ensure /data Availability Upon Machine Restart](#h-437D2B38)
-  - [SSL Certificate](#h-C5008DD9)
+  - [HTTPS and SSL Certificate](#h-C5008DD9)
+    - [Self-signed Ceritifcate](#h-C7ABF183)
+    - [Certificate from CA](#h-45D11CDB)
   - [Ports 80, 443 and 8443](#h-68B4119B)
   - [THREDDS Data Manager (TDM)](#h-0DA2982B)
   - [docker-compose.yml](#h-6C55AE58)
@@ -133,7 +135,14 @@ echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee -
 
 <a id="h-C5008DD9"></a>
 
-## SSL Certificate
+## HTTPS and SSL Certificate
+
+At the very least you will need a self-signed certificate to enable communication from the TDS. In the lonf run, you will want a real certifcate from a certificate authority.
+
+
+<a id="h-C7ABF183"></a>
+
+### Self-signed Ceritifcate
 
 In the `~/xsede-jetstream/vms/thredds/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
 
@@ -143,6 +152,13 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   -keyout ~/xsede-jetstream/vms/thredds/files/ssl.key \
   -out ~/xsede-jetstream/vms/thredds/files/ssl.crt
 ```
+
+
+<a id="h-45D11CDB"></a>
+
+### Certificate from CA
+
+[See the parent Tomcat container for instructions on HTTPS](https://github.com/Unidata/tomcat-docker#h-E0520F81).
 
 
 <a id="h-68B4119B"></a>
@@ -183,16 +199,16 @@ services:
     volumes:
       - ~/logs/tds-tomcat/:/usr/local/tomcat/logs/
       - ~/logs/tds/:/usr/local/tomcat/content/thredds/logs/
-      # ssl certs, keys not in version control, see readme.md
-      - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
-      - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key
-      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
       - ./files/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ./files/tdsCat.css:/usr/local/tomcat/webapps/thredds/tdsCat.css
       - ./files/folder.gif:/usr/local/tomcat/webapps/thredds/folder.gif
       - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
       - /data/:/data/
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds
+      # Everything below is required for https
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/web.xml:/usr/local/tomcat/conf/web.xml
+      - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
     env_file:
       - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
 ```
@@ -246,4 +262,4 @@ to start the TDS
 
 ## Navigate to the TDS
 
-In a web browser, navigate to [http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html](http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+In a web browser, navigate to [https://tds.scigw.unidata.ucar.edu/thredds/catalog.html](https://tds.scigw.unidata.ucar.edu/thredds/catalog.html) to see if is running.

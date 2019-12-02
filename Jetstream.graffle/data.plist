@@ -3051,7 +3051,7 @@ Local Storage: 	60GB}</string>
 {\*\expandedcolortbl;;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc\partightenfactor0
 
-\f0\b\fs22 \cf0 thredds-jetstream.unidata.ucar.edu}</string>
+\f0\b\fs22 \cf0 tds.scigw.unidata.ucar.edu}</string>
 						<key>TextAlongPathGlyphAnchor</key>
 						<string>left</string>
 					</dict>

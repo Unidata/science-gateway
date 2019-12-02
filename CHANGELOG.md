@@ -20,8 +20,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 0.3.0 - 2017-06-08
 ### Added
-- [THREDDS VM](http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html)
 - [RAMADDA VM](https://ramadda.scigw.unidata.ucar.edu/repository)
+- [THREDDS VM](https://tds.scigw.unidata.ucar.edu/thredds/catalog.html)
 - TDM Now Running on IDD Archiver
 - Bumped to `docker-compose` version `1.13.0`
 - NFS Instructions

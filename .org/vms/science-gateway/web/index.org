@@ -60,9 +60,9 @@ This JupyterHub is now open to anyone with an [[https://github.com][GitHub login
   :CUSTOM_ID: h-9690244B
   :END:
 
- [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][TDS installation on Jetstream]]
+ [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][TDS installation on Jetstream]]
 
-The Unidata [[http://www.unidata.ucar.edu/software/thredds/current/tds/][THREDDS Data server]] (TDS) is a web server that provides metadata and data access for scientific datasets, using a variety of remote data access protocols. A [[http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html][TDS]] is available on Jetstream at ~http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.xml~ supplying a good portion of the data available on the [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][IDD]] with a five day archive.
+The Unidata [[http://www.unidata.ucar.edu/software/thredds/current/tds/][THREDDS Data server]] (TDS) is a web server that provides metadata and data access for scientific datasets, using a variety of remote data access protocols. A [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][TDS]] is available on Jetstream at ~https://tds.scigw.unidata.ucar.edu/thredds/catalog.xml~ supplying a good portion of the data available on the [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/rtstats_summary_volume?idd-relay.jetstream-cloud.org+GRAPH][IDD]] with a five day archive.
 
 This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][IDV]] or from Python with the [[https://github.com/Unidata/netcdf4-python][netCDF-Python]] or [[https://github.com/Unidata/siphon][Siphon]] APIs or any THREDDS client (e.g., PyCSW).
 
