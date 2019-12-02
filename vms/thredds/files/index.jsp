@@ -5,7 +5,7 @@
 </head>
 <body>
     <%
-        String redirectURL = "http://thredds-jetstream.unidata.ucar.edu/thredds/catalog.html";
+        String redirectURL = "https://tds.scigw.unidata.ucar.edu/thredds/catalog.html";
         response.sendRedirect(redirectURL);
     %>
 </body>

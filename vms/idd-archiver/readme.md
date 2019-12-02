@@ -278,7 +278,7 @@ TDS_CONTENT_ROOT_PATH=/usr/local/tomcat/content
 TDM_PW=CHANGEME!
 
 # Trailing slash is important!
-TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+TDS_HOST=https://tds.scigw.unidata.ucar.edu/
 
 # The minimum and maximum Java heap space memory to be allocated to the TDM
 
@@ -330,7 +330,7 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
     Supply the hostname of the TDS that the TDM will notify:
 
-        TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+        TDS_HOST=https://tds.scigw.unidata.ucar.edu/
 
 4.  `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
 
@@ -407,7 +407,7 @@ TDS_CONTENT_ROOT_PATH=/usr/local/tomcat/content
 TDM_PW=CHANGEME!
 
 # Trailing slash is important!
-TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+TDS_HOST=https://tds.scigw.unidata.ucar.edu/
 
 # The minimum and maximum Java heap space memory to be allocated to the TDM
 

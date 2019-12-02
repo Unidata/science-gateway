@@ -317,7 +317,7 @@ Ensure you are using the correct hashing algorithm in the ~server.xml~ on the TD
 Supply the hostname of the TDS that the TDM will notify:
 
 #+BEGIN_EXAMPLE
-  TDS_HOST=http://thredds-jetstream.unidata.ucar.edu/
+  TDS_HOST=https://tds.scigw.unidata.ucar.edu/
 #+END_EXAMPLE
 
 **** ~TDM_XMX_SIZE~, ~TDM_XMS_SIZE~
