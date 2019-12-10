@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage="$(basename "$0") [-h] [-s, --ssh ssh directory path] [-o, --openrc openrc.sh file path] \n
--- script to  start OpenStack CL Docker container. \n Arguments must be supplied will fully qualified paths.\n
+-- script to  start OpenStack CL Docker container. \n Arguments must be supplied with fully qualified paths.\n
     -h  show this help text\n
     -s, --ssh full path to ssh directory containing your OpenStack Jetstream key\n
     -o, --openrc full path to directory with openrc.sh file obtained from Jetstream (bin)\n"
