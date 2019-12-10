@@ -40,7 +40,7 @@ sed -i 's/# kubectl_localhost: false/kubectl_localhost: true/g' \
 
 
 cd $HOME/jetstream_kubespray/
-cp -LRp inventory/zonca inventory/$CLUSTER
+mkdir -p inventory/$CLUSTER && cp -LRp inventory/zonca/* inventory/$CLUSTER
 cd inventory/$CLUSTER
 
 bash terraform_init.sh
