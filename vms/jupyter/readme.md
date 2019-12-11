@@ -1,5 +1,7 @@
 - [Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project](#h-D73CBC56)
   - [Kubernetes Cluster](#h-65F9358E)
+    - [jupyterhub.sh](#h-B56E19AB)
+    - [Create Cluster](#h-2FF65549)
   - [unidata/unidatahub Docker Container](#h-CD007D2A)
   - [Configure and Deploy the JupyterHub](#h-E5CA5D99)
     - [Letsencrypt versus Certificate from a Certificate Authority](#h-294A4A20)
@@ -20,6 +22,18 @@
 <a id="h-65F9358E"></a>
 
 ## Kubernetes Cluster
+
+
+<a id="h-B56E19AB"></a>
+
+### jupyterhub.sh
+
+`jupyterhub.sh` and the related `z2j.sh` are convenience scripts similar to `openstack.sh` to give you access to a pre-configured environment that will allow you to build and/or run a Zero to JupyterHub cluster. It also relies on the [same Docker container](../../openstack/readme.md#h-4A9632CC) as the `openstack.sh` script. `jupyterhub.sh` takes one argument with the `-n` option, the name of the Zero to JupyterHub cluster. Invoke it from the `xsede-jetstream/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
+
+
+<a id="h-2FF65549"></a>
+
+### Create Cluster
 
 [Create a Kubernetes cluster](../../openstack/readme.md) with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
 
