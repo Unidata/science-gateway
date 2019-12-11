@@ -150,7 +150,7 @@ Setup an OAuth app on GitHub
 
 Add the Unidata JupyterHub configuration (~unidata/unidatahub~) and related items (e.g., pulling of Unidata Python projects). Customize the desired CPU / RAM usage. [[https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing][This spreadsheet]] will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
-#+INCLUDE: "../../../vms/jupyter/example_secrets.yaml" src yaml :lines "21-51"
+#+INCLUDE: "../../../vms/jupyter/example_secrets.yaml" src yaml :lines "21-52"
 
 ** Navigate to JupyterHub
    :PROPERTIES:
