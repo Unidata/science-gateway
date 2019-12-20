@@ -24,6 +24,7 @@
     - [Removing Nodes from Cluster](#h-0324031E)
     - [Tearing Down the Cluster](#h-DABDACC7)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
+    - [Patching Master Node](#h-1B2FF6A7)
 - [Appendix](#h-78283D4A)
   - [Jetstream VM Flavors](#h-958EA909)
 
@@ -627,6 +628,19 @@ from the openstack command line.
 [Grafana](https://grafana.com/) is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [Prometheus](https://github.com/camilb/prometheus-kubernetes) allows for monitoring of Kubernetes clusters.
 
 Installing these monitoring technologies is fairly straightforward and [described here](https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html).
+
+
+<a id="h-1B2FF6A7"></a>
+
+### Patching Master Node
+
+You'll want to keep the master node security patched as it will have a publicly accessible IP number attached to a well known DNS name. If you see packages out of date upon login, as root user:
+
+```sh
+ apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+     && apt autoremove -y
+reboot -h now
+```
 
 
 <a id="h-78283D4A"></a>
