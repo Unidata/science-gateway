@@ -744,6 +744,18 @@ Subsequently, when you invoke ~terraform_apply.sh~, the master node should have 
 [[https://grafana.com/][Grafana]] is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [[https://github.com/camilb/prometheus-kubernetes][Prometheus]] allows for monitoring of Kubernetes clusters.
 
 Installing these monitoring technologies is fairly straightforward and [[https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html][described here]].
+*** Patching Master Node
+    :PROPERTIES:
+    :CUSTOM_ID: h-1B2FF6A7
+    :END:
+You'll want to keep the master node security patched as it will have a publicly accessible IP number attached to a well known DNS name. If you see packages out of date upon login, as root user:
+
+ #+BEGIN_SRC sh :eval no
+   apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
+       && apt autoremove -y
+  reboot -h now
+ #+END_SRC
+
 * Appendix
   :PROPERTIES:
   :CUSTOM_ID: h-78283D4A
