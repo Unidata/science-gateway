@@ -1,7 +1,7 @@
 # Heavily borrowed from docker-stacks/scipy-notebook/
 # https://github.com/jupyter/docker-stacks/blob/master/scipy-notebook/Dockerfile
 
-ARG BASE_CONTAINER=jupyter/minimal-notebook:2ce7c06a61a1
+ARG BASE_CONTAINER=jupyter/minimal-notebook:7a0c7325e470
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Unidata <support-python@unidata.ucar.edu>"
