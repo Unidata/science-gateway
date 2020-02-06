@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Wed, 30 Oct 2019 17:43:43 -0600</pubDate>
-  <lastBuildDate>Wed, 30 Oct 2019 17:43:43 -0600</lastBuildDate>
+  <pubDate>Thu, 06 Feb 2020 14:41:19 -0700</pubDate>
+  <lastBuildDate>Thu, 06 Feb 2020 14:41:19 -0700</lastBuildDate>
   <generator>Emacs 26.3 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,29 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-CB18704C">2/6/2020, Unidata Science Gateway in the News</a></li>
         <li><a href="#h-BD3E46F8">10/30/2019, Python Workshop at the AMS 2020 Student Conference</a></li>
         <li><a href="#h-7AC1E6CA">9/17/2019, 2019 Gateways and eScience Conferences</a></li>
-        <li><a href="#h-7E4293A6">8/28/2019, Unidata JupyterHub Back Online</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>2/6/2020, Unidata Science Gateway in the News</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-CB18704C</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-CB18704C</guid>
+    <pubDate>Thu, 06 Feb 2020 00:00:00 -0700</pubDate>
+
+    <description><![CDATA[<p>
+    From Indiana University IT News: <a href="https://itnews.iu.edu/articles/2020/The%20Unidata%20uses%20Jetstream%20to%20make%20geoscience%20data%20available%20to%20science%20community.php">Unidata uses Jetstream to make geoscience data available to science community</a>.
+    </p>
+
+    <p>
+    Also, we have a couple of publications forthcoming following the success of the Python Workshop at the AMS 2020 Student Conference.
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>10/30/2019, Python Workshop at the AMS 2020 Student Conference</title>
@@ -57,19 +74,6 @@
 
     <description><![CDATA[<p>
     The <a href="https://sciencegateways.org/web/gateways2019">Gateways 2019 and co-located eScience 2019 conferences</a> will be held in San Diego, California September 23–27. We will be presenting a poster entitled: <a href="https://doi.org/10.17605/OSF.IO/W7SV8">A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway</a>.
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>8/28/2019, Unidata JupyterHub Back Online</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-7E4293A6</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-7E4293A6</guid>
-    <pubDate>Thu, 29 Aug 2019 11:13:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    After a summer outage, the <a href="https://jupyterhub.unidata.ucar.edu">Unidata JupyterHub</a> is back online. Login with your GitHub credentials to explore one of many Unidata Jupyter notebooks.
     </p>
     ]]></description>
   </item>
