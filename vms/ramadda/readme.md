@@ -14,10 +14,6 @@
   - [docker-compose.yml](#h-7E683535)
     - [RAMADDA Environment Variable Parameterization](#h-704211AA)
   - [SSL](#h-4DC08484)
-    - [.p12 file](#h-40CDC183)
-    - [Java keystore](#h-04615577)
-    - [Tomcat server.xml](#h-9292E6FC)
-    - [Enable SSL as RAMADDA Administrator](#h-54F74519)
   - [Start RAMADDA](#h-224A9684)
   - [Navigate to RAMADDA](#h-81FED1EC)
   - [Access RAMADDA with the Unidata IDV](#h-73BB6227)
@@ -202,56 +198,7 @@ TOMCAT_GROUP_ID=1000
 
 ## SSL
 
-We are moving towards an HTTPS only world. As such, you'll want to run a RAMADDA production server on HTTPS. To ensure SSL will require a multi-step process:
-
--   Obtain a full chain certificate and key (e.g., `ramadda.scigw.unidata.ucar.edu.crt.fullchain` and `ramadda.scigw.unidata.ucar.edu.key`) for the DNS name that will be hosting RAMADDA from sys admin staff.
--   Create `.p12` file that will house full chain certificate and private key.
--   Create a Java keystore and add that `.p12` file to it.
--   Add the password to the Java keystore to `server.xml` that will be referenced inside the Docker container via the `docker-compose.yml`.
--   Login to RAMADDA as an administrator and ensure SSL everywhere is check on.
-
-
-<a id="h-40CDC183"></a>
-
-### .p12 file
-
-```sh
-openssl pkcs12 -export -in ramadda.scigw.unidata.ucar.edu.crt.fullchain -inkey \
-        ramadda.scigw.unidata.ucar.edu.key -out \
-        ramadda.scigw.unidata.ucar.edu.p12 -name ramadda.scigw.unidata.ucar.edu
-```
-
-Supply a password when prompted.
-
-
-<a id="h-04615577"></a>
-
-### Java keystore
-
-```sh
-keytool -importkeystore -destkeystore keystore.jks -srckeystore \
-        ramadda.scigw.unidata.ucar.edu.p12 -srcstoretype PKCS12
-```
-
-When prompted, enter the `p12` you just created and supply Java keystore password. Keep the password the same to make things simple. Put the `.jks` file `vms/ramadda/files` directory on the production machine. It will be referred to by the `docker-compose.yml`.
-
-
-<a id="h-9292E6FC"></a>
-
-### Tomcat server.xml
-
-On the production machine, supply the password created in the last previous in `vms/ramadda/files/server.xml` referred to by the `vms/ramadda/files/docker-compose.yml` file.
-
-```xml
-keystorePass="xxxx"
-```
-
-
-<a id="h-54F74519"></a>
-
-### Enable SSL as RAMADDA Administrator
-
-[Once RAMADDA is running](#h-224A9684), you'll want to configure RAMADDA for SSL via the administrative account. There is documentation about this topic [here](http://ramadda.org/repository/userguide/installing.html#ssl). The main thing beyond what has been discussed already in this subsection is the Admin → Settings → Site and Contact Information, ensure "Force all connections to be secure" is checked. The `repository.properties` file that is referenced in the `docker-compose.yml` should be configured properly for SSL.
+We are moving towards an HTTPS only world. As such, you'll want to run a [RAMADDA production server on HTTPS](https://github.com/Unidata/tomcat-docker#h-E0520F81). [Once RAMADDA is running](#h-224A9684), you'll want to configure RAMADDA for SSL via the administrative account. There is documentation about this topic [here](http://ramadda.org/repository/userguide/installing.html#ssl). The main thing appears to be the Admin → Settings → Site and Contact Information, ensure "Force all connections to be secure" is checked. The `repository.properties` file that is referenced in the `docker-compose.yml` should be configured properly for SSL.
 
 
 <a id="h-224A9684"></a>
