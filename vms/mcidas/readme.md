@@ -21,7 +21,7 @@
 
 ## Create an ADDE VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `adde-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `adde.scigw.unidata.ucar.edu`.
 
 
 <a id="h-E6D3D21F"></a>
@@ -134,4 +134,4 @@ to start ADDE.
 
 ## Access ADDE from the IDV
 
-To verify all is in order, access this ADDE server from the Unidata IDV by pointing to the `adde-jetstream.unidata.ucar.edu` server in the Image Data Chooser.
+To verify all is in order, access this ADDE server from the Unidata IDV by pointing to the `adde.scigw.unidata.ucar.edu` server in the Image Data Chooser.

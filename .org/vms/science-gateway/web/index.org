@@ -107,9 +107,9 @@ The Unidata [[http://www.unidata.ucar.edu/software/ldm/][Local Data Manager]] (L
   :CUSTOM_ID: h-4AD59494
   :END:
 
-ADDE installation on Jetstream: ~adde://adde-jetstream.unidata.ucar.edu:112~
+ADDE installation on Jetstream: ~adde://adde.scigw.unidata.ucar.edu:112~
 
-[[https://www.ssec.wisc.edu/mcidas/doc/learn_guide/2015/adde.html][ADDE]] (Abstract Data Distribution Environment) is a data server developed by the University of Wisconsin, Space Science Engineering Center. It primarily serves satellite and radar imagery and point observations to the  [[http://www.unidata.ucar.edu/software/idv/][IDV]], [[http://www.ssec.wisc.edu/mcidas/software/v/][McIDAS-V]], [[https://www.ssec.wisc.edu/mcidas/][McIDAS-X]]. An ADDE server is available at ~adde-jetstream.unidata.ucar.edu~ over (the usual) port ~112~.
+[[https://www.ssec.wisc.edu/mcidas/doc/learn_guide/2015/adde.html][ADDE]] (Abstract Data Distribution Environment) is a data server developed by the University of Wisconsin, Space Science Engineering Center. It primarily serves satellite and radar imagery and point observations to the  [[http://www.unidata.ucar.edu/software/idv/][IDV]], [[http://www.ssec.wisc.edu/mcidas/software/v/][McIDAS-V]], [[https://www.ssec.wisc.edu/mcidas/][McIDAS-X]]. An ADDE server is available at ~adde.scigw.unidata.ucar.edu~ over (the usual) port ~112~.
 
 * IDV Resources
   :PROPERTIES:
