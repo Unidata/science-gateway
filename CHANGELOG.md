@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 0.4.0 - 2017-06-20
 ### Added
-- ADDE VM (from the IDV Data Choosers go to `adde-jetstream.unidata.ucar.edu`)
+- ADDE VM (from the IDV Data Choosers go to `adde.scigw.unidata.ucar.edu`)
 - Scouring improvements on `idd-archiver-jetstream.unidata.ucar.edu`
 - Better organization for the `/data` for the LDM queue and logs
 - Continued NFS mount improvements
