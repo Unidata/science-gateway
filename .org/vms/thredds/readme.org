@@ -21,7 +21,7 @@
    :PROPERTIES:
    :CUSTOM_ID: h-011CFB59
    :END:
-   
+
 Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =thredds-jetstream.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream Repository
@@ -60,7 +60,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
 
 Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution by filling out the ~contact~ and ~hostInstitution~ XML elements. For example:
 
-#+BEGIN_EXAMPLE 
+#+BEGIN_EXAMPLE
   <contact>
     <name>THREDDS Support</name>
     <organization>Unidata</organization>
@@ -173,7 +173,7 @@ In the =~/xsede-jetstream/vms/thredds/files/= directory, generate a self-signed 
    :CUSTOM_ID: h-0DA2982B
    :END:
 
-The [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
+The [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver~ VM.
 
 ** docker-compose.yml
    :PROPERTIES:
@@ -209,4 +209,4 @@ to start the TDS
    :PROPERTIES:
    :CUSTOM_ID: h-9BC953A7
    :END:
-In a web browser, navigate to [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][https://tds.scigw.unidata.ucar.edu/thredds/catalog.html]] to see if is running. 
+In a web browser, navigate to [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][https://tds.scigw.unidata.ucar.edu/thredds/catalog.html]] to see if is running.

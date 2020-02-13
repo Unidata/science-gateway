@@ -31,7 +31,7 @@
 
 ## Create an IDD Archiver VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). [Create and attach](../../openstack/readme.md) a 5TB `/data` volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-archiver.scigw.unidata.ucar.edu`.
 
 
 <a id="h-00BE67D7"></a>
@@ -235,7 +235,7 @@ openstack server add security group <VM name or ID> local-nfs
 
 ## THREDDS Data Manager (TDM)
 
-While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `thredds-jetstream` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver-jetstream` VM.
+While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `thredds-jetstream` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
 
 
 <a id="h-865C1FF8"></a>

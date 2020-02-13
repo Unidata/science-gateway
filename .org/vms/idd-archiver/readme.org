@@ -23,7 +23,7 @@
    :CUSTOM_ID: h-304AA966
    :END:
 
-Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h-9BEEAB97][Create and attach]] a 5TB =/data= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-archiver-jetstream.unidata.ucar.edu=.
+Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. [[file:../../openstack/readme.org::#h-9BEEAB97][Create and attach]] a 5TB =/data= volume to that VM. Work with Unidata system administrator staff to have this VM's IP address resolve to =idd-archiver.scigw.unidata.ucar.edu=.
 
 ** Clone the xsede-jetstream and TdsConfig Repositories
    :PROPERTIES:
@@ -117,7 +117,7 @@ Unpack the pqacts configurations from the ~TdsConfig~ project and put them in th
    :CUSTOM_ID: h-D2BD1E3A
    :END:
 
-Examine the =~/etc/TDS/util/ldmfile.sh= file. As the top of this file indicates, you must change the =logfile= to suit your needs. Change the 
+Examine the =~/etc/TDS/util/ldmfile.sh= file. As the top of this file indicates, you must change the =logfile= to suit your needs. Change the
 
 #+BEGIN_EXAMPLE
   logfile=logs/ldm-mcidas.log
@@ -236,7 +236,7 @@ Finally, attach the ~local-nfs~ security group to the newly created VM. The VM I
    :CUSTOM_ID: h-DB469C8D
    :END:
 
-While not related to IDD archival, the [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the ~thredds-jetstream~ VM via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver-jetstream~ VM. 
+While not related to IDD archival, the [[https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html][TDM]] is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the ~thredds-jetstream~ VM via port ~8443~ when data have been updated or changed. Because the TDM needs to *write* data, and NFS tuning concerns, in the present configuration, we have the TDM running on the ~idd-archiver~ VM.
 
 *** TDM Logging Directory
     :PROPERTIES:
@@ -270,7 +270,7 @@ Create a logging directory for the TDM:
     :CUSTOM_ID: h-2C5BF1CA
     :END:
 
-In the ~docker-compose.yml~ shown below, there is a reference to a ~compose.env~ file that contains TDM related environment variables. 
+In the ~docker-compose.yml~ shown below, there is a reference to a ~compose.env~ file that contains TDM related environment variables.
 
 #+INCLUDE: "../../../vms/idd-archiver/compose.env" src shell
 
@@ -363,4 +363,3 @@ To start the IDD archiver node:
   cd ~/xsede-jetstream/vms/idd-archiver/
   docker-compose up -d
 #+END_SRC
-
