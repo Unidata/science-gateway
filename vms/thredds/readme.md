@@ -30,7 +30,7 @@
 
 ## Create a THREDDS VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `tds.scigw.unidata.ucar.edu`.
 
 
 <a id="h-E1E7DBE4"></a>

@@ -104,7 +104,7 @@ NSF-funded center for developing tools, data access, and community support
   - McIDAS ADDE
   - RAMADDA
 - Deployed containers to create near complete Unidata data center
-- Plenty of NCEP at [[https://thredds-jetstream.unidata.ucar.edu][thredds-jetstream.unidata.ucar.edu]]
+- Plenty of NCEP at [[https://tds.scigw.unidata.ucar.edu][tds.scigw.unidata.ucar.edu]]
 - But what about client-side offerings in cloud?
 - /Next obvious step: "data-proximate" analysis and visualization/
 
