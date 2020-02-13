@@ -235,7 +235,7 @@ openstack server add security group <VM name or ID> local-nfs
 
 ## THREDDS Data Manager (TDM)
 
-While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `thredds-jetstream` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
+While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `tds.scigw` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
 
 
 <a id="h-865C1FF8"></a>
@@ -311,13 +311,13 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
         TDM_PW=CHANGEME!
 
-    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **thredds-jetstream** VM. You can create a password/SHA pair with the following command:
+    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
 
     ```shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
     ```
 
-    Ensure you are using the correct hashing algorithm in the `server.xml` on the TDS server running on the thredds-jetstream VM. For example,
+    Ensure you are using the correct hashing algorithm in the `server.xml` on the TDS server running on the tds.scigw VM. For example,
 
     ```xml
     <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
