@@ -21,7 +21,7 @@
 
 ## Create an IDD Relay VM on Jetstream
 
-Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay-jetstream.unidata.ucar.edu`.
+Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `idd-relay.scigw.unidata.ucar.edu`.
 
 
 <a id="h-7544DE64"></a>
