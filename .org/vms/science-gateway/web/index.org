@@ -49,11 +49,7 @@ As part of our current [[https://www.unidata.ucar.edu/publications/directorspage
 
 This JupyterHub is now open to anyone with an [[https://github.com][GitHub login]]. Also please sign up to our mailing list to be made aware of developments and down times. Subscribe at:  [[mailto:jupyter-jetstream+subscribe@ucar.edu][jupyter-jetstream+subscribe@ucar.edu]]. After logging in, please read the =README_FIRST.ipynb= notebook that is periodically updated with relevant information concerning this JupyterHub installation.
 
-[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub server]] running on Jetstream contains three Unidata Jupyter notebook projects:
-
-- [[https://github.com/Unidata/unidata-python-workshop][Unidata Python Workshop]]
-- [[https://github.com/Unidata/notebook-gallery][Unidata Notebook Gallery]]
-- [[https://github.com/Unidata/online-python-training][Unidata Online Python Training]]
+[[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub server]] running contains the [[https://github.com/Unidata/python-training][Unidata Python Training]] project and the environment required to run the notebooks therein.
 
 * THREDDS Data Server
   :PROPERTIES:

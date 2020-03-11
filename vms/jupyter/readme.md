@@ -176,9 +176,7 @@ singleuser:
             - "sh"
             - "-c"
             - >
-              gitpuller https://github.com/julienchastang/unidata-python-workshop master python-workshop;
-              gitpuller https://github.com/julienchastang/unidata-python-gallery-mirror master notebook-gallery;
-              gitpuller https://github.com/julienchastang/online-python-training master online-python-training;
+              gitpuller https://github.com/julienchastang/python-training master python-training;
               cp /README_FIRST.ipynb /home/jovyan;
               cp /.condarc /home/jovyan
 
@@ -186,6 +184,16 @@ hub:
   extraConfig: |-
     c.Spawner.cmd = ['jupyter-labhub']
     c.JupyterHub.template_vars = {'announcement': '<h3>This JupyterHub server will be down for maintenance Friday, June 8. PLEASE make local backups of your important notebooks!</h3>'}
+
+auth:
+  type: github
+  github:
+    clientId: "xxx"
+    clientSecret: "xxx"
+    callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
+  admin:
+    users:
+      - julienchastang
 ```
 
 
