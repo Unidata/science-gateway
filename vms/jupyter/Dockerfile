@@ -18,14 +18,8 @@ USER $NB_UID
 RUN conda install --quiet --yes \
     'ipywidgets=7.2*' \
     'conda-forge::nb_conda_kernels'  && \
-    wget https://raw.githubusercontent.com/Unidata/python-workshop/master/environment.yml && \
-    conda env update --name unidata-python-workshop -f environment.yml && \
-    rm environment.yml && \
-    wget https://raw.githubusercontent.com/Unidata/notebook-gallery/master/environment.yml && \
-    conda env update --name notebook-gallery -f environment.yml && \
-    rm environment.yml && \
-    wget https://raw.githubusercontent.com/Unidata/online-python-training/master/environment.yml && \
-    conda env update --name online-python-training -f environment.yml && \
+    wget https://raw.githubusercontent.com/Unidata/python-training/master/environment.yml && \
+    conda env update --name python-training -f environment.yml && \
     rm environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     conda clean --all -f -y && \
