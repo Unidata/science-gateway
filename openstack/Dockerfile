@@ -54,8 +54,8 @@ ENV PATH=$HOME/bin:$PATH
 RUN git clone https://github.com/zonca/jetstream_kubespray \
     $HOME/jetstream_kubespray -b branch_v2.8.2
 
-RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream \
-    $HOME/jupyterhub-deploy-kubernetes-jetstream
+RUN git clone https://github.com/julienchastang/jupyterhub-deploy-kubernetes-jetstream  \
+    $HOME/jupyterhub-deploy-kubernetes-jetstream -b working
 
 RUN pip install --upgrade pip
 
