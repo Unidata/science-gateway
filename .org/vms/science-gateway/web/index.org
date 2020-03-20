@@ -159,13 +159,16 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
   - [[https://ams.confex.com/ams/2019Annual/meetingapp.cgi/Paper/354804][A Cloud-Based Science Gateway for Enabling Open and Reproducible Science]]
 - [[https://doi.org/10.6084/m9.figshare.8945078.v1][ESIP Summer Meeting 2019 | July 16-19, 2019 – Tacoma, WA USA]]
 - [[https://doi.org/10.17605/OSF.IO/W7SV8][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
+- [[https://ams.confex.com/ams/2020Annual/meetingapp.cgi/Session/54827][2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-- [[https://annual.ametsoc.org/index.cfm/2020/programs/conferences-and-symposia/19th-annual-student-conference/][2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA]]
+- [[https://pearc.acm.org/pearc20][PEARC 20 | July 26-30, 2020 - Portland, OR USA]]
+- [[https://www.esipfed.org/meetings/upcoming-meetings][ESIP Summer Meeting 2020 | July 14-17, 2020 – Burlington, VT USA]]
+- [[https://sciencegateways.org/web/gateways2020/welcome][Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA]]
 
 * Under the Hood
   :PROPERTIES:
