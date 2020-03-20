@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 3/20/2020, JupyterHub Resources Available for Remote-Learning Situations
+  :PROPERTIES:
+  :CUSTOM_ID: h-FA693E30
+   :RSS_TITLE: 3/20/2020, JupyterHub Resources Available for Remote-Learning Situations
+   :PUBDATE: <2020-03-20 Fri>
+   :RSS_PERMALINK: index.html#h-FA693E30
+   :ID:       A927967B-6F96-414B-81F7-068328694F89
+  :END:
+
+[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub][JupyterHub Resources Available for Remote-Learning Situations]]
+
 * 2/6/2020, Unidata Science Gateway in the News
   :PROPERTIES:
   :CUSTOM_ID: h-CB18704C
@@ -50,4 +61,3 @@ We are excited to announce Unidata will be hosting a Python Workshop at the [[ht
    :END:
 
 The [[https://sciencegateways.org/web/gateways2019][Gateways 2019 and co-located eScience 2019 conferences]] will be held in San Diego, California September 23–27. We will be presenting a poster entitled: [[https://doi.org/10.17605/OSF.IO/W7SV8][A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway]].
-

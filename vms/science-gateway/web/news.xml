@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Thu, 06 Feb 2020 14:41:19 -0700</pubDate>
-  <lastBuildDate>Thu, 06 Feb 2020 14:41:19 -0700</lastBuildDate>
+  <pubDate>Fri, 20 Mar 2020 10:45:55 -0600</pubDate>
+  <lastBuildDate>Fri, 20 Mar 2020 10:45:55 -0600</lastBuildDate>
   <generator>Emacs 26.3 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,26 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-FA693E30">3/20/2020, JupyterHub Resources Available for Remote-Learning Situations</a></li>
         <li><a href="#h-CB18704C">2/6/2020, Unidata Science Gateway in the News</a></li>
         <li><a href="#h-BD3E46F8">10/30/2019, Python Workshop at the AMS 2020 Student Conference</a></li>
         <li><a href="#h-7AC1E6CA">9/17/2019, 2019 Gateways and eScience Conferences</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>3/20/2020, JupyterHub Resources Available for Remote-Learning Situations</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-FA693E30</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-FA693E30</guid>
+    <pubDate>Fri, 20 Mar 2020 00:00:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub">JupyterHub Resources Available for Remote-Learning Situations</a>
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>2/6/2020, Unidata Science Gateway in the News</title>
