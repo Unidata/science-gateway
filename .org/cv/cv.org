@@ -38,10 +38,11 @@
 | USA                     |
 * Contact
 #+ATTR_LATEX: :center nil
-| phone       | +1.303.497.2825            |
-| email       | chastang@ucar.edu          |
-| URL         | https://julienchastang.com |
-| Citizenship | USA and French             |
+| phone       | +1.303.497.2825                       |
+| email       | chastang@ucar.edu                     |
+| URL         | https://julienchastang.com            |
+| ORCID iD    | https://orcid.org/0000-0003-2482-3565 |
+| Citizenship | USA and French                        |
 * Educational Background
 #+ATTR_LATEX: :center nil
 | M. Sc. | University of Colorado | 2000 |
