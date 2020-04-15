@@ -11,6 +11,8 @@
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
     - [Tear Down While Preserving User Volumes](#h-5F2AA05F)
+  - [Troubleshooting](#h-0E48EFE9)
+    - [Unresponsive JupyterHub](#h-FF4348F8)
 
 
 
@@ -218,3 +220,68 @@ To futher teardown the Kubernetes cluster see [Tearing Down the Cluster](../../o
 ### Tear Down While Preserving User Volumes
 
 A gentler tear down that preserves the user volumes is described in [Andrea's documentation](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html). See the section on "persistence of user data".
+
+
+<a id="h-0E48EFE9"></a>
+
+## Troubleshooting
+
+
+<a id="h-FF4348F8"></a>
+
+### Unresponsive JupyterHub
+
+1.  Preliminary Work
+
+    If a JupyterHub becomes unresponsive (e.g., 504 Gateway Time-out), login in to the Kubernetes client and do preliminary backup work in case things go badly. First:
+
+    ```shell
+    kubectl get pvc -n jhub -o yaml > pvc.yaml.ro
+    kubectl get pv -n jhub -o yaml > pv.yaml.ro
+    chmod 400 pvc.yaml.ro pv.yaml.ro
+    ```
+
+    Make `pvc.yaml.ro` `pv.yaml.ro` read only since these files could become precious in case you have to do data recovery for users. More on this subject below.
+
+2.  Delete jhub Pods
+
+    Next, start investigating by issuing:
+
+    ```shell
+    kubectl get pods -n jhub
+    ```
+
+    this command will yield something like
+
+    ```shell
+    NAME                      READY   STATUS    RESTARTS   AGE
+    hub-5bdccd4784-lzw87      1/1     Running   0          17h
+    jupyter-joe               1/1     Running   0          4h51m
+    proxy-7b986cdb75-mhl86    1/1     Running   0          29d
+    ```
+
+    Now start deleting the `jhub` pods starting with the user pods (e.g., `jupyter-joe`).
+
+    ```
+    kubectl delete pod <pod name> -n jhub
+    ```
+
+    Check to see if the JupyterHub is reachable. If it is not, keep deleting pods checking for reachability after each pod deletion.
+
+3.  Delete jhub, But Do Not Purge Namespace
+
+    If the JupyterHub is still not reachable, you can try deleting and recreating the JupyterHub but **do not** delete the namespace as you will wipe out user data.
+
+    ```shell
+    helm delete jhub --purge
+    # But DO NOT issue this command
+    # kubectl delete namespace jhub
+    ```
+
+    Then try reinstalling with
+
+    ```
+    bash install_jhub.sh
+    ```
+
+    Now, try recover user volumes as [described at the end of the section here](https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html#delete-and-recreate-openstack-instances) with the `pvc.yaml.ro` `pv.yaml.ro` saved earlier (make writable copies of those `ro` files). If that still does not work, you can try destroying the entire cluster and recreating it as described in that same link.
