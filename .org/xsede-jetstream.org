@@ -24,13 +24,25 @@ Publishing
 
   (setq pub-dir (projectile-project-root))
 
+  (defun nuke-trailing-whitespace (in out)
+    (when (file-exists-p out)
+          (message "clearing trailing whitespace in %s" out)
+          (with-temp-buffer
+            (insert-file-contents out)
+            (delete-trailing-whitespace (point-min) (point-max))
+            (write-file out))))
+
   (setq org-publish-project-alist
         `(("orgfiles"
-            :base-directory ,base-dir
-            :recursive t
-            :base-extension "org"
-            :exclude
-            "xsede-jetstream.org\\|index.org\\|.*/presentations/.*\\|.*/cv/.*"
-            :publishing-directory ,pub-dir
-            :publishing-function org-gfm-publish-to-gfm)))
+           :base-directory ,base-dir
+           :recursive t
+           :base-extension "org"
+           :exclude
+           "xsede-jetstream.org\\|index.org\\|.*/presentations/.*\\|.*/cv/.*"
+           :publishing-directory ,pub-dir
+           :publishing-function org-gfm-publish-to-gfm)))
+
+  (add-hook 'org-publish-after-publishing-hook 'nuke-trailing-whitespace)
+
+  ;; To clear out the hook (setq org-publish-after-publishing-hook nil)
 #+END_SRC
