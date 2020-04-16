@@ -220,7 +220,7 @@ helm delete jhub --purge
 kubectl delete namespace jhub
 ```
 
-To futher teardown the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
+To further tear down the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
 
 
 <a id="h-5F2AA05F"></a>
