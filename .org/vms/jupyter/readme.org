@@ -188,7 +188,7 @@ Tearing down the JupyterHub including user OpenStack volumes is possible. From t
   kubectl delete namespace jhub
 #+END_SRC
 
-To futher teardown the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
+To further tear down the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
 
 *** Tear Down While Preserving User Volumes
     :PROPERTIES:
