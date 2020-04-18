@@ -1,6 +1,6 @@
 # Meta Readme
 
-![img](https://github.com/Unidata/xsede-jetstream/blob/master/jetstream.png "Jetstream")
+![img](https://github.com/Unidata/science-gateway/blob/master/jetstream.png "Jetstream")
 
 Welcome to Unidata on the NSF Jetstream cloud. This document points to a collection of readmes for running Unidata technology on the NSF Jetstream cloud. Browse below on the following topics:
 

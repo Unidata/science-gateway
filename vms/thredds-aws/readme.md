@@ -1,6 +1,6 @@
 - [Create a THREDDS AWS Nexrad VM on Jetstream](#h-4D049C67)
   - [Create a THREDDS VM on Jetstream](#h-06E230D1)
-  - [Clone the xsede-jetstream Repository](#h-966B0207)
+  - [Clone the science-gateway Repository](#h-966B0207)
   - [Build the AWS Nexrad TDS Docker Container](#h-154BBC9F)
   - [Start TDS With Docker and docker-compose](#h-74EEEE2C)
   - [TDS Configuration](#h-717697EB)
@@ -34,12 +34,12 @@ Create an `m1.large` VM with the [Jetstream OpenStack API](../../openstack/readm
 
 <a id="h-966B0207"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway ~/science-gateway
 ```
 
 
@@ -47,7 +47,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 ## Build the AWS Nexrad TDS Docker Container
 
-From the `~/xsede-jetstream/vms/thredds-aws` directory:
+From the `~/science-gateway/vms/thredds-aws` directory:
 
 ```shell
 docker build -t unidata/nexrad-tds-docker:latest .
@@ -148,13 +148,13 @@ mkdir -p ~/S3Objects
 
 ## SSL Certificate
 
-In the `~/xsede-jetstream/vms/thredds-aws/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
+In the `~/science-gateway/vms/thredds-aws/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
 
 ```shell
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/xsede-jetstream/vms/thredds-aws/files/ssl.key \
-  -out ~/xsede-jetstream/vms/thredds-aws/files/ssl.crt
+  -keyout ~/science-gateway/vms/thredds-aws/files/ssl.key \
+  -out ~/science-gateway/vms/thredds-aws/files/ssl.crt
 ```
 
 

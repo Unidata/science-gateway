@@ -244,8 +244,8 @@ Complex environments already built w/ conda package manager
 ** GitHub Repository
 
 - Collaborative development on GitHub
-- https://github.com/Unidata/xsede-jetstream
-- https://github.com/Unidata/xsede-jetstream/tree/master/vms/jupyter
+- https://github.com/Unidata/science-gateway
+- https://github.com/Unidata/science-gateway/tree/master/vms/jupyter
  
 ** Unidata JupyterHub Docker Container
 
@@ -323,4 +323,4 @@ _Caveat emptor_:
 
 - https://science-gateway.unidata.ucar.edu
 - https://jupyter-jetstream.unidata.ucar.edu
-- https://github.com/Unidata/xsede-jetstream
+- https://github.com/Unidata/science-gateway

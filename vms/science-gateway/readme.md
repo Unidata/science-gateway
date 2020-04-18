@@ -1,6 +1,6 @@
 - [Creating a Science Gateway VM on Jetstream](#h-49CACBE8)
   - [Create a Science Gateway VM on Jetstream](#h-593C3161)
-  - [Clone the xsede-jetstream Repository](#h-1EA54D54)
+  - [Clone the science-gateway Repository](#h-1EA54D54)
   - [Build the Science Gateway Docker Container](#h-4A66EE99)
   - [Prepare Science Gateway VM for Docker and docker-compose](#h-D311EB0F)
   - [Logging](#h-7FF2F781)
@@ -26,12 +26,12 @@ Create an `m1.small` VM with the [Jetstream OpenStack API](../../openstack/readm
 
 <a id="h-1EA54D54"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway ~/science-gateway
 ```
 
 
@@ -39,7 +39,7 @@ git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
 
 ## Build the Science Gateway Docker Container
 
-From the `~/xsede-jetstream/vms/science-gateway` directory:
+From the `~/science-gateway/vms/science-gateway` directory:
 
 ```shell
 docker build -t unidata/science-gateway:latest .

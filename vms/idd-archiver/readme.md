@@ -1,6 +1,6 @@
 - [Creating an IDD Archiver VM on Jetstream](#h-046F9FE1)
   - [Create an IDD Archiver VM on Jetstream](#h-304AA966)
-  - [Clone the xsede-jetstream and TdsConfig Repositories](#h-00BE67D7)
+  - [Clone the science-gateway and TdsConfig Repositories](#h-00BE67D7)
   - [Prepare IDD Archiver for Docker and docker-compose](#h-FF66923F)
   - [~/etc Directory](#h-B5A9CA86)
     - [~/etc/ldmd.conf](#h-A598B286)
@@ -36,12 +36,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/read
 
 <a id="h-00BE67D7"></a>
 
-## Clone the xsede-jetstream and TdsConfig Repositories
+## Clone the science-gateway and TdsConfig Repositories
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway ~/science-gateway
 ```
 
 In addition, we will employ the `Unidata/TdsConfig` repository to obtain our LDM pqacts. We will **not** be running the TDS on the IDD archiver VM.
@@ -66,7 +66,7 @@ This `~/etc` directory will contain your LDM configuration files.
 
 ```shell
 mkdir -p ~/etc
-cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
+cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
 ```
 
 
@@ -311,7 +311,7 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
         TDM_PW=CHANGEME!
 
-    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/xsede-jetstream/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
+    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/science-gateway/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
 
     ```shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
@@ -436,6 +436,6 @@ LDM_GROUP_ID=1000
 To start the IDD archiver node:
 
 ```shell
-cd ~/xsede-jetstream/vms/idd-archiver/
+cd ~/science-gateway/vms/idd-archiver/
 docker-compose up -d
 ```

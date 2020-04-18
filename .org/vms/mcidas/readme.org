@@ -25,15 +25,15 @@
 
 Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143][Jetstream OpenStack API]]. Work with Unidata system administrator staff to have this VM's IP address resolve to =adde.scigw.unidata.ucar.edu=.
 
-** Clone the xsede-jetstream Repository
+** Clone the science-gateway Repository
    :PROPERTIES:
    :CUSTOM_ID: h-E6D3D21F
    :END:
 
-We will be making heavy use of the ~Unidata/xsede-jetstream~ git repository.
+We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 #+BEGIN_SRC shell
-  git clone https://github.com/Unidata/xsede-jetstream
+  git clone https://github.com/Unidata/science-gateway
 #+END_SRC
 
 ** Start ADDE With Docker and docker-compose

@@ -2,7 +2,7 @@
 #+OPTIONS: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
-#+TITLE: xsede-jetstream
+#+TITLE: science-gateway
 #+DATE: <2017-03-03 Fri>
 #+AUTHOR: Julien Chastang
 #+EMAIL: chastang@ucar.edu
@@ -38,7 +38,7 @@ Publishing
            :recursive t
            :base-extension "org"
            :exclude
-           "vms/science-gateway/web/news.org\\|xsede-jetstream.org\\|index.org\\|presentations/.*\\|cv/.*"
+           "vms/science-gateway/web/news.org\\|science-gateway.org\\|index.org\\|presentations/.*\\|cv/.*"
            :publishing-directory ,pub-dir
            :publishing-function org-gfm-publish-to-gfm)))
 

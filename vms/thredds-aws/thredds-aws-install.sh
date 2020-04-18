@@ -13,5 +13,5 @@ mkdir -p ~/S3Objects
 
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/xsede-jetstream/vms/thredds-aws/files/ssl.key \
-  -out ~/xsede-jetstream/vms/thredds-aws/files/ssl.crt
+  -keyout ~/science-gateway/vms/thredds-aws/files/ssl.key \
+  -out ~/science-gateway/vms/thredds-aws/files/ssl.crt

@@ -15,7 +15,7 @@
 
 # Virtual Machine Initialization
 
-The `xsede-jetstream` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker and other system maintenance you will need to perform.
+The `science-gateway` project is heavily dependent on Docker, and you will have to have access to a recent version of Docker. Herein are some instructions to help you get going with Docker and other system maintenance you will need to perform.
 
 
 <a id="h-FF95E7EC"></a>
@@ -30,13 +30,13 @@ The `xsede-jetstream` project is heavily dependent on Docker, and you will have 
 Quick start instructions for Linux OS can be found here. For a more complete explanation of the Docker installation start with the [System Maintenance](#h-AE788331) section.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway
 ```
 
 and run the `ubuntu-init.sh` or `centos-init.sh` script co-located with this readme, e.g.,:
 
 ```shell
-cd xsede-jetstream
+cd science-gateway
 sudo ./<linux-distro>-init.sh -u ${USER}
 ```
 

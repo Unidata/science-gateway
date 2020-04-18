@@ -34,7 +34,7 @@ These instructions assume an Ubuntu VM. In the future, we will have a similar do
 
 ## Prerequisites
 
-Setup the VM in [the usual manner](https://github.com/Unidata/xsede-jetstream/blob/master/vm-init-readme.md).
+Setup the VM in [the usual manner](https://github.com/Unidata/science-gateway/blob/master/vm-init-readme.md).
 
 The Jetstream team will have to establish an OpenStack network to open a pipe between Wrangler and Jetstream. Email `help@xsede.org` to obtain this network. The `unidata-wrangler` network has already been setup for us at Indiana University:
 

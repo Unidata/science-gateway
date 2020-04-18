@@ -1,6 +1,6 @@
 - [Creating an IDD Relay VM on Jetstream](#h-840E89CB)
   - [Create an IDD Relay VM on Jetstream](#h-4BF1C37C)
-  - [Clone the xsede-jetstream Repository](#h-7544DE64)
+  - [Clone the science-gateway Repository](#h-7544DE64)
   - [Start IDD Relay With Docker and docker-compose](#h-C89E3FF5)
   - [~/etc Directory](#h-E4AB4451)
   - [~/queues Directory](#h-F3D77CEF)
@@ -26,12 +26,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/read
 
 <a id="h-7544DE64"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway
 ```
 
 
@@ -50,7 +50,7 @@ This `~/etc` directory will contain your LDM configuration files.
 
 ```shell
 mkdir -p ~/etc
-cp ~/xsede-jetstream/vms/idd-relay/etc/* ~/etc/
+cp ~/science-gateway/vms/idd-relay/etc/* ~/etc/
 ```
 
 You may have to tailor the `ldmd.conf` to your data feed requirements. Also edit the `registry.xml` file to update the `hostname` element so that Real-Time IDD Statistics can be properly reported. Finally, you may have to adjust the size of the queue currently at 10GBs.
@@ -140,6 +140,6 @@ To start the IDD relay node:
 
 ```shell
 # wherever you cloned the repo above
-cd ~/xsede-jetstream/vms/idd-relay/
+cd ~/science-gateway/vms/idd-relay/
 docker-compose up -d
 ```

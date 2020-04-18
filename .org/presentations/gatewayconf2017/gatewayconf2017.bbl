@@ -35,10 +35,10 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{C}
     \field{sortinithash}{C}
-    \field{howpublished}{\url{https://github.com/Unidata/xsede-jetstream/}}
+    \field{howpublished}{\url{https://github.com/Unidata/science-gateway/}}
     \field{title}{Unidata on the {XSEDE} {Jetstream} Cloud}
     \verb{url}
-    \verb https://github.com/Unidata/xsede-jetstream/
+    \verb https://github.com/Unidata/science-gateway/
     \endverb
     \field{journaltitle}{GitHub repository}
     \field{year}{2017}

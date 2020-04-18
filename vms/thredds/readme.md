@@ -1,6 +1,6 @@
 - [Create a THREDDS VM on Jetstream](#h-A57251FC)
   - [Create a THREDDS VM on Jetstream](#h-011CFB59)
-  - [Clone the xsede-jetstream Repository](#h-E1E7DBE4)
+  - [Clone the science-gateway Repository](#h-E1E7DBE4)
   - [Start TDS With Docker and docker-compose](#h-704AF626)
   - [TDS Configuration](#h-1E5D6712)
     - [Supply Contact and Host Information in threddsConfig.xml](#h-3F46F49F)
@@ -35,12 +35,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/read
 
 <a id="h-E1E7DBE4"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream ~/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway ~/science-gateway
 ```
 
 
@@ -144,13 +144,13 @@ At the very least you will need a self-signed certificate to enable communicatio
 
 ### Self-signed Ceritifcate
 
-In the `~/xsede-jetstream/vms/thredds/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
+In the `~/science-gateway/vms/thredds/files/` directory, generate a self-signed certificate with `openssl` (or better yet, obtain a real certificate from a certificate authority).
 
 ```shell
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/xsede-jetstream/vms/thredds/files/ssl.key \
-  -out ~/xsede-jetstream/vms/thredds/files/ssl.crt
+  -keyout ~/science-gateway/vms/thredds/files/ssl.key \
+  -out ~/science-gateway/vms/thredds/files/ssl.crt
 ```
 
 

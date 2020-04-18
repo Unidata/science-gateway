@@ -171,7 +171,7 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
   :CUSTOM_ID: h-632926D5
   :END:
 
-The implementation of this effort is described here: https://github.com/Unidata/xsede-jetstream.
+The implementation of this effort is described here: https://github.com/Unidata/science-gateway.
 
 * System Status
   :PROPERTIES:

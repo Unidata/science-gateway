@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir -p ~/etc
-cp ~/xsede-jetstream/vms/idd-relay/etc/* ~/etc/
+cp ~/science-gateway/vms/idd-relay/etc/* ~/etc/
 
 mkdir -p ~/queues
 
