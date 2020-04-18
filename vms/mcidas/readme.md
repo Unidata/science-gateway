@@ -1,6 +1,6 @@
 - [Creating an ADDE VM on Jetstream](#h-E8DA29EC)
   - [Create an ADDE VM on Jetstream](#h-10109CCE)
-  - [Clone the xsede-jetstream Repository](#h-E6D3D21F)
+  - [Clone the science-gateway Repository](#h-E6D3D21F)
   - [Start ADDE With Docker and docker-compose](#h-0897ADA4)
   - [ADDE Configuration](#h-C9A644E9)
   - [LDM Data Directory from idd-archiver Via NFS](#h-D58FB64C)
@@ -26,12 +26,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/read
 
 <a id="h-E6D3D21F"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway
 ```
 
 

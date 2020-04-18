@@ -43,5 +43,5 @@ fi
 docker run -it  \
        -v ${SSH_DIR}:/home/openstack/.ssh/ \
        -v ${OPENRC}:/home/openstack/bin/openrc.sh \
-       unidata/xsede-jetstream /bin/bash
+       unidata/science-gateway /bin/bash
 

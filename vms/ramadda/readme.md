@@ -1,6 +1,6 @@
 - [Creating a RAMADDA VM on Jetstream](#h-07FD791D)
   - [Create a RAMADDA VM on Jetstream](#h-F4023EC5)
-  - [Clone the xsede-jetstream Repository](#h-968FA51C)
+  - [Clone the science-gateway Repository](#h-968FA51C)
   - [Start RAMADDA With Docker and docker-compose](#h-2E18E909)
   - [/repository Directory](#h-2F1A5636)
   - [Create RAMADDA default password](#h-D5095E2A)
@@ -37,12 +37,12 @@ Create an `m1.medium` VM with the [Jetstream OpenStack API](../../openstack/read
 
 <a id="h-968FA51C"></a>
 
-## Clone the xsede-jetstream Repository
+## Clone the science-gateway Repository
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```shell
-git clone https://github.com/Unidata/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway
 ```
 
 

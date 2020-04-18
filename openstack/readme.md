@@ -1,7 +1,7 @@
 - [Running VMs on Jetstream with OpenStack](#h-90A8A74D)
   - [Introduction](#h-11F59F95)
   - [Install Docker (Do This Once)](#h-DE5B47F1)
-  - [Clone the xsede-jetstream Repository (Do This Once)](#h-968FA51C)
+  - [Clone the science-gateway Repository (Do This Once)](#h-968FA51C)
   - [Pull or Build Docker Container (Do This Once)](#h-4A9632CC)
     - [Pull Container](#h-B5690030)
     - [Build Container](#h-1C54F677)
@@ -65,12 +65,12 @@ Note, you do not have to employ this Docker container. It is merely provided as 
 
 <a id="h-968FA51C"></a>
 
-## Clone the xsede-jetstream Repository (Do This Once)
+## Clone the science-gateway Repository (Do This Once)
 
-We will be making heavy use of the `Unidata/xsede-jetstream` git repository.
+We will be making heavy use of the `Unidata/science-gateway` git repository.
 
 ```sh
-git clone https://github.com/Unidata/xsede-jetstream
+git clone https://github.com/Unidata/science-gateway
 ```
 
 
@@ -79,10 +79,10 @@ git clone https://github.com/Unidata/xsede-jetstream
 ## Pull or Build Docker Container (Do This Once)
 
 ```sh
-cd xsede-jetstream/openstack
+cd science-gateway/openstack
 ```
 
-At this point, you can either pull or build the `xsede-jetstream` container:
+At this point, you can either pull or build the `science-gateway` container:
 
 
 <a id="h-B5690030"></a>
@@ -90,7 +90,7 @@ At this point, you can either pull or build the `xsede-jetstream` container:
 ### Pull Container
 
 ```sh
-docker pull unidata/xsede-jetstream
+docker pull unidata/science-gateway
 ```
 
 
@@ -99,7 +99,7 @@ docker pull unidata/xsede-jetstream
 ### Build Container
 
 ```sh
-docker build -t unidata/xsede-jetstream .
+docker build -t unidata/science-gateway .
 ```
 
 
@@ -123,7 +123,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
     -   See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh).
     -   From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
     -   Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
-    -   Move this file to `bin/openrc.sh` (e.g., `/home/jane/xsede-jetstream/openstack/bin/openrc.sh`).
+    -   Move this file to `bin/openrc.sh` (e.g., `/home/jane/science-gateway/openstack/bin/openrc.sh`).
 
 3.  Edit `bin/openrc.sh` Password (Optional)
 
@@ -149,7 +149,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 1.  openstack.sh
 
-    Start the `unidata/xsede-jetstream` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `/home/jane/xsede-jetstream/openstack/ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). **Both arguments must be supplied with fully qualified path names.**
+    Start the `unidata/science-gateway` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `/home/jane/science-gateway/openstack/ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). **Both arguments must be supplied with fully qualified path names.**
 
     ```sh
     chmod +x openstack.sh
@@ -197,7 +197,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 ## Working with Jetstream API to Create VMs
 
-At this point, we are past the hard work. You will employ the `unidata/xsede-jetstream` container accessed via the `openstack.sh` convenience script to
+At this point, we are past the hard work. You will employ the `unidata/science-gateway` container accessed via the `openstack.sh` convenience script to
 
 -   Create IP Numbers
 -   Create VMs

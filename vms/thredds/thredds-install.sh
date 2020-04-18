@@ -9,5 +9,5 @@ mkdir -p ~/logs/tds/
 
 openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
   "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
-  -keyout ~/xsede-jetstream/vms/thredds/files/ssl.key \
-  -out ~/xsede-jetstream/vms/thredds/files/ssl.crt
+  -keyout ~/science-gateway/vms/thredds/files/ssl.key \
+  -out ~/science-gateway/vms/thredds/files/ssl.crt

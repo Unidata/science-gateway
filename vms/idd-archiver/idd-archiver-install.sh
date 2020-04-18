@@ -2,7 +2,7 @@
 git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 
 mkdir -p ~/etc
-cp ~/xsede-jetstream/vms/idd-archiver/etc/* ~/etc/
+cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
 
 mkdir -p ~/tdsconfig/ ~/etc/TDS
 wget http://unidata-tds.s3.amazonaws.com/tdsConfig/newThredds/config.zip -O ~/tdsconfig/config.zip
