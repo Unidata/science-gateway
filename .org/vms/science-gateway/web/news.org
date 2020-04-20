@@ -16,6 +16,19 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+
+
+* 4/20/2020, ESIP Webinar on Science Gateway
+  :PROPERTIES:
+   :RSS_TITLE: 4/20/2020, ESIP Webinar on Science Gateway
+   :PUBDATE: <2020-04-20 Mon>
+   :RSS_PERMALINK: index.html#h-9982E13A
+   :CUSTOM_ID: h-9982E13A
+   :ID:       6E62C0F4-18B5-404A-9EAC-8BE0CBCAC543
+  :END:
+
+[[http://wiki.esipfed.org/index.php/Interoperability_and_Technology/Tech_Dive_Webinar_Series#9_April_2020:_.22Unidata_Science_Gateway.22_Julien_Chastang][ESIP Interoperability and Technology/Tech Dive Webinar on Unidata Science Gateway]]
+
 * 3/20/2020, JupyterHub Resources Available for Remote-Learning Situations
   :PROPERTIES:
   :CUSTOM_ID: h-FA693E30
@@ -40,24 +53,3 @@ From Indiana University IT News: [[https://itnews.iu.edu/articles/2020/The%20Uni
 
 Also, we have a couple of publications forthcoming following the success of the Python Workshop at the AMS 2020 Student Conference.
 
-* 10/30/2019, Python Workshop at the AMS 2020 Student Conference
-  :PROPERTIES:
-  :CUSTOM_ID: h-BD3E46F8
-   :RSS_TITLE: 10/30/2019, Python Workshop at the AMS 2020 Student Conference
-   :PUBDATE: <2019-10-30 Wed 16:28>
-   :RSS_PERMALINK: index.html#h-BD3E46F8
-   :ID:       2DD1E33B-8C59-4508-80DB-8EADB19E5716
-  :END:
-
-We are excited to announce Unidata will be hosting a Python Workshop at the [[https://annual.ametsoc.org/index.cfm/2020/programs/conferences-and-symposia/19th-annual-student-conference/][19th Annual Student Conference]] for the 2020 American Meteorological Society meeting in Boston, Massachusetts. The workshop will employ a JupyterHub running on the Unidata Science Gateway. Additional details will be forthcoming.
-
-* 9/17/2019, 2019 Gateways and eScience Conferences
-   :PROPERTIES:
-   :CUSTOM_ID: h-7AC1E6CA
-   :RSS_TITLE: 9/17/2019, 2019 Gateways and eScience Conferences
-   :ID:       C28DF9D8-604F-4D2B-9FED-E5F2DE2FCA5F
-   :PUBDATE:  <2019-09-17 Tue 14:18>
-   :RSS_PERMALINK: index.html#h-7AC1E6CA
-   :END:
-
-The [[https://sciencegateways.org/web/gateways2019][Gateways 2019 and co-located eScience 2019 conferences]] will be held in San Diego, California September 23–27. We will be presenting a poster entitled: [[https://doi.org/10.17605/OSF.IO/W7SV8][A JupyterHub for Atmospheric Science Research and Education on the Unidata Science Gateway]].
