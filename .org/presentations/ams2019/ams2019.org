@@ -4,7 +4,7 @@
 #+TIME: 09:00
 #+DESCRIPTION: JupyterHub for Atmospheric Science Research and Education on the NSF Jetstream Cloud
 #+KEYWORDS: Unidata Docker Jetstream NSF XSEDE Science Gateway Jupyter JupyterHub
-#+AUTHOR: Julien Chastang 
+#+AUTHOR: Julien Chastang
 #+EMAIL: chastang@ucar.edu
 #+LANGUAGE: en
 #+SELECT_TAGS: export
@@ -82,7 +82,7 @@ A narrative of:
 - Explanatory and expository text
 - Software code (Python, R, etc.) and output
 - Equations (MathJax, LaTeX)
-- Figures and multimedia 
+- Figures and multimedia
 
 *** Column 2
     :PROPERTIES:
@@ -115,7 +115,7 @@ A narrative of:
 - Terminal (~git~, ~conda~, etc.)
 - Text Editor
 
-** JupyterHub: Multi-user Jupyter Notebooks 
+** JupyterHub: Multi-user Jupyter Notebooks
    :PROPERTIES:
    :CUSTOM_ID: h-A3BB9B86
    :END:
@@ -166,7 +166,7 @@ _Solution_: *Zero to JupyterHub* project aims to take advantage of the elastic c
 
 _Zero to JupyterHub allows for many more users._
 
-** Zero to JupyterHub 
+** Zero to JupyterHub
    :PROPERTIES:
    :CUSTOM_ID: h-FEE3A039
    :END:
@@ -194,7 +194,7 @@ _Zero to JupyterHub allows for many more users._
    :CUSTOM_ID: h-57A69FC4
    :END:
 
-- GEMPAK product generation server running on Amazon cloud 
+- GEMPAK product generation server running on Amazon cloud
 - m1.large: 2 vCPU, 7.5GB memory, 2x 420GB disk
 - *Costs Unidata $3,000/year!*
 ** NSF Jetstream Cloud
@@ -218,8 +218,8 @@ _Zero to JupyterHub allows for many more users._
 
 #+ATTR_LATEX: width=\textwidth
 [[file:images/jetstream.png]]
- 
-* A JupyterHub for Atmospheric Science 
+
+* A JupyterHub for Atmospheric Science
   :PROPERTIES:
   :CUSTOM_ID: h-D6CCF1ED
   :END:
@@ -230,14 +230,14 @@ _Zero to JupyterHub allows for many more users._
    :END:
 
 - Three Unidata Notebook projects with environments pre-configured
-  - *Notebook Gallery*, example atmos science notebooks 
+  - *Notebook Gallery*, example atmos science notebooks
   - *Python Workshop*, netcdf4-python, metpy, siphon training
   - *Online Python Training* Teaching Python with an atmos focus
 - Zero to JupyterHub
 - Login with GitHub credentials
 - JupyterLab
 
-** Technical Specifications 
+** Technical Specifications
    :PROPERTIES:
    :CUSTOM_ID: h-FD4619FD
    :END:

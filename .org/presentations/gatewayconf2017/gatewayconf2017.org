@@ -50,7 +50,7 @@
            :publishing-function org-publish-attachment)))
 #+END_SRC
 
-* 
+*
     :PROPERTIES:
     :BEAMER_OPT: t,label=
     :CUSTOM_ID: h-73EBD710

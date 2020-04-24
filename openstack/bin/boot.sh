@@ -44,21 +44,21 @@ done
 
 if [ -z "$VM_NAME" ];
   then
-      echo "Must supply a vm name:" 
+      echo "Must supply a vm name:"
       echo -e $usage
       exit 1
 fi
 
 if [ -z "$KEY_NAME" ];
   then
-      echo "Must supply a key name:" 
+      echo "Must supply a key name:"
       echo -e $usage
       exit 1
 fi
 
 if [ -z "$VM_SIZE" ];
    then
-      echo "Must supply a vm size:" 
+      echo "Must supply a vm size:"
       echo -e $usage
       openstack flavor list
       exit 1

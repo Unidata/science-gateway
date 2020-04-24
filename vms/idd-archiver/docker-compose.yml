@@ -24,7 +24,7 @@ services:
         hard: 64
     env_file:
         - "compose.env"
-  
+
   ###
   # TDM
   ###

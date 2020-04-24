@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Experimental [JupyterHub](https://jupyter-jetstream.unidata.ucar.edu/)
 - [Unidata Jetstream Science Gateway](http://jetstream.unidata.ucar.edu)
-- Improved/updated Docker and `docker-compose` installation 
+- Improved/updated Docker and `docker-compose` installation
 - Updated Tomcat to sha-512
 
 ## 0.4.0 - 2017-06-20

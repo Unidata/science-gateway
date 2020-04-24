@@ -3,7 +3,7 @@
 #+DATE: Friday, 20 July 2018
 #+DESCRIPTION: Unidata Science Gateway JupyterHub
 #+KEYWORDS: Unidata Docker Jetstream XSEDE Science Gateway Jupyter JupyterHub
-#+AUTHOR: Julien Chastang 
+#+AUTHOR: Julien Chastang
 #+EMAIL: chastang@ucar.edu
 #+LANGUAGE: en
 #+SELECT_TAGS: export
@@ -51,12 +51,12 @@
 - Workflows should be cloud-based and accessible through a web browser
 - Opportunity to unify these workflows under the concept of *science gateway*
 
-** Target Audience 
+** Target Audience
 - Core Unidata Community
 - Atmospheric science departments and their students
 - Professors and students get to _science faster_
 
-* Jupyter 
+* Jupyter
 ** What is Literate Programming?
 *** Column 1
     :PROPERTIES:
@@ -64,9 +64,9 @@
     :END:
 
 - Prose, diagrams, equations _first_, code second.
-- Excels at teaching and expository objectives and "executable" scientific papers. 
+- Excels at teaching and expository objectives and "executable" scientific papers.
 - Despite long roots in programming, LP is finally popular thanks to *Jupyter Notebooks*.
-  
+
 *** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.5
@@ -130,7 +130,7 @@ def fb(n):
 [[file:images/award.png]]
 
 * JupyterHub as a Science Gateway Companion
-** JupyterHub: Multi-user Jupyter Notebooks 
+** JupyterHub: Multi-user Jupyter Notebooks
 
 *** Column 1
     :PROPERTIES:
@@ -220,8 +220,8 @@ Complex environments already built w/ conda package manager
 ** JupyterHub Workflows
 
 - Data-proximate analysis and viz:
-  - LDM/IDD → THREDDS Data Server → *Jupyter Notebooks* 
-  - XSEDE HPC → Terminal Globus Tools → *Jupyter Notebooks* 
+  - LDM/IDD → THREDDS Data Server → *Jupyter Notebooks*
+  - XSEDE HPC → Terminal Globus Tools → *Jupyter Notebooks*
 - Remote access:
   - *JupyterHub and Notebooks* hitting  (e.g., NOMADS)
 
@@ -246,7 +246,7 @@ Complex environments already built w/ conda package manager
 - Collaborative development on GitHub
 - https://github.com/Unidata/science-gateway
 - https://github.com/Unidata/science-gateway/tree/master/vms/jupyter
- 
+
 ** Unidata JupyterHub Docker Container
 
 - Based on official ~jupyterhub/jupyterhub:master~
@@ -279,7 +279,7 @@ _Caveat emptor_:
 - Next generation Jupyter interface
 - Easier to navigate and more functionality
 - Classic view still available
-  
+
 *** Column 2
    :PROPERTIES:
    :BEAMER_col: 0.5
@@ -298,7 +298,7 @@ _Caveat emptor_:
 
 - Ensure you have a conda =environment.yml= at the root of the notebook project
 - Remember that notebooks are more than a series of code cells
-- It is an expository exercise  
+- It is an expository exercise
 
 * Future Plans
 ** Scaling for Cloud

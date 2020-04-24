@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] [-n, --name vm name] [-ip, --ip ip address] -- 
+usage="$(basename "$0") [-h] [-n, --name vm name] [-ip, --ip ip address] --
 script to teardown VMs.:\n
     -h  show this help text\n
     -n, --name vm name.\n
@@ -28,7 +28,7 @@ done
 
 if [ -z "$VM_NAME" ];
   then
-      echo "Must supply a vm name:" 
+      echo "Must supply a vm name:"
       echo -e $usage
       openstack server list
       exit 1
