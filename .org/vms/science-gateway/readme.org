@@ -106,43 +106,4 @@ Once you have done the work of setting up nginx related directories,
 #+END_SRC
 
 to start the web server.
-** Publishing Configuration                                           :noexport:
-   :PROPERTIES:
-   :CUSTOM_ID: h-723E78A4
-   :END:
 
-#+BEGIN_SRC emacs-lisp  :eval yes :results silent
-  (setq base-dir (concat (projectile-project-root) ".org/vms/science-gateway/web"))
-
-  (setq pub-dir (concat (projectile-project-root) "vms/science-gateway/web"))
-
-  ;; (setq pub-dir
-  ;;       "/ssh:ubuntu@science-gateway-jetstream:/home/ubuntu/science-gateway/vms/science-gateway/web")
-
-  ;; (setq pub-dir
-  ;;        "/ssh:ubuntu@science-gateway-tun:/home/ubuntu/science-gateway/vms/science-gateway/web")
-
-  (setq org-publish-project-alist
-        `(
-          ("science-gateway"
-           :base-directory ,base-dir
-           :recursive nil
-           :base-extension "org"
-           :publishing-directory ,pub-dir
-           :exclude "news.org"
-           :publishing-function org-html-publish-to-html)
-          ("science-gateway-static"
-           :base-directory ,base-dir
-           :base-extension "bib\\|jpg\\|html"
-           :publishing-directory ,pub-dir
-           :recursive t
-           :publishing-function org-publish-attachment)
-          ("rss"
-           :base-directory ,base-dir
-           :base-extension "org"
-           :publishing-directory ,pub-dir
-           :exclude ".*"
-           :include ["news.org"]
-           :publishing-function org-rss-publish-to-rss)
-           ))
-#+END_SRC
