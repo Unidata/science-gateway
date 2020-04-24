@@ -54,7 +54,7 @@
 |           |                       | Laboratory                        |      |
 | 2000-2006 | Software Engineer II  | Research Application Laboratory   | UCAR |
 | 1999-2000 | Student Assistant     | Research Application Laboratory   | UCAR |
-* 
+*
 UCAR is the University Corporation for Atmospheric Research located in Boulder, Colorado USA
 * Recent Publications
 \fullcite{Zonca2020a}\\

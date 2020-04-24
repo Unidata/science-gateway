@@ -182,14 +182,14 @@ In a web browser, navigate to [[https://ramadda.scigw.unidata.ucar.edu/repositor
    :CUSTOM_ID: h-73BB6227
    :END:
 
-RAMADDA has good integration with the [[http://www.unidata.ucar.edu/software/idv/][Unidata Integrated Data Viewer (IDV)]] and the two technologies work well together. 
+RAMADDA has good integration with the [[http://www.unidata.ucar.edu/software/idv/][Unidata Integrated Data Viewer (IDV)]] and the two technologies work well together.
 
 *** RAMADDA IDV Plugin
     :PROPERTIES:
     :CUSTOM_ID: h-3CCEFC0F
     :END:
 
-IDV users may wish to install the [[http://www.unidata.ucar.edu/software/idv/docs/workshop/savingstate/Ramadda.html][RAMADDA IDV plugin]] to publish IDV bundles to RAMADDA. 
+IDV users may wish to install the [[http://www.unidata.ucar.edu/software/idv/docs/workshop/savingstate/Ramadda.html][RAMADDA IDV plugin]] to publish IDV bundles to RAMADDA.
 
 *** RAMADDA Server Side Views
     :PROPERTIES:

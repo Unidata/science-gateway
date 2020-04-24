@@ -39,7 +39,7 @@ done
 
 if [ -z "$SECGROUP_NAME" ];
   then
-      echo "Must supply a secgroup name:" 
+      echo "Must supply a secgroup name:"
       echo -e $usage
       exit 1
 fi
@@ -52,7 +52,7 @@ fi
 
 if [ -z "$SECGROUP_PORT" ];
    then
-      echo "Must supply a secgroup port:" 
+      echo "Must supply a secgroup port:"
       echo -e $usage
       exit 1
 fi

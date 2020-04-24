@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-usage="$(basename "$0") [-h] [-m, --mount device mount (e.g., /dev/sdb)] [-d, --directory directory to attach to device mount]  -- 
+usage="$(basename "$0") [-h] [-m, --mount device mount (e.g., /dev/sdb)] [-d, --directory directory to attach to device mount]  --
 Convenience script to mount new volumes. Careful! Your data will be deleted if your volume contains data!:\n
     -h  show this help text\n
     -m, --mount device mount.\n
@@ -33,14 +33,14 @@ done
 
 if [ -z "$MOUNT" ];
   then
-      echo "Must supply a device mount name:" 
+      echo "Must supply a device mount name:"
       echo -e $usage
       exit 1
 fi
 
 if [ -z "$DIRECTORY" ];
    then
-      echo "Must supply a directory name to attach to mount:" 
+      echo "Must supply a directory name to attach to mount:"
       echo -e $usage
       exit 1
 fi

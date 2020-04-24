@@ -50,7 +50,7 @@
            :publishing-function org-publish-attachment)))
 #+END_SRC
 
-*   
+*
     :PROPERTIES:
     :BEAMER_OPT: t,label=
     :CUSTOM_ID: h-658155E1
@@ -83,7 +83,7 @@ In recent years, the Python programming language coupled with Jupyter notebooks 
    :CUSTOM_ID: h-CEC88C7B
    :END:
 
-**** JupyterHub with Unidata Notebooks 
+**** JupyterHub with Unidata Notebooks
      :PROPERTIES:
      :BEAMER_env: block
      :CUSTOM_ID: h-4C18B4FF

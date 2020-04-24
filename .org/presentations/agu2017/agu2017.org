@@ -4,7 +4,7 @@
 #+OPTIONS: tasks:t tex:t timestamp:t title:nil toc:nil todo:t |:t
 #+OPTIONS: auto-id:t
 
-#+TITLE: Reducing Time to Science: Unidata and JupyterHub Technology Using the XSEDE Jetstream Cloud  
+#+TITLE: Reducing Time to Science: Unidata and JupyterHub Technology Using the XSEDE Jetstream Cloud
 #+DATE: <2017-12-12 Tue>
 #+AUTHOR: Julien Chastang (chastang@ucar.edu), Rich Signell (USGS Woods Hole), Jeremy Fischer (XSEDE, Indiana University)
 #+LATEX_HEADER: \institute[Unidata]{Unidata Program Center, UCP, University Corporation for Atmospheric Research}
@@ -50,7 +50,7 @@
            :publishing-function org-publish-attachment)))
 #+END_SRC
 
-*   
+*
     :PROPERTIES:
     :BEAMER_OPT: t,label=
     :CUSTOM_ID: h-C3763AD1
@@ -81,7 +81,7 @@ The ascendancy of Jupyter notebooks and cloud computing coupled with established
 - Docker Containers\cite{Chastang2016}
   - Unidata Local Data Manager\cite{Chastang2016b} (LDM)
   - Unidata THREDDS Data Server\cite{Wilcox2015} (TDS)
-  - JupyterHub 
+  - JupyterHub
 - Data Transfer
   - Internet2\textsuperscript{\textregistered}
   - LDM
@@ -104,7 +104,7 @@ The ascendancy of Jupyter notebooks and cloud computing coupled with established
    :END:
 
 
-**** JupyterHub with Unidata Notebooks 
+**** JupyterHub with Unidata Notebooks
      :PROPERTIES:
      :BEAMER_env: block
      :CUSTOM_ID: h-158E3721

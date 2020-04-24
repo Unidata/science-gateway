@@ -218,7 +218,7 @@ From the OpenStack command line, attach the ~wrangler~ security group to the VM.
 
 The ~rpcbind~ IP is provided by the Jetstream team when they set up the VPN. It will always be a static IP number assuming we are using the same Wrangler mount point. For all intents and purposes, for ~unidata-wrangler~ network, it will be ~10.5.0.96/28~. Login to the VM in question and as ~sudo~:
 
-#+BEGIN_SRC shell :tangle "../../openstack/bin/wrangler-mount.sh" 
+#+BEGIN_SRC shell :tangle "../../openstack/bin/wrangler-mount.sh"
   echo rpcbind : 10.5.0.96/28 127.0.0.1 | tee --append /etc/hosts.allow > /dev/null
 #+END_SRC
 

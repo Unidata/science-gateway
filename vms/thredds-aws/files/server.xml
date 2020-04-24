@@ -97,7 +97,7 @@
                SSLEnabled="true"
                SSLCertificateFile="${catalina.base}/conf/ssl.crt"
                SSLCertificateKeyFile="${catalina.base}/conf/ssl.key" />
-    
+
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <Connector server="Apache" port="8009" protocol="AJP/1.3" redirectPort="8443" />
 
@@ -133,7 +133,7 @@
         </Realm>
      </Realm>
 
-      
+
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
 
