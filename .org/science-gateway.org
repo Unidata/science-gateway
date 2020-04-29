@@ -20,71 +20,67 @@ The markdown documentation of this project is automatically generated from ~org~
 Publishing
 
 #+BEGIN_SRC emacs-lisp :results silent
-    (setq md-base-dir (concat (projectile-project-root) ".org"))
+  (setq org-root (concat (projectile-project-root) ".org"))
 
-    (setq md-pub-dir (projectile-project-root))
+  (setq project-root (projectile-project-root))
 
-    (setq web-base-dir (concat (projectile-project-root)
-                               "/vms/science-gateway/web"))
+  (setq web-base-dir (concat org-root
+                             "/vms/science-gateway/web"))
 
-    (setq web-pub-dir (concat (projectile-project-root) "vms/science-gateway/web"))
+  (setq web-pub-dir (concat project-root "/vms/science-gateway/web"))
 
-    ;; (setq web-pub-dir
-    ;;       "/ssh:ubuntu@science-gateway-jetstream:/home/ubuntu/science-gateway/vms/science-gateway/web")
+  ;; (setq web-pub-dir
+  ;;        "/ssh:ubuntu@science-gateway-js-tun:/home/ubuntu/science-gateway/vms/science-gateway/web")
 
-    ;; (setq web-pub-dir
-    ;;        "/ssh:ubuntu@science-gateway-tun:/home/ubuntu/science-gateway/vms/science-gateway/web")
+  (defun nuke-trailing-whitespace (in out)
+    (when (file-exists-p out)
+          (message "clearing trailing whitespace in %s" out)
+          (with-temp-buffer
+            (insert-file-contents out)
+            (delete-trailing-whitespace (point-min) (point-max))
+            (write-file out))))
 
+  (setq org-publish-project-alist
+        `(
+          ("org-files"
+           :base-directory ,org-root
+           :recursive t
+           :base-extension "org"
+           :exclude
+           "vms/science-gateway/web/news.org\\|science-gateway.org\\|index.org\\|presentations/.*\\|cv/.*"
+           :publishing-directory ,project-root
+           :publishing-function org-gfm-publish-to-gfm)
+          ("science-gateway-html"
+           :base-directory ,web-base-dir
+           :recursive nil
+           :base-extension "org"
+           :publishing-directory ,web-pub-dir
+           :exclude "news.org"
+           :publishing-function org-html-publish-to-html)
+          ("science-gateway-static"
+           :base-directory ,web-base-dir
+           :base-extension "bib\\|jpg\\|html"
+           :publishing-directory ,web-pub-dir
+           :recursive t
+           :publishing-function org-publish-attachment)
+          ("science-gateway-rss"
+           :base-directory ,web-base-dir
+           :base-extension "org"
+           :publishing-directory ,web-pub-dir
+           :exclude ".*"
+           :include ["news.org"]
+           :publishing-function org-rss-publish-to-rss)
+          ("science-gateway"
+           :components ("science-gateway-html"
+                        "science-gateway-static"
+                        "science-gateway-rss"))
+          ("everything"
+           :components ("org-files"
+                        "science-gateway"
+                        "science-gateway-static"
+                        "science-gateway-rss"))))
 
-    (defun nuke-trailing-whitespace (in out)
-      (when (file-exists-p out)
-            (message "clearing trailing whitespace in %s" out)
-            (with-temp-buffer
-              (insert-file-contents out)
-              (delete-trailing-whitespace (point-min) (point-max))
-              (write-file out))))
+  (add-hook 'org-publish-after-publishing-hook 'nuke-trailing-whitespace)
 
-    (setq org-publish-project-alist
-          `(
-            ("org-files"
-             :base-directory ,md-base-dir
-             :recursive t
-             :base-extension "org"
-             :exclude
-             "vms/science-gateway/web/news.org\\|science-gateway.org\\|index.org\\|presentations/.*\\|cv/.*"
-             :publishing-directory ,md-pub-dir
-             :publishing-function org-gfm-publish-to-gfm)
-            ("science-gateway-html"
-             :base-directory ,web-base-dir
-             :recursive nil
-             :base-extension "org"
-             :publishing-directory ,web-pub-dir
-             :exclude "news.org"
-             :publishing-function org-html-publish-to-html)
-            ("science-gateway-static"
-             :base-directory ,web-base-dir
-             :base-extension "bib\\|jpg\\|html"
-             :publishing-directory ,web-pub-dir
-             :recursive t
-             :publishing-function org-publish-attachment)
-            ("science-gateway-rss"
-             :base-directory ,web-base-dir
-             :base-extension "org"
-             :publishing-directory ,web-pub-dir
-             :exclude ".*"
-             :include ["news.org"]
-             :publishing-function org-rss-publish-to-rss)
-            ("science-gateway"
-             :components ("science-gateway-html"
-                          "science-gateway-static"
-                          "science-gateway-rss"))
-            ("everything"
-             :components ("org-files"
-                          "science-gateway"
-                          "science-gateway-static"
-                          "science-gateway-rss"))))
-
-    (add-hook 'org-publish-after-publishing-hook 'nuke-trailing-whitespace)
-
-    ;; To clear out the hook (setq org-publish-after-publishing-hook nil)
+  ;; To clear out the hook (setq org-publish-after-publishing-hook nil)
 #+END_SRC
