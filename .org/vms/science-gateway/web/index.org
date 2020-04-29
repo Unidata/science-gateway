@@ -4,7 +4,7 @@
 #+OPTIONS: tasks:t tex:t timestamp:nil title:t toc:t todo:t |:t
 #+OPTIONS: auto-id:t
 
-#+TITLE: Unidata Science Gateway on the NSF Jetstream Cloud
+#+TITLE: Unidata Science Gateway
 #+DATE: {{{time(%Y-%m-%d %H:%M:%S %Z)}}}
 #+AUTHOR: Julien Chastang
 #+EMAIL: chastang at ucar dot edu
