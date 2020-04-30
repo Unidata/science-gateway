@@ -160,8 +160,6 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-- [[https://pearc.acm.org/pearc20][PEARC 20 | July 26-30, 2020 - Portland, OR USA]]
-- [[https://www.esipfed.org/meetings/upcoming-meetings][ESIP Summer Meeting 2020 | July 14-17, 2020 – Burlington, VT USA]]
 - [[https://sciencegateways.org/web/gateways2020/welcome][Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA]]
 
 * Under the Hood
