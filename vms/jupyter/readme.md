@@ -155,37 +155,6 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 Add the Unidata JupyterHub configuration (`unidata/unidatahub`) and related items (e.g., pulling of Unidata Python projects). Customize the desired CPU / RAM usage. [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
 ```yaml
-singleuser:
-  storage:
-    capacity: 10Gi
-  startTimeout: 600
-  memory:
-    guarantee: 2G
-    limit: 2G
-  cpu:
-    guarantee: 0.5
-    limit: 0.75
-  defaultUrl: "/lab"
-  image:
-    name: unidata/unidatahub
-    tag: 5d5d0301d334
-  lifecycleHooks:
-    postStart:
-      exec:
-          command:
-            - "sh"
-            - "-c"
-            - >
-              gitpuller https://github.com/julienchastang/python-training master python-training;
-              cp /README_FIRST.ipynb /home/jovyan;
-              cp /.condarc /home/jovyan
-
-hub:
-  extraConfig: |-
-    c.Spawner.cmd = ['jupyter-labhub']
-    c.JupyterHub.template_vars = {'announcement': '<h3>This JupyterHub server will be down for maintenance Friday, June 8. PLEASE make local backups of your important notebooks!</h3>'}
-
-auth:
   type: github
   github:
     clientId: "xxx"
@@ -193,7 +162,38 @@ auth:
     callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
   admin:
     users:
-      - julienchastang
+      - admin
+  whitelist:
+    users:
+      - user
+
+singleuser:
+  storage:
+    capacity: 10Gi
+  startTimeout: 600
+  memory:
+    guarantee: 8G
+    limit: 8G
+  cpu:
+    guarantee: 3
+    limit: 4
+  defaultUrl: "/lab"
+  image:
+    name: unidata/unidatahub
+    tag: b2e5978575d8
+  lifecycleHooks:
+    postStart:
+      exec:
+          command:
+            - "sh"
+            - "-c"
+            - >
+              gitpuller https://github.com/Unidata/python-training master python-training;
+              cp /README_FIRST.ipynb /home/jovyan;
+              cp /.condarc /home/jovyan
+
+hub:
+  extraConfig: |-
 ```
 
 
