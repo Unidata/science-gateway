@@ -185,7 +185,7 @@ The implementation of this effort is described here: https://github.com/Unidata/
   :CUSTOM_ID: h-15E3DA2C
   :END:
 
-If you wish to contact Unidata concerning this science gateway, please contact ~support@unidata.ucar.edu~.
+If you wish to contact Unidata concerning this science gateway, please contact ~support-gateway@unidata.ucar.edu~.
 
 * Acknowledgments and Bibliography
   :PROPERTIES:
