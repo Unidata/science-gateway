@@ -45,6 +45,8 @@ As part of our current [[https://www.unidata.ucar.edu/publications/directorspage
   :CUSTOM_ID: h-D1710E1B
   :END:
 
+[[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub]]
+
 [[https://jupyterhub.readthedocs.io][JupyterHub]] is a technology that can serve programmatic, interactive notebooks to a class of students or for scientific researchers. The [[https://jupyterhub.unidata.ucar.edu][Unidata JupyterHub]] provides users access to the notebooks contained within the [[https://unidata.github.io/python-training/][Unidata/python-training]] project and the computing environment required to run them. To gain access to this server, please send a message to [[mailto:support-gateway@unidata.ucar.edu][support-gateway@unidata.ucar.edu]]. A free [[https://github.com/][GitHub login]] is required for access. After logging in, please read the =README_FIRST.ipynb= notebook that is periodically updated with relevant information concerning this JupyterHub installation.
 
 Also available are dedicated notebook servers for workshops or semester long classes. Please email us at  [[mailto:support-gateway@unidata.ucar.edu][support-gateway@unidata.ucar.edu]] for these types of requests.
