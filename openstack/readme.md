@@ -426,7 +426,13 @@ Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ss
 
 ### Define cluster with cluster.tf
 
-First, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
+First, set the `CLUSTER` name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts:
+
+```sh
+export CLUSTER="k8s-unidata"
+```
+
+Then, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
 
 ```sh
 # nodes
@@ -463,7 +469,7 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
     Check to see the status of the VMs with:
 
     ```sh
-    openstack server list | grep k8s-unidata
+    openstack server list | grep $CLUSTER
     ```
 
     and
@@ -486,21 +492,21 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
         or you can reboot all VMs with:
 
         ```sh
-        osl | grep k8s-unidata | awk '{print $2}' | xargs -n1 openstack server reboot
+        osl | grep $CLUSTER | awk '{print $2}' | xargs -n1 openstack server reboot
         ```
 
         If VMs stuck in `ERROR` state. You may be able to fix this problem with:
 
         ```sh
         cd ~/jetstream_kubespray/inventory/k8s-unidata/
-        CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
+        sh terraform_apply.sh
         ```
 
         or you can destroy the VMs and try again
 
         ```sh
         cd ~/jetstream_kubespray/inventory/k8s-unidata/
-        CLUSTER=k8s-unidata bash -c 'sh terraform_destroy.sh'
+        sh terraform_destroy.sh
         ```
 
 
@@ -544,14 +550,14 @@ You can augment the computational capacity of your cluster by adding nodes. In t
 
 ```sh
 cd ~/jetstream_kubespray/inventory/k8s-unidata/
-CLUSTER=k8s-unidata bash -c 'sh terraform_apply.sh'
+sh terraform_apply.sh
 ```
 
 Wait a bit to allow `dpkg` to finish running on the new node(s). [Check the VMS](#h-136A4851). Next:
 
 ```sh
 cd ~/jetstream_kubespray
-CLUSTER=k8s-unidata bash -c 'sh k8s_scale.sh'
+sh k8s_scale.sh
 ```
 
 [Check the cluster](#h-D833684A).
@@ -580,7 +586,7 @@ From the Kubernetes master node:
 
 ```sh
 cd ~/jetstream_kubespray
-CLUSTER=k8s-unidata bash -c 'sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-2'
+sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-2
 ```
 
 followed by running:
@@ -610,7 +616,7 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 
     ```sh
     cd ~/jetstream_kubespray/inventory/k8s-unidata/
-    CLUSTER=k8s-unidata bash -c 'sh terraform_destroy.sh'
+    sh terraform_destroy.sh
     ```
 
 2.  With Preserving IP of Master Node
@@ -619,7 +625,7 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 
     ```sh
     cd ~/jetstream_kubespray/inventory/k8s-unidata/
-    CLUSTER=k8s-unidata bash -c 'sh terraform_destroy_keep_floatingip.sh'
+    sh terraform_destroy_keep_floatingip.sh
     ```
 
     Subsequently, when you invoke `terraform_apply.sh`, the master node should have the same IP number as before.
