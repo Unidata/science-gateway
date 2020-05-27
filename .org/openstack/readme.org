@@ -702,6 +702,12 @@ followed by running:
 
 from the openstack command line.
 
+If tearing down many VMs, you can try something like:
+
+#+BEGIN_SRC sh
+  for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
+#+END_SRC
+
 [[#h-D833684A][Check the cluster]].
 
 *** Tearing Down the Cluster

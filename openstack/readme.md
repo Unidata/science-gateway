@@ -591,6 +591,12 @@ teardown.sh -n  k8s-unidata-k8s-node-nf-2
 
 from the openstack command line.
 
+If tearing down many VMs, you can try something like:
+
+```sh
+for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
+```
+
 [Check the cluster](#h-D833684A).
 
 
