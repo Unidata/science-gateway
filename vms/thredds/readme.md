@@ -137,7 +137,7 @@ echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee -
 
 ## HTTPS and SSL Certificate
 
-At the very least you will need a self-signed certificate to enable communication from the TDS. In the lonf run, you will want a real certifcate from a certificate authority.
+At the very least, you will need a self-signed certificate to enable communication from the TDS. In the long run, you will want a real certifcate from a certificate authority.
 
 
 <a id="h-C7ABF183"></a>

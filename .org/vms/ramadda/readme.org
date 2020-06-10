@@ -105,6 +105,17 @@ If you plan on employing the [[https://ramadda.org//repository/userguide/develop
   sudo mount 10.0.0.4:/data /data
 #+END_SRC
 
+** HTTPS and SSL Certificate
+   :PROPERTIES:
+   :CUSTOM_ID: h-44DE4A34
+   :END:
+*** Certificate from CA
+    :PROPERTIES:
+    :CUSTOM_ID: h-5B0B20B7
+    :END:
+
+ [[https://github.com/Unidata/tomcat-docker#h-E0520F81][See the parent Tomcat container for instructions on HTTPS]].
+
 ** Ensure /repository and /data Availability Upon Machine Restart
    :PROPERTIES:
    :CUSTOM_ID: h-6423976C
