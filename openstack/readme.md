@@ -429,7 +429,7 @@ Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ss
 First, set the `CLUSTER` name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts:
 
 ```sh
-export CLUSTER="k8s-unidata"
+export CLUSTER="$CLUSTER"
 ```
 
 Then, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
@@ -476,7 +476,7 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
 
     ```sh
     watch -n 15 \
-         ansible -i $HOME/jetstream_kubespray/inventory/k8s-unidata/hosts -m ping all
+         ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
     ```
 
     1.  Steps if VMs are Unhappy
@@ -498,14 +498,14 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
         If VMs stuck in `ERROR` state. You may be able to fix this problem with:
 
         ```sh
-        cd ~/jetstream_kubespray/inventory/k8s-unidata/
+        cd ~/jetstream_kubespray/inventory/$CLUSTER/
         sh terraform_apply.sh
         ```
 
         or you can destroy the VMs and try again
 
         ```sh
-        cd ~/jetstream_kubespray/inventory/k8s-unidata/
+        cd ~/jetstream_kubespray/inventory/$CLUSTER/
         sh terraform_destroy.sh
         ```
 
@@ -517,12 +517,12 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
 Next, run
 
 ```sh
-kube-setup2.sh -n k8s-unidata
+kube-setup2.sh -n $CLUSTER
 ```
 
 If seeing errors related to `dpkg`, wait and try again or [try these steps](#h-F4401658).
 
-Run `kube-setup2.sh -n k8s-unidata` again.
+Run `kube-setup2.sh -n $CLUSTER` again.
 
 
 <a id="h-D833684A"></a>
@@ -546,10 +546,10 @@ kubectl get nodes --all-namespaces
 
 ### Adding Nodes to Cluster
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/k8s-unidata/cluster.tf` followed by running:
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/$CLUSTER/cluster.tf` followed by running:
 
 ```sh
-cd ~/jetstream_kubespray/inventory/k8s-unidata/
+cd ~/jetstream_kubespray/inventory/$CLUSTER/
 sh terraform_apply.sh
 ```
 
@@ -615,7 +615,7 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
     Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
 
     ```sh
-    cd ~/jetstream_kubespray/inventory/k8s-unidata/
+    cd ~/jetstream_kubespray/inventory/$CLUSTER/
     sh terraform_destroy.sh
     ```
 
@@ -624,7 +624,7 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
     You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
 
     ```sh
-    cd ~/jetstream_kubespray/inventory/k8s-unidata/
+    cd ~/jetstream_kubespray/inventory/$CLUSTER/
     sh terraform_destroy_keep_floatingip.sh
     ```
 
