@@ -138,7 +138,7 @@ You will want to ensure the NFS =/data= volume is available with the help of =fs
    :CUSTOM_ID: h-C5008DD9
    :END:
 
-At the very least you will need a self-signed certificate to enable communication from the TDS. In the lonf run, you will want a real certifcate from a certificate authority.
+At the very least, you will need a self-signed certificate to enable communication from the TDS. In the long run, you will want a real certifcate from a certificate authority.
 
 *** Self-signed Ceritifcate
     :PROPERTIES:

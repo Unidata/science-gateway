@@ -92,7 +92,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
     kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
     ```
 
-    supply the regular and not full chain certificate.
+    supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates).
 
     Here is a snippet of what the ingress configuration will look like in the `secrets.yaml`.
 

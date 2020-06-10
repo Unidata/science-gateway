@@ -8,6 +8,8 @@
     - [Create log Directories](#h-DABCF6E2)
     - [Scour log Directories](#h-1121D213)
   - [LDM Data Directory from idd-archiver Via NFS](#h-85431E50)
+  - [HTTPS and SSL Certificate](#h-44DE4A34)
+    - [Certificate from CA](#h-5B0B20B7)
   - [Ensure /repository and /data Availability Upon Machine Restart](#h-6423976C)
     - [/data NFS Mounted Volume](#h-286B798E)
   - [Port 80](#h-404D9595)
@@ -113,6 +115,18 @@ If you plan on employing the [server-side view capability of RAMADDA](https://ra
 sudo mkdir -p /data
 sudo mount 10.0.0.4:/data /data
 ```
+
+
+<a id="h-44DE4A34"></a>
+
+## HTTPS and SSL Certificate
+
+
+<a id="h-5B0B20B7"></a>
+
+### Certificate from CA
+
+[See the parent Tomcat container for instructions on HTTPS](https://github.com/Unidata/tomcat-docker#h-E0520F81).
 
 
 <a id="h-6423976C"></a>
