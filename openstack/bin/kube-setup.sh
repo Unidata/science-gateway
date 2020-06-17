@@ -3,7 +3,7 @@
 # scriptified https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html
 
 sed -i "s/MODIFY_THIS_TO_UNIQUE_VALUE/"$CLUSTER"_kube_network/g" \
-    $HOME/jetstream_kubespray/inventory/zonca/cluster.tf
+    $HOME/jetstream_kubespray/inventory/zonca/cluster.tfvars
 
 sed -i 's/# kubectl_localhost: false/kubectl_localhost: true/g' \
    $HOME/jetstream_kubespray/inventory/zonca/group_vars/k8s-cluster/k8s-cluster.yml

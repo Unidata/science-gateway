@@ -9,9 +9,7 @@ ssh-add ~/.ssh/id_rsa
 
 cd $HOME/jetstream_kubespray
 
-ansible-playbook --become -i \
-                 $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts \
-                 $HOME/jetstream_kubespray/cluster.yml
+bash k8s_install.sh
 
 mkdir -p $HOME/.kube/
 

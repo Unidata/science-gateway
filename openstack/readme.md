@@ -16,7 +16,7 @@
     - [Tearing Down VMs](#h-1B38941F)
     - [Swapping VMs](#h-56B1F4AC)
   - [Building a Kubernetes Cluster](#h-DA34BC11)
-    - [Define cluster with cluster.tf](#h-F44D1317)
+    - [Define cluster with cluster.tfvars](#h-F44D1317)
     - [Create VMs with kube-setup.sh](#h-0C658E7B)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
@@ -424,7 +424,7 @@ Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ss
 
 <a id="h-F44D1317"></a>
 
-### Define cluster with cluster.tf
+### Define cluster with cluster.tfvars
 
 First, set the `CLUSTER` name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts:
 
@@ -432,7 +432,7 @@ First, set the `CLUSTER` name environment variable (named "k8s-unidata", for exa
 export CLUSTER="$CLUSTER"
 ```
 
-Then, modify `~/jetstream_kubespray/inventory/zonca/cluster.tf` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
+Then, modify `~/jetstream_kubespray/inventory/zonca/cluster.tfvars` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
 
 ```sh
 # nodes
@@ -447,7 +447,7 @@ will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for m
 
 `openstack flavor list` will give the IDs of the desired VM size.
 
-Also, note that `cluster.tf` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tf`.
+Also, note that `cluster.tfvars` assumes you are building a cluster at the TACC data center with the sections pertaining to IU commented out. If you would like to set up a cluster at IU, make the necessary modifications located at the end of `cluster.tfvars`.
 
 **IMPORTANT**: once you define an `image` (e.g., `image = JS-API-Featured-Ubuntu18-May-22-2019`) or a flavor size (e.g., `flavor_k8s_master = 2`), make sure you do not subsequently change it after you have run Terraform and Ansible! This scenario can happen when [adding cluster nodes](#h-1991828D) and the featured image no longer exists because it has been updated. If you must change these values, you'll first have to [preserve your application data](../vms/jupyter/readme.md#h-5F2AA05F) and do a [gentle - IP preserving - cluster tear down](#h-DABDACC7) before rebuilding it and re-installing your application.
 
@@ -460,7 +460,7 @@ At this point, to create the VMs that will house the kubernetes cluster run
 
 `kube-setup.sh`
 
-This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tf`.
+This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tfvars`.
 
 Once, the script is complete, let the VMs settle for a while (let's say ten minutes). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
 
@@ -546,7 +546,7 @@ kubectl get nodes --all-namespaces
 
 ### Adding Nodes to Cluster
 
-You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/$CLUSTER/cluster.tf` followed by running:
+You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/$CLUSTER/cluster.tfvars` followed by running:
 
 ```sh
 cd ~/jetstream_kubespray/inventory/$CLUSTER/
