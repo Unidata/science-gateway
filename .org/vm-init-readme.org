@@ -143,7 +143,7 @@ Define a ~DOCKER_USER~. Again, think before you type.
     :END:
 
 #+BEGIN_SRC org :noweb-ref dcompose-version :exports none :tangle no
-  1.19.0
+  1.26.0
 #+END_SRC
 
 #+BEGIN_SRC shell :tangle '("../ubuntu-init.sh" "../centos-init.sh")
