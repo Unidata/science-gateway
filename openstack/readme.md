@@ -582,7 +582,7 @@ k8s-unidata-k8s-node-nf-1   Ready    node     42h   v1.12.5
 k8s-unidata-k8s-node-nf-2   Ready    node     41h   v1.12.5
 ```
 
-From the Kubernetes master node:
+From the Kubernetes client:
 
 ```sh
 cd ~/jetstream_kubespray
@@ -597,9 +597,11 @@ teardown.sh -n  k8s-unidata-k8s-node-nf-2
 
 from the openstack command line.
 
-If tearing down many VMs, you can try something like:
+If tearing down many nodes/VMs, you can try something like:
 
 ```sh
+for i in {3..10}; do sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-$i; done
+
 for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 ```
 
