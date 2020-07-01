@@ -692,8 +692,7 @@ which will yield something like:
   k8s-unidata-k8s-node-nf-2   Ready    node     41h   v1.12.5
 #+END_SRC
 
-
-From the Kubernetes master node:
+From the Kubernetes client:
 
 #+BEGIN_SRC sh
   cd ~/jetstream_kubespray
@@ -708,9 +707,11 @@ followed by running:
 
 from the openstack command line.
 
-If tearing down many VMs, you can try something like:
+If tearing down many nodes/VMs, you can try something like:
 
 #+BEGIN_SRC sh
+  for i in {3..10}; do sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-$i; done
+
   for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 #+END_SRC
 
