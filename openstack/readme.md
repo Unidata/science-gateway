@@ -456,9 +456,9 @@ Also, note that `cluster.tf` assumes you are building a cluster at the TACC data
 
 ### Create VMs with kube-setup.sh
 
-At this point, to create the VMs that will house the kubernetes cluster (named "k8s-unidata", for example) run
+At this point, to create the VMs that will house the kubernetes cluster run
 
-`kube-setup.sh -n k8s-unidata`
+`kube-setup.sh -n $CLUSTER`
 
 This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tf`.
 
