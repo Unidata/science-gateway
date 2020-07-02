@@ -2,36 +2,6 @@
 
 # scriptified https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html
 
-usage="$(basename "$0") [-h] [-n, --name cluster name] --
-script to create k8 clusters.:\n
-    -h  show this help text\n
-    -n, --name cluster name.\n"
-
-while [[ $# > 0 ]]
-do
-    key="$1"
-    case $key in
-        -n|--name)
-            NAME="$2"
-            shift # past argument
-            ;;
-        -h|--help)
-            echo -e $usage
-            exit
-            ;;
-    esac
-    shift # past argument or value
-done
-
-if [ -z "$NAME" ];
-  then
-      echo "Must supply a cluster name:"
-      echo -e $usage
-      exit 1
-fi
-
-export CLUSTER=$NAME
-
 sed -i "s/MODIFY_THIS_TO_UNIQUE_VALUE/"$CLUSTER"_kube_network/g" \
     $HOME/jetstream_kubespray/inventory/zonca/cluster.tf
 
