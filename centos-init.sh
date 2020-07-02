@@ -4,19 +4,14 @@ if [ "$EUID" -ne 0 ]; then
   exit
 fi
 
-usage="$(basename "$0") [-h] [-u, --user user name] --
+usage="$(basename "$0") [-h] --
 script to setup Docker. Run as root. Think before your type:\n
-    -h  show this help text\n
-    -u, --user User name that will be running Docker containers.\n"
+    -h  show this help text\n"
 
 while [[ $# > 0 ]]
 do
     key="$1"
     case $key in
-        -u|--user)
-            DOCKER_USER="$2"
-            shift # past argument
-            ;;
         -h|--help)
             echo -e $usage
             exit
@@ -25,11 +20,7 @@ do
     shift # past argument or value
 done
 
-if [ -z "$DOCKER_USER" ]; then
-      echo "Must supply a user:"
-      echo -e $usage
-      exit 1
-fi
+DOCKER_USER=$(id -u -n)
 
 systemctl stop docker
 
