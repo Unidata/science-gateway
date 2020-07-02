@@ -30,9 +30,13 @@ done
 
 if [ -z "$JUPYTERHUB" ];
   then
-      echo "Must supply a JupyterHub name directory:"
+      echo "Must supply a JupyterHub name:"
       echo -e $usage
       exit 1
+fi
+
+if [ ! -d $dir/jhubs ]; then
+  mkdir $dir/jhubs
 fi
 
 ./z2j.sh \
