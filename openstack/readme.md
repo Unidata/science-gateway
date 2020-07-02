@@ -458,7 +458,7 @@ Also, note that `cluster.tf` assumes you are building a cluster at the TACC data
 
 At this point, to create the VMs that will house the kubernetes cluster run
 
-`kube-setup.sh -n $CLUSTER`
+`kube-setup.sh`
 
 This script essentially wraps Terraform install scripts to launch the VMs according to `cluster.tf`.
 
@@ -517,12 +517,12 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
 Next, run
 
 ```sh
-kube-setup2.sh -n $CLUSTER
+kube-setup2.sh
 ```
 
 If seeing errors related to `dpkg`, wait and try again or [try these steps](#h-F4401658).
 
-Run `kube-setup2.sh -n $CLUSTER` again.
+Run `kube-setup2.sh` again.
 
 
 <a id="h-D833684A"></a>
