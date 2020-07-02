@@ -7,6 +7,8 @@ export OS_TENANT_ID=$OS_PROJECT_ID
 eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
 
+cd $HOME/jetstream_kubespray
+
 ansible-playbook --become -i \
                  $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts \
                  $HOME/jetstream_kubespray/cluster.yml
