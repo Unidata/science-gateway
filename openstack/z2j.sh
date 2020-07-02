@@ -129,7 +129,7 @@ INVENTORY="$(basename "$KUBESPRAY_INVENTORY")"
 mkdir -p $HELM
 touch ${SECRETS}
 
-docker run -it  \
+docker run -it  --name  ${INVENTORY} \
        -v ${SSH_DIR}:/home/openstack/.ssh/ \
        -v ${OPENRC}:/home/openstack/bin/openrc.sh \
        -v ${KUBE}:/home/openstack/.kube/ \
