@@ -20,5 +20,9 @@ cp $HOME/jetstream_kubespray/inventory/$CLUSTER/artifacts/admin.conf \
 
 sed -i 's/10\.0\.0\.[[:digit:]]\+/127.0.0.1/g' $HOME/.kube/config
 
+FLOATINGIPOFMASTER=$(openstack server list | grep $CLUSTER | \
+    grep -i master | awk 'BEGIN { FS = "|" } ; { print $5 }' | \
+    awk '{print $NF}')
+
 echo When cluster is ready, ssh tunnel into master node:
-echo ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443
+echo ssh ubuntu@${FLOATINGIPOFMASTER} -L 6443:localhost:6443
