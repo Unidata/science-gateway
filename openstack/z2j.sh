@@ -138,4 +138,5 @@ docker run -it  \
        -v ${KUBESPRAY_INVENTORY}:/home/openstack/jetstream_kubespray/inventory/${INVENTORY} \
        -v ${HELM}:/home/openstack/.helm \
        -v ${SECRETS}:/home/openstack/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
+       -e CLUSTER=${INVENTORY} \
        unidata/science-gateway /bin/bash
