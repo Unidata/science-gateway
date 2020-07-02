@@ -21,4 +21,4 @@ openstack server list
 echo watch -n 15 \
      ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
 echo Once VMs are ready:
-echo kube-setup2.sh -n $CLUSTER
+echo kube-setup2.sh
