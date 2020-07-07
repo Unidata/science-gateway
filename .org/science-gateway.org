@@ -71,14 +71,12 @@ Publishing
            :include ["news.org"]
            :publishing-function org-rss-publish-to-rss)
           ("science-gateway"
-           :components ("science-gateway-html"
-                        "science-gateway-static"
+           :components ("science-gateway-static"
+                        "science-gateway-html"
                         "science-gateway-rss"))
           ("everything"
            :components ("org-files"
-                        "science-gateway"
-                        "science-gateway-static"
-                        "science-gateway-rss"))))
+                        "science-gateway"))))
 
   (add-hook 'org-publish-after-publishing-hook 'nuke-trailing-whitespace)
 
