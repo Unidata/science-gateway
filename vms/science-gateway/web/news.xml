@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Thu, 30 Apr 2020 16:44:34 -0600</pubDate>
-  <lastBuildDate>Thu, 30 Apr 2020 16:44:34 -0600</lastBuildDate>
+  <pubDate>Tue, 07 Jul 2020 18:20:28 -0600</pubDate>
+  <lastBuildDate>Tue, 07 Jul 2020 18:20:28 -0600</lastBuildDate>
   <generator>Emacs 26.3 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,13 +28,25 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-7A988BE5">7/7/2020, BAMS Article</a></li>
         <li><a href="#h-9982E13A">4/20/2020, ESIP Webinar on Science Gateway</a></li>
         <li><a href="#h-FA693E30">3/20/2020, JupyterHub Resources Available for Remote-Learning Situations</a></li>
-        <li><a href="#h-CB18704C">2/6/2020, Unidata Science Gateway in the News</a></li>
       </ul>
     </div>
   </div>
 
+  <item>
+    <title>7/7/2020, BAMS Article</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-7A988BE5</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-7A988BE5</guid>
+    <pubDate>Tue, 07 Jul 2020 00:00:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    <a href="https://journals.ametsoc.org/bams/article/doi/10.1175/BAMS-D-20-0069.1/347674/Introducing-Students-to-Scientific-Python-for">Introducing Students to Scientific Python for Atmospheric Science</a>
+    </p>
+    ]]></description>
+  </item>
 
 
   <item>
@@ -59,23 +71,6 @@
 
     <description><![CDATA[<p>
     <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub">JupyterHub Resources Available for Remote-Learning Situations</a>
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>2/6/2020, Unidata Science Gateway in the News</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-CB18704C</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-CB18704C</guid>
-    <pubDate>Thu, 06 Feb 2020 00:00:00 -0700</pubDate>
-
-    <description><![CDATA[<p>
-    From Indiana University IT News: <a href="https://itnews.iu.edu/articles/2020/The%20Unidata%20uses%20Jetstream%20to%20make%20geoscience%20data%20available%20to%20science%20community.php">Unidata uses Jetstream to make geoscience data available to science community</a>.
-    </p>
-
-    <p>
-    Also, we have a couple of publications forthcoming following the success of the Python Workshop at the AMS 2020 Student Conference.
     </p>
     ]]></description>
   </item>
