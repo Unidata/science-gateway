@@ -16,6 +16,16 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 7/7/2020, BAMS Article
+  :PROPERTIES:
+   :RSS_TITLE: 7/7/2020, BAMS Article
+   :PUBDATE: <2020-07-07 Tue>
+   :RSS_PERMALINK: index.html#h-7A988BE5
+   :CUSTOM_ID: h-7A988BE5
+   :ID:       9186E2BA-6953-4B44-BFD7-568434BEE81F
+  :END:
+
+[[https://journals.ametsoc.org/bams/article/doi/10.1175/BAMS-D-20-0069.1/347674/Introducing-Students-to-Scientific-Python-for][Introducing Students to Scientific Python for Atmospheric Science]]
 
 
 * 4/20/2020, ESIP Webinar on Science Gateway
@@ -39,17 +49,4 @@
   :END:
 
 [[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub][JupyterHub Resources Available for Remote-Learning Situations]]
-
-* 2/6/2020, Unidata Science Gateway in the News
-  :PROPERTIES:
-  :CUSTOM_ID: h-CB18704C
-   :RSS_TITLE: 2/6/2020, Unidata Science Gateway in the News
-   :PUBDATE: <2020-02-06 Thu>
-   :RSS_PERMALINK: index.html#h-CB18704C
-   :ID:       276FBC7F-5425-42AE-9DF5-8BEB7D6B0173
-  :END:
-
-From Indiana University IT News: [[https://itnews.iu.edu/articles/2020/The%20Unidata%20uses%20Jetstream%20to%20make%20geoscience%20data%20available%20to%20science%20community.php][Unidata uses Jetstream to make geoscience data available to science community]].
-
-Also, we have a couple of publications forthcoming following the success of the Python Workshop at the AMS 2020 Student Conference.
 
