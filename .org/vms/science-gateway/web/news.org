@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 7/29/2020, DOI for Unidata Science Gateway
+  :PROPERTIES:
+   :RSS_TITLE: 7/29/2020, DOI for Unidata Science Gateway
+   :PUBDATE: <2020-07-29 Wed>
+   :RSS_PERMALINK: index.html#h-C9685118
+   :CUSTOM_ID: h-C9685118
+   :ID:       C37C8809-6745-4BEF-9DFA-A412197722B9
+  :END:
+
+We have a newly minted DOI ([[https://doi.org/10.5065/688s-2w73][doi:10.5065/688s-2w73]]) for the Unidata Science Gateway. See the new [[https://science-gateway.unidata.ucar.edu/#h-0926D657][Acknowledging the Unidata Science Gateway section]].
+
 * 7/7/2020, BAMS Article
   :PROPERTIES:
    :RSS_TITLE: 7/7/2020, BAMS Article
@@ -38,15 +49,4 @@
   :END:
 
 [[http://wiki.esipfed.org/index.php/Interoperability_and_Technology/Tech_Dive_Webinar_Series#9_April_2020:_.22Unidata_Science_Gateway.22_Julien_Chastang][ESIP Interoperability and Technology/Tech Dive Webinar on Unidata Science Gateway]]
-
-* 3/20/2020, JupyterHub Resources Available for Remote-Learning Situations
-  :PROPERTIES:
-  :CUSTOM_ID: h-FA693E30
-   :RSS_TITLE: 3/20/2020, JupyterHub Resources Available for Remote-Learning Situations
-   :PUBDATE: <2020-03-20 Fri>
-   :RSS_PERMALINK: index.html#h-FA693E30
-   :ID:       A927967B-6F96-414B-81F7-068328694F89
-  :END:
-
-[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub][JupyterHub Resources Available for Remote-Learning Situations]]
 
