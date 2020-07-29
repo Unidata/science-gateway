@@ -194,7 +194,7 @@ If you wish to contact Unidata concerning this science gateway, please contact ~
   :CUSTOM_ID: h-0926D657
   :END:
 
-If you have benefited from the Unidata Science Gateway, please use this DOI for citations in your publications: doi:10.5065/688s-2w73.
+If you have benefited from the Unidata Science Gateway, please use this DOI for citations in your publications: [[https://doi.org/10.5065/688s-2w73][doi:10.5065/688s-2w73]].
 
 * Acknowledgments and Bibliography
   :PROPERTIES:
