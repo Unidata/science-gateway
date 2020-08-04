@@ -97,20 +97,9 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
 You will need Apache Tomcat and TDS log directories:
 
  #+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
-   mkdir -p ~/logs/tds-tomcat/
-   mkdir -p ~/logs/tds/
+   mkdir -p /logs/tds-tomcat/
+   mkdir -p /logs/tds/
  #+END_SRC
-
-*** Scour log Directories
-    :PROPERTIES:
-    :CUSTOM_ID: h-AC0813AF
-    :END:
-
-Scour occasionally so the log directories do not fill up.
-
-#+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
-  (crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
-#+END_SRC
 
 ** S3Objects Directory
    :PROPERTIES:

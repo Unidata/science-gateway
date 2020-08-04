@@ -22,4 +22,7 @@ chmod +x /usr/local/bin/docker-compose
 systemctl enable docker.service
 systemctl start docker.service
 
+mkdir /logs
+chown -R ${DOCKER_USER}:docker /logs
+
 reboot now

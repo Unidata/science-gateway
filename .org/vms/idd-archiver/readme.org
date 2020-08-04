@@ -246,7 +246,7 @@ While not related to IDD archival, the [[https://www.unidata.ucar.edu/software/t
 Create a logging directory for the TDM:
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
-  mkdir -p ~/logs/tdm
+  mkdir -p /logs/tdm
 #+END_SRC
 
 **** Running the TDM Out the TDM Log Directory
@@ -254,15 +254,15 @@ Create a logging directory for the TDM:
      :CUSTOM_ID: h-94768FE5
      :END:
 
-[[https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container][TDM logging will not be configurable until TDS 5.0]]. Until then we are running the TDM out of the =~/logs/tdm= directory:
+[[https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container][TDM logging will not be configurable until TDS 5.0]]. Until then we are running the TDM out of the =/logs/tdm= directory:
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   curl -SL  \
        https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.13/tdmFat-4.6.13.jar \
-       -o ~/logs/tdm/tdm.jar
+       -o /logs/tdm/tdm.jar
   curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
-       -o ~/logs/tdm/tdm.sh
-  chmod +x  ~/logs/tdm/tdm.sh
+       -o /logs/tdm/tdm.sh
+  chmod +x  /logs/tdm/tdm.sh
 #+END_SRC
 
 *** Configuring the TDM to work with the TDS

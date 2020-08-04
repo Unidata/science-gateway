@@ -245,20 +245,20 @@ While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/softwa
 Create a logging directory for the TDM:
 
 ```shell
-mkdir -p ~/logs/tdm
+mkdir -p /logs/tdm
 ```
 
 1.  Running the TDM Out the TDM Log Directory
 
-    [TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `~/logs/tdm` directory:
+    [TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `/logs/tdm` directory:
 
     ```shell
     curl -SL  \
          https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.13/tdmFat-4.6.13.jar \
-         -o ~/logs/tdm/tdm.jar
+         -o /logs/tdm/tdm.jar
     curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
-         -o ~/logs/tdm/tdm.sh
-    chmod +x  ~/logs/tdm/tdm.sh
+         -o /logs/tdm/tdm.sh
+    chmod +x  /logs/tdm/tdm.sh
     ```
 
 
@@ -385,7 +385,7 @@ services:
     volumes:
         - /data/:/data/
         - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
-        - ~/logs/tdm/:/usr/local/tomcat/content/tdm/
+        - /logs/tdm/:/usr/local/tomcat/content/tdm/
     env_file:
         - "compose.env"
 ```

@@ -26,4 +26,7 @@ chmod +x /usr/local/bin/docker-compose
 
 service docker start
 
+mkdir /logs
+chown -R ${DOCKER_USER}:docker /logs
+
 reboot now

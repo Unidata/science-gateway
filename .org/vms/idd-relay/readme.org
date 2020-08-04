@@ -67,7 +67,7 @@ This =~/queues= directory will contain the LDM queue file.
   mkdir -p ~/queues
 #+END_SRC
 
-** ~/logs Directory
+** /logs Directory
    :PROPERTIES:
    :CUSTOM_ID: h-515DAD84
    :END:
@@ -76,7 +76,7 @@ This =~/queues= directory will contain the LDM queue file.
 Create the LDM =logs= directory.
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-relay/relay-install.sh
-  mkdir -p ~/logs/ldm
+  mkdir -p /logs/ldm
 #+END_SRC
 
 ** Port 388

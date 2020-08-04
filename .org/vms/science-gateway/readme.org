@@ -58,10 +58,10 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD ar
    :CUSTOM_ID: h-7FF2F781
    :END:
 
-The nginx log directory:
+Create the following nginx log directory:
 
 #+BEGIN_SRC shell
-  mkdir -p ~/logs/nginx/
+  mkdir -p /logs/nginx
  #+END_SRC
 
 ** Ports 80, 443

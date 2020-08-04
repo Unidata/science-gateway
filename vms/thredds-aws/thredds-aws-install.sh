@@ -2,10 +2,8 @@ mkdir -p ~/tdsconfig/
 wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
-mkdir -p ~/logs/tds-tomcat/
-mkdir -p ~/logs/tds/
-
-(crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
+mkdir -p /logs/tds-tomcat/
+mkdir -p /logs/tds/
 
 mkdir -p ~/S3Objects
 
