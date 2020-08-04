@@ -13,8 +13,8 @@ services:
       - "443:8443"
       - "8443:8443"
     volumes:
-      - ~/logs/tds-tomcat/:/usr/local/tomcat/logs/
-      - ~/logs/tds/:/usr/local/tomcat/content/thredds/logs/
+      - /logs/tds-tomcat/:/usr/local/tomcat/logs/
+      - /logs/tds/:/usr/local/tomcat/content/thredds/logs/
       # ssl certs, keys not in version control, see readme.md
       - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
       - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key

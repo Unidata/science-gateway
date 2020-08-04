@@ -5,6 +5,7 @@
     - [Install Docker](#h-786799C4)
     - [Install docker-compose](#h-02EF6BAD)
     - [Start Docker Daemon](#h-B6F088A3)
+    - [Logging](#h-E37376D1)
     - [Reboot](#h-6D94F8D5)
     - [Docker Hello World](#h-F3633FE6)
   - [Other Environments (e.g., macOS, Windows)](#h-D1009153)
@@ -113,6 +114,18 @@ or
 ```shell
 systemctl enable docker.service
 systemctl start docker.service
+```
+
+
+<a id="h-E37376D1"></a>
+
+### Logging
+
+Set up standard logging directory:
+
+```shell
+mkdir /logs
+chown -R ${DOCKER_USER}:docker /logs
 ```
 
 

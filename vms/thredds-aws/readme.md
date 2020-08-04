@@ -7,7 +7,6 @@
     - [Supply Contact and Host Information in threddsConfig.xml](#h-615B0684)
   - [TDS log Directories](#h-F52D01A2)
     - [Create log Directories](#h-99E9AD76)
-    - [Scour log Directories](#h-AC0813AF)
   - [S3Objects Directory](#h-F6EBEBDF)
     - [Create S3Objects Directory](#h-763C22DA)
     - [Scour S3Objects Directory](#h-483C35F9)
@@ -103,19 +102,8 @@ Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution 
 You will need Apache Tomcat and TDS log directories:
 
 ```shell
-mkdir -p ~/logs/tds-tomcat/
-mkdir -p ~/logs/tds/
-```
-
-
-<a id="h-AC0813AF"></a>
-
-### Scour log Directories
-
-Scour occasionally so the log directories do not fill up.
-
-```shell
-(crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
+mkdir -p /logs/tds-tomcat/
+mkdir -p /logs/tds/
 ```
 
 
@@ -187,8 +175,8 @@ services:
       - "443:8443"
       - "8443:8443"
     volumes:
-      - ~/logs/tds-tomcat/:/usr/local/tomcat/logs/
-      - ~/logs/tds/:/usr/local/tomcat/content/thredds/logs/
+      - /logs/tds-tomcat/:/usr/local/tomcat/logs/
+      - /logs/tds/:/usr/local/tomcat/content/thredds/logs/
       # ssl certs, keys not in version control, see readme.md
       - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
       - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key

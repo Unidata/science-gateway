@@ -13,8 +13,8 @@ services:
     volumes:
       - /repository/:/data/repository/
       - /data/ldm/:/data/ldm/
-      - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
-      - ~/logs/ramadda/:/data/repository/logs/
+      - /logs/ramadda-tomcat/:/usr/local/tomcat/logs/
+      - /logs/ramadda/:/data/repository/logs/
       - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
       # Everything below is required for https
       - ./files/server.xml:/usr/local/tomcat/conf/server.xml

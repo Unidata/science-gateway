@@ -145,6 +145,18 @@ or
   systemctl start docker.service
 #+END_SRC
 
+*** Logging
+    :PROPERTIES:
+    :CUSTOM_ID: h-E37376D1
+    :END:
+
+Set up standard logging directory:
+
+#+BEGIN_SRC shell :tangle '("../ubuntu-init.sh" "../centos-init.sh")
+  mkdir /logs
+  chown -R ${DOCKER_USER}:docker /logs
+#+END_SRC
+
 *** Reboot
     :PROPERTIES:
     :CUSTOM_ID: h-6D94F8D5

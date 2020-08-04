@@ -77,20 +77,9 @@ The =/repository= directory should be a fairly beefy data volume (e.g., 100 GBs)
 You will need an Apache Tomcat and RAMADDA log directories:
 
 #+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh
-   mkdir -p ~/logs/ramadda-tomcat/
-   mkdir -p ~/logs/ramadda/
+   mkdir -p /logs/ramadda-tomcat/
+   mkdir -p /logs/ramadda/
  #+END_SRC
-
-*** Scour log Directories
-    :PROPERTIES:
-    :CUSTOM_ID: h-1121D213
-    :END:
-
-Scour occasionally so the log directories do not fill up.
-
-#+BEGIN_SRC shell :tangle ../../../vms/ramadda/ramadda-install.sh
-  (crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
-#+END_SRC
 
 ** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:

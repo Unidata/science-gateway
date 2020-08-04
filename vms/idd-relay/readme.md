@@ -4,7 +4,7 @@
   - [Start IDD Relay With Docker and docker-compose](#h-C89E3FF5)
   - [~/etc Directory](#h-E4AB4451)
   - [~/queues Directory](#h-F3D77CEF)
-  - [~/logs Directory](#h-515DAD84)
+  - [/logs Directory](#h-515DAD84)
   - [Port 388](#h-FB14DD93)
   - [docker-compose.yml](#h-95441A93)
     - [LDM Environment Variable Parameterization](#h-031CD94A)
@@ -69,12 +69,12 @@ mkdir -p ~/queues
 
 <a id="h-515DAD84"></a>
 
-## ~/logs Directory
+## /logs Directory
 
 Create the LDM `logs` directory.
 
 ```shell
-mkdir -p ~/logs/ldm
+mkdir -p /logs/ldm
 ```
 
 

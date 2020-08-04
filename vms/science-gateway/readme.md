@@ -57,10 +57,10 @@ With the help of Docker and `docker-compose`, starting a VM containing an IDD ar
 
 ## Logging
 
-The nginx log directory:
+Create the following nginx log directory:
 
 ```shell
-mkdir -p ~/logs/nginx/
+mkdir -p /logs/nginx
 ```
 
 

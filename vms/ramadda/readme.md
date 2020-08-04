@@ -6,7 +6,6 @@
   - [Create RAMADDA default password](#h-D5095E2A)
   - [RAMADDA log Directories](#h-1C3FF741)
     - [Create log Directories](#h-DABCF6E2)
-    - [Scour log Directories](#h-1121D213)
   - [LDM Data Directory from idd-archiver Via NFS](#h-85431E50)
   - [HTTPS and SSL Certificate](#h-44DE4A34)
     - [Certificate from CA](#h-5B0B20B7)
@@ -88,19 +87,8 @@ echo ramadda.install.password=changeme! | tee --append \
 You will need an Apache Tomcat and RAMADDA log directories:
 
 ```shell
-mkdir -p ~/logs/ramadda-tomcat/
-mkdir -p ~/logs/ramadda/
-```
-
-
-<a id="h-1121D213"></a>
-
-### Scour log Directories
-
-Scour occasionally so the log directories do not fill up.
-
-```shell
-(crontab -l ; echo "59 0 * * * find ~/logs -regex '.*\.\(log\|txt\)' -type f -mtime +10 -exec rm -f {} \;")| crontab -
+mkdir -p /logs/ramadda-tomcat/
+mkdir -p /logs/ramadda/
 ```
 
 
@@ -180,8 +168,8 @@ services:
     volumes:
       - /repository/:/data/repository/
       - /data/ldm/:/data/ldm/
-      - ~/logs/ramadda-tomcat/:/usr/local/tomcat/logs/
-      - ~/logs/ramadda/:/data/repository/logs/
+      - /logs/ramadda-tomcat/:/usr/local/tomcat/logs/
+      - /logs/ramadda/:/data/repository/logs/
       - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
       # Everything below is required for https
       - ./files/server.xml:/usr/local/tomcat/conf/server.xml

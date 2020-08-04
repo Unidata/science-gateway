@@ -11,7 +11,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./web/:/usr/share/nginx/html:ro
-      - ~/logs/nginx/:/var/log/nginx/
+      - /logs/nginx/:/var/log/nginx/
       - /etc/ssl/science-gateway/science-gateway.unidata.ucar.edu.crt:/etc/nginx/science-gateway.unidata.ucar.edu.crt
       - /etc/ssl/science-gateway/science-gateway.unidata.ucar.edu.key:/etc/nginx/science-gateway.unidata.ucar.edu.key
       - /etc/ssl/science-gateway/ca-certs.pem:/etc/nginx/ca-certs.pem
