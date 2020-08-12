@@ -24,3 +24,7 @@ FLOATINGIPOFMASTER=$(openstack server list | grep $CLUSTER | \
 
 echo When cluster is ready, ssh tunnel into master node:
 echo ssh ubuntu@${FLOATINGIPOFMASTER} -L 6443:localhost:6443
+echo Add your PKs to ~/.ssh/authorized_keys on ${FLOATINGIPOFMASTER}
+echo
+echo Add your email to \
+     ~/jupyterhub-deploy-kubernetes-jetstream/setup_https/https_issuer.yml
