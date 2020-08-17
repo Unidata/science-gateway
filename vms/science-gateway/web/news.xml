@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Wed, 29 Jul 2020 15:51:24 -0600</pubDate>
-  <lastBuildDate>Wed, 29 Jul 2020 15:51:24 -0600</lastBuildDate>
+  <pubDate>Mon, 17 Aug 2020 16:55:49 -0600</pubDate>
+  <lastBuildDate>Mon, 17 Aug 2020 16:55:49 -0600</lastBuildDate>
   <generator>Emacs 26.3 Org-mode 9.2.1</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,25 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-A6A86454">8/17/2020, JupyterHub Resources Available for Fall 2020 Courses</a></li>
         <li><a href="#h-C9685118">7/29/2020, DOI for Unidata Science Gateway</a></li>
         <li><a href="#h-7A988BE5">7/7/2020, BAMS Article</a></li>
-        <li><a href="#h-9982E13A">4/20/2020, ESIP Webinar on Science Gateway</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>8/17/2020, JupyterHub Resources Available for Fall 2020 Courses</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-A6A86454</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-A6A86454</guid>
+    <pubDate>Mon, 17 Aug 2020 00:00:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub1">JupyterHub Resources Available for Fall 2020 Courses</a>
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>7/29/2020, DOI for Unidata Science Gateway</title>
@@ -57,20 +70,6 @@
 
     <description><![CDATA[<p>
     <a href="https://journals.ametsoc.org/bams/article/doi/10.1175/BAMS-D-20-0069.1/347674/Introducing-Students-to-Scientific-Python-for">Introducing Students to Scientific Python for Atmospheric Science</a>
-    </p>
-    ]]></description>
-  </item>
-
-
-  <item>
-    <title>4/20/2020, ESIP Webinar on Science Gateway</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-9982E13A</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-9982E13A</guid>
-    <pubDate>Mon, 20 Apr 2020 00:00:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    <a href="http://wiki.esipfed.org/index.php/Interoperability_and_Technology/Tech_Dive_Webinar_Series#9_April_2020:_.22Unidata_Science_Gateway.22_Julien_Chastang">ESIP Interoperability and Technology/Tech Dive Webinar on Unidata Science Gateway</a>
     </p>
     ]]></description>
   </item>
