@@ -13,6 +13,7 @@
     - [Tear Down While Preserving User Volumes](#h-5F2AA05F)
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
+    - [Volumes Stuck in Reserved State](#h-354DE174)
 
 
 
@@ -293,3 +294,82 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     ```
 
     Now, try recover user volumes as [described at the end of the section here](https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html#delete-and-recreate-openstack-instances) with the `pvc.yaml.ro` `pv.yaml.ro` saved earlier (make writable copies of those `ro` files). If that still does not work, you can try destroying the entire cluster and recreating it as described in that same link.
+
+
+<a id="h-354DE174"></a>
+
+### Volumes Stuck in Reserved State
+
+Occasionally, when logging into a JupyterHub the user will encounter a volume attachment error that causes a failure in the login process. The user will see an error that looks something like:
+
+```shell
+2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
+```
+
+When you then do an `openstack volume list`, you will see something like this where a volume is stuck in "reserved":
+
+```shell
++--------------------------------------+-------------------------------------------------------------+-----------+
+| ID                                   | Name                                                        | Status    |
++--------------------------------------+-------------------------------------------------------------+-----------+
+| 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | kubernetes-dynamic-pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved  |
+```
+
+You (or if you do not have permission, Jetstream staff) can reset the volume with:
+
+```shell
+openstack volume set --state available <uuid>
+```
+
+The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, to provide a long term solution to the user, you have to delete their account and associated volume, and recreate their account. Described below are the steps to achieve that:
+
+1.  Map Username to Volume UUID and PVC Name
+
+    Save information about the username, volume UUID, and persistent volume claim:
+
+    ```shell
+    kubectl get pvc -n jhub -o yaml > pvc.yaml
+    ```
+
+    Scrutinizing this `yaml` file, you will easily be able to establish a mapping between the user name, the volume UUID, and the PVC name.
+
+2.  Temporarily Reset Volume so User Can Recover Their Work
+
+    Reset the volume so that the user can login to the JupyterHub and save or download their work to their local laptop. You know the UUID of the volume associated with the user from the previous step. Remember, this is just a temporary solution since the user's volume will just get stuck again.
+
+    ```shell
+    openstack volume set --state available <uuid>
+    ```
+
+3.  Delete User and PVC
+
+    1.  Delete User
+
+        Once the user has saved their work (see previous steps), via the JupyterHub admin interface, delete the user.
+
+    2.  Delete PVC Associated with User
+
+        Find the PVC associated with the user:
+
+        ```shell
+        kubectl get pvc --namespace=jhub
+        ```
+
+        which will yield something like:
+
+        ```shell
+        NAME                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+        claim-user1            Bound    pvc-33202421-dcc3-4933-a992-31987a985e60   10Gi       RWO            standard       5d17h
+        claim-user2            Bound    pvc-3a46ca57-5daa-48c3-a5ed-f4dce619dc43   10Gi       RWO            standard       20d
+        claim-user3            Bound    pvc-e04b9e5f-9050-4032-aad6-ba0595535d4a   10Gi       RWO            standard       21d
+        ```
+
+        Next, delete the PVC associated with the user:
+
+        ```shell
+        kubectl --namespace=jhub delete pvc claim-<user>
+        ```
+
+4.  Recreate User
+
+    Login to the JupyterHub and recreate the user via the JupyterHub admin interface, then have the user login again. They will have to upload the work they saved previously to the JupyterHub.
