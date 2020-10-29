@@ -217,7 +217,7 @@ In a web browser, navigate to your newly minted JupyterHub and see if it is as y
 Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
 
 ```sh
-helm delete jhub --purge
+helm uninstall jhub -n jhub
 kubectl delete namespace jhub
 ```
 
@@ -282,7 +282,7 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     If the JupyterHub is still not reachable, you can try deleting and recreating the JupyterHub but **do not** delete the namespace as you will wipe out user data.
 
     ```shell
-    helm delete jhub --purge
+    helm uninstall jhub -n jhub
     # But DO NOT issue this command
     # kubectl delete namespace jhub
     ```
