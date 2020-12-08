@@ -321,6 +321,14 @@ You (or if you do not have permission, Jetstream staff) can reset the volume wit
 openstack volume set --state available <uuid>
 ```
 
+or with
+
+```shell
+openstack volume list | grep -i reserved | awk \
+    'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume \
+--state available
+```
+
 The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, to provide a long term solution to the user, you have to delete their account and associated volume, and recreate their account. Described below are the steps to achieve that:
 
 1.  Map Username to Volume UUID and PVC Name
