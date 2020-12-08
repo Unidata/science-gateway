@@ -325,7 +325,7 @@ or with
 
 ```shell
 openstack volume list | grep -i reserved | awk \
-    'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume \
+    'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
 --state available
 ```
 
