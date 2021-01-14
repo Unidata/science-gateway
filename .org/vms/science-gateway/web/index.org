@@ -78,7 +78,7 @@ In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data
 
 EDEX installation on Jetstream: ~edex-cloud.unidata.ucar.edu~
 
-AWIPS is a meteorological display and analysis system used by the National Weather Service.  [[http://www.unidata.ucar.edu/software/awips2/][EDEX]] is the server-side component of this system. Unidata maintains an EDEX data server on Jetstream to ingest and serve real-time AWIPS data for rendering by the [[http://unidata.github.io/awips2/install/install-cave/][CAVE client]] and the [[http://python-awips.readthedocs.io][python-awips data access framework]].  For CAVE, simply enter ~edex-cloud.unidata.ucar.edu~ in the CAVE Connectivity Preferences dialog to connect.
+AWIPS is a meteorological display and analysis system used by the National Weather Service.  [[http://www.unidata.ucar.edu/software/awips2/][EDEX]] is the server-side component of this system. Unidata maintains an EDEX data server on Jetstream to ingest and serve real-time AWIPS data for rendering by the [[http://unidata.github.io/awips2/install/install-cave/][CAVE client]] and the [[https://unidata.github.io/python-awips/][python-awips data access framework]].  For CAVE, simply enter ~edex-cloud.unidata.ucar.edu~ in the CAVE Connectivity Preferences dialog to connect.
 
 * RAMADDA Geoscience CMS
   :PROPERTIES:
