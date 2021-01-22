@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Wed, 13 Jan 2021 17:21:16 -0700</pubDate>
-  <lastBuildDate>Wed, 13 Jan 2021 17:21:16 -0700</lastBuildDate>
+  <pubDate>Thu, 21 Jan 2021 18:20:20 -0700</pubDate>
+  <lastBuildDate>Thu, 21 Jan 2021 18:20:20 -0700</lastBuildDate>
   <generator>Emacs 27.1 Org-mode 9.4</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,26 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-25491723">1/21/2021, JupyterHub Resources Still Available for Spring 2021 Courses</a></li>
         <li><a href="#h-C5C44D06">1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting</a></li>
         <li><a href="#h-8CD52AE7">10/30/2020, Unidata Science Gateway Summer Internship Case Study Article</a></li>
-        <li><a href="#h-A6A86454">8/17/2020, JupyterHub Resources Available for Fall 2020 Courses</a></li>
       </ul>
     </div>
   </div>
+
+
+  <item>
+    <title>JupyterHub Resources Still Available for Spring 2021 Courses</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-25491723</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-25491723</guid>
+    <pubDate>Thu, 21 Jan 2021 00:00:00 -0700</pubDate>
+
+    <description><![CDATA[<p>
+    <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub2">Unidata Science Gateway JupyterHub Resources Available for Spring 2021 Courses</a>
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting</title>
@@ -58,19 +72,6 @@
 
     <description><![CDATA[<p>
     <a href="https://www.unidata.ucar.edu/blogs/news/entry/ucar-mentorship-and-remote-computing">UCAR Mentorship and Remote Computing Resources Boost Remote Research for SOARS Student</a>
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>8/17/2020, JupyterHub Resources Available for Fall 2020 Courses</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-A6A86454</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-A6A86454</guid>
-    <pubDate>Mon, 17 Aug 2020 00:00:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub1">JupyterHub Resources Available for Fall 2020 Courses</a>
     </p>
     ]]></description>
   </item>
