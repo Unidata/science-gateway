@@ -16,6 +16,18 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+
+* 1/21/2021, JupyterHub Resources Still Available for Spring 2021 Courses
+  :PROPERTIES:
+   :RSS_TITLE: JupyterHub Resources Still Available for Spring 2021 Courses
+   :PUBDATE:  <2021-01-21 Thu>
+   :RSS_PERMALINK: index.html#h-25491723
+   :CUSTOM_ID: h-25491723
+   :ID:       4057DE84-D3AF-4F2F-ABFC-00426AD7BA00
+  :END:
+
+[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub2][Unidata Science Gateway JupyterHub Resources Available for Spring 2021 Courses]]
+
 * 1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting
   :PROPERTIES:
    :RSS_TITLE: 1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting
@@ -38,15 +50,4 @@
   :END:
 
 [[https://www.unidata.ucar.edu/blogs/news/entry/ucar-mentorship-and-remote-computing][UCAR Mentorship and Remote Computing Resources Boost Remote Research for SOARS Student]]
-
-* 8/17/2020, JupyterHub Resources Available for Fall 2020 Courses
-  :PROPERTIES:
-   :RSS_TITLE: 8/17/2020, JupyterHub Resources Available for Fall 2020 Courses
-   :PUBDATE: <2020-08-17 Wed>
-   :RSS_PERMALINK: index.html#h-A6A86454
-   :CUSTOM_ID: h-A6A86454
-   :ID:       4868157D-FFC5-4513-8F09-06DC908E0E07
-  :END:
-
-[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub1][JupyterHub Resources Available for Fall 2020 Courses]]
 
