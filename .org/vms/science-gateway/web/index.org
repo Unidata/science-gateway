@@ -157,15 +157,16 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://doi.org/10.17605/OSF.IO/W7SV8][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
 - [[https://ams.confex.com/ams/2020Annual/meetingapp.cgi/Session/54827][2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA]]
 - [[https://sciencegateways.org/web/gateways2020/welcome][Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA]]
+- 2021 AMS Annual Meeting | January 10–14, 2021 – Virtual
+  - [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
+  - [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-- 2021 AMS Annual Meeting | January 10–14, 2021 – Virtual
-  - [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
-  - [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
+Coming soon.
 
 * Under the Hood
   :PROPERTIES:
