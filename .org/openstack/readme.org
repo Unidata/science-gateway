@@ -667,7 +667,7 @@ Wait a bit to allow ~dpkg~ to finish running on the new node(s). [[#h-136A4851][
 
 #+BEGIN_SRC sh
   cd ~/jetstream_kubespray
-  sh k8s_scale.sh
+  sleep 1000; sh k8s_scale.sh
 #+END_SRC
 
 [[#h-D833684A][Check the cluster]].

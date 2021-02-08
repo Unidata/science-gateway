@@ -557,7 +557,7 @@ Wait a bit to allow `dpkg` to finish running on the new node(s). [Check the VMS]
 
 ```sh
 cd ~/jetstream_kubespray
-sh k8s_scale.sh
+sleep 1000; sh k8s_scale.sh
 ```
 
 [Check the cluster](#h-D833684A).
