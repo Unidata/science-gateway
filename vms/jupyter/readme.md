@@ -31,7 +31,7 @@
 
 ### jupyterhub.sh
 
-`jupyterhub.sh` and the related `z2j.sh` are convenience scripts similar to `openstack.sh` to give you access to a pre-configured environment that will allow you to build and/or run a Zero to JupyterHub cluster. It also relies on the [same Docker container](../../openstack/readme.md#h-4A9632CC) as the `openstack.sh` script. `jupyterhub.sh` takes one argument with the `-n` option, the name of the Zero to JupyterHub cluster. Invoke it from the `science-gateway/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
+`jupyterhub.sh` and the related `z2j.sh` are convenience scripts similar to `openstack.sh` to give you access to a pre-configured environment that will allow you to build and/or run a Zero to JupyterHub cluster. It also relies on the [same Docker container](../../openstack/readme.md) as the `openstack.sh` script. `jupyterhub.sh` takes one argument with the `-n` option, the name of the Zero to JupyterHub cluster. Invoke it from the `science-gateway/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
 
 
 <a id="h-2FF65549"></a>
@@ -169,6 +169,8 @@ Add the Unidata JupyterHub configuration (`unidata/unidatahub`) and related item
       - user
 
 singleuser:
+  extraEnv:
+    NBGITPULLER_DEPTH: "0"
   storage:
     capacity: 10Gi
   startTimeout: 600
@@ -181,7 +183,7 @@ singleuser:
   defaultUrl: "/lab"
   image:
     name: unidata/unidatahub
-    tag: b2e5978575d8
+    tag: dfe2e6717fa0
   lifecycleHooks:
     postStart:
       exec:
@@ -192,9 +194,6 @@ singleuser:
               gitpuller https://github.com/Unidata/python-training master python-training;
               cp /README_FIRST.ipynb /home/jovyan;
               cp /.condarc /home/jovyan
-
-hub:
-  extraConfig: |-
 ```
 
 
@@ -300,84 +299,201 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
 
 ### Volumes Stuck in Reserved State
 
-Occasionally, when logging into a JupyterHub the user will encounter a volume attachment error that causes a failure in the login process. The user will see an error that looks something like:
+1.  Background
 
-```shell
-2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
-```
-
-When you then do an `openstack volume list`, you will see something like this where a volume is stuck in "reserved":
-
-```shell
-+--------------------------------------+-------------------------------------------------------------+-----------+
-| ID                                   | Name                                                        | Status    |
-+--------------------------------------+-------------------------------------------------------------+-----------+
-| 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | kubernetes-dynamic-pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved  |
-```
-
-You (or if you do not have permission, Jetstream staff) can reset the volume with:
-
-```shell
-openstack volume set --state available <uuid>
-```
-
-or with
-
-```shell
-openstack volume list | grep -i reserved | awk \
-    'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
---state available
-```
-
-The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, to provide a long term solution to the user, you have to delete their account and associated volume, and recreate their account. Described below are the steps to achieve that:
-
-1.  Map Username to Volume UUID and PVC Name
-
-    Save information about the username, volume UUID, and persistent volume claim:
+    Occasionally, when logging into a JupyterHub the user will encounter a volume attachment error that causes a failure in the login process. [This is an ongoing issue on Jetstream that we have never been able to get to the bottom of](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40). The user will see an error that looks something like:
 
     ```shell
-    kubectl get pvc -n jhub -o yaml > pvc.yaml
+    2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
     ```
 
-    Scrutinizing this `yaml` file, you will easily be able to establish a mapping between the user name, the volume UUID, and the PVC name.
+    When you then do an `openstack volume list`, you will see something like this where a volume is stuck in "reserved":
 
-2.  Temporarily Reset Volume so User Can Recover Their Work
+    ```shell
+    |--------------------------------------+------------------------------------------+----------|
+    | ID                                   | Name                                     | Status   |
+    |--------------------------------------+------------------------------------------+----------|
+    | 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved |
+    |--------------------------------------+------------------------------------------+----------|
+    ```
 
-    Reset the volume so that the user can login to the JupyterHub and save or download their work to their local laptop. You know the UUID of the volume associated with the user from the previous step. Remember, this is just a temporary solution since the user's volume will just get stuck again.
+    You (or if you do not have permission, Jetstream staff) can reset the volume with:
+
+    ```shell
+    openstack volume set --state available <volume uuid>
+    ```
+
+    or with
+
+    ```shell
+    openstack volume list | grep -i reserved | awk \
+        'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
+    --state available
+    ```
+
+    The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, to provide a long term solution to the user, you have to save their data, delete their account, associated PVC (persistent volume claim), recreate their account, and restore their data. I describe below the steps to achieve that objective:
+
+2.  Map Username to Volume UUID and PVC Name
+
+    Obtain information about the username, volume UUID, and PVC:
+
+    ```shell
+    kubectl get pvc --namespace=jhub | grep <name of volume obtained in the last section>
+    ```
+
+    for example
+
+    ```shell
+    kubectl get pvc --namespace=jhub | grep pvc-3e4032f8-3f8f-4e20-801a-a6a322175c9a
+    ```
+
+    will yield something like:
+
+    ```shell
+    claim-<user>             Bound    pvc-3e4032f8-3f8f-4e20-801a-a6a322175c9a   10Gi       RWO            standard       61m
+    ```
+
+    Now you know the user, volume UUID, and PVC associated with the problematic volume.
+
+3.  Reset User Volume
+
+    You can now reset the volume as a short term fix, but you still will have to provide a longer term solution to the user (keep reading below).
 
     ```shell
     openstack volume set --state available <uuid>
     ```
 
-3.  Delete User and PVC
+4.  Save User Data
 
-    1.  Delete User
+    Next, from the OpenStack command line, attach the volume to a VM so you can recover their work. (Sometimes you have to wait until the student logs off the JupyterHub and you may have to reset the volume again.)
 
-        Once the user has saved their work (see previous steps), via the JupyterHub admin interface, delete the user.
+    ```shell
+    openstack server add volume <vm-uid-number> <volume-uid-number>
+    ```
 
-    2.  Delete PVC Associated with User
+    Now login to the recovery VM and do something like the next command. I've assumed the device (e.g., `/dev/sdb`) and data recovery directory (e.g., `sudo mkdir /data-jh`):
 
-        Find the PVC associated with the user:
+    ```shell
+    sudo mount /dev/sdb /data-jh
+    ```
 
-        ```shell
-        kubectl get pvc --namespace=jhub
-        ```
+    create a directory and use `rsync` to grab user data:
 
-        which will yield something like:
+    ```shell
+    mkdir user; cd user
+    sudo rsync -rt --progress /data-jh/ .
+    ```
 
-        ```shell
-        NAME                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-        claim-user1            Bound    pvc-33202421-dcc3-4933-a992-31987a985e60   10Gi       RWO            standard       5d17h
-        claim-user2            Bound    pvc-3a46ca57-5daa-48c3-a5ed-f4dce619dc43   10Gi       RWO            standard       20d
-        claim-user3            Bound    pvc-e04b9e5f-9050-4032-aad6-ba0595535d4a   10Gi       RWO            standard       21d
-        ```
+    The user data has now been saved (though **verify** this is true). Next `umount`:
 
-        Next, delete the PVC associated with the user:
+    ```shell
+    sudo umount /dev/sdb /data-jh
+    ```
 
-        ```shell
-        kubectl --namespace=jhub delete pvc claim-<user>
-        ```
+    detach VM from the OpenStack command line:
 
-4.  Recreate User
+    ```shell
+    openstack server remove volume <vm-uid-number> <volume-uid-number>
+    ```
 
-    Login to the JupyterHub and recreate the user via the JupyterHub admin interface, then have the user login again. They will have to upload the work they saved previously to the JupyterHub.
+5.  Delete JupyterHub User
+
+    **This is a step where you want to think before you act!** Once you have saved the user's work (see previous steps) via the JupyterHub admin interface, delete the user.
+
+6.  Delete PVC Associated with User
+
+    Next, delete the PVC associated with the user:
+
+    ```shell
+    kubectl --namespace=jhub delete pvc claim-<user>
+    ```
+
+    You have to do this step, or else the recreated user will be attached to the same PVC and the problem will happen again.
+
+7.  Recreate User
+
+    Login to the JupyterHub admin interface and recreate the user in question. Also, start and shutoff their server so that they have a fresh volume where you will restore their data.
+
+8.  Recover User Data
+
+    You now have to do the reverse of some of the steps we just described. Discover user's new volume:
+
+    ```shell
+    kubectl get pvc --namespace=jhub | grep <user>
+    ```
+
+    note the volume name (e.g., `pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd`). Use that name to find the actual volume:
+
+    ```shell
+    openstack volume list | grep <pvc-name>
+    ```
+
+    which will give you the volume UUID. At this point, you have the volume ID, and you have to do what you did earlier in reverse:
+
+    ```shell
+    openstack server add volume <vm-uid-number> <volume-uuid-number>
+    ```
+
+    login to recovery VM and:
+
+    ```shell
+    sudo mount /dev/sdb /data-jh
+    ```
+
+    Clear out any files that are in `/data-jh`. Again, think before typing here. `cd` to the directory where you saved the user's data earlier. `rsync` user data back onto their new volume:
+
+    ```shell
+    sudo rsync -rt --progress .  /data-jh/
+    ```
+
+    `chown` for good measure:
+
+    ```shell
+    cd /data-jh/
+    sudo chown -R ubuntu:ubuntu .
+    ```
+
+    Check to ensure the user data has indeed been recovered. Next, `umount` again:
+
+    ```shell
+    sudo umount /dev/sdb /data-jh
+    ```
+
+    from the OpenStack command line:
+
+    ```shell
+    openstack server remove volume <vm-uid-number> <volume-uuid-number>
+    ```
+
+    You are finally done. Next time the user logs in to their JupyterHub, they will be on a new PVC/Volume and hopefully this problem should not happen again for that user.
+
+9.  Script to Mitigate Problem
+
+    Invoking this script (e.g., call it `notify.sh`) from crontab, maybe every three minutes or so, can help mitigate the problem and give you faster notification of the issue. Note [iftt](https://ifttt.com) is a push notification service with webhooks available that can notify your smart phone triggered by a `curl` invocation as demonstrated below. You'll have to create an ifttt login and download the app on your smart phone.
+
+    ```shell
+    #!/bin/bash
+
+    source /home/centos/.bash_profile
+
+    VAR=$(openstack volume list -f value -c ID -c Status | grep -i reserved | wc -l)
+
+    MSG="Subject: Volume Stuck in Reserved on Jetstream"
+
+    if [[ $VAR -gt 0 ]]
+    then
+        echo $MSG | /usr/sbin/sendmail my@email.com
+        openstack volume list | grep -i reserved >> /tmp/stuck.txt
+        curl -X POST https://maker.ifttt.com/trigger/jetstream/with/key/xyz
+        openstack volume list -f value -c ID -c Status | grep -i reserved | awk \
+            '{ print $1 }' | xargs -n1 openstack volume set --state available
+    fi
+    ```
+
+    you can invoke this script from crontab:
+
+    ```shell
+    */3 * * * * /home/centos/notify.bash > /dev/null 2>&1
+    ```
+
+    Note, again, this is just a temporary solution. You still have to provide a longer-term solution as described earlier in this section.
