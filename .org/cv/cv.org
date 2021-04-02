@@ -31,18 +31,19 @@
 #+LATEX_HEADER: \bibliography{../../jetstream.bib}
 
 #+ATTR_LATEX: :center nil
-| Unidata Program Center  |
-| UCAR Community Programs |
-| P.O. Box 3000           |
-| Boulder, CO 80307       |
-| USA                     |
+| Unidata Program Center                                 |
+| UCAR Community Programs                                |
+| University Corporation for Atmospheric Research (UCAR) |
+| P.O. Box 3000                                          |
+| Boulder, CO 80307                                      |
+| USA                                                    |
 * Contact
 #+ATTR_LATEX: :center nil
 | phone       | +1.303.497.2825                       |
 | email       | chastang@ucar.edu                     |
 | URL         | https://julienchastang.com            |
 | ORCID iD    | https://orcid.org/0000-0003-2482-3565 |
-| Citizenship | USA and French                        |
+| Citizenship | USA and France                        |
 * Educational Background
 #+ATTR_LATEX: :center nil
 | M. Sc. | University of Colorado | 2000 |
@@ -54,8 +55,6 @@
 |           |                       | Laboratory                        |      |
 | 2000-2006 | Software Engineer II  | Research Application Laboratory   | UCAR |
 | 1999-2000 | Student Assistant     | Research Application Laboratory   | UCAR |
-*
-UCAR is the University Corporation for Atmospheric Research located in Boulder, Colorado USA
 * Recent Publications
 \fullcite{Zonca2020a}\\
 
@@ -66,16 +65,10 @@ UCAR is the University Corporation for Atmospheric Research located in Boulder, 
 \fullcite{Sarajlic2018a}\\
 
 * Recent Conference Presentations
-\fullcite{Chastang2020a}\\
+\fullcite{Chastang2021a}\\
 
 
-\fullcite{Arms2020a}\\
+\fullcite{Arms2021a}\\
 
 
-\fullcite{Chastang2019c}\\
-
-
-\fullcite{Chastang2019b}\\
-
-
-\fullcite{Ramamurthy2019a}\\
+\fullcite{Zonca2020a}\\
