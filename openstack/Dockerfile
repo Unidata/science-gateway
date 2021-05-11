@@ -22,7 +22,7 @@ RUN yum install -y python3
 # Terraform
 ###
 
-ENV TERRAFORM_VERSION=0.12.26
+ENV TERRAFORM_VERSION=0.14.4
 
 RUN  wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/
@@ -48,10 +48,12 @@ ENV PATH=$HOME/bin:$PATH
 ###
 
 RUN git clone https://github.com/zonca/jetstream_kubespray \
-    $HOME/jetstream_kubespray -b branch_v2.13.1
+    $HOME/jetstream_kubespray -b branch_v2.15.0
 
 RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream  \
     $HOME/jupyterhub-deploy-kubernetes-jetstream
+
+RUN pip3 install --upgrade pip
 
 RUN pip3 install -r $HOME/jetstream_kubespray/requirements.txt
 
