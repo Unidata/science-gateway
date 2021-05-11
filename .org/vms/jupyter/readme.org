@@ -185,7 +185,8 @@ Tearing down the JupyterHub including user OpenStack volumes is possible. From t
 
 #+BEGIN_SRC sh
   helm uninstall jhub -n jhub
-  kubectl delete namespace jhub
+  # Think before you type !
+  echo $CLUSTER; sleep 60; kubectl delete namespace jhub
 #+END_SRC
 
 To further tear down the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
