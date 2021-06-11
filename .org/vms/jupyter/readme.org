@@ -374,7 +374,7 @@ create a directory and use ~rsync~ to grab user data:
 The user data has now been saved (though *verify* this is true). Next ~umount~:
 
 #+BEGIN_SRC shell
-  sudo umount /dev/sdb /data-jh
+  sudo umount /dev/sdb
 #+END_SRC
 
 detach VM from the OpenStack command line:
@@ -455,7 +455,7 @@ Clear out any files that are in =/data-jh=. Again, think before typing here. ~cd
 Check to ensure the user data has indeed been recovered. Next, ~umount~ again:
 
 #+BEGIN_SRC shell
-  sudo umount /dev/sdb /data-jh
+  sudo umount /dev/sdb
 #+END_SRC
 
 from the OpenStack command line:
