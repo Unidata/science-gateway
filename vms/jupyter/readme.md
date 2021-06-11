@@ -388,7 +388,7 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     The user data has now been saved (though **verify** this is true). Next `umount`:
 
     ```shell
-    sudo umount /dev/sdb /data-jh
+    sudo umount /dev/sdb
     ```
 
     detach VM from the OpenStack command line:
@@ -457,7 +457,7 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     Check to ensure the user data has indeed been recovered. Next, `umount` again:
 
     ```shell
-    sudo umount /dev/sdb /data-jh
+    sudo umount /dev/sdb
     ```
 
     from the OpenStack command line:
