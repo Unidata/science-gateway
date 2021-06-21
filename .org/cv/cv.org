@@ -32,7 +32,8 @@
 
 #+ATTR_LATEX: :center nil
 | Unidata Program Center                                 |
-| UCAR Community Programs                                |
+| Earth Observation and Data Services (EODS)             |
+| UCAR Community Programs (UCP)                          |
 | University Corporation for Atmospheric Research (UCAR) |
 | P.O. Box 3000                                          |
 | Boulder, CO 80307                                      |
@@ -72,3 +73,10 @@
 
 
 \fullcite{Zonca2020a}\\
+
+* Honors & Awards
+#+ATTR_LATEX: :center nil
+| Best Poster PEARC 18                  | July 2018      | PEARC Conference |
+| UCAR Special Recognition Award        | August 2015    | UCAR-Unidata     |
+| UCAR Special Recognition Award        | September 2009 | UCAR-CISL        |
+| UCAR Outstanding Accomplishment Award | December 2001  | UCAR             |
