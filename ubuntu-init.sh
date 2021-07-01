@@ -17,10 +17,10 @@ dpkg --configure -a && apt-get remove -y docker docker-engine docker.io \
     && apt-get -y install git unzip wget nfs-kernel-server nfs-common \
     && apt autoremove -y
 
-curl -sSL get.docker.com | sh
+curl -fsSL https://get.docker.com | sh
 usermod -aG docker ${DOCKER_USER}
 
-curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
 chmod +x /usr/local/bin/docker-compose
 
@@ -28,5 +28,9 @@ service docker start
 
 mkdir -p /logs
 chown -R ${DOCKER_USER}:docker /logs
+
+echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+echo ! May have to log out and back in for docker group to take affect !
+echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 reboot now
