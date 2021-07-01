@@ -30,7 +30,7 @@ mkdir -p /logs
 chown -R ${DOCKER_USER}:docker /logs
 
 echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-echo ! May have to log out and back in for docker group to take affect !
+echo ! May have to log out and back in for docker group to take effect !
 echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 reboot now
