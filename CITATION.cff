@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Ramamurthy
+    given-names: Mohan
+    orcid: https://orcid.org/0000-0001-6493-7167
+    affiliation: UCAR/UCP/EODS/Unidata
+  - family-names: Chastang
+    given-names: Julien
+    orcid: https://orcid.org/0000-0003-2482-3565
+    affiliation: UCAR/UCP/EODS/Unidata
+title: "Unidata Science Gateway"
+doi: 10.5065/688s-2w73
+repository-code: https://github.com/Unidata/science-gateway
+version: 1
+date-released: 2017-01-01
+url: https://science-gateway.unidata.ucar.edu/
+license: BSD-3-Clause
