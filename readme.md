@@ -1,5 +1,7 @@
 # Meta Readme
 
+[![DOI](https://img.shields.io/static/v1?label=DOI&message=10.5065/688s-2w73&color=blue)](https://doi.org/10.5065/688s-2w73)
+
 ![img](https://github.com/Unidata/science-gateway/blob/master/jetstream.png "Jetstream")
 
 Welcome to Unidata on the NSF Jetstream cloud. This document points to a collection of readmes for running Unidata technology on the NSF Jetstream cloud. Browse below on the following topics:
