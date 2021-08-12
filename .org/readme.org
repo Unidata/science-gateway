@@ -11,13 +11,17 @@
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 26.1 (Org mode 9.1.6)
 
-* Meta Readme
+#+BEGIN_export markdown
+[![DOI](https://img.shields.io/static/v1?label=DOI&message=10.5065/688s-2w73&color=blue)](https://doi.org/10.5065/688s-2w73) [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-green)](https://opensource.org/licenses/BSD-3-Clause)
+#+END_export
+
+* Unidata Science Gateway on the NSF Jetstream Cloud
 
 #+CAPTION: Jetstream
 #+NAME: Jetstream
 https://github.com/Unidata/science-gateway/blob/master/jetstream.png
 
-Welcome to Unidata on the NSF Jetstream cloud. This document points to a collection of readmes for running Unidata technology on the NSF Jetstream cloud. Browse below on the following topics:
+Welcome to this README on running Unidata Science Gateway resources on the NSF Jetstream cloud. This document points to a collection of READMEs for running Unidata technologies on Jetstream. Browse below on the following topics:
 
 - [[file:vms/jupyter/readme.org][Creating a Zero To JupyterHub Cluster on Jetstream]]
 - [[file:vms/thredds/readme.org][Creating a THREDDS VM on Jetstream]]
