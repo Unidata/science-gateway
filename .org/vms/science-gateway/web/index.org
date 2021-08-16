@@ -170,7 +170,9 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-Coming soon.
+   - [[https://www.escience2021.org/][eScience 2021]]
+   - [[https://www.agu.org/Fall-Meeting][American Geophysical Union Fall Meeting 2021]]
+   - [[https://annual.ametsoc.org/index.cfm/2022/][American Meteorological Society 2022]]
 
 * Under the Hood
   :PROPERTIES:
