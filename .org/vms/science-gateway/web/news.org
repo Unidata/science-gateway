@@ -16,6 +16,16 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 8/25/2021, JupyterHub Resources Still Available for Fall 2021 Courses
+  :PROPERTIES:
+   :RSS_TITLE: JupyterHub Resources Still Available for Fall 2021 Courses
+   :PUBDATE:  <2021-08-25 Wed>
+   :RSS_PERMALINK: index.html#h-EA7E234B
+   :CUSTOM_ID: h-EA7E234B
+   :ID:       C1D412C2-506A-41DD-B543-DD143D9C0C3A
+  :END:
+
+[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub3][Unidata Science Gateway JupyterHub Resources Available for Fall 2021 Courses]]
 
 * 1/21/2021, JupyterHub Resources Still Available for Spring 2021 Courses
   :PROPERTIES:
@@ -39,15 +49,3 @@
 
 - [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
 - [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
-
-* 10/30/2020, Unidata Science Gateway Summer Internship Case Study Article
-  :PROPERTIES:
-   :RSS_TITLE: 10/30/2020, Unidata Science Gateway Summer Internship Case Study Article
-   :PUBDATE: <2020-10-30 Fri>
-   :RSS_PERMALINK: index.html#h-8CD52AE7
-   :CUSTOM_ID: h-8CD52AE7
-   :ID:       59E79AF1-CA04-4543-B9FF-BAF516C11BE1
-  :END:
-
-[[https://www.unidata.ucar.edu/blogs/news/entry/ucar-mentorship-and-remote-computing][UCAR Mentorship and Remote Computing Resources Boost Remote Research for SOARS Student]]
-
