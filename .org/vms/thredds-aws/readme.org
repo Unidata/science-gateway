@@ -181,4 +181,4 @@ to start the TDS
    :PROPERTIES:
    :CUSTOM_ID: h-628E2897
    :END:
-In a web browser, navigate to [[https://tds.scigw.unidata.ucar.edu/thredds/catalog.html][http://http://thredds-aws.unidata.ucar.edu/thredds/catalog.html]] to see if is running.
+In a web browser, navigate to [[https://thredds-aws.unidata.ucar.edu/thredds/catalog.html][https://thredds-aws.unidata.ucar.edu/thredds/catalog.html]] to see if is running.

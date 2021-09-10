@@ -242,4 +242,4 @@ to start the TDS
 
 ## Navigate to the TDS
 
-In a web browser, navigate to [http://http://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://tds.scigw.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+In a web browser, navigate to [https://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://tds.scigw.unidata.ucar.edu/thredds/catalog.html) to see if is running.
