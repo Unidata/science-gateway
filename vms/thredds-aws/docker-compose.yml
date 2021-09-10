@@ -16,13 +16,13 @@ services:
       - /logs/tds-tomcat/:/usr/local/tomcat/logs/
       - /logs/tds/:/usr/local/tomcat/content/thredds/logs/
       # ssl certs, keys not in version control, see readme.md
-      - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
-      - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key
-      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
       - ./files/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ./files/tdsCat.css:/usr/local/tomcat/webapps/thredds/tdsCat.css
       - ./files/folder.gif:/usr/local/tomcat/webapps/thredds/folder.gif
       - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
+      # HTTPS
+      - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
       # AWS TDS Nexrad server
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
       - ~/S3Objects/:/usr/local/tomcat/temp/S3Objects/
