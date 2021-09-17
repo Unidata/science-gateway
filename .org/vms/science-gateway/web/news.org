@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 9/17/2021, Unidata Science Gateway Presentation at eScience 2021
+  :PROPERTIES:
+   :RSS_TITLE: Unidata Science Gateway Presentation at eScience 2021
+   :PUBDATE: <2021-09-17 Fri>
+   :RSS_PERMALINK: index.html#h-81EC6CA6
+   :CUSTOM_ID: h-81EC6CA6
+   :ID:       CBF7EEF9-D093-4E99-A093-CE2BF78E9ECB
+  :END:
+
+The presentation will be given as part of the 17th IEEE eScience 2021 International Conference. [[https://www.escience2021.org/timetable][The talk is part of the Technical Program and will be delivered on Wednesday, September 22nd at 15:30-1600 CEST]].
+
 * 8/25/2021, JupyterHub Resources Still Available for Fall 2021 Courses
   :PROPERTIES:
    :RSS_TITLE: JupyterHub Resources Still Available for Fall 2021 Courses
@@ -27,25 +38,3 @@
 
 [[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub3][Unidata Science Gateway JupyterHub Resources Available for Fall 2021 Courses]]
 
-* 1/21/2021, JupyterHub Resources Still Available for Spring 2021 Courses
-  :PROPERTIES:
-   :RSS_TITLE: JupyterHub Resources Still Available for Spring 2021 Courses
-   :PUBDATE:  <2021-01-21 Thu>
-   :RSS_PERMALINK: index.html#h-25491723
-   :CUSTOM_ID: h-25491723
-   :ID:       4057DE84-D3AF-4F2F-ABFC-00426AD7BA00
-  :END:
-
-[[https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub2][Unidata Science Gateway JupyterHub Resources Available for Spring 2021 Courses]]
-
-* 1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting
-  :PROPERTIES:
-   :RSS_TITLE: 1/13/2021, Unidata Science Gateway Activities at the AMS 2021 Meeting
-   :PUBDATE: <2021-01-13 Wed>
-   :RSS_PERMALINK: index.html#h-C5C44D06
-   :CUSTOM_ID: h-C5C44D06
-   :ID:       574EE098-08C8-4672-B454-0BCC3E92B735
-  :END:
-
-- [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
-- [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
