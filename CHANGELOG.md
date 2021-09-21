@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0 - 2021-09-21
+### Added
+- No longer maintaining versioning for this repository since it does not make sense to do so. This project does not do releases like other software projects. It simply evolves in continuous fashion rather than in incremental steps. I leave this changelog here for posterity.
+
 ## 0.5.0 - 2017-08-31
 ### Added
 - Experimental [JupyterHub](https://jupyter-jetstream.unidata.ucar.edu/)
@@ -45,7 +49,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Docker installation script and instructions
 - XSEDE Jetstream vision question OmniGraffle figure
 
-[Unreleased]: https://github.com/Unidata/science-gateway/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/Unidata/science-gateway/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Unidata/science-gateway/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/Unidata/science-gateway/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/Unidata/science-gateway/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Unidata/science-gateway/compare/v0.2.0...v0.3.0
