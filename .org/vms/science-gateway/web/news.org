@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 9/24/2021, Unidata Community Survey
+  :PROPERTIES:
+   :RSS_TITLE: Unidata Community Survey
+   :PUBDATE: <2021-09-24 Fri>
+   :RSS_PERMALINK: index.html#h-F4EE3A44
+   :CUSTOM_ID: h-F4EE3A44
+   :ID:       EF0BE0BF-DAD5-4D1F-9441-45265A9C8DB8
+  :END:
+
+Make your voice heard on Unidata Science Gateway offerings. Please partake in the [[https://bit.ly/2021UnidataSurvey][Unidata Community Survey]].
+
 * 9/17/2021, Unidata Science Gateway Presentation at eScience 2021
   :PROPERTIES:
    :RSS_TITLE: Unidata Science Gateway Presentation at eScience 2021
