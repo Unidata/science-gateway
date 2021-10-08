@@ -168,13 +168,13 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - 2021 AMS Annual Meeting | January 10–14, 2021 – Virtual
   - [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
   - [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
+- [[https://www.escience2021.org/][17th IEEE eScience 2021 | September 20-23, 2021 - Innsbruck, Austria]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-   - [[https://www.escience2021.org/][eScience 2021]]
    - [[https://www.agu.org/Fall-Meeting][American Geophysical Union Fall Meeting 2021]]
    - [[https://annual.ametsoc.org/index.cfm/2022/][American Meteorological Society 2022]]
 
