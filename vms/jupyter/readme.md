@@ -498,3 +498,24 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     ```
 
     Note, again, this is just a temporary solution. You still have to provide a longer-term solution as described earlier in this section.
+
+10. Easier Way
+
+    In the summer / fall of 2021, GitHub user [@freedge](https://github.com/freedge) [proposed](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40) a much easier way to recover from this problem. Specifically, they suggested checking the status of the volume attachment in the cinder attachment list. Here is an example:
+
+    ```shell
+    cinder attachment-list  | grep -i d910c7fae38b
+    WARNING:cinderclient.shell:API version 3.62 requested,
+    WARNING:cinderclient.shell:downgrading to 3.55 based on server support.
+    | 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
+    ```
+
+    At this point, you may see two entries (even though only one is shown here). One attachment in reserved and one that is attached.
+
+    Next, delete the reserved attachment:
+
+    ```shell
+    cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
+    ```
+
+    This solution seems to address the issue in that the volume is no longer stuck in reserved, so we don't have to come up with as many convoluted workarounds (see above) to address this bug. There is still an underlying issue here, but at least this approach is much easier to implement.
