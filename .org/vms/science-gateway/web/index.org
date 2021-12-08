@@ -175,8 +175,8 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-   - [[https://www.agu.org/Fall-Meeting][American Geophysical Union Fall Meeting 2021]]
-   - [[https://annual.ametsoc.org/index.cfm/2022/][American Meteorological Society 2022]]
+   - [[https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436][American Geophysical Union Fall Meeting 2021]]
+   - [[https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651][American Meteorological Society 2022]]
 
 * {Source Code}
   :PROPERTIES:

@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Fri, 24 Sep 2021 16:50:27 -0600</pubDate>
-  <lastBuildDate>Fri, 24 Sep 2021 16:50:27 -0600</lastBuildDate>
+  <pubDate>Tue, 07 Dec 2021 20:03:19 -0700</pubDate>
+  <lastBuildDate>Tue, 07 Dec 2021 20:03:19 -0700</lastBuildDate>
   <generator>Emacs 27.2 Org-mode 9.4.6</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,25 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents">
       <ul>
+        <li><a href="#h-FF27A203">12/07/2021, Unidata Science Gateway at AGU and AMS</a></li>
         <li><a href="#h-F4EE3A44">9/24/2021, Unidata Community Survey</a></li>
         <li><a href="#h-81EC6CA6">9/17/2021, Unidata Science Gateway Presentation at eScience 2021</a></li>
-        <li><a href="#h-EA7E234B">8/25/2021, JupyterHub Resources Still Available for Fall 2021 Courses</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>Unidata Science Gateway at AGU and AMS</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-FF27A203</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-FF27A203</guid>
+    <pubDate>Tue, 07 Dec 2021 00:00:00 -0700</pubDate>
+
+    <description><![CDATA[<p>
+    During the months of December and January there will be two presentations that touch upon the Unidata Science Gateway. There will be a lightning talk entitled "<a href="https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436">The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19</a>" at the American Geophysical Union Fall 2021 meeting. In January there will be a talk called "<a href="https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651">Unidata Partners with UCAR SOARS Program to Help Protégés and Their Mentors with Atmospheric Science Internships</a>" at the American Meteorological Society's 2022 winter meeting.
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>Unidata Community Survey</title>
@@ -57,19 +70,6 @@
 
     <description><![CDATA[<p>
     The presentation will be given as part of the 17th IEEE eScience 2021 International Conference. <a href="https://www.escience2021.org/timetable">The talk is part of the Technical Program and will be delivered on Wednesday, September 22nd at 15:30-1600 CEST</a>.
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>JupyterHub Resources Still Available for Fall 2021 Courses</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-EA7E234B</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-EA7E234B</guid>
-    <pubDate>Wed, 25 Aug 2021 00:00:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    <a href="https://www.unidata.ucar.edu/blogs/news/entry/offer-unidata-science-gateway-jupyterhub3">Unidata Science Gateway JupyterHub Resources Available for Fall 2021 Courses</a>
     </p>
     ]]></description>
   </item>
