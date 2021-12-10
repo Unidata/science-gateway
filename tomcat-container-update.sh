@@ -13,8 +13,8 @@ TOMCAT_JDK8="unidata/tomcat-docker:$JDK8"
 TOMCAT_JDK11="unidata/tomcat-docker:$JDK11"
 TOMCAT_LATEST="unidata/tomcat-docker:latest"
 
-TDS_FOUR_CURRENT="4.6.17"
-TDS_FIVE_CURRENT="5.0"
+TDS_FOUR_CURRENT="4.6.18"
+TDS_FIVE_CURRENT="5.2"
 
 TDS_FOUR="unidata/thredds-docker:$TDS_FOUR_CURRENT"
 TDS_FIVE="unidata/thredds-docker:$TDS_FIVE_CURRENT"
