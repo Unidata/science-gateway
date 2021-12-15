@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+# 0 12 * * * ~/science-gateway/vms/ramadda/update.sh > /dev/null 2>&1
+
 source ~/.bash_profile
 
 IMAGE="unidata/ramadda-docker:latest"
