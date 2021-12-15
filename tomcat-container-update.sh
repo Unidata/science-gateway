@@ -65,4 +65,8 @@ if [ "$CURRENT" != "$LATEST" ];then
     cd ~/ramadda-docker && git fetch -a && git checkout $RAMADDA_CURRENT  && \
         docker build -t $RAMADDA_LATEST . && docker push $RAMADDA_LATEST \
         > /dev/null 2>&1
+
+    cd ~/science-gateway/vms/thredds-aws && \
+	docker build -t unidata/nexrad-tds-docker:latest . && \
+	docker push  unidata/nexrad-tds-docker:latest > /dev/null 2>&1
 fi

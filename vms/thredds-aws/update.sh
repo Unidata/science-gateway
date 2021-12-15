@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -e
 
-# 0 12 * * * ~/science-gateway/vms/thredds/update.sh > /dev/null 2>&1
+# 0 12 * * * ~/science-gateway/vms/thredds-aws/update.sh > /dev/null 2>&1
 
 source ~/.bash_profile
 
-IMAGE="unidata/thredds-docker:latest"
+IMAGE="unidata/nexrad-tds-docker:latest"
 
-cd ~/science-gateway/vms/thredds
+cd ~/science-gateway/vms/thredds-aws
 
 # make sure the container is running already
 docker-compose up -d
