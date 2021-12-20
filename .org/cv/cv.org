@@ -51,7 +51,8 @@
 | B. Sc. | University of Colorado | 1994 |
 * Positions Held
 #+ATTR_LATEX: :center nil
-|     2010- | Software Engineer III | Unidata Program Center            | UCAR |
+|     2021- | Software Engineer IV  | Unidata Program Center            | UCAR |
+| 2010-2021 | Software Engineer III | Unidata Program Center            | UCAR |
 | 2006-2010 | Software Engineer III | Computational Information Systems | UCAR |
 |           |                       | Laboratory                        |      |
 | 2000-2006 | Software Engineer II  | Research Application Laboratory   | UCAR |
@@ -66,13 +67,13 @@
 \fullcite{Sarajlic2018a}\\
 
 * Recent Conference Presentations
+\fullcite{Chastang2022a}\\
+
+
+\fullcite{Ramamurthy2021a}\\
+
+
 \fullcite{Chastang2021a}\\
-
-
-\fullcite{Arms2021a}\\
-
-
-\fullcite{Zonca2020a}\\
 
 * Honors & Awards
 #+ATTR_LATEX: :center nil
