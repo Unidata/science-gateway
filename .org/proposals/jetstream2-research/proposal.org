@@ -1,0 +1,205 @@
+#+title: Next Phase of Unidata Cloud-hosted Data Services: Transitioning and Expanding Operations to Jetstream2 and Investigating New Hardware Capabilities
+#+author: Mohan Ramamurthy (PI), Julien Chastang (co-I)
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+
+#+begin_src emacs-lisp :results silent :exports none
+  (require 'oc-csl)
+#+end_src
+
+#+cite_export: csl ~/git/science-gateway/.org/proposals/jetstream2-research/american-geophysical-union.csl
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage[margin=1in]{geometry}
+
+* Scientific Background
+:PROPERTIES:
+:ID:       C4B68E2E-0F4F-40F8-A1F1-9160A4BD6904
+:CUSTOM_ID: h-5EC6CE90
+:END:
+
+** Unidata Program Center
+:PROPERTIES:
+:CUSTOM_ID: h-EE38274D
+:END:
+
+Unidata [cite:@Unidata2019] is a community data facility for the atmospheric and related sciences, established in 1984 by U.S. universities with sponsorship from the National Science Foundation. The Unidata Program Center (UPC), the program office for Unidata and the nexus of activities related to Unidata's mission, is managed by the University Corporation for Atmospheric Research (UCAR), a consortium of over 117 member universities and academic affiliates providing science in service to society.
+
+Unidata exists to engage and serve researchers and educators dedicated to advancing the frontiers of Earth System science. The program's aim is to help transform the conduct of research and education in atmospheric and related sciences by providing well-integrated, end-to-end data services and tools. Unidata's offerings address many aspects of the scientific data lifecycle, from locating and retrieving useful data, through the process of analyzing and visualizing data either locally or remotely, to curating and sharing the results. Specifically, Unidata:
+
+- Acquires, distributes, and provides remote access to meteorological data in near real time.
+- Develops software for accessing, managing, analyzing, visualizing, and effectively using geoscience data.
+- Provides comprehensive training and support to users of its products and services.
+- In partnership with others, facilitates the advancement of tools, standards and conventions.
+- Provides leadership in cyberinfrastructure and fosters adoption of new tools and techniques.
+- Assesses and responds to community needs, fostering community interaction and engagement to promote sharing of data, tools, and ideas.
+
+Unidata's core community is faculty, students, and researchers in the atmospheric science departments of U.S. universities. Beyond this core, we endeavor to provide tools and data to scientists and secondary-level educators across many fields in the geosciences, supporting the hydrology, oceanography, and solid Earth communities (among others) both in the U.S. and worldwide.
+
+To give a sense of the scale of Unidata's services to the geoscience community[fn:5]:
+
+- The UPC coordinates the Internet Data Distribution system (IDD), in which hundreds of universities cooperate to disseminate near real-time earth observations via the Internet. As of January 2022, the IDD encompasses over 600 host machines at more than 200 unique institutions; these sites collectively receive more than *82 terabytes* of geoscience data every day.
+- In addition to data "pushed" to IDD sites, Unidata offers data via on-demand remote access protocols. Unidata-operated remote access servers provide an additional *2.5 terabytes* of data each day.
+- Unidata software packages including netCDF, MetPy, AWIPS, IDV, LDM, the THREDDS Data Server (TDS), and UDUNITS give geoscience researchers, educators, and students access to professional tools for data management, analysis, and visualization. All Unidata software is open source and available at no cost; community members downloaded these packages *over 600,000* times in 2021.
+- Unidata's Science Gateway, taking advantage of Jetstream1 resources, has provided cloud-based JupyterHub "Python for the Atmospheric and Oceanic Sciences" (PyAOS) environments to university instructors during the COVID-19 pandemic. These JupyterHubs have served more than *700 students at 15 universities* since 2020.
+- Unidata makes a version of the National Weather Service's Advanced Weather Interactive Processing System (AWIPS) available to universities for educational use. Unidata's AWIPS release is tailored to the needs of educators rather than operational weather forecasters, allowing it to be significantly smaller and easier to use. Again taking advantage of Jetstream1 resources, Unidata provides a publicly-available AWIPS Environmental Data EXchange (EDEX) server, allowing students and instructors to explore the software's visualization and analysis capabilities without the need to administer a dedicated data server. Unidata's public EDEX server provides an average of *28 gigabytes* of data each day.
+
+Unidata's data distribution software packages are particularly well suited for use in a cloud-computing environment[cite:@Chastang2016]. Five such applications we will continue to focus on with this work are:
+
+- Local Data Manager (LDM) is a peer-to-peer data distribution technology well adapted to moving large geoscience datasets across computer networks in realtime.
+- Thematic Realtime Environmental Distributed Data Services (THREDDS) provides metadata and data access for scientific datasets, using a variety of remote data access protocols including OPeNDAP.
+- Repository for Archiving, Managing and Accessing Diverse DAta (RAMADDA), originally developed at Unidata and now maintained at Geode Systems, is a content management system for geoscience data. It has excellent integration with the Unidata Integrated Data Viewer (IDV) visualization tool.
+- Abstract Data Distribution Environment (ADDE), the data serving component of McIDAS-X which is developed at the Space Science and Engineering Center (SSEC) at the University of Wisconsin at Madison, is well-suited for remote access to satellite, radar and other observational datasets.
+- The AWIPS Environmental Data EXchange (EDEX) is a data server that allows AWIPS visualization and analysis components to efficiently display and analyze a variety of data.
+
+The LDM, THREDDS, RAMADDA, ADDE, and AWIPS are proven, robust technologies that have matured over many years of use by academic and broader geoscience communities. They are capable of distributing very large volumes of forecast model output, climate datasets, satellite and radar imagery, lightning, surface observational and upper-air data, textual weather bulletins, and many other geoscience data types in near real-time.
+
+Beyond our data distribution and serving technologies, Unidata also facilitates the analysis and visualization of data with various tools:
+
+- IDV, the Unidata Integrated Data Viewer capable of 3D analysis and visualization of disparate datasets.
+- McIDAS-V, a specialized version of the IDV maintained by SSEC primarily focused on remote-sensing data visualization.
+- McIDAS-X, an older remote sensing tool which is well established in the satellite meteorology community.
+- AWIPS CAVE, the data rendering and visualization tool of meteorological data from AWIPS EDEX.
+- Python-awips, a package providing a data access framework for requesting meteorological and related datasets from AWIPS EDEX.
+- MetPy, a collection of tools in Python for reading, visualizing, and performing calculations with weather data.
+
+** Unidata Cloud Services on Jetstream1 (2015-2021)
+:PROPERTIES:
+:CUSTOM_ID: h-88106B72
+:END:
+
+*** Containerization Efforts
+:PROPERTIES:
+:CUSTOM_ID: h-18119097
+:END:
+
+The cloud computing era of the last two decades has enabled access to powerful and specialized computing resources that scale almost infinitely with the possibility of access to large scientific datasets facilitating "big data" analysis and visualization [cite:@ansari2018]. The arrival of Jetstream1 [cite:@jetstream2015] in 2015 provided Unidata a unique avenue to take advantage of cloud computing capabilities not available on commercial cloud providers due to prohibitive costs or time limited grants that did not offer long-term continuity. At that time, Unidata applied for a Start Up grant via XSEDE [cite:@xsede2014] to obtain resources for exploration of Jetstream1's features.
+
+Unidata began its investigations of cloud computing on Jetstream1 by containerizing traditional Unidata software and experimenting with them on Jetstream1. We developed containerized versions of the LDM, THREDDS, RAMADDA, and McIDAS ADDE serving large quantities of observational and forecast model geoscience data [cite:@Chastang2016]. With the aid of a subsequent, much larger XSEDE Research grant, these efforts allowed us to employ Jetstream1 as a demonstration server and a testing platform to ensure Unidata containerized applications were working correctly for distribution to our community. This process was made possible through container registries like DockerHub. Later on, in collaboration with the NOAA Big Data Project and Amazon Web Services (AWS), Unidata deployed a THREDDS AWS Nexrad Server on the Jetstream1 Cloud. More than twenty years of Nexrad Level II data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream1 facilitated by an Internet2 arrangement between the two clouds.
+
+*** Jupyter
+:PROPERTIES:
+:CUSTOM_ID: h-298F564B
+:END:
+
+#+NAME: JupyterHub
+#+CAPTION: /Miller Composite Jupyter Notebook by 2017 Unidata intern Tyler Wixtrom [cite:@Wixtrom2017]/
+#+ATTR_LATEX: width=\textwidth
+file:miller.png
+
+In 2014, Fernando Pérez and Brian Granger created Jupyter (originally IPython) notebook technology [cite:@Kluyver:2016aa]. Jupyter notebooks excel at interactive, exploratory scientific programming for researchers and their students. With their mixture of prose, equations, diagrams and interactive code examples, Jupyter notebooks are particularly effective in educational settings and for expository objectives [cite:@Perkel:2018aa]. Their use has become prevalent in many scientific disciplines including atmospheric science [cite:@Arms2020b]. JupyterHub enables specialists to deploy pre-configured notebook servers typically in cloud computing settings. With JupyterHub, users log in to arrive at their own notebook workspace. The advantages of deploying a JupyterHub in a cloud computing environment are numerous. JupyterHub prevents users from having to download and install complex software that can be difficult to configure properly. They can be provisioned with computational resources not found in a desktop computing setting and take advantage of high speed networks for processing large datasets. JupyterHub servers can be accessed from any web browser-enabled device including laptops and tablets. In sum, they greatly improve "time to science" by removing the complexity and tedium required to establish a notebook environment.
+
+#+NAME: Python
+#+CAPTION: /Atmospheric science students at a Unidata Python workshop employing Jetstream1 resources at the 2020 American Meteorological Society meeting [cite:@Arms2020b]/
+#+ATTR_LATEX: width=\textwidth
+file:workshop.png
+
+In 2017, after observing the potential that Jupyter technologies could provide our community, Unidata sought assistance from the XSEDE ECSS [cite:@ecss2016]  program to bring JupyterHub to Jetstream1 in a manner that could accommodate many users employing Kubernetes cloud computing technology. We first collaborated with Semir Sarajlic (Georgia Tech) and later Andrea Zonca (SDSC) to port the "Zero to JupyterHub with Kubernetes" project to Jetstream1[cite:@Sarajlic2018a][cite:@Zonca2020a]. As a result of these accomplishments, Unidata launched a demonstration server in 2017 and started offering customized, pre-configured JupyterHub servers for workshops and classrooms in 2018. After these initial milestones, requests for JupyterHub servers started arriving quickly for semester-long classes and summer internships at UCAR. Demand for these resources accelerated during the COVID-19 pandemic with the shift to online learning [cite:@Ramamurthy2021a]. We have provided access to customized Jupyter notebook environments to over 700 students at over a dozen universities and via many workshops at venues such as the American Meteorological Society annual meeting [fn:2]. The majority of these students are undergraduates in atmospheric science.
+
+*** EDEX
+:PROPERTIES:
+:CUSTOM_ID: h-E5C2166A
+:END:
+
+AWIPS is a weather forecasting display and analysis package developed for the National Weather Service by Raytheon Technologies Corporation. AWIPS consists of three main components: CAVE (Common AWIPS Visualization Environment) visualization tool, EDEX (Environmental Data Exchange system) server, and the python-awips programmatic data access API. Unidata develops, tailors, repackages, and redistributes AWIPS to the academic community for educational and research applications.
+
+#+NAME: AWIPS
+#+CAPTION: /2021 EDEX Users in the Academic Atmospheric Science Community [cite:@Meyer2022a]/
+#+ATTR_LATEX: width=\textwidth
+file:awips.png
+
+Unidata has hosted our production EDEX server on Jetstream1 since 2017, however with the ever-increasing amount of data, there are now three EDEX servers on Jetstream1 working together to ingest, process, and serve data in a real time manner to the community. Further, in 2020, an additional set of EDEX servers were created and have been maintained on Jetstream1 to aid as a back-up. This allows the Unidata AWIPS team to easily test new functionality and enables a seamless transition between new builds, with no downtime to the community. Over 55 academic institutions use our EDEX servers for CAVE and python-awips. Unidata's EDEX servers provide real-time weather data to our community who use AWIPS in classroom and research settings. We also have a secondary set of users from Government and private sectors that use AWIPS to aid in their businesses and operations.
+
+In 2020, an asynchronous eLearning course covering the fundamentals of CAVE was released. This course was designed for new users of CAVE, including undergraduate meteorology students at Universities, and provides demonstrations, tutorials, activities, assessments, and challenges using CAVE functionality by connecting to Unidata's EDEX server on Jetstream1.
+
+*** Unidata Science Gateway
+:PROPERTIES:
+:CUSTOM_ID: h-3B964CBA
+:END:
+
+In 2017, with the goal of providing a unified avenue to the services Unidata offers on Jetstream1, we launched the Unidata Science Gateway website[fn:4] [cite:@Chastang2017e]. At present, the Unidata Science Gateway serves several purposes:
+
+1. To provide a summary of all the services Unidata offers on Jetstream1
+2. To provide an access point for our audience to ask for cloud-based services from Unidata. These requests come in several forms:
+   1. Requests for customized JupyterHub servers for a particular workshop or semester long class
+   2. Project oriented requests that require warehousing of (at times large) datasets accessible via a THREDDS or RAMADDA server to enable data-proximate analysis and visualization also employing Jupyter technology for one or more students
+3. To provide our community an access point to an alternative operational THREDDS server when the Unidata THREDDS server is unavailable (which is rare but does happen on occasion)
+4. To provide a news feed about upcoming Science Gateway related presentations and solicitations for science gateway resources
+5. As a placeholder for future gateway offerings
+
+Science gateway components often work together in practice. At the University of Oklahoma, for example, NSF REU (Research Experiences for Undergraduates) students work with a JupyterHub server that retrieves data that their instructor has uploaded to a RAMADDA server co-located on the science gateway.
+
+Development of the science gateway proceeds with an emphasis on
+technology re-use and minimizing technical debt. We employ open source software carpentry skills and DevOps set of practices to provide these technology offerings [cite:@Chastang2017c].
+
+* Research Questions
+:PROPERTIES:
+:CUSTOM_ID: h-DA275734
+:END:
+
+A primary objective of this proposed project is to continue offering Unidata cloud services our community employs and depends upon without pause or interruption. Jetstream1 is an aging system with a planned end of life in 2022. It is therefore imperative that Unidata shift the technologies presently available on Jetstream1 to Jetstream2 [cite:@jetstream2021] with a sufficient overlap period to have a smooth transition and avoid suspension of current technology offerings.
+
+Moreover, we anticipate the shift towards scientific and educational use of cloud-computing resources that led to our initial work with Jetstream1 will continue to accelerate, especially in light of the ongoing COVID pandemic and the transition to remote work [cite:@Ramamurthy2021a]. We believe our community will continue migrating to cloud computing to take advantage of powerful, specialized computing resources, high speed networks, and integrated workflows not available in a desktop or university computer lab settings. Data-proximate analysis and visualization will flourish as data science tools mature to better extract meaningful information out of the ever increasing abundance of large atmospheric science datasets. Democratizing access to these state-of-the-art services will remain a high priority as we strive to create an inclusive future for all members of the Unidata community and engage with historically underrepresented communities [cite:@Chastang2022a].
+
+In addition, we plan to continue offering access to pre-configured computing environments that allow students and researchers to focus on science rather than difficult software installations and configurations. Scientific programming environments are often complex and challenging to deploy and set up properly. Software packages can conflict with one another and software libraries can have complicated dependencies. Experts that are familiar with these problems can properly install, configure, and deploy these environments on behalf of a wide user base. These capabilities can benefit the geoscience community by freeing researchers and students from problems that are not relevant to science, and letting them focus on scientific investigation and instruction.
+
+We also look forward to operating on a more modern version of the OpenStack cloud computing platform. The version currently available on Jetstream1 is several versions behind the current release and may resolve long standing issues with volume attachment problems that have been besetting us with our JupyterHub servers for some time[fn:1].
+
+Lastly, we plan to explore capabilities new to the Jetstream2 system, with a focus on GPU computing. As Unidata moves to integrate artificial intelligence and machine learning (AI/ML) techniques into our offerings, we hope to use Jetstream2 resources to make AI/ML workflows accessible to the broad geoscience community. As a first step, we envision a JupyterHub server with pre-installed PyAOS environments and notebooks coupled with machine learning tools employing technologies such as the Dask parallel computing API. These servers may be deployed alongside analysis-ready case study datasets for the benefit of instructors and students.
+
+* Resource Usage Plan
+:PROPERTIES:
+:CUSTOM_ID: h-679734BD
+:END:
+
+#+NAME: Jetstream
+#+CAPTION: /Schematic of planned Unidata cloud-hosted services on Jetstream2/
+#+ATTR_LATEX: width=\textwidth
+file:../../../jetstream.png
+
+We aim to migrate Unidata cloud services such as EDEX, LDM, THREDDS, and RAMADDA currently running on Jetstream1 to Jetstream2. Because these are cloud computing systems and we have made extensive use of containerization technologies coupled with comprehensive documentation [fn:3], we are hopeful we can smoothly transition to Jetstream2. We predict we can launch a collection of virtual routers, networks, security groups, Linux virtual machines and attached disk volumes to recreate what we have available on Jetstream1 in 2022. We have extensive experience with these components of OpenStack cloud infrastructure and employ shell scripts for many aspects of deployment workflows that we believe will work nearly seamlessly with OpenStack on Jetstream2.
+
+We also plan on running JupyterHubs employing Kubernetes with the new version of OpenStack available on Jetstream2. We are anticipating improved performance and fewer glitches especially in the area of attached disk volumes. These advancements will lead to a smoother user experience and less of a need for technical interventions from Unidata staff.
+
+We also look forward to launching some virtual machines via the Cacao interface as opposed to our typical usage from the OpenStack command line on Jetstream1. Virtual machines created via the Atmosphere interface on Jetstream1 were difficult to administer since there was no way for allocation managers to observe these virtual machines from the OpenStack interface. As a result, we avoided the use of Atmosphere. Our understanding is that virtual machines started via Cacao will be visible from OpenStack making the Jetstream2 allocation easier to manage.
+
+The Unidata AWIPS team will make use of the largest virtual machines available on Jetstream2 CPU to run the EDEX server. The AWIPS system has high computational demands that must be spread across multiple virtual machines in order to function optimally. For example, in order to replicate our current "EDEX system," three virtual machines are needed. One main, extra large, machine for running most of EDEX's functions, and two additional "ancillary" machines to run specific data decode and ingest for radar and satellite imagery, respectively. With Jetstream1, we employ two of these EDEX systems (a total of six virtual machines), so that we always have a reliable backup that can also be used for testing and development purposes without affecting our users and our production system. Having access to such powerful virtual machines means we can provide more real-time data to our users than ever before, and leads to the possibility of adding new and expanding datasets. Moreover, we would like to experiment with a Jetstream2 Large Memory instance to test EDEX performance and alternative configurations to better serve our users.
+
+Finally, we will begin to experiment with GPU-enabled virtual machines. We aspire to provide pre-configured computational environments that will allow our community to make use of these specialized resources. It is vital that our audience have access to artificial intelligence and machine learning platforms to ensure they have the necessary tools to remain competitive in this quickly evolving discipline.
+
+* Resource Appropriateness
+:PROPERTIES:
+:CUSTOM_ID: h-94F650D1
+:END:
+
+Jetstream2 is the only XSEDE facility capable of launching Linux virtual machines of various flavors both through a graphical user interface (Cacao), and from the OpenStack command line. These features are essential for employing cloud computing technologies such as Kubernetes and Docker to quickly launch Unidata services that can scale horizontally based on user demand.
+
+* Summary
+:PROPERTIES:
+:CUSTOM_ID: h-A1E833F8
+:END:
+
+Since 2015, Unidata, the Jetstream cloud team, and XSEDE ECSS have been working together to provide access to state-of-the-art computational resources and workflows to our geoscientific audience. This close collaboration has allowed Unidata to make innovative cloud-computing resources available to our community, and has provided the Jetstream team with user testing of a class of real-world educational use cases. In sum, we hope to see this mutually beneficial relationship continue to succeed in the next few years.
+
+\newpage
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-85554E18
+:END:
+
+#+print_bibliography:
+
+* Footnotes
+:PROPERTIES:
+:CUSTOM_ID: h-FB7028C9
+:END:
+
+[fn:5]https://www.unidata.ucar.edu/committees/usercom/2021Feb/statusreports/index.html
+[fn:4] https://science-gateway.unidata.ucar.edu/
+
+[fn:3] https://github.com/Unidata/science-gateway
+[fn:2] https://docs.google.com/spreadsheets/d/16rsBnmgOe3rqOLEAijxG89bR9xEsfVf8_dVSDL5vIpk/edit#gid=0
+
+[fn:1] https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40
