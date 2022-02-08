@@ -332,143 +332,9 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     --state available
     ```
 
-    The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, to provide a long term solution to the user, you have to save their data, delete their account, associated PVC (persistent volume claim), recreate their account, and restore their data. I describe below the steps to achieve that objective:
+    The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, [you have to provide a long term solution to the user](#h-CB601D7B).
 
-2.  Map Username to Volume UUID and PVC Name
-
-    Obtain information about the username, volume UUID, and PVC:
-
-    ```shell
-    kubectl get pvc --namespace=jhub | grep <name of volume obtained in the last section>
-    ```
-
-    for example
-
-    ```shell
-    kubectl get pvc --namespace=jhub | grep pvc-3e4032f8-3f8f-4e20-801a-a6a322175c9a
-    ```
-
-    will yield something like:
-
-    ```shell
-    claim-<user>             Bound    pvc-3e4032f8-3f8f-4e20-801a-a6a322175c9a   10Gi       RWO            standard       61m
-    ```
-
-    Now you know the user, volume UUID, and PVC associated with the problematic volume.
-
-3.  Reset User Volume
-
-    You can now reset the volume as a short term fix, but you still will have to provide a longer term solution to the user (keep reading below).
-
-    ```shell
-    openstack volume set --state available <uuid>
-    ```
-
-4.  Save User Data
-
-    Next, from the OpenStack command line, attach the volume to a VM so you can recover their work. (Sometimes you have to wait until the student logs off the JupyterHub and you may have to reset the volume again.)
-
-    ```shell
-    openstack server add volume <vm-uid-number> <volume-uid-number>
-    ```
-
-    Now login to the recovery VM and do something like the next command. I've assumed the device (e.g., `/dev/sdb`) and data recovery directory (e.g., `sudo mkdir /data-jh`):
-
-    ```shell
-    sudo mount /dev/sdb /data-jh
-    ```
-
-    create a directory and use `rsync` to grab user data:
-
-    ```shell
-    mkdir user; cd user
-    sudo rsync -rt --progress /data-jh/ .
-    ```
-
-    The user data has now been saved (though **verify** this is true). Next `umount`:
-
-    ```shell
-    sudo umount /dev/sdb
-    ```
-
-    detach VM from the OpenStack command line:
-
-    ```shell
-    openstack server remove volume <vm-uid-number> <volume-uid-number>
-    ```
-
-5.  Delete JupyterHub User
-
-    **This is a step where you want to think before you act!** Once you have saved the user's work (see previous steps) via the JupyterHub admin interface, delete the user.
-
-6.  Delete PVC Associated with User
-
-    Next, delete the PVC associated with the user:
-
-    ```shell
-    kubectl --namespace=jhub delete pvc claim-<user>
-    ```
-
-    You have to do this step, or else the recreated user will be attached to the same PVC and the problem will happen again.
-
-7.  Recreate User
-
-    Login to the JupyterHub admin interface and recreate the user in question. Also, start and shutoff their server so that they have a fresh volume where you will restore their data.
-
-8.  Recover User Data
-
-    You now have to do the reverse of some of the steps we just described. Discover user's new volume:
-
-    ```shell
-    kubectl get pvc --namespace=jhub | grep <user>
-    ```
-
-    note the volume name (e.g., `pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd`). Use that name to find the actual volume:
-
-    ```shell
-    openstack volume list | grep <pvc-name>
-    ```
-
-    which will give you the volume UUID. At this point, you have the volume ID, and you have to do what you did earlier in reverse:
-
-    ```shell
-    openstack server add volume <vm-uid-number> <volume-uuid-number>
-    ```
-
-    login to recovery VM and:
-
-    ```shell
-    sudo mount /dev/sdb /data-jh
-    ```
-
-    Clear out any files that are in `/data-jh`. Again, think before typing here. `cd` to the directory where you saved the user's data earlier. `rsync` user data back onto their new volume:
-
-    ```shell
-    sudo rsync -rt --progress .  /data-jh/
-    ```
-
-    `chown` for good measure:
-
-    ```shell
-    cd /data-jh/
-    sudo chown -R ubuntu:ubuntu .
-    ```
-
-    Check to ensure the user data has indeed been recovered. Next, `umount` again:
-
-    ```shell
-    sudo umount /dev/sdb
-    ```
-
-    from the OpenStack command line:
-
-    ```shell
-    openstack server remove volume <vm-uid-number> <volume-uuid-number>
-    ```
-
-    You are finally done. Next time the user logs in to their JupyterHub, they will be on a new PVC/Volume and hopefully this problem should not happen again for that user.
-
-9.  Script to Mitigate Problem
+2.  Script to Mitigate Problem
 
     Invoking this script (e.g., call it `notify.sh`) from crontab, maybe every three minutes or so, can help mitigate the problem and give you faster notification of the issue. Note [iftt](https://ifttt.com) is a push notification service with webhooks available that can notify your smart phone triggered by a `curl` invocation as demonstrated below. You'll have to create an ifttt login and download the app on your smart phone.
 
@@ -497,4 +363,28 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     */3 * * * * /home/centos/notify.bash > /dev/null 2>&1
     ```
 
-    Note, again, this is just a temporary solution. You still have to provide a longer-term solution as described earlier in this section.
+    Note, again, this is just a temporary solution. You still have to provide a longer-term workaround described in the next section:
+
+3.  Not a Solution but a Longer Term Workaround
+
+    [With the volume ID obtained earlier](#h-1765D7EB), issue:
+
+    ```shell
+    cinder attachment-list  | grep -i d910c7fae38b
+    ```
+
+    which will yield something like:
+
+    ```shell
+    WARNING:cinderclient.shell:API version 3.62 requested,
+    WARNING:cinderclient.shell:downgrading to 3.55 based on server support.
+    | 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
+    ```
+
+    At this point, you may see *two* entries (even though only one is shown here). One attachment in reserved and one that is attached.
+
+    Next, delete the reserved attachment:
+
+    ```shell
+    cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
+    ```
