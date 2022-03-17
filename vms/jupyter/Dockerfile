@@ -9,7 +9,7 @@ LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg vim curl && \
+    apt-get install -y --no-install-recommends vim curl emacs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
