@@ -7,11 +7,6 @@ ENV LC_ALL en_US.UTF-8
 # Update the system. Install stuff.
 ###
 
-ADD kubectl.repo /tmp/
-
-RUN cat /tmp/kubectl.repo >> /etc/yum.repos.d/kubernetes.repo && \
-    rm /tmp/kubectl.repo
-
 RUN yum install -y vim telnet openssh openssh-clients git vi less nano wget \
     unzip kubectl openssl sudo
 
