@@ -78,8 +78,8 @@ RUN cd /home \
 ###
 
 ADD bin/boot.sh bin/mount.sh bin/secgroup.sh bin/teardown.sh \
-   bin/unidata-secgroups.sh bin/wrangler-jetstream.sh bin/wrangler-secgroup.sh \
-   bin/swap-vm.sh bin/kube-setup.sh bin/swap-vm.sh bin/kube-setup2.sh $HOME/bin/
+    bin/unidata-secgroups.sh bin/swap-vm.sh bin/kube-setup.sh bin/swap-vm.sh \
+    bin/kube-setup2.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
