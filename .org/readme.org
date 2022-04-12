@@ -32,4 +32,3 @@ Welcome to this README on running Unidata Science Gateway resources on the NSF J
 - [[file:vms/mcidas/readme.org][Creating an ADDE VM on Jetstream]]
 - [[file:vms/ramadda/readme.org][Creating a RAMADDA VM on Jetstream]]
 - [[file:openstack/readme.org][Running VMs on Jetstream with OpenStack]]
-  - [[file:openstack/wrangler.org][Establishing an NFS Mount from Wrangler to Jetstream VMs]]
