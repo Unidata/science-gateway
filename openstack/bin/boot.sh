@@ -72,13 +72,10 @@ then
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
-# OS_PROJECT_NAME is defined in openrc.sh
-MACHINE_NAME=${OS_PROJECT_NAME}-${VM_NAME}
-
 # obtained through openstack network list
 NETWORK_ID=TG-ATM160027-api-net
 
-openstack server create ${MACHINE_NAME} \
+openstack server create ${VM_NAME} \
   --flavor ${VM_SIZE} \
   --image ${IMAGE_NAME} \
   --key-name ${KEY_NAME} \
@@ -93,14 +90,14 @@ sleep 30
 # parameterized from the command line. Comment in/out for the ports you need
 # open.  Also see unidata-ports.sh.
 
-# openstack server add security group ${MACHINE_NAME} global-www
-# openstack server add security group ${MACHINE_NAME} global-ldm-388
-# openstack server add security group ${MACHINE_NAME} global-adde-112
-# openstack server add security group ${MACHINE_NAME} global-tomcat
+# openstack server add security group ${VM_NAME} global-www
+# openstack server add security group ${VM_NAME} global-ldm-388
+# openstack server add security group ${VM_NAME} global-adde-112
+# openstack server add security group ${VM_NAME} global-tomcat
 
 # Associate your VM with an IP
 
 if [ -n "$IP" ];
 then
-    openstack server add floating ip ${MACHINE_NAME} ${IP}
+    openstack server add floating ip ${VM_NAME} ${IP}
 fi
