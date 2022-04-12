@@ -1,20 +1,24 @@
-FROM centos:7
+FROM rockylinux:8
 
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
+###
+# Kubectl
+###
+
+RUN printf '[kubernetes]\n\
+name=Kubernetes\n\
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\n\
+enabled=1\n\
+gpgcheck=1\n\
+repo_gpgcheck=1\n\
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg\n'\
+>> /etc/yum.repos.d/kubernetes.repo
 
 ###
 # Update the system. Install stuff.
 ###
 
-RUN yum install -y vim telnet openssh openssh-clients git vi less nano wget \
-    unzip kubectl openssl sudo
-
-###
-# python
-###
-
-RUN yum install -y python3
+RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
+    nano wget unzip kubectl openssl sudo python3 procps
 
 ###
 # Terraform
@@ -46,7 +50,7 @@ ENV PATH=$HOME/bin:$PATH
 ###
 
 RUN git clone https://github.com/zonca/jetstream_kubespray \
-    $HOME/jetstream_kubespray -b branch_v2.15.0
+    $HOME/jetstream_kubespray -b branch_v2.18.0
 
 RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream  \
     $HOME/jupyterhub-deploy-kubernetes-jetstream

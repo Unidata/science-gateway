@@ -28,3 +28,5 @@ echo Add your PKs to ~/.ssh/authorized_keys on ${FLOATINGIPOFMASTER}
 echo
 echo Add your email to \
      ~/jupyterhub-deploy-kubernetes-jetstream/setup_https/https_issuer.yml
+echo kubectl patch storageclass cinder-csi -p \
+     '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'

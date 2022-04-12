@@ -7,6 +7,7 @@ usage="$(basename "$0") [-h]
 [-n, --novaclient .novaclient path]
 [-t, --terraform .terraform path]
 [-i, --inventory kubespray inventory path]
+[-p, --ip cluster IP]
 [-m, --helm .helm path]
 -- script to  start Z2J Kube Client Docker container. \n
 Arguments must be supplied with fully qualified paths.\n
@@ -17,6 +18,7 @@ Arguments must be supplied with fully qualified paths.\n
     -n, --novaclient full path to .novaclient directory (or one will be created for you)\n
     -t, --terraform full path to .terraform directory (or one will be created for you)\n
     -i, --inventory full path to kubespray inventory directory (or one will be created for you)\n
+    -p, --ip cluster ip\n
     -m, --helm full path to .helm directory (or one will be created for you)\n
     -c, --secrets.yaml full path\n"
 
@@ -46,6 +48,10 @@ do
             ;;
         -i|--inventory)
             KUBESPRAY_INVENTORY="$2"
+            shift # past argument
+            ;;
+        -p|--ip)
+            IP="$2"
             shift # past argument
             ;;
         -m|--helm)
@@ -107,6 +113,13 @@ if [ -z "$KUBESPRAY_INVENTORY" ];
       exit 1
 fi
 
+if [ -z "$IP" ];
+   then
+      echo "Must supply a cluster IP:"
+      echo -e $usage
+      exit 1
+fi
+
 if [ -z "$HELM" ];
    then
       echo "Must supply a helm directory:"
@@ -139,4 +152,5 @@ docker run -it  --name  ${INVENTORY} \
        -v ${HELM}:/home/openstack/.helm \
        -v ${SECRETS}:/home/openstack/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
        -e CLUSTER=${INVENTORY} \
+       -e IP=${IP} \
        unidata/science-gateway /bin/bash

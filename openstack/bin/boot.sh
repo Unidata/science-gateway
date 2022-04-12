@@ -66,14 +66,14 @@ fi
 
 if [ -z "$IMAGE_NAME" ];
 then
-      # Grab an Ubuntu 20 Featured Image
-    IMAGE_NAME=$(openstack image list | grep -i featured | grep -i ubuntu20 \
+      # Grab an RockyLinux Featured Image
+    IMAGE_NAME=$(openstack image list | grep -i featured | grep -i rocky \
                      | awk 'BEGIN { FS = "|" } ; { print $2 }' | tail -1)
       echo "No image name supplied so going with ${IMAGE_NAME}."
 fi
 
 # obtained through openstack network list
-NETWORK_ID=TG-ATM160027-api-net
+NETWORK_ID=unidata-public
 
 openstack server create ${VM_NAME} \
   --flavor ${VM_SIZE} \
