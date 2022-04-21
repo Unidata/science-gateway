@@ -9,9 +9,14 @@ alias mv='mv -i'
 # open stack aliases
 
 alias ofl='openstack floating ip list'
+alias ofc='openstack floating ip create public'
 alias osl='openstack server list'
 alias onl='openstack network list'
 alias ovl='openstack volume list'
+alias k='kubectl'
+alias kctl='kubectl'
+alias h='history'
+alias hist='history'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
