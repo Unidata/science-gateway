@@ -29,6 +29,8 @@ if [ -z "$OPENRC" ];
 fi
 
 docker run -it  \
+       -v ${PWD}/bin:/home/openstack/bin/ \
+       -v ${PWD}/.bashrc:/home/openstack/.bashrc \
        -v ${OPENRC}:/home/openstack/bin/openrc.sh \
        unidata/science-gateway /bin/bash
 
