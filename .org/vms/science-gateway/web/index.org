@@ -164,19 +164,20 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://doi.org/10.6084/m9.figshare.8945078.v1][ESIP Summer Meeting 2019 | July 16-19, 2019 – Tacoma, WA USA]]
 - [[https://doi.org/10.17605/OSF.IO/W7SV8][Gateways 2019 | September 23–25, 2019 – San Diego, CA USA]]
 - [[https://ams.confex.com/ams/2020Annual/meetingapp.cgi/Session/54827][2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA]]
-- [[https://sciencegateways.org/web/gateways2020/welcome][Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA]]
+- [[https://doi.org/10.17605/OSF.IO/ZYHWT][Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA]]
 - 2021 AMS Annual Meeting | January 10–14, 2021 – Virtual
   - [[https://unidata.github.io/pyaos-ams-2021/agenda.html][AMS 2021 Student Python Workshop]]
   - [[https://doi.org/10.6084/m9.figshare.13507965.v1][30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks]]
-- [[https://www.escience2021.org/][17th IEEE eScience 2021 | September 20-23, 2021 - Innsbruck, Austria]]
+- [[https://doi.org/10.6084/m9.figshare.16766947.v1][17th IEEE eScience 2021 | September 20-23, 2021 - Innsbruck, Austria]]
+- [[https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436][American Geophysical Union Fall Meeting 2021]]
+- [[https://doi.org/10.6084/m9.figshare.19653939.v1][American Meteorological Society 2022]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-   - [[https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436][American Geophysical Union Fall Meeting 2021]]
-   - [[https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651][American Meteorological Society 2022]]
+Coming soon.
 
 * {Source Code}
   :PROPERTIES:
