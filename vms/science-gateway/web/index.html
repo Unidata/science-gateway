@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Unidata Science Gateway</title>
-<meta name="generator" content="Org mode" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -29,8 +29,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -39,21 +40,21 @@
   pre.src {
     position: relative;
     overflow: auto;
-    padding-top: 1.2em;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
   pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -189,7 +190,6 @@
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
   .org-svg { width: 90%; }
-  /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="styles/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="styles/src/readtheorg_theme/css/readtheorg.css"/>
@@ -198,35 +198,13 @@
 <script type="text/javascript" src="styles/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="styles/src/readtheorg_theme/js/readtheorg.js"></script>
 <style type="text/css">.figure-number {display: none;}</style>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
-</script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Unidata Science Gateway</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#h-161F43B1">News</a>
 <ul>
@@ -276,7 +254,7 @@
 <a href="https://doi.org/10.5065/688s-2w73" rel="nofollow"><img src="https://img.shields.io/static/v1?label=DOI&message=10.5065/688s-2w73&color=blue" alt="DOI" style="max-width: 100%;"></a>
 
 
-<div id="orge82ee34" class="figure">
+<div id="org2f26fee" class="figure">
 <p><img src="jupyterhub.png" alt="jupyterhub.png" style="border:2px solid #ccc;" />
 </p>
 <p><span class="figure-number">Figure 1: </span><i>Unidata Python Gallery GOES-16 true color notebook by Brian Blaylock available via the Unidata JupyterHub.</i></p>
@@ -496,13 +474,15 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 <li><a href="https://doi.org/10.6084/m9.figshare.8945078.v1">ESIP Summer Meeting 2019 | July 16-19, 2019 – Tacoma, WA USA</a></li>
 <li><a href="https://doi.org/10.17605/OSF.IO/W7SV8">Gateways 2019 | September 23–25, 2019 – San Diego, CA USA</a></li>
 <li><a href="https://ams.confex.com/ams/2020Annual/meetingapp.cgi/Session/54827">2020 AMS Annual Meeting | January 12–16, 2020 – Boston, MA USA</a></li>
-<li><a href="https://sciencegateways.org/web/gateways2020/welcome">Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA</a></li>
+<li><a href="https://doi.org/10.17605/OSF.IO/ZYHWT">Gateways 2020 | October 19–21, 2020 – Bethesda, MD USA</a></li>
 <li>2021 AMS Annual Meeting | January 10–14, 2021 – Virtual
 <ul class="org-ul">
 <li><a href="https://unidata.github.io/pyaos-ams-2021/agenda.html">AMS 2021 Student Python Workshop</a></li>
 <li><a href="https://doi.org/10.6084/m9.figshare.13507965.v1">30th Conference on Education: Assisting University Earth Science Programs Transition to Online Learning With Computational Notebooks</a></li>
 </ul></li>
-<li><a href="https://www.escience2021.org/">17th IEEE eScience 2021 | September 20-23, 2021 - Innsbruck, Austria</a></li>
+<li><a href="https://doi.org/10.6084/m9.figshare.16766947.v1">17th IEEE eScience 2021 | September 20-23, 2021 - Innsbruck, Austria</a></li>
+<li><a href="https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436">American Geophysical Union Fall Meeting 2021</a></li>
+<li><a href="https://doi.org/10.6084/m9.figshare.19653939.v1">American Meteorological Society 2022</a></li>
 </ul>
 </div>
 </div>
@@ -510,10 +490,9 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 <div id="outline-container-h-BD0797EC" class="outline-3">
 <h3 id="h-BD0797EC">Forthcoming Presentations</h3>
 <div class="outline-text-3" id="text-h-BD0797EC">
-<ul class="org-ul">
-<li><a href="https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436">American Geophysical Union Fall Meeting 2021</a></li>
-<li><a href="https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651">American Meteorological Society 2022</a></li>
-</ul>
+<p>
+Coming soon.
+</p>
 </div>
 </div>
 </div>
@@ -601,7 +580,24 @@ We thank Brian Beck, Maytal Dahan, Jeremy Fischer, Victor Hazlewood, Peg Lindenl
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Arms2021a">1</a>]
+[<a name="ansari2018">1</a>]
+</td>
+<td class="bibtexitem">
+Steve Ansari, Stephen Del&nbsp;Greco, Edward Kearns, Otis Brown, Scott Wilkins,
+  Mohan Ramamurthy, Jeff Weber, Ryan May, Jed Sundwall, Jeff Layton, et&nbsp;al.
+ Unlocking the potential of nexrad data through noaa’s big data
+  partnership.
+ <em>Bulletin of the American Meteorological Society</em>,
+  99(1):189--204, 2018.
+[&nbsp;<a href="jetstream_bib.html#ansari2018">bib</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Arms2021a">2</a>]
 </td>
 <td class="bibtexitem">
 S.&nbsp;Arms and J&nbsp;Chastang.
@@ -617,7 +613,7 @@ S.&nbsp;Arms and J&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Arms2020a">2</a>]
+[<a name="Arms2020a">3</a>]
 </td>
 <td class="bibtexitem">
 S.&nbsp;Arms, J.&nbsp;Chastang, M.&nbsp;Grover, J.&nbsp;Thielen, and M.&nbsp;Wilson.
@@ -633,7 +629,7 @@ S.&nbsp;Arms, J.&nbsp;Chastang, M.&nbsp;Grover, J.&nbsp;Thielen, and M.&nbsp;Wil
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Arms2020b">3</a>]
+[<a name="Arms2020b">4</a>]
 </td>
 <td class="bibtexitem">
 S.&nbsp;Arms, J.&nbsp;Chastang, M.&nbsp;Grover, J.&nbsp;Thielen, M.&nbsp;Wilson, and D.&nbsp;Dirks.
@@ -650,7 +646,23 @@ S.&nbsp;Arms, J.&nbsp;Chastang, M.&nbsp;Grover, J.&nbsp;Thielen, M.&nbsp;Wilson,
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2016b">4</a>]
+[<a name="Camron2022a">5</a>]
+</td>
+<td class="bibtexitem">
+D.&nbsp;Camron, N.&nbsp;Corbin, R.&nbsp;M. May, and J&nbsp;Chastang.
+ Student python workshop for the 102nd ams annual meeting.
+ In <em>102nd AMS Annual Meeting</em>, Houston, Texas, USA, Jan.&nbsp;23-27
+  2022. American Meteorological Society.
+[&nbsp;<a href="jetstream_bib.html#Camron2022a">bib</a>&nbsp;|
+<a href="https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Session/61321">http</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Chastang2016b">6</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
@@ -665,13 +677,14 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2017c">5</a>]
+[<a name="Chastang2017c">7</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
- Unidata on the XSEDE Jetstream cloud.
+ Unidata science gateway.
  <a href="https://github.com/Unidata/science-gateway/">https://github.com/Unidata/science-gateway/</a>, 2017.
 [&nbsp;<a href="jetstream_bib.html#Chastang2017c">bib</a>&nbsp;|
+<a href="http://dx.doi.org/10.5065/688s-2w73">DOI</a>&nbsp;|
 <a href="https://github.com/Unidata/science-gateway/">http</a>&nbsp;]
 
 </td>
@@ -680,7 +693,7 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2018c">6</a>]
+[<a name="Chastang2018c">8</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
@@ -698,7 +711,7 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2019b">7</a>]
+[<a name="Chastang2019b">9</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
@@ -717,7 +730,7 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2019a">8</a>]
+[<a name="Chastang2019a">10</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
@@ -735,7 +748,7 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2019c">9</a>]
+[<a name="Chastang2019c">11</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang.
@@ -753,7 +766,7 @@ J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2021a">10</a>]
+[<a name="Chastang2021a">12</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang, D.&nbsp;J. Delene, W.&nbsp;J. Flynn, K.&nbsp;H. Goebbert, and J.&nbsp;T. Potemra.
@@ -771,7 +784,7 @@ J.&nbsp;Chastang, D.&nbsp;J. Delene, W.&nbsp;J. Flynn, K.&nbsp;H. Goebbert, and 
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2016">11</a>]
+[<a name="Chastang2016">13</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang, W.&nbsp;Fisher, and S.&nbsp;Arms.
@@ -792,7 +805,7 @@ Keywords: UPC
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2022a">12</a>]
+[<a name="Chastang2022a">14</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang and K.&nbsp;Maull.
@@ -803,7 +816,8 @@ J.&nbsp;Chastang and K.&nbsp;Maull.
   American Meteorological Society.
  See also https://science-gateway.unidata.ucar.edu.
 [&nbsp;<a href="jetstream_bib.html#Chastang2022a">bib</a>&nbsp;|
-<a href="https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651">http</a>&nbsp;]
+<a href="http://dx.doi.org/10.6084/m9.figshare.19653939.v1">DOI</a>&nbsp;|
+<a href="https://doi.org/10.6084/m9.figshare.19653939.v1">http</a>&nbsp;]
 
 </td>
 </tr>
@@ -811,7 +825,7 @@ J.&nbsp;Chastang and K.&nbsp;Maull.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2017e">13</a>]
+[<a name="Chastang2017e">15</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang and M.&nbsp;K. Ramamurthy.
@@ -828,7 +842,7 @@ J.&nbsp;Chastang and M.&nbsp;K. Ramamurthy.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2018b">14</a>]
+[<a name="Chastang2018b">16</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang and M.&nbsp;K. Ramamurthy.
@@ -846,7 +860,7 @@ J.&nbsp;Chastang and M.&nbsp;K. Ramamurthy.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2017d">15</a>]
+[<a name="Chastang2017d">17</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang and R.&nbsp;Signell.
@@ -864,7 +878,7 @@ J.&nbsp;Chastang and R.&nbsp;Signell.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2017f">16</a>]
+[<a name="Chastang2017f">18</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang, R.&nbsp;Signell, and J.&nbsp;L. Fischer.
@@ -883,7 +897,7 @@ J.&nbsp;Chastang, R.&nbsp;Signell, and J.&nbsp;L. Fischer.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2018a">17</a>]
+[<a name="Chastang2018a">19</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang, R.&nbsp;Signell, and J.&nbsp;L. Fischer.
@@ -902,7 +916,7 @@ J.&nbsp;Chastang, R.&nbsp;Signell, and J.&nbsp;L. Fischer.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2017a">18</a>]
+[<a name="Chastang2017a">20</a>]
 </td>
 <td class="bibtexitem">
 J.&nbsp;Chastang, T.&nbsp;Yoksas, and M.&nbsp;K. Ramamurthy.
@@ -920,7 +934,7 @@ J.&nbsp;Chastang, T.&nbsp;Yoksas, and M.&nbsp;K. Ramamurthy.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Chastang2020a">19</a>]
+[<a name="Chastang2020a">21</a>]
 </td>
 <td class="bibtexitem">
 Julien Chastang.
@@ -936,7 +950,7 @@ Julien Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Dirks2019">20</a>]
+[<a name="Dirks2019">22</a>]
 </td>
 <td class="bibtexitem">
 Douglas Dirks.
@@ -951,7 +965,7 @@ Douglas Dirks.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Dirks2020b">21</a>]
+[<a name="Dirks2020b">23</a>]
 </td>
 <td class="bibtexitem">
 Douglas Dirks.
@@ -966,7 +980,7 @@ Douglas Dirks.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Dirks2020a">22</a>]
+[<a name="Dirks2020a">24</a>]
 </td>
 <td class="bibtexitem">
 Douglas Dirks.
@@ -981,7 +995,44 @@ Douglas Dirks.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Meyer2021a">23</a>]
+[<a name="jetstream2021">25</a>]
+</td>
+<td class="bibtexitem">
+David&nbsp;Y Hancock, Jeremy Fischer, John&nbsp;Michael Lowe, Winona Snapp-Childs, Marlon
+  Pierce, Suresh Marru, J&nbsp;Eric Coulter, Matthew Vaughn, Brian Beck, Nirav
+  Merchant, et&nbsp;al.
+ Jetstream2: Accelerating cloud computing via jetstream.
+ In <em>Practice and Experience in Advanced Research Computing</em>,
+  pages 1--8. 2021.
+[&nbsp;<a href="jetstream_bib.html#jetstream2021">bib</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Kluyver:2016aa">26</a>]
+</td>
+<td class="bibtexitem">
+Thomas Kluyver, Benjamin Ragan-Kelley, Fernando P&eacute;rez, Brian Granger,
+  Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, Jessica Hamrick, Jason
+  Grout, Sylvain Corlay, Paul Ivanov, Dami&aacute;n Avila, Safia Abdalla, and
+  Carol Willing.
+ Jupyter notebooks -- a publishing format for reproducible
+  computational workflows.
+ In F.&nbsp;Loizides and B.&nbsp;Schmidt, editors, <em>Positioning and Power in
+  Academic Publishing: Players, Agents and Agendas</em>, pages 87--90. IOS Press,
+  2016.
+[&nbsp;<a href="jetstream_bib.html#Kluyver:2016aa">bib</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Meyer2021a">27</a>]
 </td>
 <td class="bibtexitem">
 T.&nbsp;C. Meyer and S.&nbsp;Carter.
@@ -997,7 +1048,38 @@ T.&nbsp;C. Meyer and S.&nbsp;Carter.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Unidata2013">24</a>]
+[<a name="Meyer2022a">28</a>]
+</td>
+<td class="bibtexitem">
+T.&nbsp;C. Meyer, S.&nbsp;Carter, and N.&nbsp;Corbin.
+ Unidata awips update.
+ In <em>Proceedings, 102nd AMS Annual Meeting</em>, Houston, Texas, USA,
+  Jan.&nbsp;23-27 2022. American Meteorological Society.
+[&nbsp;<a href="jetstream_bib.html#Meyer2022a">bib</a>&nbsp;|
+<a href="https://ams.confex.com/ams/101ANNUAL/meetingapp.cgi/Paper/381437">http</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Perkel:2018aa">29</a>]
+</td>
+<td class="bibtexitem">
+Jeffrey Perkel.
+ Why jupyter is data scientists' computational notebook of choice.
+ <em>Nature</em>, 563:145--146, 11 2018.
+[&nbsp;<a href="jetstream_bib.html#Perkel:2018aa">bib</a>&nbsp;|
+<a href="http://dx.doi.org/10.1038/d41586-018-07196-1">DOI</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Unidata2013">30</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy.
@@ -1015,7 +1097,7 @@ M.&nbsp;K. Ramamurthy.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2018c">25</a>]
+[<a name="Ramamurthy2018c">31</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy.
@@ -1033,7 +1115,25 @@ M.&nbsp;K. Ramamurthy.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2018a">26</a>]
+[<a name="Unidata2019">32</a>]
+</td>
+<td class="bibtexitem">
+M.&nbsp;K. Ramamurthy.
+ Unidata: Next-generation data services and workflows to advance
+  geoscience research and education.
+ Technical report, Unidata Program Center, UCAR Community Programs,
+  University Corporation for Atmospheric Research, 3300 Mitchell Ln, Boulder,
+  CO 80301 USA, 4 2019.
+[&nbsp;<a href="jetstream_bib.html#Unidata2019">bib</a>&nbsp;|
+<a href="https://www.unidata.ucar.edu/publications/Unidata_2018.pdf">.pdf</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Ramamurthy2018a">33</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1049,7 +1149,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2018b">27</a>]
+[<a name="Ramamurthy2018b">34</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1066,7 +1166,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2018d">28</a>]
+[<a name="Ramamurthy2018d">35</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1081,7 +1181,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2019a">29</a>]
+[<a name="Ramamurthy2019a">36</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1098,7 +1198,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2021b">30</a>]
+[<a name="Ramamurthy2021b">37</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1115,7 +1215,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2021a">31</a>]
+[<a name="Ramamurthy2021a">38</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
@@ -1133,7 +1233,7 @@ M.&nbsp;K. Ramamurthy and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Ramamurthy2017">32</a>]
+[<a name="Ramamurthy2017">39</a>]
 </td>
 <td class="bibtexitem">
 M.&nbsp;K. Ramamurthy, J.&nbsp;Chastang, R.&nbsp;M. May, and M.&nbsp;James.
@@ -1151,7 +1251,7 @@ M.&nbsp;K. Ramamurthy, J.&nbsp;Chastang, R.&nbsp;M. May, and M.&nbsp;James.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Sarajlic2018a">33</a>]
+[<a name="Sarajlic2018a">40</a>]
 </td>
 <td class="bibtexitem">
 S.&nbsp;Sarajlic, J.&nbsp;Chastang, S.&nbsp;Marru, J.&nbsp;Fischer, and M.&nbsp;Lowe.
@@ -1174,7 +1274,7 @@ Keywords: OpenStack, JupyterHub, Kubernetes, Cloud Computing, Workforce Developm
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="10.1145/2792745.2792774">34</a>]
+[<a name="10.1145/2792745.2792774">41</a>]
 </td>
 <td class="bibtexitem">
 Craig&nbsp;A. Stewart, Timothy&nbsp;M. Cockerill, Ian Foster, David Hancock, Nirav
@@ -1198,7 +1298,7 @@ Keywords: atmosphere, big data, cloud computing, long tail of science
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="10.1109/MCSE.2014.80">35</a>]
+[<a name="10.1109/MCSE.2014.80">42</a>]
 </td>
 <td class="bibtexitem">
 John Towns, Timothy Cockerill, Maytal Dahan, Ian Foster, Kelly Gaither, Andrew
@@ -1215,7 +1315,7 @@ John Towns, Timothy Cockerill, Maytal Dahan, Ian Foster, Kelly Gaither, Andrew
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Wilcox2015">36</a>]
+[<a name="Wilcox2015">43</a>]
 </td>
 <td class="bibtexitem">
 K.&nbsp;Wilcox and J.&nbsp;Chastang.
@@ -1230,7 +1330,7 @@ K.&nbsp;Wilcox and J.&nbsp;Chastang.
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="4be80a98eb09448fa2ef0e98ed52ad37">37</a>]
+[<a name="4be80a98eb09448fa2ef0e98ed52ad37">44</a>]
 </td>
 <td class="bibtexitem">
 Nancy Wilkins-Diehr, Sergiu Sanielevici, Jay Alameda, John Cazes, Lonnie
@@ -1251,7 +1351,24 @@ The Extreme Science and Engineering Discovery Environment (XSEDE) is a flagship 
 
 <tr valign="top">
 <td align="right" class="bibtexnumber">
-[<a name="Zonca2020a">38</a>]
+[<a name="Wixtrom2017">45</a>]
+</td>
+<td class="bibtexitem">
+Tyler Wixtrom.
+ Vertical coordinate interpolation.
+ Technical report, Unidata Program Center, UCAR Community Programs,
+  University Corporation for Atmospheric Research, 3300 Mitchell Ln, Boulder,
+  CO 80301 USA, 8 2017.
+[&nbsp;<a href="jetstream_bib.html#Wixtrom2017">bib</a>&nbsp;|
+<a href="https://www.unidata.ucar.edu/community/seminars/UnidataSeminarSeries/Interns/2017_Wixtrom_Summer_Presentation.pdf">.pdf</a>&nbsp;]
+
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a name="Zonca2020a">46</a>]
 </td>
 <td class="bibtexitem">
 A.&nbsp;Zonca, R.&nbsp;P. Signell, J.&nbsp;Chastang, J.&nbsp;Fischer, J.&nbsp;M. Lowe, and R.&nbsp;S.
@@ -1275,7 +1392,7 @@ Keywords: OpenStack, JupyterHub, Kubernetes, Cloud Computing, Unidata, Magnum
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Date: 2021-12-17 08:39:46 MST</p>
+<p class="date">Date: 2022-04-25 20:49:07 MDT</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
