@@ -156,34 +156,22 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 Add the Unidata JupyterHub configuration (`unidata/unidatahub`) and related items (e.g., pulling of Unidata Python projects). Customize the desired CPU / RAM usage. [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
 ```yaml
-  type: github
-  github:
-    clientId: "xxx"
-    clientSecret: "xxx"
-    callbackUrl: "https://jupyterhub.unidata.ucar.edu:443/oauth_callback"
-  admin:
-    users:
-      - admin
-  whitelist:
-    users:
-      - user
-
 singleuser:
   extraEnv:
     NBGITPULLER_DEPTH: "0"
   storage:
-    capacity: 10Gi
+    capacity: 3Gi
   startTimeout: 600
   memory:
-    guarantee: 8G
-    limit: 8G
+    guarantee: 4G
+    limit: 4G
   cpu:
-    guarantee: 3
-    limit: 4
+    guarantee: 1
+    limit: 2
   defaultUrl: "/lab"
   image:
     name: unidata/unidatahub
-    tag: dfe2e6717fa0
+    tag: 82a23cf7a286
   lifecycleHooks:
     postStart:
       exec:
@@ -191,9 +179,8 @@ singleuser:
             - "sh"
             - "-c"
             - >
-              gitpuller https://github.com/Unidata/python-training master python-training;
+              gitpuller https://github.com/Unidata/python-training main python-training;
               cp /README_FIRST.ipynb /home/jovyan;
-              cp /.condarc /home/jovyan
 ```
 
 
