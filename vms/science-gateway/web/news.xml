@@ -14,9 +14,9 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Tue, 07 Dec 2021 20:03:19 -0700</pubDate>
-  <lastBuildDate>Tue, 07 Dec 2021 20:03:19 -0700</lastBuildDate>
-  <generator>Emacs 27.2 Org-mode 9.4.6</generator>
+  <pubDate>Fri, 29 Apr 2022 16:36:52 -0600</pubDate>
+  <lastBuildDate>Fri, 29 Apr 2022 16:36:52 -0600</lastBuildDate>
+  <generator>Emacs 28.1 Org-mode 9.5.2</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
     <url>https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4</url>
@@ -24,16 +24,29 @@
     <link>https://science-gateway.unidata.ucar.edu/</link>
   </image>
 
-  <div id="table-of-contents">
+  <div id="table-of-contents" role="doc-toc">
     <h2>Table of Contents</h2>
-    <div id="text-table-of-contents">
+    <div id="text-table-of-contents" role="doc-toc">
       <ul>
+        <li><a href="#h-0A6F9597">04/29/2022, Mini Gateways 2022 Video</a></li>
         <li><a href="#h-FF27A203">12/07/2021, Unidata Science Gateway at AGU and AMS</a></li>
         <li><a href="#h-F4EE3A44">9/24/2021, Unidata Community Survey</a></li>
-        <li><a href="#h-81EC6CA6">9/17/2021, Unidata Science Gateway Presentation at eScience 2021</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>Mini Gateways 2022 Video</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-0A6F9597</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-0A6F9597</guid>
+    <pubDate>Fri, 29 Apr 2022 00:00:00 -0600</pubDate>
+
+    <description><![CDATA[<p>
+    My colleague, Andrea Zonca, <a href="https://zonca.dev/2022/04/science-gateway-dask-zarr.html">has posted a video</a> of our presentation at the SGCI Mini Gateways 2022 online conference.
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>Unidata Science Gateway at AGU and AMS</title>
@@ -57,19 +70,6 @@
 
     <description><![CDATA[<p>
     Make your voice heard on Unidata Science Gateway offerings. Please partake in the <a href="https://bit.ly/2021UnidataSurvey">Unidata Community Survey</a>.
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>Unidata Science Gateway Presentation at eScience 2021</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-81EC6CA6</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-81EC6CA6</guid>
-    <pubDate>Fri, 17 Sep 2021 00:00:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    The presentation will be given as part of the 17th IEEE eScience 2021 International Conference. <a href="https://www.escience2021.org/timetable">The talk is part of the Technical Program and will be delivered on Wednesday, September 22nd at 15:30-1600 CEST</a>.
     </p>
     ]]></description>
   </item>

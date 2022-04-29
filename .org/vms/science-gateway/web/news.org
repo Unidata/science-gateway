@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 04/29/2022, Mini Gateways 2022 Video
+  :PROPERTIES:
+  :RSS_TITLE: Mini Gateways 2022 Video
+  :PUBDATE: <2022-04-29 Fri>
+  :RSS_PERMALINK: index.html#h-0A6F9597
+  :CUSTOM_ID: h-0A6F9597
+  :ID:       F2F8F02C-AA6C-4367-9028-AB55633CE5B8
+  :END:
+
+My colleague, Andrea Zonca, [[https://zonca.dev/2022/04/science-gateway-dask-zarr.html][has posted a video]] of our presentation at the SGCI Mini Gateways 2022 online conference.
+
 * 12/07/2021, Unidata Science Gateway at AGU and AMS
   :PROPERTIES:
    :RSS_TITLE: Unidata Science Gateway at AGU and AMS
@@ -37,15 +48,3 @@ During the months of December and January there will be two presentations that t
   :END:
 
 Make your voice heard on Unidata Science Gateway offerings. Please partake in the [[https://bit.ly/2021UnidataSurvey][Unidata Community Survey]].
-
-* 9/17/2021, Unidata Science Gateway Presentation at eScience 2021
-  :PROPERTIES:
-   :RSS_TITLE: Unidata Science Gateway Presentation at eScience 2021
-   :PUBDATE: <2021-09-17 Fri>
-   :RSS_PERMALINK: index.html#h-81EC6CA6
-   :CUSTOM_ID: h-81EC6CA6
-   :ID:       CBF7EEF9-D093-4E99-A093-CE2BF78E9ECB
-  :END:
-
-The presentation will be given as part of the 17th IEEE eScience 2021 International Conference. [[https://www.escience2021.org/timetable][The talk is part of the Technical Program and will be delivered on Wednesday, September 22nd at 15:30-1600 CEST]].
-
