@@ -1,4 +1,4 @@
-FROM rockylinux:8
+FROM rockylinux:8.5.20220308
 
 ###
 # Kubectl
@@ -59,7 +59,7 @@ RUN pip3 install --upgrade pip
 
 RUN pip3 install -r $HOME/jetstream_kubespray/requirements.txt
 
-RUN pip3 install --upgrade openstackclient --ignore-installed
+RUN pip3 install --upgrade python-openstackclient --ignore-installed
 
 RUN mkdir $HOME/.kube
 
@@ -67,7 +67,7 @@ RUN mkdir $HOME/.kube
 # Install helm
 ###
 
-ENV HELM_VERSION=3.5.0
+ENV HELM_VERSION=3.8.2
 
 RUN cd /home \
 	&& curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz \
