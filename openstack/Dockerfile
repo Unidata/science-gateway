@@ -67,7 +67,7 @@ RUN mkdir $HOME/.kube
 # Install helm
 ###
 
-ENV HELM_VERSION=3.5.0
+ENV HELM_VERSION=3.8.2
 
 RUN cd /home \
 	&& curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz \
