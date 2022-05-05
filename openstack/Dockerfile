@@ -1,4 +1,4 @@
-FROM rockylinux:8
+FROM rockylinux:8.5.20220308
 
 ###
 # Kubectl
