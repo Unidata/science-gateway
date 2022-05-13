@@ -1,0 +1,54 @@
+#######################################################
+# Check dockerhub for updates to the rocky container  #
+#######################################################
+#
+################################################
+# NECESSARY GITHUB SECRETS TO SET              #
+################################################
+# secrets.imagename : e.g "<org>/<image>"
+# secrets.registryuser
+# secrets.registrypwd
+# secrets.server : (not currently implemented)
+################################################
+
+name: Check For Upstream Updates
+
+on:
+  schedule:
+    # Once a day at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  checkUpstream:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set environment variables
+      run: |
+        echo "scriptsdir=.github/helperScripts" >> $GITHUB_ENV
+
+    - name: Checkout default branch
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Verify repo has been cloned
+      run: |
+        git status
+        git branch -a
+
+    - name: Grab the most recent upstream version
+      run: |
+        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v "latest" | sort -Vr)
+        upstream=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v "latest" | sort -Vr | head -n1 )
+        echo $upstream
+        echo "upstream=$upstream" >> $GITHUB_ENV
+
+    - name: Check, update, build, push
+      run: |
+        ./${{ scriptsdir }}/updateBuildPush.sh \
+        -u ${{ env.upstream }} \
+        -i ${{ secrets.imagename }} \
+        -t ${{ secrets.registrypwd }} \
+        -s ${{ secrets.registryuser }}
