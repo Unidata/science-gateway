@@ -12,7 +12,9 @@ usage="$(basename "$0") [-h]
 -- script to fire up or access a Z2J JupyterHub. \n
     -h, --help show this help text\n
     -n, --name JupyterHub name\n
-    -p, --ip JupyterHub IP\n"
+    -p, --ip JupyterHub IP\n
+	-o, --openrc openrc.sh path\n"
+
 
 while [[ $# > 0 ]]
 do
@@ -24,6 +26,10 @@ do
             ;;
         -p|--ip)
             IP="$2"
+            shift # past argument
+            ;;
+        -o|--openrc)
+            OPENRC="$2"
             shift # past argument
             ;;
         -h|--help)
@@ -48,13 +54,20 @@ if [ -z "$IP" ];
       exit 1
 fi
 
+if [ -z "$OPENRC" ];
+  then
+      echo "Must supply an openrc.sh path:"
+      echo -e $usage
+      exit 1
+fi
+
 if [ ! -d $dir/jhubs ]; then
   mkdir $dir/jhubs
 fi
 
 ./z2j.sh \
     -s ${dir}/ssh \
-    -o ${dir}/bin/openrc.sh \
+    -o $OPENRC \
     -k ${dir}/jhubs/${JUPYTERHUB}/kube \
     -n ${dir}/jhubs/${JUPYTERHUB}/novaclient \
     -t ${dir}/jhubs/${JUPYTERHUB}/terraform \
