@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 05/20/2022, Unidata Science Gateway Talk at EGU
+  :PROPERTIES:
+  :RSS_TITLE: Unidata Science Gateway Talk at EGU
+  :PUBDATE: <2022-05-20 Fri>
+  :RSS_PERMALINK: index.html#h-642E7F66
+  :CUSTOM_ID: h-642E7F66
+  :ID:       2D590004-6AE6-4BDC-AB6D-35EB6B86A25F
+  :END:
+
+Unidata Director, Mohan Ramamurthy, will be speaking at the European Geosciences Union on Monday, May 23 giving a talk entitled "[[https://meetingorganizer.copernicus.org/EGU22/session/42416][The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19]]".
+
 * 04/29/2022, Mini Gateways 2022 Video
   :PROPERTIES:
   :RSS_TITLE: Mini Gateways 2022 Video
@@ -38,13 +49,3 @@ My colleague, Andrea Zonca, [[https://zonca.dev/2022/04/science-gateway-dask-zar
 
 During the months of December and January there will be two presentations that touch upon the Unidata Science Gateway. There will be a lightning talk entitled "[[https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436][The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19]]" at the American Geophysical Union Fall 2021 meeting. In January there will be a talk called "[[https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651][Unidata Partners with UCAR SOARS Program to Help Protégés and Their Mentors with Atmospheric Science Internships]]" at the American Meteorological Society's 2022 winter meeting.
 
-* 9/24/2021, Unidata Community Survey
-  :PROPERTIES:
-   :RSS_TITLE: Unidata Community Survey
-   :PUBDATE: <2021-09-24 Fri>
-   :RSS_PERMALINK: index.html#h-F4EE3A44
-   :CUSTOM_ID: h-F4EE3A44
-   :ID:       EF0BE0BF-DAD5-4D1F-9441-45265A9C8DB8
-  :END:
-
-Make your voice heard on Unidata Science Gateway offerings. Please partake in the [[https://bit.ly/2021UnidataSurvey][Unidata Community Survey]].
