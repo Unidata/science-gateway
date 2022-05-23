@@ -7,6 +7,7 @@ mkdir -p inventory/$CLUSTER && cp -LRp inventory/kubejetstream/* inventory/$CLUS
 cd inventory/$CLUSTER
 
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" cluster.tfvars
+sed -i "s/bastion_allowed_remote_ips = \[\"0.0.0.0\/0\"\]/bastion_allowed_remote_ips =  \[\"128.117.144.0\/24\", \"149.165.152.95\"\]/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" group_vars/k8s_cluster/k8s-cluster.yml
 
 bash terraform_init.sh
