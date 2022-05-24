@@ -7,6 +7,8 @@ mkdir -p inventory/$CLUSTER && cp -LRp inventory/kubejetstream/* inventory/$CLUS
 cd inventory/$CLUSTER
 
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" cluster.tfvars
+sed -i "s/number_of_k8s_nodes = 1/number_of_k8s_nodes = 0/g" cluster.tfvars
+sed -i "s/number_of_k8s_nodes_no_floating_ip = 0/number_of_k8s_nodes_no_floating_ip = 1/g" cluster.tfvars
 sed -i "s/k8s_allowed_remote_ips = \[\"0.0.0.0\/0\"\]/k8s_allowed_remote_ips =  \[\"128.117.144.0\/24\", \"149.165.152.95\"\]/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" group_vars/k8s_cluster/k8s-cluster.yml
 
