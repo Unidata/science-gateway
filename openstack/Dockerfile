@@ -1,4 +1,4 @@
-FROM rockylinux:8.5.20220308
+FROM unidata/rockylinux:latest
 
 ###
 # Kubectl
