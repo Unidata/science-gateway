@@ -47,7 +47,7 @@ jobs:
 
     - name: Check, update, build, push
       run: |
-        ./${{ scriptsdir }}/updateBuildPush.sh \
+        ./${{ env.scriptsdir }}/updateBuildPush.sh \
         -u ${{ env.upstream }} \
         -i ${{ secrets.imagename }} \
         -t ${{ secrets.registrypwd }} \
