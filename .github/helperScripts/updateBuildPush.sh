@@ -66,7 +66,7 @@ do
 	echo "Up to date with latest version ($UPSTREAM)?"; echo $up2date
 	if [[ "$up2date" != "true" ]]; then
 		# Update Dockerfile
-		sed -e "s/FROM rockylinux:.*/from rockylinux:$UPSTREAM/g" $ROCKYPATH/Dockerfile -i
+		sed -e "s/FROM rockylinux:.*/FROM rockylinux:$UPSTREAM/g" $ROCKYPATH/Dockerfile -i
 		grep -i "FROM" $ROCKYPATH/Dockerfile
 		# Build image
 		docker build --no-cache -t ${IMAGENAME}:$UPSTREAM $ROCKYPATH
