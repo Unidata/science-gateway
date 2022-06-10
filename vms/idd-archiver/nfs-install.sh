@@ -4,11 +4,14 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
+# adde
+echo /data		10.0.0.188(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
-echo /data		10.0.0.15(rw,sync,no_subtree_check) | tee \
+# thredds
+echo /data		10.0.0.122(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
-echo /data		10.0.0.11(rw,sync,no_subtree_check) | tee \
+# ramadda
+echo /data		10.0.0.143(rw,sync,no_subtree_check) | tee \
     --append /etc/exports > /dev/null
 
 exportfs -a
