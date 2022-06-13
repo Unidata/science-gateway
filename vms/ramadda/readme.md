@@ -143,7 +143,7 @@ sudo echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | 
 
 ## Port 80
 
-[Open port](../../openstack/readme.md) `80` on the RAMADDA VM via OpenStack. Port `80` requests will be forwarded to `8080` inside the RAMADDA Docker container.
+[Open ports](../../openstack/readme.md) `80` and `443` on the RAMADDA VM via OpenStack. Port `80` and `443` requests will be forwarded to `8080` and `8443` inside the RAMADDA Docker container, respectively.
 
 
 <a id="h-7E683535"></a>
