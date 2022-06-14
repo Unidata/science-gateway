@@ -1,5 +1,5 @@
 mkdir -p ~/tdsconfig/
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/newThredds/config.zip -O ~/tdsconfig/config.zip
+wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
 mkdir -p /logs/tds-tomcat/
