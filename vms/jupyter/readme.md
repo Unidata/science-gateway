@@ -14,6 +14,7 @@
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
     - [Volumes Stuck in Reserved State](#h-354DE174)
+    - [Renew Expired K8s Certificates](#renew-k8s-certs)
 
 
 
@@ -375,3 +376,142 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     ```shell
     cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
     ```
+
+<a id="renew-k8s-certs"></a>
+
+### Renew Expired K8s Certificates
+
+1. 	Background
+
+    Kubernetes clusters use PKI certificates to allow the different components of
+    K8s to communicate and authenticate with one another. See the [official
+    docs](https://kubernetes.io/docs/setup/best-practices/certificates/) for more
+    information. When firing up a JupyterHub cluster using the procedures outlined
+    in this documentation, the certificates are automatically generated for us on
+    cluster creation, however they expire after a full year. You can check the
+    expiration date of your current certificates by running the following on the
+    master node of the cluster:
+    
+    `sudo kubeadm alpha certs check-expiration`
+    
+    Once the certificates have expired, you will be unable to run, for example,
+    `kubectl` commands, and the [control plane
+    components](https://kubernetes.io/docs/setup/best-practices/certificates/) will
+    not be able to, for example, fire up new pods, ie new JupyterLab servers, nor
+    perform `helm` upgrades to the server.  Example output of running `kubectl`
+    commands with expired certificates is:
+    
+    ```shell
+    # kubectl get pods -n jhub
+    Unable to connect to the server: x509: certificate has expired or is not yet valid: current time 2022-06-29T23:09:31Z is after 2022-06-28T17:38:37Z
+    ```
+    
+2. Resolution
+    
+    There are a number of ways to renew certificates outlined in the [official
+    docs](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
+    Here, the manual renewal method is outlined. While this procedure should be
+    non-destructive, it is recommended to have users backup data/notebooks before
+    this is done. In addition, one of the steps requires a manual restart of the
+    control plane pods, which means the Hub (and potentially user servers) may
+    suffer a small amount of downtime.
+    
+    All commands are ran on the master node of the cluster. In addition, the
+    documentation does not include the `alpha` portion of the `kubeadm` commands
+    outlined below. This is required: see the answer to
+    [this](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12)
+    question.
+    
+    First, confirm that your certificates truly are expired:
+    
+    `sudo kubeadm alpha certs check-expiration`
+    
+    Then, run the renewal command to renew all certs:
+    
+    `sudo kubeadm alpha certs renew all`
+    
+    Double check the certificates were renewed:
+    
+    `sudo kubeadm alpha certs check-expiration`
+    
+    Now, we must restart the control plane pods. We do this by moving the files
+    found in `/etc/kubernetes/manifests` to a temporary place, waiting for the
+    [kubelet](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12)
+    to recognize the change in the manifests, and tear down the pods. Once this is
+    done, the files can be moved back into `/etc/kubernetes/manifests`, and we can
+    wait for the kubelet to respawn the pods. Finally, reset the `~/.kube/config`
+    file and run `kubectl` commands.
+    
+    ```shell
+    ###
+    # All commands ran on the master node
+    ###
+    
+    # Copy manifests
+    mkdir ~/manifestsBackup_yyyy_mm_dd
+    sudo cp /etc/kubernetes/manifests/* ~/manifestsBackup_yyyy_mm_dd/
+    
+    # Sanity check
+    ls ~/manifestsBackup_yyyy_mm_dd
+    
+    # Navigate to /etc/kubernetes/manifests and list files, to ensure we're removing
+    # what we think we are
+    cd /etc/kubernetes/manifests
+    ls
+    
+    # Verify the containers you are about to remove are currently running
+    sudo docker ps
+    
+    # Remove files
+    rm ./*
+    
+    # Wait until the containers are removed
+    sudo docker ps
+    
+    # Replace files
+    sudo cp ~/manifestsBackup_yyyy_mm_dd/* /etc/kubernetes/manifests/
+    
+    # Wait until containers are respawned
+    sudo docker ps
+    
+    # Reset the config
+    mkdir -p $HOME/.kube
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    
+    # Cross your fingers and hope you can now run kubectl commands again!
+    kubectl get pods --all-namespaces
+    ```
+    
+    If you want to run kubectl commands from another machine, for example the
+    machine where we launch JupyterHubs from within docker containers, you must copy
+    this config file to that machine's `$HOME/.kube` directory.
+    
+    You should have the IP and `ssh` access of/to the master node. Copy over the
+    config through `scp`:
+    
+    ```
+    ###
+    # On the appropriate "Jupyter control center" docker container
+    ###
+    
+    # Directory probably already exists, but try creating the directory anyways
+    mkdir $HOME/.kube
+    scp ubuntu@<ip>:~/.kube/config $HOME/.kube/config
+    ```
+    
+    Finally, edit the `server` value in the `$HOME/.kube/config` to point to
+    `127.0.0.1`, as kubectl will communicate with the api-server through a tunnel
+    created on the Jupyter control container. See
+    [this](../../openstack/bin/kube-setup2.sh) script and the reference therein for
+    the reason behind doing this.
+    
+    ```
+    # Change a line that looks like the following
+    server: https://<some-ip>:6443
+    # to
+    server: https://127.0.0.1:6443`
+    ```
+    
+    You should now be able to run `kubectl` commands, fire up new user servers, and
+    run `helm` upgrades.
