@@ -11,6 +11,7 @@
 		- [Mount the Volumes](#fstab.mount)
 
 <a id="overview"></a>
+
 # Overview
 
 The WRF VM on JetStream 2 is intended to perform automatic WRF model runs
@@ -20,9 +21,11 @@ output can be accessed from outside Unidata through a RAMADDA server running on
 this same VM.
 
 <a id="initialSetup"></a>
+
 # Initial Setup
 
 <a id="createVM"></a>
+
 ## Create the VM
 
 Create an `m3.large` RockyLinux VM with the [Jetstream OpenStack
@@ -44,12 +47,14 @@ openstack server add volume <server-name> <volume-name>
 ```
 
 <a id="security"></a>
+
 ## Security Profile
 
 `ssh` into the VM and apply the security profile as instructed by Unidata
 sys-admin staff.
 
 <a id="cloneSG"></a>
+
 ## Clone the science-gateway Repository
 
 We will be making heavy use of the `Unidata/science-gateway` git repository.
@@ -59,6 +64,7 @@ git clone https://github.com/Unidata/science-gateway ~/science-gateway
 ```
 
 <a id="docker"></a>
+
 ## Install docker and docker compose
 
 Run `rocky-init.sh` to install `docker`, `docker-compose`, and other niceties,
@@ -78,9 +84,11 @@ docker compose --help
 ```
 
 <a id="fstab"></a>
+
 ## Edit /etc/fstab
 
 <a id="fstab.wrf"></a>
+
 ### Format and mount WRF output volume
 
 First, ensure the volume was attached with `ls /dev/sd*`. Typically, the data
@@ -116,6 +124,7 @@ UUID=<UUID> /wrfout ext4 defaults 1 1
 ```
 
 <a id="fstab.software"></a>
+
 ### Remove "software" Mount
 
 Instances on JetStream2 come automounted with a `/software` directory provided
@@ -135,6 +144,7 @@ To ensure this doesn't get remounted on reboot comment out the following line
 ```
 
 <a id="fstab.nfs"></a>
+
 ### NFS Mount to idd-archiver Data
 
 The [idd-archiver](../idd-archiver/readme.md) machine stores a five (5) day
@@ -172,6 +182,7 @@ sudo exportfs -ra
 ```
 
 <a id="fstab.mount"></a>
+
 ### Mount the Volumes
 
 Mount the volumes found in `/etc/fstab` and inspect your work.
