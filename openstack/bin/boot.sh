@@ -70,7 +70,7 @@ if [ -z "$VM_SIZE" ];
       exit 1
 fi
 
-if [ !(-v SECURITY ) ];
+if [ ! -v SECURITY ];
 then
 	echo "Security script not specifed, defaulting to $HOME/security/security.sh"
 	SECURITY="$HOME/security/security.sh"
@@ -92,7 +92,7 @@ openstack server create ${VM_NAME} \
   --image ${IMAGE_NAME} \
   --key-name ${KEY_NAME} \
   --security-group global-ssh-22 \
-  --nic net-id=${NETWORK_ID}
+  --nic net-id=${NETWORK_ID} \
   --user-data ${SECURITY}
 
 # give chance for VM to fire up
