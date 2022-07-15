@@ -2,13 +2,15 @@
 
 usage="$(basename "$0") [-h] [-n, --name vm name] [-k, --key key name] \n
     [-s, --size vm size] [-i, --image image UID] [-ip, --ip ip address] \n
+	[-c, --security /path/to/security/script ] \n
     -- script to create VMs:\n
     -h  show this help text\n
     -n, --name vm name\n
     -k, --key key name\n
     -s, --size vm size\n
     -i, --image image UID\n
-    -ip, --ip vm ip number\n"
+    -ip, --ip vm ip number\n
+	-c, --security /path/to/security/script (defaults to \$HOME/security/security.sh)"
 
 while [[ $# > 0 ]]
 do
@@ -32,6 +34,10 @@ do
             ;;
         -ip|--ip)
             IP="$2"
+            shift # past argument
+            ;;
+		-c|--security)
+			SECURITY="$2"
             shift # past argument
             ;;
         -h|--help)
@@ -64,6 +70,12 @@ if [ -z "$VM_SIZE" ];
       exit 1
 fi
 
+if [ !(-v SECURITY ) ];
+then
+	echo "Security script not specifed, defaulting to $HOME/security/security.sh"
+	SECURITY="$HOME/security/security.sh"
+fi
+
 if [ -z "$IMAGE_NAME" ];
 then
       # Grab an RockyLinux Featured Image
@@ -81,6 +93,7 @@ openstack server create ${VM_NAME} \
   --key-name ${KEY_NAME} \
   --security-group global-ssh-22 \
   --nic net-id=${NETWORK_ID}
+  --user-data ${SECURITY}
 
 # give chance for VM to fire up
 echo sleep 30 for seconds while VM fires up
