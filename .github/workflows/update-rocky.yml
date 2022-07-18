@@ -40,8 +40,8 @@ jobs:
 
     - name: Grab the most recent upstream version
       run: |
-        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v "latest" | sort -Vr)
-        upstream=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v "latest" | sort -Vr | head -n1 )
+        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr)
+        upstream=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr | head -n1 )
         echo $upstream
         echo "upstream=$upstream" >> $GITHUB_ENV
 

@@ -45,8 +45,10 @@ if [[ -z "$UPSTREAM" || -z "$IMAGENAME" || -z "$REGISTRYPWD" || -z "$REGISTRYUSE
 	exit 1
 fi
 
-BRANCHES=$(git branch -r --list "origin/*" | grep -v -e "HEAD" | awk -F "/" '{ print $2 }' | xargs)
-BRANCHES=( $BRANCHES )
+# Operate only on a single branch
+# BRANCHES=$(git branch -r --list "origin/*" | grep -v -e "HEAD" | awk -F "/" '{ print $2 }' | xargs)
+# BRANCHES=( $BRANCHES )
+BRANCHES=("master")
 
 ROCKYPATH="./openstack/rocky"
 
