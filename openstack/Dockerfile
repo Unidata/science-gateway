@@ -1,4 +1,4 @@
-FROM unidata/rockylinux:latest
+FROM unidata/rockylinux:latest-8
 
 USER root
 
