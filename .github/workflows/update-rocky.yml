@@ -45,10 +45,19 @@ jobs:
         echo $upstream
         echo "upstream=$upstream" >> $GITHUB_ENV
 
+    - name: Grab the most recent upstream 8.x version
+      run: |
+        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr)
+        upstream8=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -e "^8" | grep -v -e "latest" -e "minimal" | sort -Vr | head -n1 )
+        echo $upstream8
+        echo "upstream8=$upstream8" >> $GITHUB_ENV
+
+
     - name: Check, update, build, push
       run: |
         ./${{ env.scriptsdir }}/updateBuildPush.sh \
         -u ${{ env.upstream }} \
+        -8 ${{ env.upstream8 }} \
         -i ${{ secrets.imagename }} \
         -t ${{ secrets.registrypwd }} \
         -s ${{ secrets.registryuser }}
