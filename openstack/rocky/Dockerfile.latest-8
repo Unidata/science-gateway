@@ -10,7 +10,7 @@ RUN yum upgrade -y && yum install -y epel-release
 
 # Desired packages for basic use
 RUN yum install -y sudo man man-pages vim nano git wget unzip ncurses procps \
-	htop python3 telnet openssh openssh-clients openssl findutils
+	htop python3 telnet openssh openssh-clients openssl findutils diffutils
 
 ###
 # Create rocky user account and add to sudoers file
