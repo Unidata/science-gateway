@@ -1,7 +1,5 @@
 FROM unidata/rockylinux:latest-8
 
-USER root
-
 ###
 # Kubectl
 ###
