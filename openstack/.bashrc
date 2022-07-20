@@ -23,10 +23,10 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-source /home/openstack/bin/openrc.sh
+source /home/rocky/bin/openrc.sh
 
 echo ensure open stack is working with: openstack image list
 echo https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line
 
 echo You will find cluster.tf here:
-find /home/openstack -name cluster.tf\*
+find /home/rocky -name cluster.tf\*

@@ -29,19 +29,8 @@ RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
 ENV TERRAFORM_VERSION=0.14.4
 
 RUN  wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/
-
-###
-# Set up openstack account and create bin directory
-###
-
-RUN useradd -ms /bin/bash openstack
-
-RUN echo "openstack ALL=NOPASSWD: ALL" >> /etc/sudoers
-
-RUN echo 'openstack:docker' | chpasswd
-
-ENV HOME /home/openstack
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/ && \
+    rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 
 RUN mkdir -p $HOME/bin
 
@@ -95,8 +84,8 @@ ADD .bashrc $HOME/
 # Finalize
 ###
 
-RUN chown -R openstack:openstack $HOME/
+RUN chown -R rocky:rocky $HOME/
 
 WORKDIR $HOME
 
-USER openstack
+USER rocky

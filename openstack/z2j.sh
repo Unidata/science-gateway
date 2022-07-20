@@ -143,14 +143,14 @@ mkdir -p $HELM
 touch ${SECRETS}
 
 docker run -it  --name  ${INVENTORY} \
-       -v ${SSH_DIR}:/home/openstack/.ssh/ \
-       -v ${OPENRC}:/home/openstack/bin/openrc.sh \
-       -v ${KUBE}:/home/openstack/.kube/ \
-       -v ${NOVACLIENT}:/home/openstack/.novaclient/ \
-       -v ${TERRAFORM}:/home/openstack/.terraform.d/ \
-       -v ${KUBESPRAY_INVENTORY}:/home/openstack/jetstream_kubespray/inventory/${INVENTORY} \
-       -v ${HELM}:/home/openstack/.helm \
-       -v ${SECRETS}:/home/openstack/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
+       -v ${SSH_DIR}:/home/rocky/.ssh/ \
+       -v ${OPENRC}:/home/rocky/bin/openrc.sh \
+       -v ${KUBE}:/home/rocky/.kube/ \
+       -v ${NOVACLIENT}:/home/rocky/.novaclient/ \
+       -v ${TERRAFORM}:/home/rocky/.terraform.d/ \
+       -v ${KUBESPRAY_INVENTORY}:/home/rocky/jetstream_kubespray/inventory/${INVENTORY} \
+       -v ${HELM}:/home/rocky/.helm \
+       -v ${SECRETS}:/home/rocky/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
        -e CLUSTER=${INVENTORY} \
        -e IP=${IP} \
        unidata/science-gateway /bin/bash
