@@ -69,20 +69,65 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 1.  Letsencrypt
 
-    Follow [Andrea's instructions](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) on setting up letsencrypt along with this yaml snippet below. Replace the hostname where appropriate.
+    Follow [Andrea's
+    instructions](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html)
+    on setting up letsencrypt using [cert-manager](https://cert-manager.io/). Due to a [network change between JS1 and
+    JS2](https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host),
+    the cert-manager pods must be ran on the k8s master node in order to
+    successfully complete the [challenges](https://letsencrypt.org/how-it-works/)
+    required by letsencrypt to issue the certificate.
+
+    The steps taken in Andrea's instructions are the same. However, the
+    kubernetes "deployment" resource that is created instructs kubernetes to deploy
+    the cert-manager pods on a worker node by default. We must "patch" the
+    deployment (and subsequently, the pods) to have them spawn on the master node.
+
+    ```shell
+    # Create the kubernetes resources as in Andrea's instructions
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cert-manager.yaml
+    ```
+
+    Run the following shell script to apply the patch:
+
+    ```shell
+    # deploymentPatch.sh
+    # Patch pods to make them spawn in master node
+
+    DEPLOYMENTS=( "cert-manager" "cert-manager-cainjector" "cert-manager-webhook" )
+
+    for DEPLOYMENT in ${DEPLOYMENTS[@]}
+    do
+            kubectl patch deployment -n cert-manager $DEPLOYMENT --patch-file ./deploymentPatch.yml
+    done
+    ```
 
     ```yaml
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/tls-acme: "true"
-      hosts:
-        - <jupyterhub-host>
-      tls:
-          - hosts:
-             - <jupyterhub-host>
-            secretName: certmanager-tls-jupyterhub
+    # deploymentPatch.yml referenced in deploymentPatch.sh
+    ---
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            "node-role.kubernetes.io/master": ""
+          tolerations:
+            - key: "node-role.kubernetes.io/master"
+              operator: "Exists"
     ```
+
+    After applying the patch, you can then watch the old pods be removed from
+    the worker nodes and created on the master node.
+
+    ```shell
+    kubectl get pods -n cert-manager --output=wide
+    ```
+
+    The rest of Andrea's instructions can be followed as usual.
+
+    For further reading:
+    - [Assigning a pod to a specific
+      node](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node)
+    - [Taints and
+      Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
 2.  Certificate from CA
 
