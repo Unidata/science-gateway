@@ -20,7 +20,7 @@
 
 <a id="h-D73CBC56"></a>
 
-# Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project
+# Creating a JupyterHub on Jetstream with the Zero to JupyterHub Project
 
 
 <a id="h-65F9358E"></a>
@@ -32,14 +32,30 @@
 
 ### jupyterhub.sh
 
-`jupyterhub.sh` and the related `z2j.sh` are convenience scripts similar to `openstack.sh` to give you access to a pre-configured environment that will allow you to build and/or run a Zero to JupyterHub cluster. It also relies on the [same Docker container](../../openstack/readme.md) as the `openstack.sh` script. `jupyterhub.sh` takes one argument with the `-n` option, the name of the Zero to JupyterHub cluster. Invoke it from the `science-gateway/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
+`jupyterhub.sh` and the related `z2j.sh` are convenience scripts similar to `openstack.sh` to give you access to a pre-configured environment that will allow you to build and/or run a Zero to JupyterHub cluster. It also relies on the [same Docker container](../../openstack/readme.md) as the `openstack.sh` script. `jupyterhub.sh` takes the following required arguments:
+
+```shell
+-n, --name JupyterHub name
+-p, --ip JupyterHub IP
+-o, --openrc openrc.sh absolute path
+```
+
+*Important*: The `--name` argument is used to set the names of the instances
+(VMs) of the cluster, which in turn is used to define the DNS name of assigned
+to the floating IP of the master node (see
+[here](../../openstack/readme.md#dynamicdns)). Ensure that the name provided to
+`jupyterhub.sh` results in a domain name that is less than 64 characters long,
+else LetsEncrypt will not be able to issue a certificate (see
+[here](https://letsencrypt.org/docs/glossary/#def-CN)).
+
+Invoke `jupyterhub.sh` from the `science-gateway/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
 
 
 <a id="h-2FF65549"></a>
 
 ### Create Cluster
 
-[Create a Kubernetes cluster](../../openstack/readme.md) with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node.
+[Create a Kubernetes cluster](../../openstack/readme.md) with the desired number of nodes and VM sizes. Lock down the master node of the cluster per Unidata security procedures. Work with sys admin staff to obtain a DNS name (e.g., jupyterhub.unidata.ucar.edu), and a certificate from a certificate authority for the master node. Alternatively, you can use JetStream2's [dynamic DNS](../../openstack/readme.md#dynamicdns) and acquire a self signed certificate with [LetsEncrypt](#h-294A4A20).
 
 
 <a id="h-CD007D2A"></a>

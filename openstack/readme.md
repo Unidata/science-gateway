@@ -13,10 +13,12 @@
     - [Boot VM](#h-EA17C2D9)
     - [Create and Attach Data Volumes](#h-9BEEAB97)
     - [Opening TCP Ports](#h-D6B1D4C2)
+    - [Dynamic DNS and Recordsets](#dynamicdns-recordsets)
     - [Tearing Down VMs](#h-1B38941F)
     - [Swapping VMs](#h-56B1F4AC)
   - [Building a Kubernetes Cluster](#h-DA34BC11)
     - [Define cluster with cluster.tfvars](#h-F44D1317)
+    - [Enable Dynamic DNS with cluster.tfvars](#dynamicDNS)
     - [Create VMs with kube-setup.sh](#h-0C658E7B)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
@@ -330,6 +332,52 @@ Finally, you can attach the security group to the VM (e.g., `my-vm`) with:
 openstack server add security group my-vm global-my-vm-ports
 ```
 
+<a id="dynamicdns-recordsets"></a>
+
+### Dynamic DNS and Recordsets
+
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will
+look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In
+addition, domain names are assigned automatically when a floating IP is assigned
+to a VM which is on a network with the `dns-domain` property set.
+
+To set this property when manually creating a network, run the following
+openstack command. Note the (necessary) trailing "." at the end of the domain:
+
+`openstack network create <new-network-name> --dns-domain <project-ID>.projects.jetstream-cloud.org.`
+
+To set this property on an existing network:
+
+`openstack network set --dns-domain <project-ID>.projects.jetstream-cloud.org. <network-name>`
+
+When creating a new VM using [boot.sh](./bin/boot.sh), the VM is added to the
+`unidata-public` network, which should already have the `dns_domain` property
+set. To confirm this for any network, run a:
+
+`openstack network show <network>`
+
+If you wanted to manually create/edit domain names, do so using the `openstack
+recordset` commands. Note that you must have `python-designateclient`
+[installed](https://docs.openstack.org/python-designateclient/latest/user/shell-v2.html).
+
+```shell
+# See the current state of your project's DNS zone
+# Useful for getting IDs of individual recordsets
+openstack recordset list <project-ID>.projects.jetstream-cloud.org.
+
+# More closely inspect a given recordset
+openstack recordset show <project-ID>.projects.jetstream-cloud.org. <recordset-ID>
+
+# Create new DNS record
+openstack recordset create \
+--record <floating-ip-of-instance> \
+--type A \
+<project-ID>.projects.jetstream-cloud.org. \
+<your-desired-hostname>.<project-ID>.projects.jetstream-cloud.org.
+
+# Remove an unused record (because you created a new one for it, or otherwise)
+openstack recordset delete <project-ID>.projects.jetstream-cloud.org. <old-recordset-ID>
+```
 
 <a id="h-1B38941F"></a>
 
@@ -417,22 +465,22 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 
 ## Building a Kubernetes Cluster
 
-It is possible to create a Kubernetes cluster with the Docker container described here. We employ [Andrea Zonca's modification of the kubespray project](https://github.com/zonca/jetstream_kubespray). Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [here](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html). These instructions have been codified with the `kube-setup.sh` and `kube-setup2.sh` scripts.
+It is possible to create a Kubernetes cluster with the Docker container described here. We employ [Andrea Zonca's modification of the kubespray project](https://github.com/zonca/jetstream_kubespray). Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [here](https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html). These instructions have been codified with the `kube-setup.sh` and `kube-setup2.sh` scripts.
 
-Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443`)into the master node as described in the instructions.
+Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443`) into the master node as described in the instructions.
 
 
 <a id="h-F44D1317"></a>
 
 ### Define cluster with cluster.tfvars
 
-First, set the `CLUSTER` name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts:
+First, set the `CLUSTER` name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts. This step is done for you by supplying the `--name` argument to `jupyterhub.sh` and subsequently `z2j.sh` (see [here](../vms/jupyter/readme.md)). However, if you want to do this manually, run this from within the docker container launched by `jupyterhub.sh`:
 
 ```sh
 export CLUSTER="$CLUSTER"
 ```
 
-Then, modify `~/jetstream_kubespray/inventory/zonca/cluster.tfvars` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
+Then, modify `~/jetstream_kubespray/inventory/kubejetstream/cluster.tfvars` to specify the number of nodes in the cluster and the size ([flavor](#h-958EA909)) of the VMs. For example,
 
 ```sh
 # nodes
@@ -441,7 +489,7 @@ number_of_k8s_nodes_no_floating_ip = 2
 flavor_k8s_node = "4"
 ```
 
-will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for more details](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html).
+will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for more details](https://zonca.github.io/2022/03/kubernetes-jetstream-kubespray.html).
 
 [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
@@ -451,6 +499,31 @@ Also, note that `cluster.tfvars` assumes you are building a cluster at the TACC 
 
 **IMPORTANT**: once you define an `image` (e.g., `image = JS-API-Featured-Ubuntu18-May-22-2019`) or a flavor size (e.g., `flavor_k8s_master = 2`), make sure you do not subsequently change it after you have run Terraform and Ansible! This scenario can happen when [adding cluster nodes](#h-1991828D) and the featured image no longer exists because it has been updated. If you must change these values, you'll first have to [preserve your application data](../vms/jupyter/readme.md#h-5F2AA05F) and do a [gentle - IP preserving - cluster tear down](#h-DABDACC7) before rebuilding it and re-installing your application.
 
+<a id="dynamicDNS"></a>
+
+### Enable Dynamic DNS with cluster.tfvars
+
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will
+look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In
+addition, domain names are assigned automatically when a floating IP is assigned
+to a VM which is on a network with the `dns-domain` property set.
+
+To configure terraform to set this property, add/edit the line below in
+`cluster.tfvars`. 
+
+```shell
+# Uncomment below and edit to set dns-domain network property
+# network_dns_domain = "<project-ID>.projects.jetstream-cloud.org."
+```
+
+Note the (necessary) trailing "." at the end of the domain.
+
+After running the terraform scripts (see the next section), you can ensure that
+the dns name was correctly assigned to your cluster's master node with:
+
+```shell
+nslookup <instance-name>.<project-ID>.projects.jetstream-cloud.org
+```
 
 <a id="h-0C658E7B"></a>
 
