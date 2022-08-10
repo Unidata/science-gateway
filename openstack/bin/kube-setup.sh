@@ -12,6 +12,11 @@ sed -i "s/number_of_k8s_nodes_no_floating_ip = 0/number_of_k8s_nodes_no_floating
 sed -i "s/k8s_allowed_remote_ips = \[\"0.0.0.0\/0\"\]/k8s_allowed_remote_ips =  \[\"128.117.144.0\/24\", \"149.165.152.95\"\]/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" group_vars/k8s_cluster/k8s-cluster.yml
 
+# Uncomment the dns-domain property line
+sed -i "s/# network_dns_domain/network_dns_domain/g" cluster.tfvars
+# Replace project ID
+sed -i "s/<project-ID>/tg-ees220002/g" cluster.tfvars
+
 bash terraform_init.sh
 bash terraform_apply.sh
 
