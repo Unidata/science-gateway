@@ -1,0 +1,43 @@
+################################################
+# NECESSARY GITHUB SECRETS TO SET              #
+################################################
+# secrets.registryuser
+# secrets.registrypwd
+# secrets.server : (not currently implemented)
+################################################
+
+name: "Build/Push Science Gateway"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  buildAndPush:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment variables
+        run: |
+          echo "Image tag set to: $(date +%Y%m%d)"
+          echo "tag=$(date +%Y%m%d)" >> $GITHUB_ENV
+          echo "imagename=unidata/science-gateway" >> $GITHUB_ENV
+
+      # Checkout the commit that triggered the workflow
+      - uses: actions/checkout@v2
+
+      - name: Check environment
+        run: "echo ${{ env.imagename }}:${{ env.tag }}"
+
+      - name: Build the Docker image
+        run: |
+          cd openstack;
+          docker build --no-cache --tag ${{ env.imagename }}:${{ env.tag }} .;
+          docker tag ${{ env.imagename }}:${{ env.tag }} ${{ env.imagename }}:latest
+
+      - name: Push the Docker image
+        run: |
+          docker logout;
+          echo ${{ secrets.registrypwd }} | docker login -u ${{ secrets.registryuser }} --password-stdin
+          docker push ${{ env.imagename }}:${{ env.tag }} &&
+          docker push ${{ env.imagename }}:latest &&
+          { docker logout && echo "Successfully pushed ${{ env.imagename }} (tags: ${{ env.tag }}, latest)"; } ||
+          { docker logout && echo "Docker push failed" && exit 1; }
