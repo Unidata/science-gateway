@@ -15,7 +15,7 @@ sed -i "s/149.xxx.xxx.xxx/"$IP"/g" group_vars/k8s_cluster/k8s-cluster.yml
 # Uncomment the dns-domain property line
 sed -i "s/# network_dns_domain/network_dns_domain/g" cluster.tfvars
 # Replace project ID
-sed -i "s/<project-ID>/tg-ees220002/g" cluster.tfvars
+sed -i "s/tg-xxxxxxxxx/tg-ees220002/g" cluster.tfvars
 
 bash terraform_init.sh
 bash terraform_apply.sh
