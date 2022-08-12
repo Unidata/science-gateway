@@ -88,7 +88,7 @@ then
 	systemctl enable docker.service
 	systemctl start docker.service
 
-	mkdir /logs
+	mkdir -p /logs
 	chown -R ${DOCKER_USER}:docker /logs
 fi
 
