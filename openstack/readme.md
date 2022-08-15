@@ -62,7 +62,7 @@ Note, you do not have to employ this Docker container. It is merely provided as 
 
 ## Install Docker (Do This Once)
 
-[Install Docker](../vm-init-readme.md) in your computing environment because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
+Install Docker via the `rocky-init.sh` script because we will be interacting with the OpenStack Jetstream API via Docker. This step should make our lives easier.
 
 
 <a id="h-968FA51C"></a>
@@ -249,22 +249,22 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
     may yield something like:
 
     ```sh
-    | 4ada5750-4ba4-4cc6-8d12-9001fe04ae1b | JS-API-Featured-Centos6-Feb-13-2018  |
-    | 87df53d5-04bd-4bb8-862e-b67247f07f87 | JS-API-Featured-Centos7-Feb-13-2018  |
-    | 20e6ec66-a5ec-41fc-820c-08a2af5bd1eb | JS-API-Featured-Ubuntu14-Feb-13-2018 |
-    | a2c80fbf-2875-457a-b488-28c4afeb296b | JS-API-Featured-Ubuntu16-Feb-13-2018 |
+    | 45405d78-e108-48bf-a502-14a0dab81915 | Featured-RockyLinux8 | active |
+    | e85293e8-c9b0-4fc9-88b6-e3645c7d1ad3 | Featured-Ubuntu18    | active |
+    | 49d5e275-23d6-44b5-aa60-94242d92caf1 | Featured-Ubuntu20    | active |
+    | e41dc578-b911-48c6-a468-e607a8b2c87c | Featured-Ubuntu22    | active |
     ```
 
-    The CentOS VMs will have a default of user `centos` and the Ubuntu VMs will have a default user of `ubuntu`.
+    The Rocky VMs will have a default of user `rocky` and the Ubuntu VMs will have a default user of `ubuntu`.
 
     Also see `boot.sh -h` and `openstack flavor list` for more information.
 
 2.  SSH Into New VM
 
-    At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `ubuntu` or `centos`) may be important:
+    At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `rocky`) may be important:
 
     ```sh
-    ssh -i ~/.ssh/<key-name> ubuntu@149.165.157.137
+    ssh -i ~/.ssh/<key-name> rocky@149.165.157.137
     ```
 
     At this point, you might see
@@ -422,7 +422,7 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 
     Create the VM that will be swapped in. Make sure to:
 
-    -   [initialize new VM](../vm-init-readme.md)
+    -   initialize the new VM with the `rocky-init.sh` script
     -   build or fetch relevant Docker containers
     -   copy over the relevant configuration files. E.g., check with `git diff` and scrutinize `~/config`
     -   check the crontab with `crontab -l`
