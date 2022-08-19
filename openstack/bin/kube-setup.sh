@@ -17,6 +17,13 @@ sed -i "s/# network_dns_domain/network_dns_domain/g" cluster.tfvars
 # Replace project ID
 sed -i "s/tg-xxxxxxxxx/tg-ees220002/g" cluster.tfvars
 
+# According to Jeremy Fischer, IU/Jetstream we should use the
+# auto_allocated_router default router
+ROUTER_ID=$(openstack router list | grep auto_allocated_router |  \
+                  awk 'BEGIN { FS = "|" } ; { print $2 }' | tr -d ' ')
+
+sed -i "s/router_id = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"/router_id = \"$ROUTER_ID\"/g" cluster.tfvars
+
 bash terraform_init.sh
 bash terraform_apply.sh
 
