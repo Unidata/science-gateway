@@ -16,7 +16,7 @@ mkdir -p $HOME/.kube/
 cp $HOME/jetstream_kubespray/inventory/$CLUSTER/artifacts/admin.conf \
     $HOME/.kube/config
 
-sed -i 's/10\.0\.0\.[[:digit:]]\+/127.0.0.1/g' $HOME/.kube/config
+sed -i 's/10\.0\.[[:digit:]]\.[[:digit:]]\+/127.0.0.1/g' $HOME/.kube/config
 
 FLOATINGIPOFMASTER=$(openstack server list | grep $CLUSTER | \
     grep -i master | awk 'BEGIN { FS = "|" } ; { print $5 }' | \
