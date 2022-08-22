@@ -619,6 +619,8 @@ kubectl get nodes --all-namespaces
 
 ### Adding Nodes to Cluster
 
+! **THINK before you type here because if you scale with an updated Ubuntu VM ID with respect to what is running on the cluster, you may wipe out your cluster** ! [See the GitHub issue about this topic](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/54).
+
 You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [adding worker nodes](#h-F44D1317) in `jetstream_kubespray/inventory/$CLUSTER/cluster.tfvars` followed by running:
 
 ```sh
