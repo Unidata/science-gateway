@@ -18,7 +18,7 @@
     - [Swapping VMs](#h-56B1F4AC)
   - [Building a Kubernetes Cluster](#h-DA34BC11)
     - [Define cluster with cluster.tfvars](#h-F44D1317)
-    - [Enable Dynamic DNS with cluster.tfvars](#dynamicDNS)
+    - [Enable Dynamic DNS with cluster.tfvars](#h-7801DD3F)
     - [Create VMs with kube-setup.sh](#h-0C658E7B)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
@@ -493,17 +493,14 @@ Also, note that `cluster.tfvars` assumes you are building a cluster at the TACC 
 
 **IMPORTANT**: once you define an `image` (e.g., `image = JS-API-Featured-Ubuntu18-May-22-2019`) or a flavor size (e.g., `flavor_k8s_master = 2`), make sure you do not subsequently change it after you have run Terraform and Ansible! This scenario can happen when [adding cluster nodes](#h-1991828D) and the featured image no longer exists because it has been updated. If you must change these values, you'll first have to [preserve your application data](../vms/jupyter/readme.md#h-5F2AA05F) and do a [gentle - IP preserving - cluster tear down](#h-DABDACC7) before rebuilding it and re-installing your application.
 
-<a id="dynamicDNS"></a>
+
+<a id="h-7801DD3F"></a>
 
 ### Enable Dynamic DNS with cluster.tfvars
 
-JetStream2 handles dynamic DNS differently than JetStream1; domain names will
-look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In
-addition, domain names are assigned automatically when a floating IP is assigned
-to a VM which is on a network with the `dns-domain` property set.
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In addition, domain names are assigned automatically when a floating IP is assigned to a VM which is on a network with the `dns-domain` property set.
 
-To configure terraform to set this property, add/edit the line below in
-`cluster.tfvars`. 
+To configure terraform to set this property, add/edit the line below in `cluster.tfvars`.
 
 ```shell
 # Uncomment below and edit to set dns-domain network property
