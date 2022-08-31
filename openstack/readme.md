@@ -13,7 +13,7 @@
     - [Boot VM](#h-EA17C2D9)
     - [Create and Attach Data Volumes](#h-9BEEAB97)
     - [Opening TCP Ports](#h-D6B1D4C2)
-    - [Dynamic DNS and Recordsets](#dynamicdns-recordsets)
+    - [Dynamic DNS and Recordsets](#h-612458CB)
     - [Tearing Down VMs](#h-1B38941F)
     - [Swapping VMs](#h-56B1F4AC)
   - [Building a Kubernetes Cluster](#h-DA34BC11)
@@ -332,17 +332,14 @@ Finally, you can attach the security group to the VM (e.g., `my-vm`) with:
 openstack server add security group my-vm global-my-vm-ports
 ```
 
-<a id="dynamicdns-recordsets"></a>
+
+<a id="h-612458CB"></a>
 
 ### Dynamic DNS and Recordsets
 
-JetStream2 handles dynamic DNS differently than JetStream1; domain names will
-look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In
-addition, domain names are assigned automatically when a floating IP is assigned
-to a VM which is on a network with the `dns-domain` property set.
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will look like `<instance-name>.<project-ID>.projects.jetstream-cloud.org`. In addition, domain names are assigned automatically when a floating IP is assigned to a VM which is on a network with the `dns-domain` property set.
 
-To set this property when manually creating a network, run the following
-openstack command. Note the (necessary) trailing "." at the end of the domain:
+To set this property when manually creating a network, run the following openstack command. Note the (necessary) trailing "." at the end of the domain:
 
 `openstack network create <new-network-name> --dns-domain <project-ID>.projects.jetstream-cloud.org.`
 
@@ -350,15 +347,11 @@ To set this property on an existing network:
 
 `openstack network set --dns-domain <project-ID>.projects.jetstream-cloud.org. <network-name>`
 
-When creating a new VM using [boot.sh](./bin/boot.sh), the VM is added to the
-`unidata-public` network, which should already have the `dns_domain` property
-set. To confirm this for any network, run a:
+When creating a new VM using [boot.sh](./bin/boot.sh), the VM is added to the `unidata-public` network, which should already have the `dns_domain` property set. To confirm this for any network, run a:
 
 `openstack network show <network>`
 
-If you wanted to manually create/edit domain names, do so using the `openstack
-recordset` commands. Note that you must have `python-designateclient`
-[installed](https://docs.openstack.org/python-designateclient/latest/user/shell-v2.html).
+If you wanted to manually create/edit domain names, do so using the `openstack recordset` commands. Note that you must have `python-designateclient` [installed](https://docs.openstack.org/python-designateclient/latest/user/shell-v2.html).
 
 ```shell
 # See the current state of your project's DNS zone
@@ -370,14 +363,15 @@ openstack recordset show <project-ID>.projects.jetstream-cloud.org. <recordset-I
 
 # Create new DNS record
 openstack recordset create \
---record <floating-ip-of-instance> \
---type A \
-<project-ID>.projects.jetstream-cloud.org. \
-<your-desired-hostname>.<project-ID>.projects.jetstream-cloud.org.
+  --record <floating-ip-of-instance> \
+  --type A \
+  <project-ID>.projects.jetstream-cloud.org. \
+  <your-desired-hostname>.<project-ID>.projects.jetstream-cloud.org.
 
 # Remove an unused record (because you created a new one for it, or otherwise)
 openstack recordset delete <project-ID>.projects.jetstream-cloud.org. <old-recordset-ID>
 ```
+
 
 <a id="h-1B38941F"></a>
 

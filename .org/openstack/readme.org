@@ -340,6 +340,45 @@ Finally, you can attach the security group to the VM (e.g., ~my-vm~) with:
 #+BEGIN_SRC sh :eval no
   openstack server add security group my-vm global-my-vm-ports
 #+END_SRC
+*** Dynamic DNS and Recordsets
+:PROPERTIES:
+:CUSTOM_ID: h-612458CB
+:END:
+
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will look like ~<instance-name>.<project-ID>.projects.jetstream-cloud.org~. In addition, domain names are assigned automatically when a floating IP is assigned to a VM which is on a network with the ~dns-domain~ property set.
+
+To set this property when manually creating a network, run the following openstack command. Note the (necessary) trailing "." at the end of the domain:
+
+~openstack network create <new-network-name> --dns-domain <project-ID>.projects.jetstream-cloud.org.~
+
+To set this property on an existing network:
+
+~openstack network set --dns-domain <project-ID>.projects.jetstream-cloud.org. <network-name>~
+
+When creating a new VM using [[./bin/boot.sh][boot.sh]], the VM is added to the ~unidata-public~ network, which should already have the ~dns_domain~ property set. To confirm this for any network, run a:
+
+~openstack network show <network>~
+
+If you wanted to manually create/edit domain names, do so using the ~openstack recordset~ commands. Note that you must have ~python-designateclient~ [[https://docs.openstack.org/python-designateclient/latest/user/shell-v2.html][installed]].
+
+#+BEGIN_SRC shell
+  # See the current state of your project's DNS zone
+  # Useful for getting IDs of individual recordsets
+  openstack recordset list <project-ID>.projects.jetstream-cloud.org.
+
+  # More closely inspect a given recordset
+  openstack recordset show <project-ID>.projects.jetstream-cloud.org. <recordset-ID>
+
+  # Create new DNS record
+  openstack recordset create \
+    --record <floating-ip-of-instance> \
+    --type A \
+    <project-ID>.projects.jetstream-cloud.org. \
+    <your-desired-hostname>.<project-ID>.projects.jetstream-cloud.org.
+
+  # Remove an unused record (because you created a new one for it, or otherwise)
+  openstack recordset delete <project-ID>.projects.jetstream-cloud.org. <old-recordset-ID>
+#+END_SRC
 *** Tearing Down VMs
     :PROPERTIES:
     :CUSTOM_ID: h-1B38941F
