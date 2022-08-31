@@ -594,6 +594,28 @@ Also, note that ~cluster.tfvars~ assumes you are building a cluster at the TACC 
 
 *IMPORTANT*: once you define an ~image~ (e.g., ~image = JS-API-Featured-Ubuntu18-May-22-2019~) or a flavor size (e.g., ~flavor_k8s_master = 2~), make sure you do not subsequently change it after you have run Terraform and Ansible!  This scenario can happen when [[#h-1991828D][adding cluster nodes]] and the featured image no longer exists because it has been updated. If you must change these values, you'll first have to [[file:../vms/jupyter/readme.org::#h-5F2AA05F][preserve your application data]] and do a [[#h-DABDACC7][gentle - IP preserving - cluster tear down]] before rebuilding it and re-installing your application.
 
+*** Enable Dynamic DNS with cluster.tfvars
+:PROPERTIES:
+:CUSTOM_ID: h-7801DD3F
+:END:
+
+JetStream2 handles dynamic DNS differently than JetStream1; domain names will look like ~<instance-name>.<project-ID>.projects.jetstream-cloud.org~. In addition, domain names are assigned automatically when a floating IP is assigned to a VM which is on a network with the ~dns-domain~ property set.
+
+To configure terraform to set this property, add/edit the line below in ~cluster.tfvars~.
+
+#+BEGIN_SRC shell
+  # Uncomment below and edit to set dns-domain network property
+  # network_dns_domain = "<project-ID>.projects.jetstream-cloud.org."
+#+END_SRC
+
+Note the (necessary) trailing "." at the end of the domain.
+
+After running the terraform scripts (see the next section), you can ensure that the dns name was correctly assigned to your cluster's master node with:
+
+#+BEGIN_SRC shell
+  nslookup <instance-name>.<project-ID>.projects.jetstream-cloud.org
+#+END_SRC
+
 *** Create VMs with kube-setup.sh
     :PROPERTIES:
     :CUSTOM_ID: h-0C658E7B
@@ -799,6 +821,10 @@ Subsequently, when you invoke ~terraform_apply.sh~, the master node should have 
 
 Installing these monitoring technologies is fairly straightforward and [[https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html][described here]].
 *** Patching Master Node
+:PROPERTIES:
+:CUSTOM_ID: h-9BC6B08B
+:END:
+
     :PROPERTIES:
     :CUSTOM_ID: h-1B2FF6A7
     :END:
