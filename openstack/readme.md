@@ -28,7 +28,7 @@
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
     - [Patching Master Node](#h-1B2FF6A7)
 - [Appendix](#h-78283D4A)
-  - [Jetstream VM Flavors](#h-958EA909)
+  - [Jetstream2 VM Flavors](#h-958EA909)
 
 
 
@@ -739,16 +739,19 @@ reboot -h now
 
 <a id="h-958EA909"></a>
 
-## Jetstream VM Flavors
+## Jetstream2 VM Flavors
 
-| ID | Name       | RAM(GB) | Disk(GB) | VCPUs |
-|--- |---------- |------- |-------- |----- |
-| 1  | m1.tiny    | 2       | 8        | 1     |
-| 2  | m1.small   | 4       | 20       | 2     |
-| 3  | m1.medium  | 16      | 60       | 6     |
-| 4  | m1.large   | 30      | 60       | 10    |
-| 5  | m1.xlarge  | 60      | 60       | 24    |
-| 6  | m1.xxlarge | 120     | 60       | 44    |
-| 14 | s1.large   | 30      | 120      | 10    |
-| 15 | s1.xlarge  | 60      | 240      | 24    |
-| 16 | s1.xxlarge | 120     | 480      | 44    |
+| ID | Name      | RAM     | Disk | VCPUs | Is Public |
+| 1  | m3.tiny   | 3072    | 20   | 1     | True      |
+| 10 | g3.small  | 15360   | 60   | 4     | False     |
+| 11 | g3.medium | 30720   | 60   | 8     | False     |
+| 12 | g3.large  | 61440   | 60   | 16    | False     |
+| 13 | g3.xl     | 128000  | 60   | 32    | False     |
+| 14 | r3.large  | 512000  | 60   | 64    | False     |
+| 15 | r3.xl     | 1024000 | 60   | 128   | False     |
+| 2  | m3.small  | 6144    | 20   | 2     | True      |
+| 3  | m3.quad   | 15360   | 20   | 4     | True      |
+| 4  | m3.medium | 30720   | 60   | 8     | True      |
+| 5  | m3.large  | 61440   | 60   | 16    | True      |
+| 7  | m3.xl     | 128000  | 60   | 32    | True      |
+| 8  | m3.2xl    | 256000  | 60   | 64    | True      |
