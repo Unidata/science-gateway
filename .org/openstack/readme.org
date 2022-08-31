@@ -560,7 +560,7 @@ Issue ~blkid~ (or ~ls -la /dev/disk/by-uuid~) command to find ~UUIDs~ that will 
    :CUSTOM_ID: h-DA34BC11
    :END:
 
-It is possible to create a Kubernetes cluster with the Docker container described here. We employ [[https://github.com/zonca/jetstream_kubespray][Andrea Zonca's modification of the kubespray project]]. Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html][here]].  These instructions have been codified with the ~kube-setup.sh~ and ~kube-setup2.sh~ scripts.
+It is possible to create a Kubernetes cluster with the Docker container described here. We employ [[https://github.com/zonca/jetstream_kubespray][Andrea Zonca's modification of the kubespray project]]. Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [[https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html][here]].  These instructions have been codified with the ~kube-setup.sh~ and ~kube-setup2.sh~ scripts.
 
 Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443~)into the master node as described in the instructions.
 
@@ -575,7 +575,7 @@ First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for exa
   export CLUSTER="$CLUSTER"
 #+END_SRC
 
-Then, modify =~/jetstream_kubespray/inventory/zonca/cluster.tfvars= to specify the number of nodes in the cluster and the size ([[#h-958EA909][flavor]]) of the VMs. For example,
+Then, modify =~/jetstream_kubespray/inventory/kubejetstream/cluster.tfvars= to specify the number of nodes in the cluster and the size ([[#h-958EA909][flavor]]) of the VMs. For example,
 
 #+BEGIN_SRC sh
   # nodes
@@ -584,7 +584,7 @@ Then, modify =~/jetstream_kubespray/inventory/zonca/cluster.tfvars= to specify t
   flavor_k8s_node = "4"
 #+END_SRC
 
-will create a 2 node cluster of ~m1.large~ VMs. [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html][See Andrea's instructions for more details]].
+will create a 2 node cluster of ~m1.large~ VMs. [[https://zonca.github.io/2022/03/kubernetes-jetstream-kubespray.html][See Andrea's instructions for more details]].
 
 [[https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing][This spreadsheet]] will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
