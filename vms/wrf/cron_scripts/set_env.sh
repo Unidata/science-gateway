@@ -24,7 +24,7 @@ export START_SECOND_D2=00
 
 # Model run lengths
 export RUN_DAYS=1
-export RUN_HOURS=8
+export RUN_HOURS=0
 export RUN_MINUTES=0
 export RUN_SECONDS=0
 
