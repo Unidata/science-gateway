@@ -647,6 +647,26 @@ and
        ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
 #+END_SRC
 
+***** Ansible Timeouts
+:PROPERTIES:
+:CUSTOM_ID: h-2B239C73
+:END:
+The ansible script works via ~sudo~. That escalation can lead to timeout errors if ~sudo~ is not fast enough. For example:
+
+#+begin_src shell
+  fatal: [gpu-test3-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+  fatal: [gpu-test3-k8s-node-nf-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+#+end_src
+
+In that case add
+
+#+begin_src shell
+  timeout = 60
+  gather_timeout = 60
+#+end_src
+
+under the ~[default]~ tag in =jetstream_kubespray/ansible.cfg=.
+
 ***** Steps if VMs are Unhappy
      :PROPERTIES:
      :CUSTOM_ID: h-F4401658
