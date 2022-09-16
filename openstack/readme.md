@@ -543,7 +543,25 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
          ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
     ```
 
-    1.  Steps if VMs are Unhappy
+    1.  Ansible Timeouts
+
+        The ansible script works via `sudo`. That escalation can lead to timeout errors if `sudo` is not fast enough. For example:
+
+        ```shell
+        fatal: [gpu-test3-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+        fatal: [gpu-test3-k8s-node-nf-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+        ```
+
+        In that case add
+
+        ```shell
+        timeout = 60
+        gather_timeout = 60
+        ```
+
+        under the `[default]` tag in `jetstream_kubespray/ansible.cfg`.
+
+    2.  Steps if VMs are Unhappy
 
         If the check status process did not go smoothly, here are some thing you can try to remedy the problem.
 
