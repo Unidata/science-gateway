@@ -1,0 +1,14 @@
+name: unidata
+channels:
+  - conda-forge
+dependencies:
+  - climpred
+  - gdal
+  - geemap
+  - keras
+  - pytorch
+  - regionmask
+  - scikit-learn
+  - xagg
+  - xesmf
+  - salem

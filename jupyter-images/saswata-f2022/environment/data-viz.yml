@@ -1,0 +1,11 @@
+name: unidata
+channels:
+  - conda-forge
+dependencies:
+  - cmaps
+  - matplotlib
+  - cartopy
+  - pip
+  - pip:
+    - climetlab
+    - pystack-debugger

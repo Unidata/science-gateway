@@ -1,0 +1,15 @@
+name: unidata
+channels:
+  - conda-forge
+dependencies:
+  - cfgrib
+  - eccodes
+  - geopandas
+  - iris
+  - metpy
+  - netcdf4
+  - rasterio
+  - rioxarray
+  - shapely
+  - xarray
+  - zarr

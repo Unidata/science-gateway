@@ -1,0 +1,6 @@
+name: unidata
+channels:
+  - conda-forge
+dependencies:
+  - raven
+  - landlab
