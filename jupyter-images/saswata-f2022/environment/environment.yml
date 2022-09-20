@@ -1,0 +1,38 @@
+name: unidata
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - intake
+  - intake-xarray
+  - siphon
+  - cfgrib
+  - eccodes
+  - geopandas
+  - iris
+  - metpy
+  - netcdf4
+  - rasterio
+  - rioxarray
+  - shapely
+  - xarray
+  - zarr
+  - climpred
+  - gdal
+  - geemap
+  - keras
+  - pytorch
+  - regionmask
+  - scikit-learn
+  - xagg
+  - xesmf
+  - salem
+  - raven
+  - landlab
+  - cmaps
+  - matplotlib
+  - cartopy
+  - pip
+  - pip:
+    - climetlab
+    - pystack-debugger

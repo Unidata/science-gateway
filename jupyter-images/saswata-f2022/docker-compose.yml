@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  mamba:
+    image: unidata/saswata-f2022:20220919
+    ports:
+      - "8888:8888"
