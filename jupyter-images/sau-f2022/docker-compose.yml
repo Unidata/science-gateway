@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  sau-f2022:
+    image: unidata/sau-f2022:latest
+    ports:
+      - "8888:8888"
