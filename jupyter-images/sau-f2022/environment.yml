@@ -1,0 +1,9 @@
+name: sau-f2022
+channels:
+  - conda-forge
+dependencies:
+  - scikit-learn
+  - numpy
+  - scipy
+  - matplotlib
+  - openpyxl
