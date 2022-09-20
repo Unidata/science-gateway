@@ -53,4 +53,6 @@ RUN git clone https://github.com/CH-Earth/summa.git /summa && \
     echo "export PATH=\$PATH:${F_MASTER}/bin" >> /home/jovyan/.bashrc && \
     unset F_MASTER FC FC_EXE INCLUDES LIBRARIES
 
+ADD README_USER.ipynb /home/jovyan/README.ipynb
+
 USER $NB_UID
