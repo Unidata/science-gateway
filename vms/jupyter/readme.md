@@ -419,14 +419,12 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     [With the volume ID obtained earlier](#h-1765D7EB), issue:
 
     ```shell
-    cinder attachment-list  | grep -i d910c7fae38b
+    openstack volume attachment list --os-volume-api-version 3.27 | grep -i d910c7fae38b
     ```
 
     which will yield something like:
 
     ```shell
-    WARNING:cinderclient.shell:API version 3.62 requested,
-    WARNING:cinderclient.shell:downgrading to 3.55 based on server support.
     | 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
     ```
 
