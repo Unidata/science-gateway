@@ -40,18 +40,30 @@ jobs:
 
     - name: Grab the most recent upstream version
       run: |
-        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr)
-        upstream=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr | head -n1 )
+        upstream=$(${{ env.scriptsdir }}/dockertags.sh \
+        --user ${{ secrets.registryuser }} \
+        --password ${{ secrets.registrypwd }} \
+        --namespace library \
+        --image rockylinux \
+        | grep -v -e "latest" -e "minimal" \
+        | sort -Vr \
+        | head -n1)
         echo $upstream
         echo "upstream=$upstream" >> $GITHUB_ENV
 
     - name: Grab the most recent upstream 8.x version
       run: |
-        echo $(${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -v -e "latest" -e "minimal" | sort -Vr)
-        upstream8=$( ${{ env.scriptsdir }}/dockertags.sh rockylinux | grep -e "^8" | grep -v -e "latest" -e "minimal" | sort -Vr | head -n1 )
+        upstream8=$(${{ env.scriptsdir }}/dockertags.sh \
+        --user ${{ secrets.registryuser }} \
+        --password ${{ secrets.registrypwd }} \
+        --namespace library \
+        --image rockylinux \
+        | grep -e "^8" \
+        | grep -v -e "latest" -e "minimal" \
+        | sort -Vr \
+        | head -n1)
         echo $upstream8
         echo "upstream8=$upstream8" >> $GITHUB_ENV
-
 
     - name: Check, update, build, push
       run: |
