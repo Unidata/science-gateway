@@ -12,22 +12,8 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y --no-install-recommends ffmpeg vim curl
 
 ADD environment /environment
-
-RUN mamba install --yes 'conda-forge::nb_conda_kernels' && \
-    pip install --upgrade jupyterlab-git jupyter_sql && \
-    mamba env update --name saswata2022 -f /environment/data-spec.yml && \
-    mamba env update --name saswata2022 -f /environment/io.yml && \
-    mamba env update --name saswata2022 -f /environment/analyze.yml && \
-    mamba env update --name saswata2022 -f /environment/modelling.yml && \
-    mamba env update --name saswata2022 -f /environment/data-viz.yml && \
-    mamba clean --all -f -y && \
-    jupyter lab build -y && \
-    jupyter lab clean -y && \
-    npm cache clean --force && \
-    rm -rf "/home/${NB_USER}/.cache/yarn" && \
-    rm -rf "/home/${NB_USER}/.node-gyp" && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+ADD README.md /README.md
+ADD README_USER.ipynb /README_USER.ipynb
 
 ########
 # Compile summa
@@ -50,9 +36,23 @@ RUN git clone https://github.com/CH-Earth/summa.git /summa && \
     export INCLUDES='-I/usr/include' && \
     export LIBRARIES='-L/usr/lib/x86_64-linux-gnu -lnetcdff -lblas -L/usr/lib/x86_64-linux-gnu/lapack -llapack' && \
     make && \
-    echo "export PATH=\$PATH:${F_MASTER}/bin" >> /home/jovyan/.bashrc && \
+    cp /summa/bin/summa.exe /usr/local/bin && \
     unset F_MASTER FC FC_EXE INCLUDES LIBRARIES
 
-ADD README_USER.ipynb /home/jovyan/README.ipynb
+RUN mamba install --yes 'conda-forge::nb_conda_kernels' && \
+    pip install --upgrade jupyterlab-git jupyter_sql && \
+    mamba env update --name saswata2022 -f /environment/data-spec.yml && \
+    mamba env update --name saswata2022 -f /environment/io.yml && \
+    mamba env update --name saswata2022 -f /environment/analyze.yml && \
+    mamba env update --name saswata2022 -f /environment/modelling.yml && \
+    mamba env update --name saswata2022 -f /environment/data-viz.yml && \
+    mamba clean --all -f -y && \
+    jupyter lab build -y && \
+    jupyter lab clean -y && \
+    npm cache clean --force && \
+    rm -rf "/home/${NB_USER}/.cache/yarn" && \
+    rm -rf "/home/${NB_USER}/.node-gyp" && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 USER $NB_UID
