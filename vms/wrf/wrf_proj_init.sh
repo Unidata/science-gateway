@@ -227,8 +227,8 @@ git clone https://github.com/robertej09/science-gateway ${PROJ_DIR}/science-gate
 echo ""
 
 mkdir -p ${PROJ_DIR}/output/
-cp ${PROJ_DIR}/science-gateway/vms/wrf/cron_scripts ${PROJ_DIR} 
-cp ${PROJ_DIR}/science-gateway/vms/wrf/template ${PROJ_DIR}/output/ 
+cp -r ${PROJ_DIR}/science-gateway/vms/wrf/cron_scripts ${PROJ_DIR} 
+cp -r ${PROJ_DIR}/science-gateway/vms/wrf/template ${PROJ_DIR}/output/ 
 mkdir ${PROJ_DIR}/output/template/{wpsprd,wrfprd,postprd}
 
 # Delete the directory now that we've gotten what we need
