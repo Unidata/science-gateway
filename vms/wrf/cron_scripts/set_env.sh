@@ -32,9 +32,11 @@ export RUN_SECONDS=0
 # User should not edit fields below
 ##############################
 
-# Besides using the date for making the new directory, we will also use it to
-# set various variables in the config files
+# To set various variables in the config files
 export DATE=$(date +%Y-%m-%d)
+
+# Directory holding all the info for this run
+export RUN_DIR="${PROJ_DIR}/$(date +%Y-%m-%d_%HZ)"
 
 # Start times for domain 1
 export START_YEAR_D1=$(date --date="today" +%Y)

@@ -168,6 +168,16 @@ then
     NUM_CPUS=${NUM_CPUS:-1}
 fi
 
+echo "This directory will be initialized using the following parameters:"
+echo "Input data dir: ${IDD_INPUT}"
+echo "Geog data resolution: $(echo $GEOG | grep -o -e low -e high)"
+echo "Project version: ${PROJ_VERSION}"
+echo "Run history: ${RUN_HISTORY} days"
+echo "Num of CPUs: ${NUM_CPUS}"
+read -p "Continue? (y/n) " VARS_CHECK
+
+[[ "${VARS_CHECK}" != "y" ]] && { echo "Exiting" ; exit 0 ; }
+
 echo ""
 
 ##############
@@ -213,11 +223,13 @@ echo "-----------------------------------------------"
 echo "Cloning unidata/science-gateway repository..."
 echo "-----------------------------------------------"
 echo ""
-git clone https://github.com/Unidata/science-gateway ${PROJ_DIR}/science-gateway
+git clone https://github.com/robertej09/science-gateway ${PROJ_DIR}/science-gateway
 echo ""
 
-cp -t ${PROJ_DIR} -r ${PROJ_DIR}/science-gateway/vms/wrf/{cron_scripts,template}
-mkdir ${PROJ_DIR}/template/{wpsprd,wrfprd,postprd}
+mkdir -p ${PROJ_DIR}/output/
+cp ${PROJ_DIR}/science-gateway/vms/wrf/cron_scripts ${PROJ_DIR} 
+cp ${PROJ_DIR}/science-gateway/vms/wrf/template ${PROJ_DIR}/output/ 
+mkdir ${PROJ_DIR}/output/template/{wpsprd,wrfprd,postprd}
 
 # Delete the directory now that we've gotten what we need
 rm -rf ${PROJ_DIR}/science-gateway
@@ -241,7 +253,7 @@ sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/full_run.sh
 sed -i "s|export IDD_INPUT=|&${IDD_INPUT}|" ${PROJ_DIR}/cron_scripts/set_env.sh
 
 # Set the appropriate WPS_GEOG resolution in namelist.wps
-sed -i "s|GEOG_DATA_RES|${GEOG_DATA_RES}|g" ${PROJ_DIR}/template/config/namelist.wps
+sed -i "s|GEOG_DATA_RES|${GEOG_DATA_RES}|g" ${PROJ_DIR}/output/template/config/namelist.wps
 
 # Set the PROJ_VERSION variable in the cron_scripts/set_env.sh file
 sed -i "s|export PROJ_VERSION=|&${PROJ_VERSION}|" ${PROJ_DIR}/cron_scripts/set_env.sh
@@ -315,7 +327,7 @@ echo ""
 # Prompt user to edit WRF config files
 ##############
 
-echo "Edit WRF config files in ${PROJ_DIR}/template/config to your liking"
+echo "Edit WRF config files in ${PROJ_DIR}/output/template/config to your liking"
 echo "These can be changed whenever and will take effect the next time the cron
 job runs"
 echo "Do NOT edit any variable values that are strings in capital letters,
