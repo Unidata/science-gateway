@@ -223,8 +223,16 @@ echo "-----------------------------------------------"
 echo "Cloning unidata/science-gateway repository..."
 echo "-----------------------------------------------"
 echo ""
+# git clone https://github.com/Unidata/science-gateway ${PROJ_DIR}/science-gateway
+# For dev purposes only v
 git clone https://github.com/robertej09/science-gateway ${PROJ_DIR}/science-gateway
+# For dev purposes only ^
 echo ""
+
+# For dev purposes only v
+cd ${PROJ_DIR}/science-gateway
+git checkout WRF
+# For dev purposes only ^
 
 mkdir -p ${PROJ_DIR}/output/
 cp -r ${PROJ_DIR}/science-gateway/vms/wrf/cron_scripts ${PROJ_DIR} 
@@ -232,6 +240,7 @@ cp -r ${PROJ_DIR}/science-gateway/vms/wrf/template ${PROJ_DIR}/output/
 mkdir ${PROJ_DIR}/output/template/{wpsprd,wrfprd,postprd}
 
 # Delete the directory now that we've gotten what we need
+cd ${PROJ_DIR}
 rm -rf ${PROJ_DIR}/science-gateway
 
 ##############
