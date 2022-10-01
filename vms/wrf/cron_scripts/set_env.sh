@@ -36,7 +36,7 @@ export RUN_SECONDS=0
 export DATE=$(date +%Y-%m-%d)
 
 # Directory holding all the info for this run
-export RUN_DIR="${PROJ_DIR}/$(date +%Y-%m-%d_%HZ)"
+export RUN_DIR="${PROJ_DIR}/output/$(date +%Y-%m-%d_%HZ)"
 
 # Start times for domain 1
 export START_YEAR_D1=$(date --date="today" +%Y)
