@@ -16,6 +16,20 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 10/04/2022, Gateways 2022 Conference
+  :PROPERTIES:
+  :RSS_TITLE: Gateway 2022 Conference
+  :PUBDATE: <2022-10-04 Tue>
+  :RSS_PERMALINK: index.html#h-777BAAA8
+  :CUSTOM_ID: h-777BAAA8
+  :ID:       3CD41376-9029-4976-8977-541690D969EC
+  :END:
+
+The Unidata Science Gateway project will have two poster presentations at the [[https://sciencegateways.org/][Gateways 2022 conference]]:
+
+- Democratizing Access to Atmospheric Modeling with WRF employing NSF Cloud Computing Resources
+- Unidata Science Gateway Reimagined: Unifying Access to Educational and Research Resources
+
 * 05/20/2022, Unidata Science Gateway Talk at EGU
   :PROPERTIES:
   :RSS_TITLE: Unidata Science Gateway Talk at EGU
@@ -37,15 +51,3 @@ Unidata Director, Mohan Ramamurthy, will be speaking at the European Geosciences
   :END:
 
 My colleague, Andrea Zonca, [[https://zonca.dev/2022/04/science-gateway-dask-zarr.html][has posted a video]] of our presentation at the SGCI Mini Gateways 2022 online conference.
-
-* 12/07/2021, Unidata Science Gateway at AGU and AMS
-  :PROPERTIES:
-   :RSS_TITLE: Unidata Science Gateway at AGU and AMS
-   :PUBDATE: <2021-12-07 Tue>
-   :RSS_PERMALINK: index.html#h-FF27A203
-   :CUSTOM_ID: h-FF27A203
-   :ID:       FAFE1202-4F17-4ABA-AB0D-EBC76E5D475C
-  :END:
-
-During the months of December and January there will be two presentations that touch upon the Unidata Science Gateway. There will be a lightning talk entitled "[[https://agu.confex.com/agu/fm21/meetingapp.cgi/Paper/967436][The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19]]" at the American Geophysical Union Fall 2021 meeting. In January there will be a talk called "[[https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Paper/398651][Unidata Partners with UCAR SOARS Program to Help Protégés and Their Mentors with Atmospheric Science Internships]]" at the American Meteorological Society's 2022 winter meeting.
-
