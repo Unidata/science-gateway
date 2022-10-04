@@ -18,7 +18,7 @@
 
 * 10/04/2022, Gateways 2022 Conference
   :PROPERTIES:
-  :RSS_TITLE: Gateway 2022 Conference
+  :RSS_TITLE: Gateways 2022 Conference
   :PUBDATE: <2022-10-04 Tue>
   :RSS_PERMALINK: index.html#h-777BAAA8
   :CUSTOM_ID: h-777BAAA8
