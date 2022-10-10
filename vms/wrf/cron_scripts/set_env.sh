@@ -33,41 +33,41 @@ export RUN_SECONDS=0
 ##############################
 
 # To set various variables in the config files
-export DATE=$(date +%Y-%m-%d)
+export DATE=$(date --utc +%Y-%m-%d)
 
 # Directory holding all the info for this run
-export RUN_DIR="${PROJ_DIR}/output/$(date +%Y-%m-%d_%HZ)"
+export RUN_DIR="${PROJ_DIR}/output/$(date --utc +%Y-%m-%d_%HZ)"
 
 # Start times for domain 1
-export START_YEAR_D1=$(date --date="today" +%Y)
-export START_MONTH_D1=$(date --date="today" +%m)
-export START_DAY_D1=$(date --date="today" +%d)
+export START_YEAR_D1=$(date --utc --date="today" +%Y)
+export START_MONTH_D1=$(date --utc --date="today" +%m)
+export START_DAY_D1=$(date --utc --date="today" +%d)
 export START_DATE_D1="${DATE} ${START_HOUR_D1}:${START_MINUTE_D1}:${START_SECOND_D1}"
 export START_DATE_WPS_D1="${DATE}_${START_HOUR_D1}:${START_MINUTE_D1}:${START_SECOND_D1}"
 
 # Start times for domain 2
-export START_YEAR_D2=$(date --date="today" +%Y)
-export START_MONTH_D2=$(date --date="today" +%m)
-export START_DAY_D2=$(date --date="today" +%d)
+export START_YEAR_D2=$(date --utc --date="today" +%Y)
+export START_MONTH_D2=$(date --utc --date="today" +%m)
+export START_DAY_D2=$(date --utc --date="today" +%d)
 export START_DATE_D2="${DATE} ${START_HOUR_D2}:${START_MINUTE_D2}:${START_SECOND_D2}"
 export START_DATE_WPS_D2="${DATE}_${START_HOUR_D2}:${START_MINUTE_D2}:${START_SECOND_D2}"
 
 # End times for domain 1
 DATE_STRING_D1="${START_DATE_D1} ${RUN_DAYS} days ${RUN_HOURS} hours ${RUN_MINUTES} minutes ${RUN_SECONDS} seconds"
-export END_YEAR_D1=$(date --date="${DATE_STRING_D1}" +%Y)
-export END_MONTH_D1=$(date --date="${DATE_STRING_D1}" +%m)
-export END_DAY_D1=$(date --date="${DATE_STRING_D1}" +%d)
-export END_HOUR_D1=$(date --date="${DATE_STRING_D1}" +%H)
-export END_MINUTE_D1=$(date --date="${DATE_STRING_D1}" +%M)
-export END_SECOND_D1=$(date --date="${DATE_STRING_D1}" +%S)
-export END_DATE_WPS_D1=$(date --date="${DATE_STRING_D1}" +%Y-%m-%d_%H:%M:%S)
+export END_YEAR_D1=$(date --utc --date="${DATE_STRING_D1}" +%Y)
+export END_MONTH_D1=$(date --utc --date="${DATE_STRING_D1}" +%m)
+export END_DAY_D1=$(date --utc --date="${DATE_STRING_D1}" +%d)
+export END_HOUR_D1=$(date --utc --date="${DATE_STRING_D1}" +%H)
+export END_MINUTE_D1=$(date --utc --date="${DATE_STRING_D1}" +%M)
+export END_SECOND_D1=$(date --utc --date="${DATE_STRING_D1}" +%S)
+export END_DATE_WPS_D1=$(date --utc --date="${DATE_STRING_D1}" +%Y-%m-%d_%H:%M:%S)
 
 # End times for domain 2
 DATE_STRING_D2="${START_DATE_D2} ${RUN_DAYS} days ${RUN_HOURS} hours ${RUN_MINUTES} minutes ${RUN_SECONDS} seconds"
-export END_YEAR_D2=$(date --date="${DATE_STRING_D2}" +%Y)
-export END_MONTH_D2=$(date --date="${DATE_STRING_D2}" +%m)
-export END_DAY_D2=$(date --date="${DATE_STRING_D2}" +%d)
-export END_HOUR_D2=$(date --date="${DATE_STRING_D2}" +%H)
-export END_MINUTE_D2=$(date --date="${DATE_STRING_D2}" +%M)
-export END_SECOND_D2=$(date --date="${DATE_STRING_D2}" +%S)
-export END_DATE_WPS_D2=$(date --date="${DATE_STRING_D2}" +%Y-%m-%d_%H:%M:%S)
+export END_YEAR_D2=$(date --utc --date="${DATE_STRING_D2}" +%Y)
+export END_MONTH_D2=$(date --utc --date="${DATE_STRING_D2}" +%m)
+export END_DAY_D2=$(date --utc --date="${DATE_STRING_D2}" +%d)
+export END_HOUR_D2=$(date --utc --date="${DATE_STRING_D2}" +%H)
+export END_MINUTE_D2=$(date --utc --date="${DATE_STRING_D2}" +%M)
+export END_SECOND_D2=$(date --utc --date="${DATE_STRING_D2}" +%S)
+export END_DATE_WPS_D2=$(date --utc --date="${DATE_STRING_D2}" +%Y-%m-%d_%H:%M:%S)

@@ -315,11 +315,17 @@ cd ${PROJ_DIR}
 
 echo "Edit your crontab with: crontab -e"
 echo "Add the following line to run the model at the time specified and log output:"
-
+echo ""
 echo "<min> <hr> <day-of-month> <month> <day-of-week> ${PROJ_DIR}/cron_scripts/full_run.sh 2>&1 >> ${PROJ_DIR}/cron_scripts/full_run.log"
-
+echo ""
 echo "NOTE: The cron job will run according to the system time, whose timezone is:
 $(timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')"
+echo "To make the cron job run according to a specific time zone, e.g. UTC, add
+the following to the top of the cron tab:"
+echo ""
+echo "CRON_TZ=\"<timezone>\""
+echo ""
+echo "Where <timezone> is one of the timezones listed when you run \"timedatectl list-timezones\""
 echo ""
 
 ##############
