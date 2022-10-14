@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  jupyterhub:
+    image: unidata/jupyterhub-gpu:latest
+    container_name: tensor-gpu
+    volumes:
+      - ./server:/srv/jupyterhub
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8000:8000"
+      - "8001:8001"
+      - "8081:8081"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+                  
