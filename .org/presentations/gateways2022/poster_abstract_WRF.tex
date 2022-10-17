@@ -1,0 +1,128 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%% https://tex.stackexchange.com/questions/474382/ieee-styling-authors-with-5-columns
+%% For inserting a ``newline'' in the author's list
+\makeatletter
+\newcommand{\newlineauthors}{%
+    \end{@IEEEauthorhalign}\hfill\mbox{}\par
+    \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+\begin{document}
+
+\title{Democratizing Access to Atmospheric Modeling with WRF employing NSF Cloud Computing
+Resources \\
+\thanks{\small Presented at Gateways 2022, San Diego, USA, October 18--20, 2022.
+\protect\url{https://zenodo.org/communities/gateways2022/}}
+}
+
+\author{\IEEEauthorblockN{Bobby Espinoza}
+\IEEEauthorblockA{\textit{UCAR -- Unidata} \\
+Boulder, CO USA \\
+respinoza@ucar.edu}
+\and
+\IEEEauthorblockN{Julien Chastang}
+\IEEEauthorblockA{\textit{UCAR -- Unidata} \\
+Boulder, CO USA \\
+chastang@ucar.edu}
+\and
+\IEEEauthorblockN{Jeff Weber}
+\IEEEauthorblockA{\textit{UCAR -- Unidata} \\
+Boulder, CO USA \\
+jweber@ucar.edu}
+\newlineauthors
+\IEEEauthorblockN{Dennis Dye}
+\IEEEauthorblockA{\textit{Southwestern Indian Polytechnic Institute} \\
+Alburquerque, NM USA \\
+dennis.dye@bie.edu}
+\and
+\IEEEauthorblockN{Peter Romine}
+\IEEEauthorblockA{\textit{Navajo Technical University} \\
+Crownpoint, NM USA \\
+promine@navajotech.edu}
+}
+
+\onecolumn
+
+\maketitle
+
+\begin{abstract}
+
+    The Unidata Program Center, one of the University Corporation for
+    Atmospheric Research’s (UCAR’s) Community Programs (UCP), is devoted to
+    providing software, data, and other resources to the Earth science community
+    for both education and research. Primarily funded by the National Science
+    Foundation (NSF), Unidata has been allocated resources on the NSF’s
+    Jetstream2 (JS2) cloud computing platform. The Unidata Science Gateway is a
+    collection of Unidata technologies hosted on JS2, including software for
+    sharing and distributing data such as THREDDS Data Servers, AWIPS
+    Environmental Data EXchange (EDEX) servers, and Internet Data Distribution
+    (IDD) network nodes, deployed with and alongside technology such as Docker,
+    Kubernetes, and Project Jupyter software.
+    \\
+
+    One of the main advantages of a cloud computing platform is the ability to
+    provide equitable access to powerful hardware components. For example, The
+    Unidata Science Gateway benefitted hundreds of students by providing access
+    to preconfigured JupyterHub servers in a classroom setting. Unidata’s
+    provision of remote computing environments ensures that educators and
+    students spend less time configuring environments/software and more time
+    focusing on education.
+    \\
+
+    This philosophy of equitable access to resources extends beyond education.
+    The Unidata Program Center is involved with the Southwestern Indian
+    Polytechnic Institute and Navajo Technical University under NSF grant
+    21-533. This grant is awarded to advance data sovereignty by creating a
+    sovereign network and providing capacity building for environmental
+    monitoring for Tribal Nations.
+    \\
+
+    Computational and bandwidth constraints make running the Weather Research
+    and Forecasting Model (WRF) in a cloud environment more attractive than
+    using local computing hardware.  Additionally, deploying a containerized
+    version of WRF through Docker removes the legwork of compiling WRF and all
+    of its dependencies, and allows for reproducibility and distribution of the
+    WRF configuration, if desired \cite{hacker-BAMS}, \cite{c-nwp}. Using
+    Unidata Science Gateway resources, a high-resolution WRF model will be run
+    over the Navajo Nation, and the model output will be placed on a co-located
+    Unidata RAMADDA server. The science gateway’s RAMADDA server will push
+    relevant parameters of the model output directly to RAMADDA servers at SIPI
+    and NTU for local analysis, while storing the entire output in the cloud. At
+    SIPI and NTU, real time IDV bundles will be used to display and analyze the
+    WRF model output, and create products for students and for the community.
+
+\end{abstract}
+
+\section*{Acknowledgments}
+
+For JetStream2 and JupyterHub expertise, we thank Andrea Zonca (San Diego
+Supercomputing Center), Jeremy Fischer, Mike Lowe (Indiana University), the NSF
+Jetstream2 (\url{https://doi.org/10.1145/3437359.3465565}) team, and the NSF XSEDE
+Extended Collaborative Support Service (ECSS) program
+(\url{https://doi.org/10.1007/978-3-319-32243-8_1}).
+\\
+
+This collaboration was made possible by NSF Grant 21-533: CISE-MSI Program.
+
+\begin{thebibliography}{00}
+\bibitem{hacker-BAMS} G. Eason, B. Noble, and I. N. Sneddon, ``A Containerized
+    Mesoscale Model and Analysis Toolkit to Accelerate Classroom Learning,
+    Collaborative Research, and Uncertainty Quantification'' Bulletin of the
+    American Meteorological Society, 98(6), 2017.
+\bibitem{c-nwp} https://github.com/NCAR/container-dtc-nwp
+\end{thebibliography}
+
+\end{document}
