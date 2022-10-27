@@ -32,5 +32,6 @@ RUN conda install --quiet --yes \
 COPY update_workshop_material.ipynb /
 COPY additional_kernels.ipynb /
 COPY .condarc /
+COPY PythonforAS_EDA_CourseMaterials.zip /
 
 USER $NB_UID
