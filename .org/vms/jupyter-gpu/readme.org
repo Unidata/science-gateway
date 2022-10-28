@@ -1,0 +1,87 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:nil arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+options: auto-id:t
+#+title: Launching a GPU-enabled JupyterHub on Jetstream2
+#+date: <2017-08-14 Mon>
+#+author: Julien Chastang
+#+email: chastang@ucar.edu
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 28.2 (Org mode 9.5.2)
+
+* Launching a GPU-enabled JupyterHub on Jetstream2
+:PROPERTIES:
+:CUSTOM_ID: h-CA72713B
+:END:
+** Introduction
+:PROPERTIES:
+:CUSTOM_ID: h-F4C02739
+:END:
+
+Launching a GPU-enabled JupyterHub with Tensorflow on Jetstream2 can be done without much effort with the help of Docker, a JupyterHub configuration and GitHub OAuth. The strategy employed here is to take a stock Tensorflow Docker container and install JupyterHub on top of that.
+
+*** Approaches that did not work
+:PROPERTIES:
+:CUSTOM_ID: h-5899570E
+:END:
+
+- I did not have any success installing CUDA and Tensorflow related software on the base VM. There were too many errors related to shared object (~.so~) files missing.
+- [[https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#gpu-enabled-notebooks][GPU Jupyter Docker Stacks]]. I believe the [[https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-resources.html#set-user-gpu-guarantees-limits][OpenStack layer for this technology is missing though may be available for commercial cloud providers]].
+- Efforts built on top or with The Littlest JupyterHub.
+
+** Launching a GPU Jetstream2 VM
+:PROPERTIES:
+:CUSTOM_ID: h-F0B34A78
+:END:
+
+Choose an Ubuntu VM. Rocky does not appear to be quite there yet as far as GPU drivers are concerned. To ensure JupyterHub is happy, make sure ports ~8000~, ~8001~, ~8081~ are open on the VM.
+
+** Building the Docker Container
+:PROPERTIES:
+:CUSTOM_ID: h-EBEA458C
+:END:
+
+A few notes on the ~unidata/jupyterhub-gpu~ container:
+
+- The base image is ~tensorflow/tensorflow:latest-devel-gpu~.
+- Everything beyond that base image is essentially [[https://github.com/jupyterhub/jupyterhub/blob/main/Dockerfile][the official JupyterHub Docker image]] with the exception of a few libraries such as ~tensorflow-gpu~.
+
+To build the image you'll need to be in the jupyterhub git repo because the ~Dockerfile~ requires that the jupyterhub source be copied into the image:
+
+#+BEGIN_SRC sh
+  git clone https://github.com/jupyterhub/jupyterhub
+  cp Dockerfile jupyterhub/
+  cd jupyterhub
+  docker build -t unidata/jupyterhub-gpu .
+#+END_SRC
+
+** Configuration of the jupyterhub_config.py
+:PROPERTIES:
+:CUSTOM_ID: h-DFD13D52
+:END:
+
+The JupyterHub configuration is essentially a default JupyterHub configuration with the following changes:
+
+- ~c.JupyterHub.port = 443~
+- GitHub Oauth
+
+You'll also need a [[https://github.com/wmnnd/nginx-certbot][Letsencrypt certificate]].
+
+** Launch with docker-compose
+:PROPERTIES:
+:CUSTOM_ID: h-27F68492
+:END:
+
+#+INCLUDE: "../../../vms/jupyter-gpu/docker-compose.yml" src yaml
+
+** Test to make sure the GPU is actually running
+:PROPERTIES:
+:CUSTOM_ID: h-3FF12410
+:END:
+
+[[https://www.tensorflow.org/guide/gpu][Example code can be found here]].
+
+Also, take a look at the ~gpu.ipynb~ notebook included here. That notebook should run to completion though you may see some warnings and informational diagnostics.
