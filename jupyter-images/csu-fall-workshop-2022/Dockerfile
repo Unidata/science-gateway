@@ -17,7 +17,7 @@ USER $NB_UID
 
 RUN conda install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
-    wget https://raw.githubusercontent.com/Unidata/pyaos-ams-2022/main/environment.yml && \
+    wget https://raw.githubusercontent.com/Unidata/metpy-workshop/main/environment.yml && \
     conda env update --name pyaos-ams-2022 -f environment.yml && \
     rm environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
@@ -33,5 +33,6 @@ COPY update_workshop_material.ipynb /
 COPY additional_kernels.ipynb /
 COPY .condarc /
 COPY PythonforAS_EDA_CourseMaterials.zip /
+COPY Day2_PythonforAS_troubleshooting_CourseMaterials.zip /
 
 USER $NB_UID
