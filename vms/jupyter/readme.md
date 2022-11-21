@@ -390,7 +390,7 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     ```shell
     #!/bin/bash
 
-    source /home/centos/.bash_profile
+    source /home/rocky/.bash_profile
 
     VAR=$(openstack volume list -f value -c ID -c Status | grep -i reserved | wc -l)
 
@@ -409,7 +409,7 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     you can invoke this script from crontab:
 
     ```shell
-    */3 * * * * /home/centos/notify.bash > /dev/null 2>&1
+    */3 * * * * /home/rocky/notify.bash > /dev/null 2>&1
     ```
 
     Note, again, this is just a temporary solution. You still have to provide a longer-term workaround described in the next section:

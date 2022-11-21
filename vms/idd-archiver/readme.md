@@ -129,11 +129,15 @@ cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 
 Examine the `~/etc/TDS/util/ldmfile.sh` file. As the top of this file indicates, you must change the `logfile` to suit your needs. Change the
 
-    logfile=logs/ldm-mcidas.log
+```
+logfile=logs/ldm-mcidas.log
+```
 
 line to
 
-    logfile=var/logs/ldm-mcidas.log
+```
+logfile=var/logs/ldm-mcidas.log
+```
 
 This will ensure `ldmfile.sh` can properly invoked from the `pqact` files.
 
@@ -309,7 +313,9 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
     Supply the TDM password. For example,
 
-        TDM_PW=CHANGEME!
+    ```
+    TDM_PW=CHANGEME!
+    ```
 
     Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/science-gateway/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
 
@@ -330,15 +336,19 @@ Let's consider each environment variable (i.e., configuration option), in turn.
 
     Supply the hostname of the TDS that the TDM will notify:
 
-        TDS_HOST=https://tds.scigw.unidata.ucar.edu/
+    ```
+    TDS_HOST=https://tds.scigw.unidata.ucar.edu/
+    ```
 
 4.  `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
 
     Define the maximum and minimum size of the Java heap under which the TDM can operate:
 
-        TDM_XMX_SIZE=6G
+    ```
+    TDM_XMX_SIZE=6G
 
-        TDM_XMS_SIZE=1G
+    TDM_XMS_SIZE=1G
+    ```
 
 
 <a id="h-498535EC"></a>

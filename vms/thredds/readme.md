@@ -67,17 +67,19 @@ unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
 Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution by filling out the `contact` and `hostInstitution` XML elements. For example:
 
-    <contact>
-      <name>THREDDS Support</name>
-      <organization>Unidata</organization>
-      <email>support-thredds@unidata.ucar.edu</email>
-    </contact>
-    <hostInstitution>
-      <name>Unidata</name>
-      <webSite>http://www.unidata.ucar.edu/</webSite>
-      <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
-      <logoAltText>Unidata</logoAltText>
-    </hostInstitution>
+```
+<contact>
+  <name>THREDDS Support</name>
+  <organization>Unidata</organization>
+  <email>support-thredds@unidata.ucar.edu</email>
+</contact>
+<hostInstitution>
+  <name>Unidata</name>
+  <webSite>http://www.unidata.ucar.edu/</webSite>
+  <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
+  <logoAltText>Unidata</logoAltText>
+</hostInstitution>
+```
 
 
 <a id="h-E0771AED"></a>
