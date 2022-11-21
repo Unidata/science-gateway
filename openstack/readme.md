@@ -26,7 +26,7 @@
     - [Removing Nodes from Cluster](#h-0324031E)
     - [Tearing Down the Cluster](#h-DABDACC7)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
-    - [Patching Master Node](#h-1B2FF6A7)
+    - [Patching Master Node](#h-9BC6B08B)
 - [Appendix](#h-78283D4A)
   - [Jetstream2 VM Flavors](#h-958EA909)
 
@@ -509,8 +509,7 @@ To configure terraform to set this property, add/edit the line below in `cluster
 
 Note the (necessary) trailing "." at the end of the domain.
 
-After running the terraform scripts (see the next section), you can ensure that
-the dns name was correctly assigned to your cluster's master node with:
+After running the terraform scripts (see the next section), you can ensure that the dns name was correctly assigned to your cluster's master node with:
 
 ```shell
 nslookup <instance-name>.<project-ID>.projects.jetstream-cloud.org
@@ -728,7 +727,7 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 Installing these monitoring technologies is fairly straightforward and [described here](https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html).
 
 
-<a id="h-1B2FF6A7"></a>
+<a id="h-9BC6B08B"></a>
 
 ### Patching Master Node
 

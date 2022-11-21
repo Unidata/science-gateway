@@ -395,7 +395,7 @@ services:
     volumes:
         - /data/:/data/
         - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
-        - /logs/tdm/:/usr/local/tomcat/content/tdm/
+        - /logs/tdm/:/usr/local/tomcat/content/tdm/logs
     env_file:
         - "compose.env"
 ```
