@@ -569,7 +569,7 @@ Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ss
     :CUSTOM_ID: h-F44D1317
     :END:
 
-First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts:
+First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts. This step is done for you by supplying the ~--name~ argument to ~jupyterhub.sh~ and subsequently ~z2j.sh~ (see  [[here][../vms/jupyter/readme.md]]). However, if you want to do this manually, run this from within the docker container launched by ~jupyterhub.sh~:
 
 #+BEGIN_SRC sh
   export CLUSTER="$CLUSTER"
