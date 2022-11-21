@@ -132,7 +132,7 @@ In addition, you will want to ensure the NFS =/data= volume is also available wi
    :CUSTOM_ID: h-404D9595
    :END:
 
-[[file:../../openstack/readme.org::#h-D6B1D4C2][Open port]]  ~80~ and ~443~ on the RAMADDA VM via OpenStack. Port ~80~ and ~443~ requests will be forwarded to ~8080~ and ~8443~ inside the RAMADDA Docker container, respectively.
+[[file:../../openstack/readme.org::#h-D6B1D4C2][Open ports]]  ~80~ and ~443~ on the RAMADDA VM via OpenStack. Port ~80~ and ~443~ requests will be forwarded to ~8080~ and ~8443~ inside the RAMADDA Docker container, respectively.
 
 ** docker-compose.yml
    :PROPERTIES:

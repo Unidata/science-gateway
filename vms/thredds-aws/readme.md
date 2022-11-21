@@ -77,17 +77,19 @@ unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
 Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution by filling out the `contact` and `hostInstitution` XML elements. For example:
 
-    <contact>
-      <name>THREDDS Support</name>
-      <organization>Unidata</organization>
-      <email>support-thredds@unidata.ucar.edu</email>
-    </contact>
-    <hostInstitution>
-      <name>Unidata</name>
-      <webSite>http://www.unidata.ucar.edu/</webSite>
-      <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
-      <logoAltText>Unidata</logoAltText>
-    </hostInstitution>
+```
+<contact>
+  <name>THREDDS Support</name>
+  <organization>Unidata</organization>
+  <email>support-thredds@unidata.ucar.edu</email>
+</contact>
+<hostInstitution>
+  <name>Unidata</name>
+  <webSite>http://www.unidata.ucar.edu/</webSite>
+  <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
+  <logoAltText>Unidata</logoAltText>
+</hostInstitution>
+```
 
 
 <a id="h-F52D01A2"></a>
@@ -178,13 +180,13 @@ services:
       - /logs/tds-tomcat/:/usr/local/tomcat/logs/
       - /logs/tds/:/usr/local/tomcat/content/thredds/logs/
       # ssl certs, keys not in version control, see readme.md
-      - ./files/ssl.crt:/usr/local/tomcat/conf/ssl.crt
-      - ./files/ssl.key:/usr/local/tomcat/conf/ssl.key
-      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
       - ./files/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
       - ./files/tdsCat.css:/usr/local/tomcat/webapps/thredds/tdsCat.css
       - ./files/folder.gif:/usr/local/tomcat/webapps/thredds/folder.gif
       - ./files/index.jsp:/usr/local/tomcat/webapps/ROOT/index.jsp
+      # HTTPS
+      - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
+      - ./files/server.xml:/usr/local/tomcat/conf/server.xml
       # AWS TDS Nexrad server
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
       - ~/S3Objects/:/usr/local/tomcat/temp/S3Objects/
@@ -242,4 +244,4 @@ to start the TDS
 
 ## Navigate to the TDS
 
-In a web browser, navigate to [https://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://tds.scigw.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+In a web browser, navigate to [https://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://thredds-aws.unidata.ucar.edu/thredds/catalog.html) to see if is running.
