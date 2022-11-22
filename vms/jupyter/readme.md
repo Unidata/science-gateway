@@ -1,4 +1,4 @@
-- [Creating  a JupyterHub on Jetstream with the Zero to JupyterHub Project](#h-D73CBC56)
+- [Creating a JupyterHub on Jetstream with the Zero to JupyterHub Project](#h-D73CBC56)
   - [Kubernetes Cluster](#h-65F9358E)
     - [jupyterhub.sh](#h-B56E19AB)
     - [Create Cluster](#h-2FF65549)
@@ -14,7 +14,7 @@
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
     - [Volumes Stuck in Reserved State](#h-354DE174)
-    - [Renew Expired K8s Certificates](#renew-k8s-certs)
+    - [Renew Expired K8s Certificates](#h-60D08FB6)
 
 
 
@@ -40,13 +40,7 @@
 -o, --openrc openrc.sh absolute path
 ```
 
-*Important*: The `--name` argument is used to set the names of the instances
-(VMs) of the cluster, which in turn is used to define the DNS name of assigned
-to the floating IP of the master node (see
-[here](../../openstack/readme.md#dynamicdns)). Ensure that the name provided to
-`jupyterhub.sh` results in a domain name that is less than 64 characters long,
-else LetsEncrypt will not be able to issue a certificate (see
-[here](https://letsencrypt.org/docs/glossary/#def-CN)).
+*Important*: The `--name` argument is used to set the names of the instances (VMs) of the cluster, which in turn is used to define the DNS name of assigned to the floating IP of the master node ([see here](../../vms/openstack/readme.md)). Ensure that the name provided to `jupyterhub.sh` results in a domain name that is less than 64 characters long, else LetsEncrypt will not be able to issue a certificate ([see here](https://letsencrypt.org/docs/glossary/#def-CN)).
 
 Invoke `jupyterhub.sh` from the `science-gateway/openstack` directory. `jupyterhub.sh` and the related `z2j.sh` ensure the information for this Zero to JupyterHub cluster is persisted outside the container via Docker file mounts &#x2013; otherwise all the information about this cluster would be confined in memory inside the Docker container. The vital information will be persisted in a local `jhub` directory.
 
@@ -85,18 +79,9 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 1.  Letsencrypt
 
-    Follow [Andrea's
-    instructions](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html)
-    on setting up letsencrypt using [cert-manager](https://cert-manager.io/). Due to a [network change between JS1 and
-    JS2](https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host),
-    the cert-manager pods must be ran on the k8s master node in order to
-    successfully complete the [challenges](https://letsencrypt.org/how-it-works/)
-    required by letsencrypt to issue the certificate.
+    Follow [Andrea's instructions](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html) on setting up letsencrypt using [cert-manager](https://cert-manager.io/). Due to a [network change between JS1 and JS2](https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host), the cert-manager pods must be ran on the k8s master node in order to successfully complete the [challenges ](https://letsencrypt.org/how-it-works/) required by letsencrypt to issue the certificate.
 
-    The steps taken in Andrea's instructions are the same. However, the
-    kubernetes "deployment" resource that is created instructs kubernetes to deploy
-    the cert-manager pods on a worker node by default. We must "patch" the
-    deployment (and subsequently, the pods) to have them spawn on the master node.
+    The steps taken in Andrea's instructions are the same. However, the kubernetes "deployment" resource that is created instructs kubernetes to deploy the cert-manager pods on a worker node by default. We must "patch" the deployment (and subsequently, the pods) to have them spawn on the master node.
 
     ```shell
     # Create the kubernetes resources as in Andrea's instructions
@@ -130,8 +115,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
               operator: "Exists"
     ```
 
-    After applying the patch, you can then watch the old pods be removed from
-    the worker nodes and created on the master node.
+    After applying the patch, you can then watch the old pods be removed from the worker nodes and created on the master node.
 
     ```shell
     kubectl get pods -n cert-manager --output=wide
@@ -140,10 +124,9 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
     The rest of Andrea's instructions can be followed as usual.
 
     For further reading:
-    - [Assigning a pod to a specific
-      node](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node)
-    - [Taints and
-      Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+
+    -   [Assigning a pod to a specific node](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node)
+    -   [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
 2.  Certificate from CA
 
@@ -179,7 +162,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 1.  Globus
 
-    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://github.com/jupyterhub/oauthenticator#globus-setup) are relatively straightforward.
+    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://oauthenticator.readthedocs.io/en/latest/getting-started.html#globus-setup) are relatively straightforward.
 
     ```yaml
     auth:
@@ -436,141 +419,114 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
     ```
 
-<a id="renew-k8s-certs"></a>
+
+<a id="h-60D08FB6"></a>
 
 ### Renew Expired K8s Certificates
 
-1. 	Background
+1.  Background
 
-    Kubernetes clusters use PKI certificates to allow the different components of
-    K8s to communicate and authenticate with one another. See the [official
-    docs](https://kubernetes.io/docs/setup/best-practices/certificates/) for more
-    information. When firing up a JupyterHub cluster using the procedures outlined
-    in this documentation, the certificates are automatically generated for us on
-    cluster creation, however they expire after a full year. You can check the
-    expiration date of your current certificates by running the following on the
-    master node of the cluster:
-    
-    `sudo kubeadm alpha certs check-expiration`
-    
-    Once the certificates have expired, you will be unable to run, for example,
-    `kubectl` commands, and the [control plane
-    components](https://kubernetes.io/docs/setup/best-practices/certificates/) will
-    not be able to, for example, fire up new pods, ie new JupyterLab servers, nor
-    perform `helm` upgrades to the server.  Example output of running `kubectl`
-    commands with expired certificates is:
-    
+    Kubernetes clusters use PKI certificates to allow the different components of K8s to communicate and authenticate with one another. See the [official docs](https://kubernetes.io/docs/setup/best-practices/certificates/) for more information. When firing up a JupyterHub cluster using the procedures outlined in this documentation, the certificates are automatically generated for us on cluster creation, however they expire after a full year. You can check the expiration date of your current certificates by running the following on the master node of the cluster:
+
+    ```shell
+    sudo kubeadm alpha certs check-expiration
+    ```
+
+    Once the certificates have expired, you will be unable to run, for example, `kubectl` commands, and the [control plane components](https://kubernetes.io/docs/setup/best-practices/certificates/) will not be able to, for example, fire up new pods, ie new JupyterLab servers, nor perform `helm` upgrades to the server. Example output of running `kubectl` commands with expired certificates is:
+
     ```shell
     # kubectl get pods -n jhub
     Unable to connect to the server: x509: certificate has expired or is not yet valid: current time 2022-06-29T23:09:31Z is after 2022-06-28T17:38:37Z
     ```
-    
-2. Resolution
-    
-    There are a number of ways to renew certificates outlined in the [official
-    docs](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
-    Here, the manual renewal method is outlined. While this procedure should be
-    non-destructive, it is recommended to have users backup data/notebooks before
-    this is done. In addition, one of the steps requires a manual restart of the
-    control plane pods, which means the Hub (and potentially user servers) may
-    suffer a small amount of downtime.
-    
-    All commands are ran on the master node of the cluster. In addition, the
-    documentation does not include the `alpha` portion of the `kubeadm` commands
-    outlined below. This is required: see the answer to
-    [this](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12)
-    question.
-    
+
+2.  Resolution
+
+    There are a number of ways to renew certificates outlined in the [official docs](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/). Here, the manual renewal method is outlined. While this procedure should be non-destructive, it is recommended to have users backup data/notebooks before this is done. In addition, one of the steps requires a manual restart of the control plane pods, which means the Hub (and potentially user servers) may suffer a small amount of downtime.
+
+    All commands are ran on the master node of the cluster. In addition, the documentation does not include the `alpha` portion of the `kubeadm` commands outlined below. This is required: see the answer to [this](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) question.
+
     First, confirm that your certificates truly are expired:
-    
-    `sudo kubeadm alpha certs check-expiration`
-    
+
+    ```shell
+    sudo kubeadm alpha certs check-expiration
+    ```
+
     Then, run the renewal command to renew all certs:
-    
-    `sudo kubeadm alpha certs renew all`
-    
+
+    ```shell
+    sudo kubeadm alpha certs renew all
+    ```
+
     Double check the certificates were renewed:
-    
-    `sudo kubeadm alpha certs check-expiration`
-    
-    Now, we must restart the control plane pods. We do this by moving the files
-    found in `/etc/kubernetes/manifests` to a temporary place, waiting for the
-    [kubelet](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12)
-    to recognize the change in the manifests, and tear down the pods. Once this is
-    done, the files can be moved back into `/etc/kubernetes/manifests`, and we can
-    wait for the kubelet to respawn the pods. Finally, reset the `~/.kube/config`
-    file and run `kubectl` commands.
-    
+
+    ```shell
+    sudo kubeadm alpha certs check-expiration
+    ```
+
+    Now, we must restart the control plane pods. We do this by moving the files found in `/etc/kubernetes/manifests` to a temporary place, waiting for the [kubelet](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) to recognize the change in the manifests, and tear down the pods. Once this is done, the files can be moved back into `/etc/kubernetes/manifests`, and we can wait for the kubelet to respawn the pods. Finally, reset the `~/.kube/config` file and run `kubectl` commands.
+
     ```shell
     ###
     # All commands ran on the master node
     ###
-    
+
     # Copy manifests
     mkdir ~/manifestsBackup_yyyy_mm_dd
     sudo cp /etc/kubernetes/manifests/* ~/manifestsBackup_yyyy_mm_dd/
-    
+
     # Sanity check
     ls ~/manifestsBackup_yyyy_mm_dd
-    
+
     # Navigate to /etc/kubernetes/manifests and list files, to ensure we're removing
     # what we think we are
     cd /etc/kubernetes/manifests
     ls
-    
+
     # Verify the containers you are about to remove are currently running
     sudo docker ps
-    
+
     # Remove files
     rm ./*
-    
+
     # Wait until the containers are removed
     sudo docker ps
-    
+
     # Replace files
     sudo cp ~/manifestsBackup_yyyy_mm_dd/* /etc/kubernetes/manifests/
-    
+
     # Wait until containers are respawned
     sudo docker ps
-    
+
     # Reset the config
     mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
-    
+
     # Cross your fingers and hope you can now run kubectl commands again!
     kubectl get pods --all-namespaces
     ```
-    
-    If you want to run kubectl commands from another machine, for example the
-    machine where we launch JupyterHubs from within docker containers, you must copy
-    this config file to that machine's `$HOME/.kube` directory.
-    
-    You should have the IP and `ssh` access of/to the master node. Copy over the
-    config through `scp`:
-    
-    ```
+
+    If you want to run kubectl commands from another machine, for example the machine where we launch JupyterHubs from within docker containers, you must copy this config file to that machine's `$HOME/.kube` directory.
+
+    You should have the IP and `ssh` access of/to the master node. Copy over the config through `scp`:
+
+    ```shell
     ###
     # On the appropriate "Jupyter control center" docker container
     ###
-    
+
     # Directory probably already exists, but try creating the directory anyways
     mkdir $HOME/.kube
     scp ubuntu@<ip>:~/.kube/config $HOME/.kube/config
     ```
-    
-    Finally, edit the `server` value in the `$HOME/.kube/config` to point to
-    `127.0.0.1`, as kubectl will communicate with the api-server through a tunnel
-    created on the Jupyter control container. See
-    [this](../../openstack/bin/kube-setup2.sh) script and the reference therein for
-    the reason behind doing this.
-    
-    ```
+
+    Finally, edit the `server` value in the `$HOME/.kube/config` to point to `127.0.0.1`, as kubectl will communicate with the api-server through a tunnel created on the Jupyter control container. See [this](../../../openstack/bin/kube-setup2.sh) script and the reference therein for the reason behind doing this.
+
+    ```shell
     # Change a line that looks like the following
     server: https://<some-ip>:6443
     # to
-    server: https://127.0.0.1:6443`
+    server: https://127.0.0.1:6443
     ```
-    
-    You should now be able to run `kubectl` commands, fire up new user servers, and
-    run `helm` upgrades.
+
+    You should now be able to run `kubectl` commands, fire up new user servers, and run `helm` upgrades.
