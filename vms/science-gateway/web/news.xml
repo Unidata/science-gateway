@@ -14,8 +14,8 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Tue, 04 Oct 2022 17:36:50 -0600</pubDate>
-  <lastBuildDate>Tue, 04 Oct 2022 17:36:50 -0600</lastBuildDate>
+  <pubDate>Fri, 02 Dec 2022 15:49:38 -0700</pubDate>
+  <lastBuildDate>Fri, 02 Dec 2022 15:49:38 -0700</lastBuildDate>
   <generator>Emacs 28.2 Org-mode 9.5.2</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
@@ -28,12 +28,25 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents" role="doc-toc">
       <ul>
+        <li><a href="#h-8863E90E">12/02/2022, AMS 2023</a></li>
         <li><a href="#h-777BAAA8">10/04/2022, Gateways 2022 Conference</a></li>
         <li><a href="#h-642E7F66">05/20/2022, Unidata Science Gateway Talk at EGU</a></li>
-        <li><a href="#h-0A6F9597">04/29/2022, Mini Gateways 2022 Video</a></li>
       </ul>
     </div>
   </div>
+
+  <item>
+    <title>AMS 2023</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-8863E90E</link>
+    <author>chastang at ucar dot edu (Julien Chastang)</author>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-8863E90E</guid>
+    <pubDate>Fri, 02 Dec 2022 00:00:00 -0700</pubDate>
+
+    <description><![CDATA[<p>
+    We will be presenting <a href="https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Paper/420649">Unidata Science Gateway: Past, Present, and Future Plans</a> at the American Meteorological Society 103rd Annual Meeting in Denver, Colorado USA.
+    </p>
+    ]]></description>
+  </item>
 
   <item>
     <title>Gateways 2022 Conference</title>
@@ -62,19 +75,6 @@
 
     <description><![CDATA[<p>
     Unidata Director, Mohan Ramamurthy, will be speaking at the European Geosciences Union on Monday, May 23 giving a talk entitled "<a href="https://meetingorganizer.copernicus.org/EGU22/session/42416">The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19</a>".
-    </p>
-    ]]></description>
-  </item>
-
-  <item>
-    <title>Mini Gateways 2022 Video</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-0A6F9597</link>
-    <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-0A6F9597</guid>
-    <pubDate>Fri, 29 Apr 2022 00:00:00 -0600</pubDate>
-
-    <description><![CDATA[<p>
-    My colleague, Andrea Zonca, <a href="https://zonca.dev/2022/04/science-gateway-dask-zarr.html">has posted a video</a> of our presentation at the SGCI Mini Gateways 2022 online conference.
     </p>
     ]]></description>
   </item>
