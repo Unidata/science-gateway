@@ -1,5 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
+abstract: "The Unidata Science Gateway unites Unidata technologies with the NSF Jetstream cloud computing platform and open-source software such as Project Jupyter to provide the academic and research community an environment they can employ to access, analyze and visualize real-time and case study Earth system science data. The Unidata Science Gateway is a virtual space where communities can collaborate, share resources, and learn from each other in a classroom or workshop setting."
 authors:
   - family-names: Ramamurthy
     given-names: Mohan
@@ -8,6 +9,9 @@ authors:
   - family-names: Chastang
     given-names: Julien
     orcid: https://orcid.org/0000-0003-2482-3565
+    affiliation: UCAR/UCP/EODS/Unidata
+  - family-names: Espinoza
+    given-names: Ana
     affiliation: UCAR/UCP/EODS/Unidata
 title: "Unidata Science Gateway"
 doi: 10.5065/688s-2w73
