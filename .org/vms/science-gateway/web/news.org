@@ -16,6 +16,17 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
+* 12/02/2022, AMS 2023
+  :PROPERTIES:
+  :RSS_TITLE:  AMS 2023
+  :PUBDATE: <2022-12-02 Fri>
+  :RSS_PERMALINK: index.html#h-8863E90E
+  :CUSTOM_ID: h-8863E90E
+  :ID:       EE8327E3-15E0-42D9-B445-F5CF66ADDE91
+  :END:
+
+We will be presenting [[https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Paper/420649][Unidata Science Gateway: Past, Present, and Future Plans]] at the American Meteorological Society 103rd Annual Meeting in Denver, Colorado USA.
+
 * 10/04/2022, Gateways 2022 Conference
   :PROPERTIES:
   :RSS_TITLE: Gateways 2022 Conference
@@ -41,13 +52,3 @@ The Unidata Science Gateway project will have two poster presentations at the [[
 
 Unidata Director, Mohan Ramamurthy, will be speaking at the European Geosciences Union on Monday, May 23 giving a talk entitled "[[https://meetingorganizer.copernicus.org/EGU22/session/42416][The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19]]".
 
-* 04/29/2022, Mini Gateways 2022 Video
-  :PROPERTIES:
-  :RSS_TITLE: Mini Gateways 2022 Video
-  :PUBDATE: <2022-04-29 Fri>
-  :RSS_PERMALINK: index.html#h-0A6F9597
-  :CUSTOM_ID: h-0A6F9597
-  :ID:       F2F8F02C-AA6C-4367-9028-AB55633CE5B8
-  :END:
-
-My colleague, Andrea Zonca, [[https://zonca.dev/2022/04/science-gateway-dask-zarr.html][has posted a video]] of our presentation at the SGCI Mini Gateways 2022 online conference.
