@@ -569,7 +569,7 @@ Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ss
     :CUSTOM_ID: h-F44D1317
     :END:
 
-First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts. This step is done for you by supplying the ~--name~ argument to ~jupyterhub.sh~ and subsequently ~z2j.sh~ (see  [[here][../vms/jupyter/readme.md]]). However, if you want to do this manually, run this from within the docker container launched by ~jupyterhub.sh~:
+First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts. This step is done for you by supplying the ~--name~ argument to ~jupyterhub.sh~ and subsequently ~z2j.sh~ (see [[../vms/jupyter/readme.org][here]]). However, if you want to do this manually, run this from within the docker container launched by ~jupyterhub.sh~:
 
 #+BEGIN_SRC sh
   export CLUSTER="$CLUSTER"
@@ -845,9 +845,6 @@ Installing these monitoring technologies is fairly straightforward and [[https:/
 :CUSTOM_ID: h-9BC6B08B
 :END:
 
-    :PROPERTIES:
-    :CUSTOM_ID: h-1B2FF6A7
-    :END:
 You'll want to keep the master node security patched as it will have a publicly accessible IP number attached to a well known DNS name. If you see packages out of date upon login, as root user:
 
  #+BEGIN_SRC sh :eval no
