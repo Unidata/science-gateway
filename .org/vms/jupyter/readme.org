@@ -69,7 +69,7 @@ From the client host where you created the Kubernetes cluster, follow [[https://
 
 After you have created the ~secrets.yaml~ as instructed, customize it with the choices below
 
-*** Letsencrypt versus Certificate from a Certificate Authority
+*** SSL Certificates
     :PROPERTIES:
     :CUSTOM_ID: h-294A4A20
     :END:
@@ -79,69 +79,27 @@ After you have created the ~secrets.yaml~ as instructed, customize it with the c
      :CUSTOM_ID: h-E1082806
      :END:
 
-Follow [[https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html][Andrea's instructions]] on setting up letsencrypt using [[https://cert-manager.io/][cert-manager]]. Due to a [[https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host][network change between JS1 and JS2]], the cert-manager pods must be ran on the k8s master node in order to successfully complete the [[https://letsencrypt.org/how-it-works/][challenges ]] required by letsencrypt to issue the certificate.
-
-The steps taken in Andrea's instructions are the same. However, the kubernetes "deployment" resource that is created instructs kubernetes to deploy the cert-manager pods on a worker node by default. We must "patch" the deployment (and subsequently, the pods) to have them spawn on the master node.
-
-#+BEGIN_SRC shell
-  # Create the kubernetes resources as in Andrea's instructions
-  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cert-manager.yaml
-#+END_SRC
-
-   Run the following shell script to apply the patch:
-
-#+BEGIN_SRC shell
-  # deploymentPatch.sh
-  # Patch pods to make them spawn in master node
-
-  DEPLOYMENTS=( "cert-manager" "cert-manager-cainjector" "cert-manager-webhook" )
-
-  for DEPLOYMENT in ${DEPLOYMENTS[@]}
-  do
-          kubectl patch deployment -n cert-manager $DEPLOYMENT --patch-file ./deploymentPatch.yml
-  done
-#+END_SRC
-
-#+BEGIN_SRC yaml
-  # deploymentPatch.yml referenced in deploymentPatch.sh
-  ---
-  spec:
-    template:
-      spec:
-        nodeSelector:
-          "node-role.kubernetes.io/master": ""
-        tolerations:
-          - key: "node-role.kubernetes.io/master"
-            operator: "Exists"
-#+END_SRC
-
-After applying the patch, you can then watch the old pods be removed from the worker nodes and created on the master node.
-
-#+BEGIN_SRC shell
-  kubectl get pods -n cert-manager --output=wide
-#+END_SRC
-
-The rest of Andrea's instructions can be followed as usual.
+Follow [[https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html][Andrea's instructions]] on setting up letsencrypt using [[https://cert-manager.io/][cert-manager]]. Due to a [[https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host][network change between JS1 and JS2]], the cert-manager pods must be run on the k8s master node in order to successfully complete the [[https://letsencrypt.org/how-it-works/][challenges]] required by letsencrypt to issue the certificate. Pay special attention to the [[https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html#bind-the-pods-to-the-master-node][Bind the pods to the master node]] section.
 
 For further reading:
 
    - [[https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node][Assigning a pod to a specific node]]
    - [[https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/][Taints and Tolerations]]
 
-**** Certificate from CA
+**** Certificate from Certificate Authority
      :PROPERTIES:
      :CUSTOM_ID: h-205AEDAB
      :END:
 
-Work with sys admin staff to obtain a certificate from a CA.
+Work with Unidata system administrator staff to obtain a certificate from a trusted certificate authority.
 
-Follow [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's instructions]] on setting up HTTPS with custom certificates. Note that when adding the key with
+Follow [[https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub#setup-https-with-custom-certificates][Andrea's instructions]] on setting up HTTPS with custom certificates. Note that when adding the key with
 
 #+BEGIN_SRC shell
  kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
 #+END_SRC
 
-supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates).
+supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates). You can find these certificates [[https://uit.stanford.edu/service/ssl/chain][here]].
 
 Here is a snippet of what the ingress configuration will look like in the ~secrets.yaml~.
 
@@ -149,13 +107,25 @@ Here is a snippet of what the ingress configuration will look like in the ~secre
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/tls-acme: "true"
+      cert-manager.io/issuer: "incommon"
     hosts:
-      - <jupyterhub-host>
+        - <jupyterhub-host>
     tls:
         - hosts:
            - <jupyterhub-host>
           secretName: <secret_name>
+#+END_SRC
+
+***** Certificate Expiration and Renewal
+:PROPERTIES:
+:CUSTOM_ID: h-055BCE98
+:END:
+
+When these certificates expire, they can be updated with the snippet below, but *be careful* to update the certificate on the correct JupyterHub deployment. Otherwise, you will be in cert-manger hell.
+
+#+BEGIN_SRC shell
+kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
+    --dry-run=client -o yaml | kubectl apply -f -
 #+END_SRC
 
 *** OAuth Authentication
