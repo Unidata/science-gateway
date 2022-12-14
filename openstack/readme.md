@@ -461,7 +461,7 @@ Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that
 
 It is possible to create a Kubernetes cluster with the Docker container described here. We employ [Andrea Zonca's modification of the kubespray project](https://github.com/zonca/jetstream_kubespray). Andrea's recipe to build a Kubernetes cluster on Jetstream with kubespray is described [here](https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html). These instructions have been codified with the `kube-setup.sh` and `kube-setup2.sh` scripts.
 
-Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@FLOATINGIPOFMASTER -L 6443:localhost:6443`) into the master node as described in the instructions.
+Make sure to run both `kubectl` and `helm` from the client and `ssh` tunnel (`ssh ubuntu@$IP -L 6443:localhost:6443`) into the master node as described in the instructions.
 
 
 <a id="h-F44D1317"></a>
