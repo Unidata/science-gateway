@@ -2,11 +2,11 @@
   - [Kubernetes Cluster](#h-65F9358E)
     - [jupyterhub.sh](#h-B56E19AB)
     - [Create Cluster](#h-2FF65549)
-  - [unidata/unidatahub Docker Container](#h-CD007D2A)
+  - [Docker Image for JupyterHub User Environment](#h-CD007D2A)
   - [Configure and Deploy the JupyterHub](#h-E5CA5D99)
     - [SSL Certificates](#h-294A4A20)
     - [OAuth Authentication](#h-8A3C5434)
-    - [unidata/unidatahub](#h-214D1D4C)
+    - [Docker Image and Other Configuration](#h-214D1D4C)
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
@@ -54,12 +54,12 @@ Invoke `jupyterhub.sh` from the `science-gateway/openstack` directory. `jupyterh
 
 <a id="h-CD007D2A"></a>
 
-## unidata/unidatahub Docker Container
+## Docker Image for JupyterHub User Environment
 
-Build the Docker container in this directory and push it to dockerhub.
+Build the Docker container that will be employed by the user environment on their JupyterHub instance. This Docker image will be [referenced in the secrets.yaml](#h-214D1D4C). Uniquely tag the image with a date and ID for sane retrieval and referencing. For example:
 
 ```sh
-docker build -t unidata/unidatahub:`openssl rand -hex 6` . > /tmp/docker.out 2>&1 &
+docker build -t unidata/unidatahub:`date +%Y%b%d_%H%M%S`_`openssl rand -hex 4` . > /tmp/docker.out 2>&1 &
 docker push unidata/unidatahub:<container id>
 ```
 
@@ -163,9 +163,9 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 <a id="h-214D1D4C"></a>
 
-### unidata/unidatahub
+### Docker Image and Other Configuration
 
-Add the Unidata JupyterHub configuration (`unidata/unidatahub`) and related items (e.g., pulling of Unidata Python projects). Customize the desired CPU / RAM usage. [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
+Reference [the previously built Docker image](#h-CD007D2A) (e.g., `unidata/unidatahub:2022Dec15_031132_fe2ea584`). Customize the desired CPU / RAM usage. [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
 ```yaml
 singleuser:
@@ -183,7 +183,7 @@ singleuser:
   defaultUrl: "/lab"
   image:
     name: unidata/unidatahub
-    tag: 82a23cf7a286
+    tag: 2022Dec15_031132_fe2ea584
   lifecycleHooks:
     postStart:
       exec:
@@ -193,6 +193,8 @@ singleuser:
             - >
               gitpuller https://github.com/Unidata/python-training main python-training;
               cp /README_FIRST.ipynb /home/jovyan;
+              cp /Acknowledgements.ipynb /home/jovyan;
+              cp /.condarc /home/jovyan
 ```
 
 
