@@ -320,6 +320,11 @@ echo "<min> <hr> <day-of-month> <month> <day-of-week> ${PROJ_DIR}/cron_scripts/f
 echo ""
 echo "NOTE: The cron job will run according to the system time, whose timezone is:
 $(timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')"
+echo ""
+echo "Some versions of cron allow you to specify a time zone on which the cron
+jobs will run. Check \"man 5 crontab\" to see if your version is compatible with
+the CRON_TZ environment variable:"
+echo ""
 echo "To make the cron job run according to a specific time zone, e.g. UTC, add
 the following to the top of the cron tab:"
 echo ""
