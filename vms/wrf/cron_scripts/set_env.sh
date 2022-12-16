@@ -12,6 +12,9 @@ export PROJ_VERSION=
 export RUN_HISTORY=
 export NUM_CPUS=
 
+#####
+# A single, set hour per day
+#####
 # Start times of model run for the outer domain
 export START_HOUR_D1=12
 export START_MINUTE_D1=00
@@ -21,6 +24,19 @@ export START_SECOND_D1=00
 export START_HOUR_D2=12
 export START_MINUTE_D2=00
 export START_SECOND_D2=00
+
+#####
+# Example for model run relative to the current hour
+####
+# Start times of model run for the outer domain
+# export START_HOUR_D1=$(date --utc --date="-3 hours" +%h)
+# export START_MINUTE_D1=00
+# export START_SECOND_D1=00
+# 
+# # Start times of model run for the nested domain
+# export START_HOUR_D2=$(date --utc --date="-3 hours" +%h)
+# export START_MINUTE_D2=00
+# export START_SECOND_D2=00
 
 # Model run lengths
 export RUN_DAYS=1
