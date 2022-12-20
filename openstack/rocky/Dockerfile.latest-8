@@ -1,5 +1,5 @@
 # The tag "8" corresponds to the most recent upstream Rocky8 tag
-FROM rockylinux:8.6.20227707
+FROM rockylinux:8.7.20221219
 
 ###
 # Update the system. Install stuff.
