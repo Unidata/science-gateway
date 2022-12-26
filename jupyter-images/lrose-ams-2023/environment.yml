@@ -1,0 +1,15 @@
+ name: lrose-ams-2023
+ channels:
+   - conda-forge
+ dependencies:
+   - numpy
+   # - matplotlib
+   - cartopy
+   - arm_pyart
+   - metpy
+   # - siphon
+   # - pip
+   - xarray
+   # - ipywidgets
+   - jupyter
+   - jupyterlab
