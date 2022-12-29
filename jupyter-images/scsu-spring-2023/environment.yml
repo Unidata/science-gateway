@@ -1,0 +1,25 @@
+name: scsu-spring-2023
+channels:
+  - conda-forge
+dependencies:
+  - python=3
+  - numpy
+  - matplotlib
+  - siphon
+  - xarray
+  - netCDF4
+  - metpy
+  - cartopy
+  - pint
+  - pandas
+  - eofs
+  - cmocean
+  - s3fs
+  - zarr
+  - arm_pyart
+  - cfgrib
+  - wrf-python
+  - dask
+  - jupyterlab
+  - basemap
+  - pip
