@@ -174,13 +174,21 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
   - [[https://ams.confex.com/ams/102ANNUAL/meetingapp.cgi/Session/61321][AMS 2022 Student Python Workshop]]
   - [[https://doi.org/10.6084/m9.figshare.19653939.v1][Third Symposium on Diversity, Equity, and Inclusion]]
 - [[https://sciencegateways.org/minigateways2022][Mini Gateways 2022 | April 5-7, 2022 - Online]]
+- Gateways 2022 | October 18-20, 2022 - San Diego, CA USA
+  - Democratizing Access to Atmospheric Modeling with WRF employing NSF Cloud Computing Resources
+  - [[https://doi.org/10.6084/m9.figshare.21799754.v1][Unidata Science Gateway Reimagined: Unifying Access to Educational and Research Resources]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-Coming soon.
+- 2023 AMS Annual Meeting | January 8–12, 2023 – Denver, CO USA
+  - [[https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Paper/420649][103rd AMS Annual Meeting, 39th Conference on Environmental Information Processing Technologies]]
+  - In addition, we will be supporting these workshops:
+    - [[https://www.ametsoc.org/index.cfm/ams/education-careers/careers/professional-development/short-courses1/metpy-for-your-data-analyzing-meteorological-observations-in-python/][MetPy for your Data: Analyzing Meteorological Observations in Python]]
+    - [[https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Session/64609][Student Python Workshop]]
+    - LROSE Workshop
 
 * {Source Code}
   :PROPERTIES:
