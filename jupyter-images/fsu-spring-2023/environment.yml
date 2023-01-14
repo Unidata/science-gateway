@@ -1,0 +1,13 @@
+name: metpy-workshop
+channels:
+  - conda-forge
+dependencies:
+  - python==3.9.10
+  - cartopy==0.21.0
+  - jupyterlab==3.1.9
+  - matplotlib==3.4.3
+  - metpy==1.3.1
+  - numpy==1.21.2
+  - pykdtree==1.3.4
+  - siphon==0.9
+  
