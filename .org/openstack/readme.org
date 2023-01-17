@@ -800,6 +800,18 @@ If tearing down many nodes/VMs, you can try something like:
 
 [[#h-D833684A][Check the cluster]].
 
+*Note*, you can make the tear down process go faster by not having ~k8s_remove_node.sh~ prompt you ever time it removes a node. This can be done by editing the ~k8s_remove_node.sh~ script and appending:
+
+#+BEGIN_SRC sh
+  -e skip_confirmation=true
+#+END_SRC
+
+so that the script looks like:
+
+#+BEGIN_SRC sh
+  ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --extra-vars "node=$1" -e skip_confirmation=true
+#+END_SRC
+
 *** Tearing Down the Cluster
     :PROPERTIES:
     :CUSTOM_ID: h-DABDACC7
