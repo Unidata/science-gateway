@@ -690,6 +690,18 @@ for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
 
 [Check the cluster](#h-D833684A).
 
+**Note**, you can make the tear down process go faster by not having `k8s_remove_node.sh` prompt you ever time it removes a node. This can be done by editing the `k8s_remove_node.sh` script and appending:
+
+```sh
+-e skip_confirmation=true
+```
+
+so that the script looks like:
+
+```sh
+ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --extra-vars "node=$1" -e skip_confirmation=true
+```
+
 
 <a id="h-DABDACC7"></a>
 
