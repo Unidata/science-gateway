@@ -1,0 +1,20 @@
+ name: ulv-spring-2023
+ channels:
+   - conda-forge
+ dependencies:
+   - numpy
+   - matplotlib
+   - cartopy
+   - metpy
+   - siphon
+   - pandas
+   - xarray
+   - ipywidgets
+   - ffmpeg
+   - boto3
+   - jupyterlab
+   - xskillscore
+   - cfgrib
+   - netcdf4
+   - jedi
+
