@@ -1,0 +1,12 @@
+ name: uw-spring-2023
+ channels:
+   - conda-forge
+ dependencies:
+   - numpy
+   - matplotlib
+   - cartopy
+   - metpy
+   - xarray
+   - netcdf4
+   - goes2go
+   - jupyterlab
