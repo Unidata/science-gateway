@@ -15,11 +15,11 @@ RUN apt-get update && \
 
 USER $NB_UID
 
-COPY ./environment.yml /environment.yml
+COPY ./environment.yml /tmp/environment.yml
 
 RUN conda install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
-    conda env update --name vt-spring-2023 -f /environment.yml && \
+    conda env update --name vt-spring-2023 -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     conda clean --all -f -y && \
     jupyter lab clean -y && \
