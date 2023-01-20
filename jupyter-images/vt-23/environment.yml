@@ -1,0 +1,14 @@
+name: vt-spring-2023
+channels:
+  - conda-forge
+dependencies:
+  - xarray
+  - iris
+  - metpy
+  - pandas
+  - netcdf4
+  - numpy
+  - scipy
+  - matplotlib
+  - siphon
+  - jupyterlab
