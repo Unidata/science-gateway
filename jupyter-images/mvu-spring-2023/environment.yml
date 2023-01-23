@@ -1,0 +1,34 @@
+ name: mvu-spring-2023
+ channels:
+   - rttools
+   - conda-forge
+   - defaults
+ dependencies:
+   - python=3.10
+   - numpy
+   - matplotlib
+   - pandas
+   - scipy
+   - metpy
+   - xarray
+   - scikit-learn
+   - wrf-python
+   - cartopy
+   - seaborn
+   - netcdf4
+   - pyorbital
+   - pytz
+   - siphon
+   - statsmodels
+   - pip
+   - cfgrib
+   - climlab
+   - climlab-rrtmg
+   - typhon
+   - ipympl
+   - proplot
+   - pyarts=2.5.8
+   - pip:
+     - miepython
+ variables:
+   ARTS_DATA_PATH: /data/arts-cat-data-snapshot-arts-2.5.8
