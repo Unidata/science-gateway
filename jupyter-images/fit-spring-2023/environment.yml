@@ -1,0 +1,23 @@
+ name: fit-spring-2023
+ channels:
+   - conda-forge
+ dependencies:
+   - python==3.9.10
+   - numpy
+   - matplotlib
+   - cartopy
+   - metpy
+   - siphon
+   - pandas
+   - xarray
+   - boto3
+   - botocore
+   - python-awips
+   - netCDF4
+   - scipy
+   - arm_pyart
+   - pint
+   - tensorflow
+   - keras
+   - geopandas
+   - jupyterlab
