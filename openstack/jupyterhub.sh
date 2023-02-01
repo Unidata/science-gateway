@@ -6,15 +6,16 @@ if [ ! -d $dir/ssh ]; then
   chmod 777 $dir/ssh # write access required for keygen
 fi
 
-usage="$(basename "$0") [-h]
-[-n, --name JupyterHub Name]
-[-p, --ip JupyterHub IP]
--- script to fire up or access a Z2J JupyterHub. \n
-    -h, --help show this help text\n
-    -n, --name JupyterHub name\n
-    -p, --ip JupyterHub IP\n
-	-o, --openrc openrc.sh path\n"
-
+function usage()
+{
+  echo -e "Syntax: $(basename "$0") [-h] [-n] [-p] [-o]"
+  echo -e "script to fire up or access a Z2J JupyterHub."
+  echo -e "\t-h show this help text"
+  echo -e "\t-n, --name JupyterHub name"
+  echo -e "\t-p, --ip JupyterHub IP"
+  echo -e "\t-o, --openrc openrc.sh path"
+  exit 1
+}
 
 while [[ $# > 0 ]]
 do
@@ -33,7 +34,7 @@ do
             shift # past argument
             ;;
         -h|--help)
-            echo -e $usage
+            usage
             exit
             ;;
     esac
@@ -43,21 +44,21 @@ done
 if [ -z "$JUPYTERHUB" ];
   then
       echo "Must supply a JupyterHub name:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$IP" ];
   then
       echo "Must supply a JupyterHub IP:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$OPENRC" ];
   then
       echo "Must supply an openrc.sh path:"
-      echo -e $usage
+      usage
       exit 1
 fi
 

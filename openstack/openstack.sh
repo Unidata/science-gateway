@@ -1,10 +1,15 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h] [-o, --openrc openrc.sh file path] [-n, --name <container-name>\n
--- script to  start OpenStack CL Docker container. \n Arguments must be supplied with fully qualified paths.\n
-    -h  show this help text\n
-    -o, --openrc full path to directory with openrc.sh file obtained from Jetstream (bin)\n
-    -n, --name container-name"
+function usage()
+{
+  echo -e "Syntax: $(basename "$0") [-h] [-o] [-n]"
+  echo -e "script to  start OpenStack CL Docker container."
+  echo -e "Arguments must be supplied with fully qualified paths."
+  echo -e "\t-h show this help text"
+  echo -e "\t-o, --openrc full path to directory with openrc.sh file obtained from Jetstream2"
+  echo -e "\t-n, --name container name"
+  exit 1
+}
 
 while [[ $# > 0 ]]
 do
@@ -19,7 +24,7 @@ do
             shift # past argument
             ;;
         -h|--help)
-            echo -e $usage
+            usage
             exit
             ;;
     esac
@@ -29,14 +34,14 @@ done
 if [ -z "$OPENRC" ];
    then
       echo "Must supply an openrc.sh file:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$NAME" ];
    then
       echo "Must supply a name for the new docker container:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
@@ -46,4 +51,3 @@ docker run --name $NAME -it  \
        -v ${OPENRC}:/home/openstack/bin/openrc.sh \
        -v ${HOME}/security:/home/openstack/security \
        unidata/science-gateway /bin/bash
-
