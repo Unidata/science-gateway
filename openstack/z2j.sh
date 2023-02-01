@@ -1,26 +1,22 @@
 #!/bin/bash
 
-usage="$(basename "$0") [-h]
-[-s, --ssh ssh directory path]
-[-o, --openrc openrc.sh file path]
-[-k, --kube .kube path]
-[-n, --novaclient .novaclient path]
-[-t, --terraform .terraform path]
-[-i, --inventory kubespray inventory path]
-[-p, --ip cluster IP]
-[-m, --helm .helm path]
--- script to  start Z2J Kube Client Docker container. \n
-Arguments must be supplied with fully qualified paths.\n
-    -h  show this help text\n
-    -s, --ssh full path to ssh directory containing your OpenStack Jetstream key\n
-    -o, --openrc full path to directory with openrc.sh file obtained from Jetstream (bin)\n
-    -k, --kube full path to .kube directory (or one will be created for you)\n
-    -n, --novaclient full path to .novaclient directory (or one will be created for you)\n
-    -t, --terraform full path to .terraform directory (or one will be created for you)\n
-    -i, --inventory full path to kubespray inventory directory (or one will be created for you)\n
-    -p, --ip cluster ip\n
-    -m, --helm full path to .helm directory (or one will be created for you)\n
-    -c, --secrets.yaml full path\n"
+function usage()
+{
+  echo -e "Syntax: $(basename "$0") [-h] [-s] [-o] [-k] [-n] [-t] [-i] [-p] [-m] [-c]"
+  echo -e "script to  start Z2J Kube Client Docker container."
+  echo -e "Arguments must be supplied with fully qualified paths."
+  echo -e "\t-h, show this help text"
+  echo -e "\t-s, --ssh full path to ssh directory containing your OpenStack Jetstream2 key"
+  echo -e "\t-o, --openrc full path to directory with openrc.sh file obtained from Jetstream2"
+  echo -e "\t-k, --kube full path to .kube directory"
+  echo -e "\t-n, --novaclient full path to .kube directory"
+  echo -e "\t-t, --terraform full path to .terraform directory"
+  echo -e "\t-i, --inventory full path to kubespray inventory directory"
+  echo -e "\t-p, --ip cluster ip"
+  echo -e "\t-m, --helm full path to helm directory"
+  echo -e "\t-c, --secrets.yaml full path"
+  exit 1
+}
 
 while [[ $# > 0 ]]
 do
@@ -63,7 +59,7 @@ do
             shift # past argument
             ;;
         -h|--help)
-            echo -e $usage
+            usage
             exit
             ;;
     esac
@@ -74,63 +70,63 @@ done
 if [ -z "$SSH_DIR" ];
   then
       echo "Must supply an .ssh directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$OPENRC" ];
    then
       echo "Must supply an openrc.sh file:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$KUBE" ];
    then
       echo "Must supply a .kube directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$NOVACLIENT" ];
    then
       echo "Must supply a .novaclient directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$TERRAFORM" ];
    then
       echo "Must supply a .terraform.d directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$KUBESPRAY_INVENTORY" ];
    then
       echo "Must supply a kubespray inventory directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$IP" ];
    then
       echo "Must supply a cluster IP:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$HELM" ];
    then
       echo "Must supply a helm directory:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
 if [ -z "$SECRETS" ];
    then
       echo "Must supply a secrets.yaml file:"
-      echo -e $usage
+      usage
       exit 1
 fi
 
