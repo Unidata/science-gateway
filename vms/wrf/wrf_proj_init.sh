@@ -58,7 +58,8 @@ do
     key="$1"
     case $key in
 	-i|--input)
-            IDD_INPUT=$2
+            # Remove any trailing slashes from path names
+            IDD_INPUT=$(echo $2 | sed -e "s/\/*$//g")
 	    if [[ ! -d "${IDD_INPUT}" ]];
 	    then
 	        echo "ERROR: the directory \"${IDD_INPUT}\" does not exist. Exiting..."
@@ -316,7 +317,7 @@ cd ${PROJ_DIR}
 echo "Edit your crontab with: crontab -e"
 echo "Add the following line to run the model at the time specified and log output:"
 echo ""
-echo "<min> <hr> <day-of-month> <month> <day-of-week> ${PROJ_DIR}/cron_scripts/full_run.sh 2>&1 >> ${PROJ_DIR}/cron_scripts/full_run.log"
+echo "<min> <hr> <day-of-month> <month> <day-of-week> ${PROJ_DIR}/cron_scripts/full_run.sh &>> ${PROJ_DIR}/cron_scripts/full_run.log"
 echo ""
 echo "NOTE: The cron job will run according to the system time, whose timezone is:
 $(timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')"

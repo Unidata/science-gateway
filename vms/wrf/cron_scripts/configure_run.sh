@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -x
+
 # Create new directory for the day's run
 cp -r ${PROJ_DIR}/output/template ${RUN_DIR}
 

@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -x
+
 ##############################
 # User editable fields
 ##############################
@@ -29,12 +31,12 @@ export START_SECOND_D2=00
 # Example for model run relative to the current hour
 ####
 # Start times of model run for the outer domain
-# export START_HOUR_D1=$(date --utc --date="-3 hours" +%h)
+# export START_HOUR_D1=$(date --utc --date="-3 hours" +%H)
 # export START_MINUTE_D1=00
 # export START_SECOND_D1=00
 # 
 # # Start times of model run for the nested domain
-# export START_HOUR_D2=$(date --utc --date="-3 hours" +%h)
+# export START_HOUR_D2=$(date --utc --date="-3 hours" +%H)
 # export START_MINUTE_D2=00
 # export START_SECOND_D2=00
 

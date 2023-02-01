@@ -1,6 +1,8 @@
 #!/bin/bash
 
-docker run --rm -it -e LOCAL_USER_ID=`id -u $USER` \
+set -x
+
+docker run --rm -t -e LOCAL_USER_ID=`id -u $USER` \
 -v ${PROJ_DIR}/data:/data \
 -v ${PROJ_DIR}/container-dtc-nwp/components/scripts/common:/home/scripts/common \
 -v ${RUN_DIR}/wrfprd:/home/wrfprd \
