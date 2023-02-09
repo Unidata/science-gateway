@@ -27,7 +27,7 @@ It is preferable to interface with the NSF Jetstream cloud via the [[https://use
   1. Users cannot obtain VMs with static IPs
   2. Users cannot open low number ports (i.e., < ~1024~) with the exception of ports ~22~, ~80~ and ~443~ which are open by default.
 
-If you are in either of these scenarios, you have to interface with Jetstream via the [[https://iujetstream.atlassian.net/wiki/display/JWT/Using+the+Jetstream+API][OpenStack API]]. The problem here is that there is some initial setup which is somewhat painful but that you do only once. We provide a Docker container that hopefully eases some of the pain as it has the OpenStack command line tools and convenience scripts installed. After that setup, you can interface with the Jetstream OpenStack command line via the =openstack.sh= script which will launch a Docker container that will enable you to:
+If you are in either of these scenarios, you have to interface with Jetstream via the [[https://docs.jetstream-cloud.org/ui/cli/overview/][OpenStack API]]. The problem here is that there is some initial setup which is somewhat painful but that you do only once. We provide a Docker container that hopefully eases some of the pain as it has the OpenStack command line tools and convenience scripts installed. After that setup, you can interface with the Jetstream OpenStack command line via the =openstack.sh= script which will launch a Docker container that will enable you to:
 
   - Create IP Numbers
   - Create VMs
@@ -107,7 +107,7 @@ The next part involves downloading the =openrc.sh= file to work with our OpenSta
      :CUSTOM_ID: h-B34CC3AF
      :END:
 
-   - See /"Use the Horizon dashboard to generate openrc.sh"/ in the [[https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh][Jetstream API instructions]].
+   - See /"Use the Horizon dashboard to generate openrc.sh"/ in the [[https://docs.jetstream-cloud.org/ui/cli/openrc/][Jetstream API instructions]].
    - From the [[https://iu.jetstream-cloud.org/project/api_access/][IU dashboard]], navigate to =Project=, =API Access=, then select =Download OpenStack RC File= at top-right.
    - Select *OpenStack RC File (Identity API 3)* , which will download as a script named something like =TG-ATM160027-openrc.sh=. You should rename it to =openrc.sh=.
    - Move this file to =bin/openrc.sh= (e.g., =/home/jane/science-gateway/openstack/bin/openrc.sh=).

@@ -162,7 +162,7 @@ openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
 
 ## THREDDS Data Manager (TDM)
 
-The [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
+The [TDM](https://docs.unidata.ucar.edu/tds/5.0/userguide/tdm_ref.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
 
 
 <a id="h-6C55AE58"></a>

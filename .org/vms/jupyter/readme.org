@@ -138,7 +138,7 @@ kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
   :CUSTOM_ID: h-C0E8193F
   :END:
 
-[[https://developers.globus.org/][Globus OAuth capability]] is available for user authentication. The instructions [[https://oauthenticator.readthedocs.io/en/latest/getting-started.html#globus-setup][here]] are relatively straightforward.
+[[https://developers.globus.org/][Globus OAuth capability]] is available for user authentication. The instructions [[https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.globus.html][here]] are relatively straightforward.
 
 #+BEGIN_SRC yaml
   auth:

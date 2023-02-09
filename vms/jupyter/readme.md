@@ -130,7 +130,7 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 1.  Globus
 
-    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://oauthenticator.readthedocs.io/en/latest/getting-started.html#globus-setup) are relatively straightforward.
+    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.globus.html) are relatively straightforward.
 
     ```yaml
     auth:
@@ -262,7 +262,7 @@ To further tear down the Kubernetes cluster see [Tearing Down the Cluster](../..
 
 ### Tear Down While Preserving User Volumes
 
-A gentler tear down that preserves the user volumes is described in [Andrea's documentation](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html). See the section on "persistence of user data".
+A gentler tear down that preserves the user volumes is described in [Andrea's documentation](https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub). See the section on "persistence of user data".
 
 
 <a id="h-0E48EFE9"></a>

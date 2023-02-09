@@ -46,7 +46,7 @@ It is preferable to interface with the NSF Jetstream cloud via the [Atmosphere w
 1.  Users cannot obtain VMs with static IPs
 2.  Users cannot open low number ports (i.e., < `1024`) with the exception of ports `22`, `80` and `443` which are open by default.
 
-If you are in either of these scenarios, you have to interface with Jetstream via the [OpenStack API](https://iujetstream.atlassian.net/wiki/display/JWT/Using+the+Jetstream+API). The problem here is that there is some initial setup which is somewhat painful but that you do only once. We provide a Docker container that hopefully eases some of the pain as it has the OpenStack command line tools and convenience scripts installed. After that setup, you can interface with the Jetstream OpenStack command line via the `openstack.sh` script which will launch a Docker container that will enable you to:
+If you are in either of these scenarios, you have to interface with Jetstream via the [OpenStack API](https://docs.jetstream-cloud.org/ui/cli/overview/). The problem here is that there is some initial setup which is somewhat painful but that you do only once. We provide a Docker container that hopefully eases some of the pain as it has the OpenStack command line tools and convenience scripts installed. After that setup, you can interface with the Jetstream OpenStack command line via the `openstack.sh` script which will launch a Docker container that will enable you to:
 
 -   Create IP Numbers
 -   Create VMs
@@ -122,7 +122,7 @@ The next part involves downloading the `openrc.sh` file to work with our OpenSta
 
 2.  Download your `openrc.sh` file from the IU (not TACC) dashboard at  <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.
 
-    -   See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://iujetstream.atlassian.net/wiki/display/JWT/Setting+up+openrc.sh).
+    -   See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://docs.jetstream-cloud.org/ui/cli/openrc/).
     -   From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
     -   Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
     -   Move this file to `bin/openrc.sh` (e.g., `/home/jane/science-gateway/openstack/bin/openrc.sh`).
@@ -483,7 +483,7 @@ number_of_k8s_nodes_no_floating_ip = 2
 flavor_k8s_node = "4"
 ```
 
-will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for more details](https://zonca.github.io/2022/03/kubernetes-jetstream-kubespray.html).
+will create a 2 node cluster of `m1.large` VMs. [See Andrea's instructions for more details](https://www.zonca.dev/posts/2022-03-30-jetstream2_kubernetes_kubespray.html).
 
 [This spreadsheet](https://docs.google.com/spreadsheets/d/15qngBz4L5gwv_JX9HlHsD4iT25Odam09qG3JzNNbdl8/edit?usp=sharing) will help you determine the size of the cluster based on number of users, desired cpu/user, desired RAM/user. Duplicate it and adjust it for your purposes.
 
@@ -736,7 +736,7 @@ ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --ex
 
 [Grafana](https://grafana.com/) is a monitoring engine equipped with nice dashboards and fancy time-series visualizations. [Prometheus](https://github.com/camilb/prometheus-kubernetes) allows for monitoring of Kubernetes clusters.
 
-Installing these monitoring technologies is fairly straightforward and [described here](https://zonca.github.io/2019/04/kubernetes-monitoring-prometheus-grafana.html).
+Installing these monitoring technologies is fairly straightforward and [described here](https://www.zonca.dev/posts/2019-04-20-jetstream_kubernetes_monitoring.html).
 
 
 <a id="h-9BC6B08B"></a>
