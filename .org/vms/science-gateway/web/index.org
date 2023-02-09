@@ -77,7 +77,7 @@ This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][
 
 [[https://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
 
-In collaboration with the [[https://www.noaa.gov/big-data-project][NOAA Big Data Project]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream.
+In collaboration with the [[https://data.noaa.gov/datasetsearch/][NOAA]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream.
 
 * AWIPS EDEX
   :PROPERTIES:
@@ -127,7 +127,7 @@ The [[https://www.unidata.ucar.edu/software/idv/][Unidata Integrated Data Viewer
    :CUSTOM_ID: h-D76F2C8F
    :END:
 
-For those who have a Jetstream allocation (e.g., startup, education, research), an IDV image is available when selecting VMs through the [[https://use.jetstream-cloud.org/application/images][Jetstream Atmosphere dashboard]]. If you do not have a Jetstream allocation, it is possible to obtain a [[https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/76150553/Get+a+Jetstream+Trial+Access+account][Jetstream Trial Access account]]. When searching for images, search for "IDV". You will find the =Unidata IDV <version>= image. Launching that image will then allow you to "Open Web Desktop" where the IDV will be available pre-loaded with the Jetstream plugin. The catalogs available via the IDV Dashboard, Data Choosers will default to the TDS and RAMADDA servers running on Jetstream enabling data-proximate performance, especially for large datasets. You can also select image sizes that are appropriate to your goals. For example, if working with a data intensive bundle, you could choose an m1.medium VM with 6 vCPUS, 16 GB RAM.
+For those who have a Jetstream allocation (e.g., startup, education, research), an IDV image is available when selecting VMs through the [[https://use.jetstream-cloud.org/application/images][Jetstream Atmosphere dashboard]]. If you do not have a Jetstream allocation, it is possible to obtain a [[https://docs.jetstream-cloud.org/alloc/overview/][Jetstream Trial Access account]]. When searching for images, search for "IDV". You will find the =Unidata IDV <version>= image. Launching that image will then allow you to "Open Web Desktop" where the IDV will be available pre-loaded with the Jetstream plugin. The catalogs available via the IDV Dashboard, Data Choosers will default to the TDS and RAMADDA servers running on Jetstream enabling data-proximate performance, especially for large datasets. You can also select image sizes that are appropriate to your goals. For example, if working with a data intensive bundle, you could choose an m1.medium VM with 6 vCPUS, 16 GB RAM.
 
 ** IDV Jetstream Plugin
    :PROPERTIES:
@@ -155,9 +155,9 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
 - [[https://meetingorganizer.copernicus.org/EGU2018/EGU2018-5302.pdf][EGU General Assembly 2018 | April 8–13, 2018 - Vienna, Austria]]
 - [[https://doi.org/10.6084/m9.figshare.6451508.v1][OGC TC/PC Meetings | June 4-8, 2018 - Fort Collins, Colorado, USA]]
 - [[https://sites.google.com/a/nd.edu/iwsg2018][IWSG 2018 | June 13-15 2018 - Edinburgh, Scotland]]
-- [[https://www.pearc18.pearc.org/][PEARC 18 | July 22-27, 2018 - Pittsburgh, PA USA]]
+- [[https://pearc.acm.org/pearc18/][PEARC 18 | July 22-27, 2018 - Pittsburgh, PA USA]]
 - [[https://doi.org/10.6084/m9.figshare.6856733.v1][ESIP Summer Meeting 2018 | July 17-20, 2018 – Tucson, AZ USA]]
-- [[https://sciencegateways.org/web/gateways2018][Gateways 2018 | September 25–27, 2018 – Austin, TX USA]]
+- [[https://sciencegateways.org/networking-community/blogs/b/s/gateways-2018-conference][Gateways 2018 | September 25–27, 2018 – Austin, TX USA]]
 - 2019 AMS Annual Meeting | January 6–10, 2019 – Phoenix, AZ USA
   - [[https://doi.org/10.6084/m9.figshare.7590869.v1][JupyterHub for Atmospheric Science Research and Education on the NSF Jetstream Cloud]]
   - [[https://ams.confex.com/ams/2019Annual/meetingapp.cgi/Paper/354804][A Cloud-Based Science Gateway for Enabling Open and Reproducible Science]]
@@ -203,7 +203,7 @@ TBA
   :CUSTOM_ID: h-DA850DB8
   :END:
 
-[[https://conan.unidata.ucar.edu/bb/][Internal only Unidata system monitoring link]]
+[[http://dserv.unidata.ucar.edu/xymon/xymon.html][Internal only Unidata system monitoring link]]
 
 [[http://rtstats.unidata.ucar.edu/cgi-bin/rtstats/siteindex?idd-relay.jetstream-cloud.org][IDD Relay RTSTATS]]
 

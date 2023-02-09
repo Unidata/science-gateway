@@ -80,7 +80,7 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
   <hostInstitution>
     <name>Unidata</name>
     <webSite>http://www.unidata.ucar.edu/</webSite>
-    <logoUrl>https://www.unidata.ucar.edu/software/thredds/v4.6/tds/images/unidataLogo.png</logoUrl>
+    <logoUrl>https://ral.ucar.edu/sites/default/files/public/images/project/Unidata_logo_vertical_400x400_alpha.png</logoUrl>
     <logoAltText>Unidata</logoAltText>
   </hostInstitution>
 #+END_EXAMPLE

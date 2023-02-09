@@ -239,7 +239,7 @@ openstack server add security group <VM name or ID> local-nfs
 
 ## THREDDS Data Manager (TDM)
 
-While not related to IDD archival, the [TDM](https://www.unidata.ucar.edu/software/thredds/current/tds/reference/collections/TDM.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `tds.scigw` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
+While not related to IDD archival, the [TDM](https://docs.unidata.ucar.edu/tds/5.0/userguide/tdm_ref.html) is an application that works in conjunction with the TDS. It creates indexes for GRIB data as a background process, and notifies the TDS running on the `tds.scigw` VM via port `8443` when data have been updated or changed. Because the TDM needs to **write** data, and NFS tuning concerns, in the present configuration, we have the TDM running on the `idd-archiver` VM.
 
 
 <a id="h-865C1FF8"></a>
