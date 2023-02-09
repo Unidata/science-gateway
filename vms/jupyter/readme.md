@@ -7,6 +7,7 @@
     - [SSL Certificates](#h-294A4A20)
     - [OAuth Authentication](#h-8A3C5434)
     - [Docker Image and Other Configuration](#h-214D1D4C)
+    - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
@@ -195,6 +196,38 @@ singleuser:
               cp /README_FIRST.ipynb /home/jovyan;
               cp /Acknowledgements.ipynb /home/jovyan;
               cp /.condarc /home/jovyan
+```
+
+
+<a id="h-C95C198A"></a>
+
+### Create a Large Data Directory That Can Be Shared Among All Users
+
+[Andrea has a tutorial about sharing a directory](https://www.zonca.dev/posts/2023-02-06-nfs-server-kubernetes-jetstream) (e.g., `/share/data`) via Kubernetes and NFS. The instructions basically work as advertised with the KubeSpray option (not Magnum &#x2013; I have not tried that), e.g.,
+
+```yaml
+nfs:
+    # for Magnum
+    # server: 10.254.204.67
+    # for Kubespray
+    server: 10.233.46.63
+    path: /
+```
+
+The `clusterIP` is arbitrary and the one in the `jupyterhub-deploy-kubernetes-jetstream/nfs/` directory works. That IP is referenced in multiple locations in that directory. Make sure you get them all.
+
+Define the size of the shared volume in `create_nfs_volume.yaml`, e.g.,:
+
+```yaml
+resources:
+  requests:
+    storage: 300Gi
+```
+
+Verify `nfs-common` is installed on the worker nodes (more recent versions of AZ's `jetstream_kubespray` project will have this already so you won't have to manually install the package), e.g.,
+
+```sh
+sudo apt install -y nfs-common
 ```
 
 

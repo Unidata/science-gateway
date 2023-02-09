@@ -181,6 +181,38 @@ Reference [[#h-CD007D2A][the previously built Docker image]] (e.g., ~unidata/uni
 
 #+INCLUDE: "../../../vms/jupyter/secrets.yaml" src yaml :lines "35-62"
 
+*** Create a Large Data Directory That Can Be Shared Among All Users
+:PROPERTIES:
+:CUSTOM_ID: h-C95C198A
+:END:
+
+[[https://www.zonca.dev/posts/2023-02-06-nfs-server-kubernetes-jetstream][Andrea has a tutorial about sharing a directory]] (e.g., =/share/data=) via Kubernetes and NFS. The instructions basically work as advertised with the KubeSpray option (not Magnum -- I have not tried that), e.g.,
+
+#+begin_src yaml
+  nfs:
+      # for Magnum
+      # server: 10.254.204.67
+      # for Kubespray
+      server: 10.233.46.63
+      path: /
+#+end_src
+
+The ~clusterIP~ is arbitrary and the one in the =jupyterhub-deploy-kubernetes-jetstream/nfs/= directory works. That IP is referenced in multiple locations in that directory. Make sure you get them all.
+
+Define the size of the shared volume in =create_nfs_volume.yaml=, e.g.,:
+
+#+begin_src yaml
+  resources:
+    requests:
+      storage: 300Gi
+#+end_src
+
+Verify ~nfs-common~ is installed on the worker nodes (more recent versions of AZ's ~jetstream_kubespray~ project will have this already so you won't have to manually install the package), e.g.,
+
+#+begin_src sh
+  sudo apt install -y nfs-common
+#+end_src
+
 ** Navigate to JupyterHub
    :PROPERTIES:
    :CUSTOM_ID: h-209E2FBC
