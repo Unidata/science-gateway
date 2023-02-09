@@ -245,7 +245,7 @@ To further tear down the Kubernetes cluster see [[file:../../openstack/readme.or
     :CUSTOM_ID: h-5F2AA05F
     :END:
 
-A gentler tear down that preserves the user volumes is described in [[https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html][Andrea's documentation]]. See the section on "persistence of user data".
+A gentler tear down that preserves the user volumes is described in [[https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub][Andrea's documentation]]. See the section on "persistence of user data".
 ** Troubleshooting
    :PROPERTIES:
    :CUSTOM_ID: h-0E48EFE9
