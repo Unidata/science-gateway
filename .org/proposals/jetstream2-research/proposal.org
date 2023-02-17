@@ -11,7 +11,8 @@
 
 #+cite_export: csl ~/git/science-gateway/.org/proposals/jetstream2-research/american-geophysical-union.csl
 #+latex_header: \hypersetup{hidelinks}
-#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{margin=1in}
 
 * Scientific Background
 :PROPERTIES:
