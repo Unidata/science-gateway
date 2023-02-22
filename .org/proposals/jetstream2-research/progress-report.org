@@ -20,7 +20,7 @@
 :CUSTOM_ID: h-4C24817F
 :END:
 
-The reason we are asking for a time extension on Jetstream2 is simply that the Indiana University data center did not go fully operational until September 7, 2022, nearly halfway through our grant and therefore we were not being charged against our total allocation amount. The rate of our usage of JetStream2 is proceeding according to plan otherwise.
+The reason Unidata is asking for a six month time extension on Jetstream2 is simply that the Indiana University data center did not go fully operational until September 7, 2022, nearly halfway through our grant and therefore we were not being charged against our total allocation amount. The rate of our usage of Jetstream2 is proceeding according to plan otherwise.
 
 * Progress Report
 :PROPERTIES:
@@ -51,14 +51,14 @@ Unidata continues to provide access to customized JupyterHub servers at an accel
 :CUSTOM_ID: h-F334802B
 :END:
 
-Unidata's use of Jetstream2 was crucial  during the American Meteorological Society (AMS) 2023 meeting, as we supported three workshops with customized PyAOS JupyterHub servers: MetPy Short Course, Student Python Workshop, and the Colorado State University LROSE radar meteorology workshop. In all, Unidata had 141 participants employing Jetstream2 resources at AMS 2023.
+Unidata's use of Jetstream2 was crucial during the American Meteorological Society (AMS) 2023 meeting, as we supported three workshops with customized PyAOS JupyterHub servers: MetPy Short Course, Student Python Workshop, and the Colorado State University LROSE radar meteorology workshop. In all, Unidata had 141 participants employing Jetstream2 resources at AMS 2023.
 
 *** Presentation
 :PROPERTIES:
 :CUSTOM_ID: h-818FB3E4
 :END:
 
-Unidata delivered a presentation entitled "Unidata Science Gateway: Past, Present, and Future Plans" detailing our collaboration and use of the Jetstream and Jetstream2 projects since 2015 [cite:@Chastang2023a]
+Unidata delivered a presentation entitled "Unidata Science Gateway: Past, Present, and Future Plans" detailing our collaboration and use of the Jetstream and Jetstream2 projects since 2015 [cite:@Chastang2023a].
 
 ** Andrea Zonca Collaboration
 :PROPERTIES:
@@ -68,7 +68,7 @@ Unidata delivered a presentation entitled "Unidata Science Gateway: Past, Presen
 Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) employing his port of the "Zero to JupyterHub with Kubernetes"[fn:1] project to OpenStack and Jetstream2 [cite:@Zonca2017a] [cite:@Zonca2018a]. We give Andrea feedback by testing his instructional blog entries and workflows[fn:2]. When we encounter issues, we submit bug reports via GitHub and work together until the problem is resolved.
 Notably, we worked with Andrea to provide our users with a shared directory that can be accessed from all user JupyterLab environments. [fn:3] This has been a long-standing feature request that we were excited to finally deliver.
 
-** WRF in the Cloud
+** Weather Research Forecast Model on Jetstream2
 :PROPERTIES:
 :CUSTOM_ID: h-45CAE6B3
 :END:
@@ -77,7 +77,7 @@ Notably, we worked with Andrea to provide our users with a shared directory that
 
 For the first time in Unidata's presence on Jetstream, we have deployed a containerized version of the Weather Research Forecast (WRF) numerical weather prediction system on Jetstream2 in two different scenarios. This new capability allows for exploration of Numerical Weather Prediction (NWP) models and subsequent analysis and visualization of the output in a data-proximate manner, for example, in a JupyterLab environment.
 
-*** WRF NTU
+*** WRF Navajo Technical University
 
 Unidata is collaborating with the Southwestern Indian Polytechnic Institute and Navajo Technical University to deploy an operational WRF model over the Navajo Nation. This project aims to provide Tribal Nations, and the Tribal Colleges and Universities (TCUs) with the capacity for environmental monitoring in alignment with data sovereignty objectives[cite:@Espinoza2022a] [cite:@Weber2023a].
 
@@ -90,7 +90,7 @@ In collaboration with Greg Blumberg at Millersville University, Unidata staff ha
 :CUSTOM_ID: h-133EBF8B
 :END:
 
-Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU enabled JupyterHub enabled with Tensorflow and Pytorch software, and are evaluating its capabilities specifically with regard to educational settings. We are also currently working on testing out Andrea Zonca’s GPU version of deploying a "JupyterHub with Kubernetes" cluster [fn:4]
+Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU enabled JupyterHub equipped with Tensorflow and Pytorch software, and are evaluating its capabilities specifically with regard to educational settings. We are also currently working on testing out Andrea Zonca's GPU version of deploying a "JupyterHub with Kubernetes" cluster [fn:4].
 
 ** Unidata Science Gateway Reimagined Project
 :PROPERTIES:
@@ -104,7 +104,8 @@ The Unidata Science Gateway unites Unidata technologies with Jetstream2 and open
 :CUSTOM_ID: h-240CF4A9
 :END:
 
-Unidata continues to host our publicly accessible EDEX servers on the Jetstream2 cloud platform where we serve real-time meteorological and geographic data to CAVE clients.  Our EDEX servers are also accessible via python-awips which is a data access framework (DAF) API. The distributed architectural concepts of AWIPS allow us to scale EDEX in the cloud to account for the desired data feed (and size). We continue using Jetstream2 to develop cloud-deployable AWIPS instances as virtual machines images (VMI) available to users of OpenStack CLI.
+Unidata continues to host our publicly accessible EDEX servers on the Jetstream2 cloud platform where we serve real-time meteorological and geographic data to CAVE clients[cite:@Meyer2023a].  Our EDEX servers are also accessible via python-awips which is a data access framework (DAF) API. The distributed architectural concepts of AWIPS allow us to scale EDEX in the cloud to account for the desired data feed (and size). We continue using Jetstream2 to develop cloud-deployable AWIPS instances as virtual machines images (VMI) available to users of OpenStack CLI.
+
 AWIPS staff is mainly employing Jetstream2 "CPU Instances" (11 VMs mostly of various large flavors) for the current EDEX configuration. We have also been experimenting deploying EDEX with Jetstream2 "Large Memory Instances".
 
 ** References
