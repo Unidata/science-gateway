@@ -17,7 +17,7 @@
     - [Unresponsive JupyterHub](#h-FF4348F8)
     - [Volumes Stuck in Reserved State](#h-354DE174)
     - [Renew Expired K8s Certificates](#h-60D08FB6)
-
+    - [Evicted Pods Due to Node Pressure](#h-93b43b3e)
 
 
 <a id="h-D73CBC56"></a>
@@ -609,3 +609,143 @@ A gentler tear down that preserves the user volumes is described in [Andrea's do
     ```
 
     You should now be able to run `kubectl` commands, fire up new user servers, and run `helm` upgrades.
+
+<a id="h-93b43b3e"></a>
+
+### Evicted Pods Due to Node Pressure
+
+If a node starts to run out of resources and you try to fire up new pods on it,
+the pods will have the "evicted" status associated with them. This can happen
+when trying to update a JupyterHub whose single user JupyterLab images are
+large, as Jetstream2's `m3.medium` instances only have `60GB` of disk storage.
+
+This problem was first noticed when updating MVU's JupyterHub, whose single user
+image was on the order of `10GB`. The new JupyterLab image was going to be
+similarly large.
+
+Unless otherwise stated, all output of shell commands are from the `mvu-test`
+cluster.
+
+This is what a "healthy" cluster looks like:
+
+```shell
+$ kubectl get pods -n jhub
+NAME                              READY   STATUS    RESTARTS   AGE
+continuous-image-puller-kc4v5     1/1     Running   0          21h
+hub-64747d5848-x6z7s              1/1     Running   0          21h
+proxy-6675c69dd4-47b4d            1/1     Running   0          10d
+user-scheduler-79c85f98dd-r7gl4   1/1     Running   0          10d
+user-scheduler-79c85f98dd-vqz24   1/1     Running   0          10d
+
+$ kubectl get nodes -n jhub
+NAME                     STATUS   ROLES                  AGE   VERSION
+mvu-test-1               Ready    control-plane,master   10d   v1.22.5
+mvu-test-k8s-node-nf-1   Ready    <none>                 10d   v1.22.5
+```
+
+If we inspect the worker node, we will see the following relevant information:
+
+```shell
+$ kubectl describe node -n jhub mvu-test-k8s-node-nf-1 | less
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 06 Feb 2023 03:39:57 +0000   Mon, 06 Feb 2023 03:39:57 +0000   FlannelIsUp                  Flannel is running on this node
+  MemoryPressure       False   Thu, 16 Feb 2023 23:39:42 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Thu, 16 Feb 2023 23:39:42 +0000   Thu, 16 Feb 2023 01:43:51 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Thu, 16 Feb 2023 23:39:42 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Thu, 16 Feb 2023 23:39:42 +0000   Mon, 06 Feb 2023 03:39:59 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+```
+
+The "Conditions" field describes that the node is undergoing no [Node
+Pressure](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/).
+If the node were experiencing some kind of node pressure, attempting to create
+any pods would cause them to become stuck in the "evicted" state. By
+[default](https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds),
+pods will be evicted from a node if the available storage space on the node
+falls below `10%`.
+
+Attempting to re-deploy the JupyterHub with a new image will cause the
+JupyterHub to pull in the new image. If this results in disk pressure, you will
+see Kubernetes create pods that receive the "Evicted" state:
+
+```shell
+$ bash install_jhub.sh
+
+# In a seperate shell
+$ kubectl get pods -n jhub
+NAME                              READY   STATUS    RESTARTS   AGE
+continuous-image-puller-hm25g     0/1     Evicted   0          36s
+hook-image-awaiter--1-4zmsc       0/1     Pending   0          43s
+hook-image-puller-f4ffs           0/1     Evicted   0          12s
+hub-85c77d5fd-9zhb5               0/1     Pending   0          98s
+jupyter-robertej09                1/1     Running   0          19m
+proxy-6675c69dd4-47b4d            1/1     Running   0          10d
+user-scheduler-79c85f98dd-r7gl4   1/1     Running   0          10d
+user-scheduler-79c85f98dd-vqz24   1/1     Running   0          10d
+```
+
+The node will show that it is indeed experiencing disk pressure:
+
+```shell
+$ kubectl describe node -n jhub <node-name> | less # and scroll down
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 06 Feb 2023 03:39:57 +0000   Mon, 06 Feb 2023 03:39:57 +0000   FlannelIsUp                  Flannel is running on this node
+  MemoryPressure       False   Fri, 17 Feb 2023 00:48:47 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         True    Fri, 17 Feb 2023 00:48:47 +0000   Fri, 17 Feb 2023 00:45:37 +0000   KubeletHasDiskPressure       kubelet has disk pressure
+  PIDPressure          False   Fri, 17 Feb 2023 00:48:47 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Fri, 17 Feb 2023 00:48:47 +0000   Mon, 06 Feb 2023 03:39:59 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
+```
+
+Scrolling to the "Events" section of the `describe node` output, you may find
+that Kubernetes is attempting to salvage the install by freeing up storage
+space. This particular output was created while JupyterHub was being upgraded
+on the "main" `mvu-23s` cluster:
+
+```shell
+Events:
+  Type     Reason                 Age                From     Message
+  ----     ------                 ----               ----     -------
+  Warning  EvictionThresholdMet   55m (x4 over 17d)  kubelet  Attempting to reclaim ephemeral-storage
+  Normal   NodeHasDiskPressure    55m (x4 over 17d)  kubelet  Node mvu23s-k8s-node-nf-9 status is now: NodeHasDiskPressure
+  Normal   NodeHasNoDiskPressure  50m (x5 over 29d)  kubelet  Node mvu23s-k8s-node-nf-9 status is now: NodeHasNoDiskPressure
+```
+
+In this case, Kubernetes successfully performed garbage collection and was able
+to recover enough storage space to complete the install after some period of
+waiting.
+
+If Kubernetes is taking too long to want to perform garbage collection, there is
+a very hacky work-around to this. Cancel the installation (`ctrl-c`), and run
+`helm uninstall jhub -n jhub`. This will uninstall the JupyterHub from the
+cluster, however, importantly it will [keep user data
+intact](https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub#delete-and-reinstall-jupyterhub). 
+
+Through some inspection, you may find that the worker nodes contain a cache of
+not only the single user image which is currently deployed, but the previous one
+as well:
+
+```shell
+$ kubectl get nodes -o yaml | less # after scrolling down you'll eventually see in the worker node
+    images:
+    - names:
+      - docker.io/unidata/mvu-spring-2023@sha256:a092260d963474b04b71f9b2887faaa879ed0e61d3b2867972308e962b41d7dc
+      - docker.io/unidata/mvu-spring-2023:2023Feb16_001123_74af5561
+      sizeBytes: 2656565418
+    - names:
+      - docker.io/unidata/mvu-spring-2023@sha256:2a257f0673482a110dd73b42f91854ecc2d7a3244aa7fd34c988b2fb591d4335
+      - docker.io/unidata/mvu-spring-2023:2023Feb04_021143_912787ce
+      sizeBytes: 2653100806
+```
+
+The work-around is to force the removal of one of the images by installing a
+small single user image in the JupyterHub that you know will fit on the node's
+available storage space. The
+[jupyter/base-notebook](https://hub.docker.com/r/jupyter/base-notebook/tags)
+image is a good candidate for this. Edit the appropriate sections of
+`secrets.yaml` to install this smaller image, run `bash install_jhub.sh`, and
+watch `kubectl get pods -n jhub` to ensure everything installs correctly.
+Kubernetes should have purged one of the previous images and freed up storage
+space. Now, re-edit `secrets.yaml` and install the image you desire.
