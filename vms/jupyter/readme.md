@@ -7,7 +7,7 @@
     - [SSL Certificates](#h-294A4A20)
     - [OAuth Authentication](#h-8A3C5434)
     - [Docker Image and Other Configuration](#h-214D1D4C)
-    - [JupyterHub Profiles](#h-8d44eaa3)
+    - [JupyterHub Profiles](#h-5BE09B80)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
@@ -199,19 +199,12 @@ singleuser:
               cp /.condarc /home/jovyan
 ```
 
-<a id="h-8d44eaa3"></a>
+
+<a id="h-5BE09B80"></a>
 
 ### JupyterHub Profiles
 
-A JupyterHub may be configured to give users different [profile
-options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment)
-when logging in. This can be useful when, for example, a faculty member is using
-JupyterHub for multiple courses and wants to keep them seperate. Another use
-case is for creating "high power" or "low power" environments, which are
-allocated varying levels of computational resources, i.e. RAM and CPU. This can
-be applied in an undergraduate research setting where an instructor and their
-students use the low power environments during synchronous instruction and the
-high power environment for asynchronous workflows.
+A JupyterHub may be configured to give users different [profile options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment) when logging in. This can be useful when, for example, a faculty member is using JupyterHub for multiple courses and wants to keep them seperate. Another use case is for creating "high power" or "low power" environments, which are allocated varying levels of computational resources, i.e. RAM and CPU. This can be applied in an undergraduate research setting where an instructor and their students use the low power environments during synchronous instruction and the high power environment for asynchronous workflows.
 
 An example of high and low power environments is shown below.
 
@@ -245,10 +238,7 @@ singleuser:
         cpu_limit: 2
 ```
 
-Note, however, that while one would typically provide `secrets.yaml` with the
-CPU and memory guarantees/limits as shown below, when using the
-`kubespawner_override` object to set these options for various profiles, you
-must provide the names of the fields as Kubespawner will recognize them.
+Note, however, that while one would typically provide `secrets.yaml` with the CPU and memory guarantees/limits as shown below, when using the `kubespawner_override` object to set these options for various profiles, you must provide the names of the fields as Kubespawner will recognize them.
 
 ```yaml
 # Typical manner of configuring CPU and memory options
@@ -270,11 +260,8 @@ singleuser:
       cpu_limit: 4
 ```
 
-See
-[this](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1242#issuecomment-484895216)
-GitHub issue for a description of the discrepancy, and the [Kubespawner
-docs](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html) for
-the appropriate names to use for the various options when creating profiles.
+See [this](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1242#issuecomment-484895216) GitHub issue for a description of the discrepancy, and the [Kubespawner docs](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html) for the appropriate names to use for the various options when creating profiles.
+
 
 <a id="h-C95C198A"></a>
 
