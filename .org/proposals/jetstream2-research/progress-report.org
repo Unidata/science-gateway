@@ -32,14 +32,14 @@ The reason we are asking for a time extension on Jetstream2 is simply that the I
 :CUSTOM_ID: h-1BF48B91
 :END:
 
-We are happy to report that we are making full use of the Unidata Jetstream2 allocation by continuing to provide vital computing resources to our community of university educators, instructors and researchers as described in the original Jetstream2 allocation proposal.
+We are happy to report that we are making full use of the Unidata Jetstream2 allocation by continuing to provide vital computing resources to our community of university educators, instructors, and researchers as described in the original Jetstream2 allocation proposal.
 
 ** Customized JupyterHub Resources for Semester Classes
 :PROPERTIES:
 :CUSTOM_ID: h-96210E0E
 :END:
 
-Unidata continues to provide access to customized JupyterHub servers at an accelerating pace for the benefit of the students in the atmospheric science community employing our Jetstream2 resource allocation and as part of the Unidata Science Gateway project. Since the launch of Jetstream2, we have deployed PyAOS (Python for the Atmospheric and Oceanic Sciences) JupyterHub installations at ten universities. Unidata tailors these servers to the requirements of the instructors so that they may arrive at their earth system science teaching objectives. 152 students have employed Unidata JupyterHub servers running on Jetstream2 in this manner.
+Unidata continues to provide access to customized JupyterHub servers at an accelerating pace for the benefit of students in the atmospheric science community employing our Jetstream2 resource allocation. The Jetstream2 allocation is also an integral part of the Unidata Science Gateway project. Since the launch of Jetstream2, we have deployed PyAOS (Python for the Atmospheric and Oceanic Sciences) JupyterHub installations at ten universities. Unidata tailors these servers to the requirements of the instructors so they may accomplish their earth system science teaching objectives. 152 students have employed Unidata JupyterHub servers running on Jetstream2 in this manner.
 
 ** American Meteorological Society 2023 Meeting
 :PROPERTIES:
@@ -51,23 +51,22 @@ Unidata continues to provide access to customized JupyterHub servers at an accel
 :CUSTOM_ID: h-F334802B
 :END:
 
-Unidata's use of Jetstream2 experienced a strong presence during the American Meteorological Society 2023 meeting as we supported three workshops with customized PyAOS JupyterHub servers: MetPy Short Course, Student Python Workshop, the Colorado State University LROSE radar meteorology workshop. In all, Unidata had 141 participants employing Jetstream2 resources at AMS 2023.
+Unidata's use of Jetstream2 was crucial  during the American Meteorological Society (AMS) 2023 meeting, as we supported three workshops with customized PyAOS JupyterHub servers: MetPy Short Course, Student Python Workshop, and the Colorado State University LROSE radar meteorology workshop. In all, Unidata had 141 participants employing Jetstream2 resources at AMS 2023.
 
 *** Presentation
 :PROPERTIES:
 :CUSTOM_ID: h-818FB3E4
 :END:
 
-We delivered a presentation entitled  "Unidata Science Gateway: Past, Present, and Future Plans" detailing our collaboration and use of the Jetstream and Jetstream2 projects since 2015. [cite:@Chastang2023a]
+Unidata delivered a presentation entitled "Unidata Science Gateway: Past, Present, and Future Plans" detailing our collaboration and use of the Jetstream and Jetstream2 projects since 2015 [cite:@Chastang2023a]
 
 ** Andrea Zonca Collaboration
 :PROPERTIES:
 :CUSTOM_ID: h-EC1F4212
 :END:
 
-Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) employing his port of the "Zero to JupyterHub with Kubernetes"[fn:1] project to OpenStack and Jetstream2.[cite:@Zonca2017a] [cite:@Zonca2018a] We give Andrea feedback by testing his instructional blog entries and workflows[fn:2]. When we encounter issues, we submit bug reports via GitHub and work together until the problem is resolved.
-
-Notably, we worked with Andrea to provide our users with a shared directory that can be accessed from all user JupyterLab environments. [fn:3] This has been a long-standing feature request that we are excited to finally deliver.
+Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) employing his port of the "Zero to JupyterHub with Kubernetes"[fn:1] project to OpenStack and Jetstream2 [cite:@Zonca2017a] [cite:@Zonca2018a]. We give Andrea feedback by testing his instructional blog entries and workflows[fn:2]. When we encounter issues, we submit bug reports via GitHub and work together until the problem is resolved.
+Notably, we worked with Andrea to provide our users with a shared directory that can be accessed from all user JupyterLab environments. [fn:3] This has been a long-standing feature request that we were excited to finally deliver.
 
 ** WRF in the Cloud
 :PROPERTIES:
@@ -80,33 +79,32 @@ For the first time in Unidata's presence on Jetstream, we have deployed a contai
 
 *** WRF NTU
 
-Unidata is collaborating with the Southwestern Indian Polytechnic Institute and Navajo Technical University to deploy an operational WRF model over the Navajo Nation. This project aims to provide Tribal Nations, and the Tribal Colleges and Universities (TCUs) with the capacity for environmental monitoring in alignment with data sovereignty objectives. [cite:@Espinoza2022a] [cite:@Weber2023a]
+Unidata is collaborating with the Southwestern Indian Polytechnic Institute and Navajo Technical University to deploy an operational WRF model over the Navajo Nation. This project aims to provide Tribal Nations, and the Tribal Colleges and Universities (TCUs) with the capacity for environmental monitoring in alignment with data sovereignty objectives[cite:@Espinoza2022a] [cite:@Weber2023a].
 
 *** WRF Single Column Model in JupyterHub
 
-In collaboration with Greg Blumberg at Millersville Univeristy, Unidata staff have deployed a single-column WRF model in a JupyterHub environment for undergraduate instructional objectives.
+In collaboration with Greg Blumberg at Millersville University, Unidata staff have deployed a single column WRF model in a JupyterHub environment for undergraduate instructional objectives.
 
 ** GPU Experimentation
 :PROPERTIES:
 :CUSTOM_ID: h-133EBF8B
 :END:
 
-Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU enabled JupyterHub enabled with Tensorflow and Pytorch software and are evaluating its capabilities especially in educational settings. We are also currently working on testing out Andrea Zonca's GPU version of deploying "JupyterHub with Kubernetes" cluster  [fn:4]
+Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU enabled JupyterHub enabled with Tensorflow and Pytorch software, and are evaluating its capabilities specifically with regard to educational settings. We are also currently working on testing out Andrea Zonca’s GPU version of deploying a "JupyterHub with Kubernetes" cluster [fn:4]
 
 ** Unidata Science Gateway Reimagined Project
 :PROPERTIES:
 :CUSTOM_ID: h-1AA6281E
 :END:
 
-The Unidata Science Gateway unites Unidata technologies with Jetstream2 and open-source software such as Project Jupyter to provide the academic and research community an environment they can employ to access, analyze and visualize real-time and case study Earth system science data. While the Unidata Science Gateway has been moderately successful in reaching our audience, we would like to improve and expand our web presence, building a portal that allows users to more easily access educational, computing, and data resources. We aim to revamp our current gateway interface to become a more dynamic hub for learning, data, and research. We presented our vision and mission statement in a poster presentation at the Gateways 2022 conference. [cite:@Chastang2022b] Unidata staff are currently in the design phase of this project.
+The Unidata Science Gateway unites Unidata technologies with Jetstream2 and open-source software such as Project Jupyter to provide the academic and research community an environment they can use to access, analyze, and visualize real-time and case study Earth system science data. While the Unidata Science Gateway has been moderately successful in reaching our audience, we would like to improve and expand our web presence, building a portal that allows users to more easily access educational, computing, and data resources. We aim to revamp our current gateway interface to become a more dynamic hub for education, data access, and research. We presented our vision and mission statement in a poster presentation at the Gateways 2022 conference [cite:@Chastang2022b]. Unidata staff are currently in the design phase of this project.
 
 ** AWIPS
 :PROPERTIES:
 :CUSTOM_ID: h-240CF4A9
 :END:
 
-Unidata continues to host our publicly accessible EDEX server on the Jetstream2 cloud platform where we serve real-time AWIPS data to CAVE clients and the python-awips data access framework (DAF) API. The distributed architectural concepts of AWIPS allow us to scale EDEX in the cloud to account for the desired data feed (and size). We continue using Jetstream2 to develop cloud-deployable AWIPS instances as imaged virtual machines (VMI) available to users of OpenStack CLI.
-
+Unidata continues to host our publicly accessible EDEX servers on the Jetstream2 cloud platform where we serve real-time meteorological and geographic data to CAVE clients.  Our EDEX servers are also accessible via python-awips which is a data access framework (DAF) API. The distributed architectural concepts of AWIPS allow us to scale EDEX in the cloud to account for the desired data feed (and size). We continue using Jetstream2 to develop cloud-deployable AWIPS instances as virtual machines images (VMI) available to users of OpenStack CLI.
 AWIPS staff is mainly employing Jetstream2 "CPU Instances" (11 VMs mostly of various large flavors) for the current EDEX configuration. We have also been experimenting deploying EDEX with Jetstream2 "Large Memory Instances".
 
 ** References
