@@ -1,4 +1,4 @@
-FROM rockylinux:9.1.20221221
+FROM rockylinux:9.1.20230215
 
 ###
 # Update the system. Install stuff.
