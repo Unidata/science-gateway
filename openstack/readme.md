@@ -27,6 +27,7 @@
     - [Tearing Down the Cluster](#h-DABDACC7)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
     - [Patching Master Node](#h-9BC6B08B)
+    - [GPU Enabled Clusters](#h-7062BF9B)
 - [Appendix](#h-78283D4A)
   - [Jetstream2 VM Flavors](#h-958EA909)
 
@@ -515,6 +516,7 @@ After running the terraform scripts (see the next section), you can ensure that 
 nslookup <instance-name>.<project-ID>.projects.jetstream-cloud.org
 ```
 
+
 <a id="h-0C658E7B"></a>
 
 ### Create VMs with kube-setup.sh
@@ -750,6 +752,27 @@ You'll want to keep the master node security patched as it will have a publicly 
      && apt autoremove -y
 reboot -h now
 ```
+
+
+<a id="h-7062BF9B"></a>
+
+### GPU Enabled Clusters
+
+In order to build a GPU enabled cluster, [refer to Andrea's documentation](https://www.zonca.dev/posts/2023-01-23-kubernetes-gpu-jetstream2). `jupyterhub.sh` takes `-g` flag to help facilate this option.
+
+There is an image you will need to pull:
+
+```sh
+docker pull unidata/science-gateway-gpu
+```
+
+or build with:
+
+```sh
+docker build -t unidata/science-gateway -f Dockerfile.gpu .
+```
+
+Pay special attention to the to the `cluster.tfvars` to select VM that have GPU hardware.
 
 
 <a id="h-78283D4A"></a>

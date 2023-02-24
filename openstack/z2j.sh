@@ -2,7 +2,7 @@
 
 function usage()
 {
-  echo -e "Syntax: $(basename "$0") [-h] [-s] [-o] [-k] [-n] [-t] [-i] [-p] [-m] [-c]"
+  echo -e "Syntax: $(basename "$0") [-h] [-s] [-o] [-k] [-n] [-t] [-i] [-p] [-m] [-c] [-g]"
   echo -e "script to  start Z2J Kube Client Docker container."
   echo -e "Arguments must be supplied with fully qualified paths."
   echo -e "\t-h, show this help text"
@@ -15,6 +15,7 @@ function usage()
   echo -e "\t-p, --ip cluster ip"
   echo -e "\t-m, --helm full path to helm directory"
   echo -e "\t-c, --secrets.yaml full path"
+  echo -e "\t-g, --gpu"
   exit 1
 }
 
@@ -56,6 +57,10 @@ do
             ;;
         -c|--secrets)
             SECRETS="$2"
+            shift # past argument
+            ;;
+        -g|--gpu)
+            GPU="$1"
             shift # past argument
             ;;
         -h|--help)
@@ -130,6 +135,13 @@ if [ -z "$SECRETS" ];
       exit 1
 fi
 
+if [ -z "$GPU" ];
+   then
+     IMAGE="unidata/science-gateway"
+   else
+     IMAGE="unidata/science-gateway-gpu"
+fi
+
 mkdir -p $KUBE
 mkdir -p $NOVACLIENT
 mkdir -p $TERRAFORM
@@ -149,4 +161,4 @@ docker run -it  --name  ${INVENTORY} \
        -v ${SECRETS}:/home/openstack/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
        -e CLUSTER=${INVENTORY} \
        -e IP=${IP} \
-       unidata/science-gateway /bin/bash
+       ${IMAGE} /bin/bash
