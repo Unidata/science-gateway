@@ -864,6 +864,26 @@ You'll want to keep the master node security patched as it will have a publicly 
        && apt autoremove -y
   reboot -h now
  #+END_SRC
+*** GPU Enabled Clusters
+:PROPERTIES:
+:CUSTOM_ID: h-7062BF9B
+:END:
+
+In order to build a GPU enabled cluster, [[https://www.zonca.dev/posts/2023-01-23-kubernetes-gpu-jetstream2][refer to Andrea's documentation]]. ~jupyterhub.sh~ takes ~-g~ flag to help facilate this option.
+
+There is an image you will need to pull:
+
+#+BEGIN_SRC sh :eval no
+  docker pull unidata/science-gateway-gpu
+#+END_SRC
+
+or build with:
+
+#+BEGIN_SRC sh :eval no
+  docker build -t unidata/science-gateway -f Dockerfile.gpu .
+#+END_SRC
+
+Pay special attention to the ~cluster.tfvars~ to select VMs that have GPU hardware.
 
 * Appendix
   :PROPERTIES:
