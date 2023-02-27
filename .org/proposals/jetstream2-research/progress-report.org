@@ -14,7 +14,7 @@
 #+latex_header: \usepackage{geometry}
 #+latex_header: \geometry{margin=1in}
 
-* Reason
+* Reason                                                           :noexport:
 :PROPERTIES:
 :ID:
 :CUSTOM_ID: h-4C24817F
@@ -90,7 +90,7 @@ In collaboration with Greg Blumberg at Millersville University, Unidata staff ha
 :CUSTOM_ID: h-133EBF8B
 :END:
 
-Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU-enabled JupyterHub equipped with Tensorflow and Pytorch software, and are evaluating its capabilities specifically with regard to educational settings. We are also currently working on testing out Andrea Zonca's GPU version of deploying a "JupyterHub with Kubernetes" cluster [fn:4].
+Unidata staff have started experimenting with Jetstream2 GPU hardware. In particular, we have deployed a GPU-enabled JupyterHub equipped with TensorFlow and PyTorch software, and are evaluating its capabilities specifically with regard to educational settings. We are also currently working on testing out Andrea Zonca's GPU version of deploying a "JupyterHub with Kubernetes" cluster [fn:4].
 
 ** Unidata Science Gateway Reimagined Project
 :PROPERTIES:
