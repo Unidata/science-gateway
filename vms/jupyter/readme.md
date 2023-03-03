@@ -9,6 +9,7 @@
     - [Docker Image and Other Configuration](#h-214D1D4C)
     - [JupyterHub Profiles](#h-5BE09B80)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
+    - [Ensure "Core" Pods Are Scheduled on a Dedicated Node](#h-1fa23320)
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
@@ -294,6 +295,72 @@ Verify `nfs-common` is installed on the worker nodes (more recent versions of AZ
 sudo apt install -y nfs-common
 ```
 
+<a id="h-1fa23320"></a>
+
+### Ensure "Core" Pods Are Scheduled on a Dedicated Node
+
+When a JupyterHub is expected to be used for especially resource intensive
+tasks, for example running WRF from within JupyterHub, by multiple users
+simultaneously, their single user pods can use all of a worker node's resources.
+This is a problem when these worker nodes also contain the JupyterHub's [core
+pods](https://z2jh.jupyter.org/en/stable/resources/reference.html#scheduling-corepods),
+which all perform some essential function of a healthy Zero-to-JupyterHub
+cluster. In particular, it's been observed that if the proxy pod, the component
+which routes both internal and external requests to the Hub and single user
+servers, does not have the necessary resources, the JupyterHub will crash.
+
+To prevent this from happening, we can ensure all core pods are scheduled on a
+dedicated node. This is accomplished by assigning to a chosen node a
+[taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/),
+an attritube which prevents pods from spawning unless they have the
+corresponding
+[toleration](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/).
+This alone is not enough however, as a pod's [node
+affinity](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
+must require it to spawn on that specific node. The process is described below.
+
+Add the taint to `<node-name`:
+
+```shell
+kubectl taint nodes <node-name> hub.jupyter.org/dedicated=core:NoSchedule
+```
+
+Add the label that the pods will look for when being scheduled on a node:
+
+```shell
+kubectl label nodes <node-name> hub.jupyter.org/node-purpose=core
+```
+
+No `kubectl` commands need to be explicitly executed to modify the core pods.
+The toleration is applied to the core pods [by
+default](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L552),
+however add the following to the `secrets.yaml` in order to make our intentions
+explicit. It is also noted that, by default, pods are 
+[preferred](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L563),
+not required, to spawn on this dedicated core node. Thus, ensure that
+`scheduling.corePods.nodeAffinity.matchNodePurpose` is set to `require`.
+
+```yaml
+scheduling:
+  corePods:
+    tolerations:
+      - key: hub.jupyter.org/dedicated
+        operator: Equal
+        value: core
+        effect: NoSchedule
+      - key: hub.jupyter.org_dedicated
+        operator: Equal
+        value: core
+        effect: NoSchedule
+    nodeAffinity:
+      matchNodePurpose: require
+```
+
+After all these changes have been made, run `bash install_jhub.sh` once again to
+apply them, and run a `kubectl get pods -n jhub -o wide` to confirm that core
+pods are running on the intended node. Single user pods should no longer be
+spawned on the dedicated core node, but any preexisting single user pods will
+may still reside on this node until they are eventually culled by the Hub.
 
 <a id="h-209E2FBC"></a>
 
