@@ -1,4 +1,4 @@
-FROM unidata/rockylinux:latest-8
+FROM unidata/rockylinux:9.1.20230215
 
 ###
 # Kubectl
@@ -18,7 +18,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 ###
 
 RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
-    nano wget unzip kubectl openssl sudo python3 procps
+    nano wget unzip kubectl openssl sudo python3 procps pip
 
 ###
 # Terraform
@@ -50,7 +50,7 @@ ENV PATH=$HOME/bin:$PATH
 ###
 
 RUN git clone https://github.com/zonca/jetstream_kubespray \
-    $HOME/jetstream_kubespray -b branch_v2.18.0
+    $HOME/jetstream_kubespray -b branch_v2.21.0
 
 RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream  \
     $HOME/jupyterhub-deploy-kubernetes-jetstream
