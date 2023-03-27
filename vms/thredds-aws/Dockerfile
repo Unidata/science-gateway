@@ -1,4 +1,4 @@
-FROM unidata/thredds-docker:latest
+FROM unidata/thredds-docker:4.6.20
 
 MAINTAINER Unidata THREDDS <support-thredds@unidata.ucar.edu>
 
