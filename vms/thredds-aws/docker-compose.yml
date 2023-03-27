@@ -5,7 +5,7 @@ version: '3'
 
 services:
   thredds-production:
-    image: unidata/nexrad-tds-docker:latest
+    image: unidata/nexrad-tds-docker:4.6.20
     container_name: thredds
     # restart: always
     ports:
