@@ -1,0 +1,7 @@
+name: sau-s23
+channels:
+  - conda-forge
+dependencies:
+  - python=3
+  - matplotlib
+  - pandas
