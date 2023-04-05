@@ -300,6 +300,7 @@ dependencies:
   - zipp=3.8.0=py310h06a4308_0
   - zlib=1.2.12=h166bdaf_1
   - zstd=1.5.2=ha4553b6_0
+  - siphon=0.9
   - pip:
     - eccodes==1.5.0
     - findlibs==0.0.2
