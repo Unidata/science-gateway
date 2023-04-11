@@ -12,3 +12,4 @@ dependencies:
   - siphon==0.9
   - geoviews 
   - proplot
+  - fiona
