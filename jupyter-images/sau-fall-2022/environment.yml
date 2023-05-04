@@ -1,4 +1,4 @@
-name: sau-f2022
+name: sau-fall-2022
 channels:
   - conda-forge
 dependencies:

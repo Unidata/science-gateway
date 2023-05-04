@@ -23,8 +23,8 @@ RUN chmod a+r /environment.yml /README.md
 RUN conda install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
     pip install --upgrade jupyterlab-git jupyterlab_sql && \
-    conda create --name sau-f2022 --clone base && \
-    conda env update --name sau-f2022 -f /environment.yml && \
+    conda create --name sau-fall-2022 --clone base && \
+    conda env update --name sau-fall-2022 -f /environment.yml && \
     conda clean --all -f -y && \
     jupyter lab build -y && \
     jupyter lab clean -y && \
