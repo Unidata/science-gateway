@@ -24,8 +24,8 @@ RUN chmod a+r /environment.yml /Acknowledgements.ipynb
 RUN mamba install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
     pip install --upgrade jupyterlab-git jupyterlab_sql && \
-    mamba create --name sau-s23 --clone base && \
-    mamba env update --name sau-s23 -f /environment.yml && \
+    mamba create --name sau-spring-2023 --clone base && \
+    mamba env update --name sau-spring-2023 -f /environment.yml && \
     mamba clean --all -f -y && \
     jupyter lab build -y && \
     jupyter lab clean -y && \

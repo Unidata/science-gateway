@@ -1,4 +1,4 @@
-name: sau-s23
+name: sau-spring-2023
 channels:
   - conda-forge
 dependencies:
