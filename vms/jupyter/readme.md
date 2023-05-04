@@ -19,7 +19,9 @@
     - [Volumes Stuck in Reserved State](#h-354DE174)
     - [Renew Expired K8s Certificates](#h-60D08FB6)
     - [Evicted Pods Due to Node Pressure](#h-CEF2540C)
-    - [Updating Openstack Credentials for Kubernetes](#h-8a1ea54de7)
+    - [Updating Openstack Credentials for Kubernetes](#h-FABFCED0)
+
+
 
 <a id="h-D73CBC56"></a>
 
@@ -747,11 +749,12 @@ $ kubectl get nodes -o yaml | less # after scrolling down you'll eventually see 
 
 The work-around is to force the removal of one of the images by installing a small single user image in the JupyterHub that you know will fit on the node's available storage space. The [jupyter/base-notebook](https://hub.docker.com/r/jupyter/base-notebook/tags) image is a good candidate for this. Edit the appropriate sections of `secrets.yaml` to install this smaller image, run `bash install_jhub.sh`, and watch `kubectl get pods -n jhub` to ensure everything installs correctly. Kubernetes should have purged one of the previous images and freed up storage space. Now, re-edit `secrets.yaml` and install the image you desire.
 
-<a id="h-8a1ea54de7"></a>
+
+<a id="h-FABFCED0"></a>
 
 ### Updating Openstack Credentials for Kubernetes
 
-If your openstack credentials expire, you will be unable to run even basic `openstack` commands such as `openstack server list`. Generally, this would not be a pressing issue, as instances that are already running should stay running.  However, expired openstack credentials pose a large problem for JupyterHubs that have been deployed using Kubernetes, as K8s uses openstack credentials to communicate with the Jetstream2 cloud and perform essential functions such as mounting openstack volumes on pods. This results in the user receiving a message such as the following when attempting to spawn their single user server:
+If your openstack credentials expire, you will be unable to run even basic `openstack` commands such as `openstack server list`. Generally, this would not be a pressing issue, as instances that are already running should stay running. However, expired openstack credentials pose a large problem for JupyterHubs that have been deployed using Kubernetes, as K8s uses openstack credentials to communicate with the Jetstream2 cloud and perform essential functions such as mounting openstack volumes on pods. This results in the user receiving a message such as the following when attempting to spawn their single user server:
 
 ```
 Your server is starting up.
@@ -763,38 +766,38 @@ Event log
 
 Doing a `kubectl describe pod -n jhub <single-user-pod>` on the offending pod will reveal that the volume is failing to attach due to an authentication issue.
 
-#### Creating New Credentials
+1.  Creating New Credentials
 
-Follow the instructions in the [Jetstream2 docs](https://docs.jetstream-cloud.org/ui/cli/auth/#using-the-horizon-dashboard-to-generate-openrcsh) to navigate to the "Application Credentials" page of the Horizon interface. From here, you can verify that your credentials are expired and create a new set of credentials.
+    Follow the instructions in the [Jetstream2 docs](https://docs.jetstream-cloud.org/ui/cli/auth/#using-the-horizon-dashboard-to-generate-openrcsh) to navigate to the "Application Credentials" page of the Horizon interface. From here, you can verify that your credentials are expired and create a new set of credentials.
 
-Once you've created the new credentials, you can update any necessary `openrc.sh` files. Note that it is [important](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) to use a text editor, such as `nano`, that will not change the inode of the file being edited, as docker mounts files by their inode and not their file name.  Once this has been done, you will have to re-source `openrc.sh` for the changes to take effect: `source /path/to/openrc.sh`. Ensure you are able to use these new credentials to run openstack commands: `openstack server list`.
+    Once you've created the new credentials, you can update any necessary `openrc.sh` files. Note that it is [important](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) to use a text editor, such as `nano`, that will not change the inode of the file being edited, as docker mounts files by their inode and not their file name. Once this has been done, you will have to re-source `openrc.sh` for the changes to take effect: `source /path/to/openrc.sh`. Ensure you are able to use these new credentials to run openstack commands: `openstack server list`.
 
-#### Updating Credentials in K8s
+2.  Updating Credentials in K8s
 
-Start a shell with `kubectl` capabilities for the cluster. Follow Andrea Zonca's [instructions](https://www.zonca.dev/posts/2023-03-23-update-openstack-credentials-kubernetes) to update the credentials. The procedure is outlined below, and has to be repeated for two Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/), `external-openstack-cloud-config` and `cloud-config`.
+    Start a shell with `kubectl` capabilities for the cluster. Follow Andrea Zonca's [instructions](https://www.zonca.dev/posts/2023-03-23-update-openstack-credentials-kubernetes) to update the credentials. The procedure is outlined below, and has to be repeated for two Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/), `external-openstack-cloud-config` and `cloud-config`.
 
-```
-# Print out the base64 encoded secret
-kubectl get secret -n kube-system <secret-name> -o jsonpath='{.data}'
+    ```
+    # Print out the base64 encoded secret
+    kubectl get secret -n kube-system <secret-name> -o jsonpath='{.data}'
 
-# Copy/paste the secret to decode it; dump to file
-echo <secret> | base64 --decode > /tmp/cloud.conf
+    # Copy/paste the secret to decode it; dump to file
+    echo <secret> | base64 --decode > /tmp/cloud.conf
 
-# Update the temporary with the new credentials
-vim /tmp/cloud.conf
+    # Update the temporary with the new credentials
+    vim /tmp/cloud.conf
 
-# Re-encode the secret; copy the terminal output
-cat /tmp/cloud.conf | base64 -w0
+    # Re-encode the secret; copy the terminal output
+    cat /tmp/cloud.conf | base64 -w0
 
-# Edit update the K8s secret
-kubectl edit secret -n kube-system <secret-name>
-```
+    # Edit update the K8s secret
+    kubectl edit secret -n kube-system <secret-name>
+    ```
 
-Once both secrets have been updated, restart the cluster via openstack for changes to take effect
+    Once both secrets have been updated, restart the cluster via openstack for changes to take effect
 
-```
-# Ensure you're rebooting what you think you are
-for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do echo "openstack server reboot $INSTANCE"; done
-# Reboot
-for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
-```
+    ```
+    # Ensure you're rebooting what you think you are
+    for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do echo "openstack server reboot $INSTANCE"; done
+    # Reboot
+    for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
+    ```

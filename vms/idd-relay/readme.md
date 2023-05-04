@@ -99,7 +99,7 @@ version: '3'
 
 services:
   ldm:
-    image: unidata/ldm-docker:<version>
+    image: unidata/ldm-docker:6.14.5
     container_name: ldm
     restart: always
     volumes:

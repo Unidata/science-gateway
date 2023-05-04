@@ -772,7 +772,7 @@ or build with:
 docker build -t unidata/science-gateway -f Dockerfile.gpu .
 ```
 
-Pay special attention to the to the `cluster.tfvars` to select VM that have GPU hardware.
+Pay special attention to the `cluster.tfvars` to select VMs that have GPU hardware.
 
 
 <a id="h-78283D4A"></a>
