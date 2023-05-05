@@ -11,6 +11,7 @@
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+#+STARTUP: content
 
 #+PROPERTY: header-args :eval no :tangle no
 * Create a THREDDS VM on Jetstream

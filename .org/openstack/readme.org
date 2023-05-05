@@ -12,6 +12,7 @@
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
+#+STARTUP: content
 
 * Running VMs on Jetstream with OpenStack
   :PROPERTIES:

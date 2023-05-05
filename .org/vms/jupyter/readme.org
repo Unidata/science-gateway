@@ -11,8 +11,7 @@
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
 #+CREATOR: Emacs 25.1.2 (Org mode 9.0.5)
-
-#+STARTUP: overview
+#+STARTUP: content
 
 * Creating a JupyterHub on Jetstream with the Zero to JupyterHub Project
   :PROPERTIES:
