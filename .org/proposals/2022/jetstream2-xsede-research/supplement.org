@@ -35,7 +35,7 @@ The Unidata Program Center is requesting a Jetstream2 cloud computing supplement
 :CUSTOM_ID: h-25C94010
 :END:
 
-In alignment with the objectives outlined in our original Jetstream2 allocation proposal, we are pleased to report that Unidata is successfully making use of allocated resources (CPU, GPU, and large instances) to their fullest capacity. This Jetstream2 grant has enabled us to provide essential computing capacity to our community of university educators, instructors, and researchers.
+In alignment with the objectives outlined in our original Jetstream2 allocation proposal, we are pleased to report that Unidata is successfully making use of allocated resources (CPU, GPU, and Large Memory instances) to their fullest capacity. This Jetstream2 grant has enabled us to provide essential computing capacity to our community of university educators, instructors, and researchers.
 
 ** Customized JupyterHub Resources for Semester Classes
 :PROPERTIES:
@@ -75,7 +75,7 @@ Unidata delivered a presentation entitled "Unidata Science Gateway: A research i
 :CUSTOM_ID: h-1CFFA048
 :END:
 
-Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) employing his port of the "Zero to JupyterHub with Kubernetes"[fn:1] project to OpenStack and Jetstream2 [cite:@Zonca2017a] [cite:@Zonca2018a]. We give Andrea feedback by testing his instructional blog entries and workflows[fn:2]. When we encounter issues, we submit bug reports via GitHub and work together until the problem is resolved. Notably, we worked with Andrea to provide our users with a shared directory that can be accessed from all user JupyterLab environments. [fn:3] This has been a long-standing feature request that we were excited to finally deliver.
+Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) employing his port of the "Zero to JupyterHub with Kubernetes"[fn:1] project to OpenStack and Jetstream2 [cite:@Zonca2017a] [cite:@Zonca2018a]. We give Andrea feedback by testing his instructional blog entries and workflows[fn:2]. When we encounter issues, we submit bug reports via GitHub and work together until the problem is resolved. Notably, we worked with Andrea to provide our users with a shared directory that can be accessed from all user JupyterLab environments.[fn:3] This has been a long-standing feature request that we were excited to finally deliver.
 
 ** Weather Research Forecast Model on Jetstream2
 :PROPERTIES:
@@ -108,7 +108,7 @@ In collaboration with Greg Blumberg at Millersville University, Unidata staff ha
 :CUSTOM_ID: h-D72054A5
 :END:
 
-Unidata staff have started experimenting with Jetstream2 GPU hardware to explore areas such as advanced deep learning applied to Earth System Science. With the assistance [fn:4] of Andrea Zonca, we have deployed a GPU-enabled JupyterHub currently hosted at https://jupyterhub.unidata.ucar.edu equipped with TensorFlow and PyTorch software as well as geoscience notebooks that employ this specialized hardware, and are evaluating its capabilities specifically with regard to educational settings.
+Unidata staff have started experimenting with Jetstream2 GPU hardware to explore areas such as advanced deep learning applied to Earth System Science. With the assistance[fn:4] of Andrea Zonca, we have deployed a GPU-enabled JupyterHub currently hosted at https://jupyterhub.unidata.ucar.edu equipped with TensorFlow and PyTorch software as well as geoscience notebooks that employ this specialized hardware, and are evaluating its capabilities specifically with regard to educational settings.
 
 ** Unidata Science Gateway Reimagined Project
 :PROPERTIES:
