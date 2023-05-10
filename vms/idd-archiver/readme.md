@@ -13,6 +13,7 @@
   - [Ensure /data Volume Availability Upon Machine Restart](#h-3CE81256)
   - [Sharing /data directory via NFS](#h-358A22F4)
     - [Open NFS Related Ports](#h-1AFDC551)
+    - [Ensure firewalld is Inactive](#firewalld)
   - [THREDDS Data Manager (TDM)](#h-DB469C8D)
     - [TDM Logging Directory](#h-865C1FF8)
     - [Configuring the TDM to work with the TDS](#h-2C5BF1CA)
@@ -192,25 +193,25 @@ mkdir -p /data/ldm/logs/
 Because volume multi-attach is not yet available via OpenStack, we will want to share the `/data` directory via NFS to client VMs over the `10.0` network by adding and an entry to the `/etc/exports` file. For example, here we are sharing the `/data` directory to the VM at `10.0.0.18`.
 
 ```shell
-echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
+echo /data		10.0.0.18(rw,sync,no_subtree_check) | sudo tee \
     --append /etc/exports > /dev/null
-echo /data		10.0.0.15(rw,sync,no_subtree_check) | tee \
+echo /data		10.0.0.15(rw,sync,no_subtree_check) | sudo tee \
     --append /etc/exports > /dev/null
-echo /data		10.0.0.11(rw,sync,no_subtree_check) | tee \
+echo /data		10.0.0.11(rw,sync,no_subtree_check) | sudo tee \
     --append /etc/exports > /dev/null
 ```
 
 Now start NFS:
 
 ```shell
-exportfs -a
-service nfs-kernel-server start
+sudo exportfs -a
+sudo service nfs-kernel-server start
 ```
 
 Finally, ensure NFS will be available when the VM starts:
 
 ```shell
-update-rc.d nfs-kernel-server defaults
+sudo update-rc.d nfs-kernel-server defaults
 ```
 
 
@@ -234,6 +235,27 @@ Finally, attach the `local-nfs` security group to the newly created VM. The VM I
 openstack server add security group <VM name or ID> local-nfs
 ```
 
+<a id="firewalld"></a>
+
+### Ensure firewalld is Inactive
+
+The `firewalld` service is enabled by default in new RockyLinux VM instances
+on JetStream2. This would block other VMs from properly mounting the NFS volume.
+To ensure VMs can access the idd-archiver's data while maintaining security,
+first stop `firewalld` and prevent it from restarting on reboot:
+
+```shell
+# Ensure firewalld is running
+systemctl | grep -i "firewalld" 
+
+# Stop and disable the service
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+sudo systemctl mask firewalld
+```
+
+Next, work with Unidata sys-admin staff to secure the VM through `iptables`
+rules.
 
 <a id="h-DB469C8D"></a>
 
@@ -249,7 +271,7 @@ While not related to IDD archival, the [TDM](https://docs.unidata.ucar.edu/tds/5
 Create a logging directory for the TDM:
 
 ```shell
-mkdir -p /logs/tdm
+sudo mkdir -p /logs/tdm
 ```
 
 1.  Running the TDM Out the TDM Log Directory
