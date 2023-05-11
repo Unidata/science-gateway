@@ -16,14 +16,14 @@
 
 #+latex_header: \hypersetup{hidelinks}
 #+latex_header: \usepackage{geometry}
-#+latex_header: \geometry{margin=1in}
+#+latex_header: \geometry{margin=0.9in}
 
-* Reason
+* Reason                                                           :noexport:
 :PROPERTIES:
 :CUSTOM_ID: h-6D810E31
 :END:
 
-The Unidata Program Center is requesting a Jetstream2 cloud computing supplement of 2,000,000 additional Service Units (SUs) to address higher than anticipated demand from our PyAOS JupyterHub clusters, which have supported 284 students across 11 academic institutions since January 2023. This supplement is also crucial for expanding our EDEX VMs to meet the growing needs of the AWIPS community while ensuring uninterrupted use of other existing services such as THREDDS and RAMADDA. Furthermore, it will accommodate the increased demand for our JupyterHub clusters during the busy summer workshop and internship season, including support for the 2023 Unidata Users Workshop, which has attracted participants from across Earth Systems Science domains. By providing ample resources, this supplement will facilitate a smooth start to the fall semester for university users of Unidata-configured PyAOS JupyterHub clusters. Ultimately, this supplement is essential for maintaining the quality and continuity of Unidata services until October 1, thereby promoting scientific education and collaboration within the atmospheric and related sciences community.
+The Unidata Program Center is requesting a Jetstream2 cloud computing supplement of 2,000,000 additional Service Units (SUs) to address higher than anticipated demand from our PyAOS (Python for Atmosphere and Ocean Science) JupyterHub clusters, which have supported 284 students across 11 academic institutions since January 2023. This supplement is also crucial for expanding our EDEX VMs to meet the growing needs of the AWIPS community while ensuring uninterrupted use of other existing services such as THREDDS and RAMADDA. Furthermore, it will accommodate the increased demand for our JupyterHub clusters during the busy summer workshop and internship season, including support for the 2023 Unidata Users Workshop, which has attracted participants from across Earth Systems Science domains. By providing ample resources, this supplement will facilitate a smooth start to the fall semester for university users of Unidata-configured PyAOS JupyterHub clusters. Ultimately, this supplement is essential for maintaining the quality and continuity of Unidata services until October 1, thereby promoting scientific education and collaboration within the atmospheric and related sciences community.
 
 * Progress Report
 :PROPERTIES:
@@ -42,7 +42,7 @@ In alignment with the objectives outlined in our original Jetstream2 allocation 
 :CUSTOM_ID: h-018F39CE
 :END:
 
-Unidata is employing our Jetstream2 resource allocation for the benefit of students in the atmospheric science community by providing access to customized JupyterHub servers at an accelerating pace. Since the launch of Jetstream2, we have deployed PyAOS (Python for the Atmospheric and Oceanic Sciences) JupyterHub installations at 12 universities. Unidata tailors these servers to the requirements of the instructors so they can accomplish their Earth Systems Science teaching objectives. 352 students have used Unidata JupyterHub servers running on Jetstream2 in this manner since pre-operations began in Spring of 2022.
+Unidata is employing our Jetstream2 resource allocation for the benefit of students in the atmospheric science community by providing access to customized JupyterHub servers at an accelerating pace. Since the launch of Jetstream2, we have deployed PyAOS (Python for Atmosphere and Ocean Science) JupyterHub installations at 12 universities. Unidata tailors these servers to the requirements of the instructors so they can accomplish their Earth Systems Science teaching objectives. 352 students have used Unidata JupyterHub servers running on Jetstream2 in this manner since pre-operations began in Spring of 2022.
 
 ** American Meteorological Society 2023 Meeting
 :PROPERTIES:
