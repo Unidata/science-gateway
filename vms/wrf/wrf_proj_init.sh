@@ -59,10 +59,10 @@ do
     case $key in
 	-i|--input)
             # Remove any trailing slashes from path names
-            IDD_INPUT=$(echo $2 | sed -e "s/\/*$//g")
-	    if [[ ! -d "${IDD_INPUT}" ]];
+            INPUT_DATA_DIR=$(echo $2 | sed -e "s/\/*$//g")
+	    if [[ ! -d "${INPUT_DATA_DIR}" ]];
 	    then
-	        echo "ERROR: the directory \"${IDD_INPUT}\" does not exist. Exiting..."
+	        echo "ERROR: the directory \"${INPUT_DATA_DIR}\" does not exist. Exiting..."
 		echo -e $USAGE
 		exit 1
 	    fi
@@ -124,8 +124,8 @@ echo "Checking input variables..."
 echo "-----------------------------------------------"
 echo ""
 
-# Ensure the IDD_INPUT variable has been set
-if [[ -z "${IDD_INPUT}" ]];
+# Ensure the INPUT_DATA_DIR variable has been set
+if [[ -z "${INPUT_DATA_DIR}" ]];
 then
     echo "ERROR: An input data directory is a required argument. Exiting..."
     echo -e $USAGE
@@ -170,7 +170,7 @@ then
 fi
 
 echo "This directory will be initialized using the following parameters:"
-echo "Input data dir: ${IDD_INPUT}"
+echo "Input data dir: ${INPUT_DATA_DIR}"
 echo "Geog data resolution: $(echo $GEOG | grep -o -e low -e high)"
 echo "Project version: ${PROJ_VERSION}"
 echo "Run history: ${RUN_HISTORY} days"
@@ -259,8 +259,8 @@ sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/set_env.sh
 # Set the PROJ_DIR variable in the cron_scripts/full_run.sh file
 sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/full_run.sh
 
-# Set the IDD_INPUT variable in the cron_scripts/set_env.sh file
-sed -i "s|export IDD_INPUT=|&${IDD_INPUT}|" ${PROJ_DIR}/cron_scripts/set_env.sh
+# Set the INPUT_DATA_DIR variable in the cron_scripts/set_env.sh file
+sed -i "s|export INPUT_DATA_DIR=|&${INPUT_DATA_DIR}|" ${PROJ_DIR}/cron_scripts/set_env.sh
 
 # Set the appropriate WPS_GEOG resolution in namelist.wps
 sed -i "s|GEOG_DATA_RES|${GEOG_DATA_RES}|g" ${PROJ_DIR}/output/template/config/namelist.wps
@@ -317,7 +317,7 @@ cd ${PROJ_DIR}
 echo "Edit your crontab with: crontab -e"
 echo "Add the following line to run the model at the time specified and log output:"
 echo ""
-echo "<min> <hr> <day-of-month> <month> <day-of-week> ${PROJ_DIR}/cron_scripts/full_run.sh &>> ${PROJ_DIR}/cron_scripts/full_run.log"
+echo "<min> <hr> <day-of-month> <month> <day-of-week> bash -l -c '${PROJ_DIR}/cron_scripts/full_run.sh'"
 echo ""
 echo "NOTE: The cron job will run according to the system time, whose timezone is:
 $(timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')"

@@ -2,10 +2,21 @@
 
 set -x
 
-echo -e "$(date +"[[ LOG: %F %T ]]") Starting WRF cron job...\n"
-
 # Set automatically when running wrf_proj_init.sh
 export PROJ_DIR=
+
+# Default log locations
+ERRORLOG=${PROJ_DIR}/cron_scripts/full_run.error
+STDLOG=${PROJ_DIR}/cron_scripts/full_run.out
+
+# Redirect the output of xtrace (i.e. "set -x") to a new file descriptor
+export BASH_XTRACEFD=3
+
+# Log stdout and stderr to the STDLOG
+# Additionally, log stderr and the xtrace to a dedicated log that ignores stdout
+exec 1>>${STDLOG} 2>>${STDLOG} 2>>${ERRORLOG} 3>>${ERRORLOG}
+
+echo -e "$(date +"[[ LOG: %F %T ]]") Starting WRF cron job...\n"
 
 # Set environment for the day
 # All necessary variables are exported, so they are inherited by any child

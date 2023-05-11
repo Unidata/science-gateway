@@ -5,8 +5,9 @@ set -x
 # Create new directory for the day's run
 cp -r ${PROJ_DIR}/output/template ${RUN_DIR}
 
-# Re-link data (symbolically)
-ln -s ${IDD_INPUT}/*.grib2 ${PROJ_DIR}/data/model_data
+# Remove and re-link data (symbolically)
+rm ${PROJ_DIR}/data/model_data/*
+ln -s ${INPUT_DATA_DIR}/$(date +%Y%m%d)/${START_HOUR_D1}z/*.grib2 ${PROJ_DIR}/data/model_data
 
 #######################
 # Edit set_env.ksh

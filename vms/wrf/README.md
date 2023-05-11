@@ -26,7 +26,20 @@ See the necessary and optional arguments by running `./wrf_proj_init.sh --help`.
 After successfully running the init script, you will be prompted to further
 configure the cron job and WRF run.
 
-### Directory structure
+## Directory structure for input data
+
+The scripts provided will attempt to link the GFS initialization data from the
+path given to `wrf_proj_init.sh` via the `--input` flag. To ensure the correct
+data is linked, the following directory structure is required of the GFS input
+data:
+
+`${INPUT_DATA_DIR}/YYYYMMDD/TTz/*.grib2`
+
+The strings `YYYYMMDD` and `TTz` represent the date and model run time of the
+GFS model run you wish to ingest from. For example, if you are run WRF on Feb.
+12, 2023 starting at 12z, your input data must be found under:
+
+`${INPUT_DATA_DIR}/20230212/12z/*.grib2`
 
 ## What the cron job will do
 
@@ -43,15 +56,15 @@ each GFS run, set your crontab as follows:
 
 ```shell
 # Job runs at 0300, 0900, 1500, and 2100 MDT (2100Z, 0300Z, 0900Z, and 1500Z, respectively)
-0 3,9,15,21 * * * ${PROJ_DIR}/cron_scripts/full_run.sh 2>&1 >> ${PROJ_DIR}/cron_scripts/full_run.log
+0 3,9,15,21 * * * /path/to/full_run.sh
 ```
 
 Set the START\_HOUR variables in `cron\_scripts/set\_env.sh` to be 3 hours
 before the (UTC) time the jobs run:
 
 ```shell
-export START_HOUR_D1=$(date --utc --date="-3 hours" +%h)
-export START_HOUR_D2=$(date --utc --date="-3 hours" +%h)
+export START_HOUR_D1=$(date --utc --date="-3 hours" +%H)
+export START_HOUR_D2=$(date --utc --date="-3 hours" +%H)
 ```
 
 ## What the cron job will NOT do

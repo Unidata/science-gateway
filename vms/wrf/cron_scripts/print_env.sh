@@ -7,7 +7,7 @@
 # This block is set automatically when running wrf_proj_init.sh
 # See wrf_proj_init.sh for a description of these variables
 echo "PROJ_DIR: " ${PROJ_DIR}
-echo "IDD_INPUT: " ${IDD_INPUT}
+echo "INPUT_DATA_DIR: " ${INPUT_DATA_DIR}
 echo "PROJ_VERSION: " ${PROJ_VERSION}
 echo "RUN_HISTORY: " ${RUN_HISTORY}
 echo "NUM_CPUS: " ${NUM_CPUS}

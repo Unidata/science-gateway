@@ -9,7 +9,7 @@ set -x
 # This block is set automatically when running wrf_proj_init.sh
 # See wrf_proj_init.sh for a description of these variables
 export PROJ_DIR=
-export IDD_INPUT=
+export INPUT_DATA_DIR=
 export PROJ_VERSION=
 export RUN_HISTORY=
 export NUM_CPUS=

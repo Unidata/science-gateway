@@ -5,7 +5,7 @@ set -x
 docker run --rm -t -e LOCAL_USER_ID=`id -u $USER` \
 -v ${PROJ_DIR}/data/WPS_GEOG:/data/WPS_GEOG \
 -v ${PROJ_DIR}/data:/data \
--v ${IDD_INPUT}:${IDD_INPUT} \
+-v ${INPUT_DATA_DIR}:${INPUT_DATA_DIR} \
 -v ${PROJ_DIR}/container-dtc-nwp/components/scripts/common:/home/scripts/common \
 -v ${RUN_DIR}/wrfprd:/home/wrfprd \
 -v ${RUN_DIR}/wpsprd:/home/wpsprd \
