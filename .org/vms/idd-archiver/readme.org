@@ -190,25 +190,25 @@ Because volume multi-attach is not yet available via OpenStack, we will want to 
 #+END_SRC
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
-  echo /data		10.0.0.18(rw,sync,no_subtree_check) | tee \
+  echo /data		10.0.0.18(rw,sync,no_subtree_check) | sudo tee \
       --append /etc/exports > /dev/null
-  echo /data		10.0.0.15(rw,sync,no_subtree_check) | tee \
+  echo /data		10.0.0.15(rw,sync,no_subtree_check) | sudo tee \
       --append /etc/exports > /dev/null
-  echo /data		10.0.0.11(rw,sync,no_subtree_check) | tee \
+  echo /data		10.0.0.11(rw,sync,no_subtree_check) | sudo tee \
       --append /etc/exports > /dev/null
 #+END_SRC
 
 Now start NFS:
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
-  exportfs -a
-  service nfs-kernel-server start
+  sudo exportfs -a
+  sudo service nfs-kernel-server start
 #+END_SRC
 
 Finally, ensure NFS will be available when the VM starts:
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
-  update-rc.d nfs-kernel-server defaults
+  sudo update-rc.d nfs-kernel-server defaults
 #+END_SRC
 
 *** Open NFS Related Ports
@@ -232,6 +232,25 @@ Finally, attach the ~local-nfs~ security group to the newly created VM. The VM I
   openstack server add security group <VM name or ID> local-nfs
 #+END_SRC
 
+
+*** Ensure ~firewalld~ is Inactive
+:PROPERTIES:
+:CUSTOM_ID: h-89622EDA
+:END:
+The ~firewalld~ service is enabled by default in new RockyLinux VM instances on JetStream2. This would block other VMs from properly mounting the NFS volume. To ensure VMs can access the idd-archiver's data while maintaining security, first stop ~firewalld~ and prevent it from restarting on reboot:
+
+#+begin_src shell
+  # Ensure firewalld is running
+  systemctl | grep -i "firewalld"
+
+  # Stop and disable the service
+  sudo systemctl stop firewalld
+  sudo systemctl disable firewalld
+  sudo systemctl mask firewalld
+#+end_src
+
+Next, work with Unidata sys-admin staff to secure the VM through ~iptables~ rules.
+
 ** THREDDS Data Manager (TDM)
    :PROPERTIES:
    :CUSTOM_ID: h-DB469C8D
@@ -247,7 +266,7 @@ While not related to IDD archival, the [[https://docs.unidata.ucar.edu/tds/5.0/u
 Create a logging directory for the TDM:
 
 #+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
-  mkdir -p /logs/tdm
+  sudo mkdir -p /logs/tdm
 #+END_SRC
 
 **** Running the TDM Out the TDM Log Directory

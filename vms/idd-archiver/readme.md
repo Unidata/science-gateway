@@ -13,7 +13,7 @@
   - [Ensure /data Volume Availability Upon Machine Restart](#h-3CE81256)
   - [Sharing /data directory via NFS](#h-358A22F4)
     - [Open NFS Related Ports](#h-1AFDC551)
-    - [Ensure firewalld is Inactive](#firewalld)
+    - [Ensure `firewalld` is Inactive](#h-89622EDA)
   - [THREDDS Data Manager (TDM)](#h-DB469C8D)
     - [TDM Logging Directory](#h-865C1FF8)
     - [Configuring the TDM to work with the TDS](#h-2C5BF1CA)
@@ -235,18 +235,16 @@ Finally, attach the `local-nfs` security group to the newly created VM. The VM I
 openstack server add security group <VM name or ID> local-nfs
 ```
 
-<a id="firewalld"></a>
 
-### Ensure firewalld is Inactive
+<a id="h-89622EDA"></a>
 
-The `firewalld` service is enabled by default in new RockyLinux VM instances
-on JetStream2. This would block other VMs from properly mounting the NFS volume.
-To ensure VMs can access the idd-archiver's data while maintaining security,
-first stop `firewalld` and prevent it from restarting on reboot:
+### Ensure `firewalld` is Inactive
+
+The `firewalld` service is enabled by default in new RockyLinux VM instances on JetStream2. This would block other VMs from properly mounting the NFS volume. To ensure VMs can access the idd-archiver's data while maintaining security, first stop `firewalld` and prevent it from restarting on reboot:
 
 ```shell
 # Ensure firewalld is running
-systemctl | grep -i "firewalld" 
+systemctl | grep -i "firewalld"
 
 # Stop and disable the service
 sudo systemctl stop firewalld
@@ -254,8 +252,8 @@ sudo systemctl disable firewalld
 sudo systemctl mask firewalld
 ```
 
-Next, work with Unidata sys-admin staff to secure the VM through `iptables`
-rules.
+Next, work with Unidata sys-admin staff to secure the VM through `iptables` rules.
+
 
 <a id="h-DB469C8D"></a>
 
