@@ -5,49 +5,52 @@
 # project
 ##############
 
-echo ""
-echo "-----------------------------------------------"
-echo "Starting wrf_proj_init.sh..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Starting wrf_proj_init.sh...
+-----------------------------------------------"
 echo ""
 
-# Ensure docker is installed
-echo "-----------------------------------------------"
-echo "Checking for docker..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Checking for docker...
+-----------------------------------------------"
 echo ""
+
 which docker || { echo "ERROR: docker not installed on this system. Please install docker before proceeding"; exit 1; }
 echo ""
 
-# Ensure git is installed
-echo "-----------------------------------------------"
-echo "Checking for git"
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Checking for git
+-----------------------------------------------"
 echo ""
+
 which git || { echo "ERROR: git not installed on this system. Please install git before proceeding"; exit 1; }
-
 echo ""
 
-USAGE="
+function usage () {
+cat <<USAGE
 Usage:
-./wrf_proj_init.sh \n
--i|--input </path/to/input/data/dir> \n
-[ -g|--geog <low|high> ] \n
-[ -p|--proj-version <version> ] \n
-[ -r|--run-history <num-of-days> ] \n
-[ -n|--num-cpus <num-of-cpus> ] \n
-\n
-Options: \n
-  --input: absolute path to the input data directory that will be shared by all model runs \n
-  --geog <low|high> (default low): dictates whether the WPS_GEOG directory will \n
-    be the low or high resolution geog data \n
-  --proj-version (default latest): dictates the tag of the dtcenter docker \n
-    images used to run WRF \n
-       https://hub.docker.com/r/dtcenter/wps_wrf/tags \n
-       https://github.com/NCAR/container-dtc-nwp \n
-  --run-history (default 5): number of days before daily model runs are scoured \n
+./wrf_proj_init.sh \\\\
+  -i|--input </path/to/input/data/dir> \\\\
+  [ -g|--geog <low|high> ] \\\\
+  [ -p|--proj-version <version> ] \\\\
+  [ -r|--run-history <num-of-days> ] \\\\
+  [ -n|--num-cpus <num-of-cpus> ]
+
+Options:
+  --input: absolute path to the input data directory that will be shared by all model runs 
+  --geog <low|high> (default low): dictates whether the WPS_GEOG directory will 
+    be the low or high resolution geog data 
+  --proj-version (default latest): dictates the tag of the dtcenter docker 
+    images used to run WRF 
+      https://hub.docker.com/r/dtcenter/wps_wrf/tags 
+      https://github.com/NCAR/container-dtc-nwp 
+  --run-history (default 5): number of days before daily model runs are scoured 
   --num-cpus (default 1): number of CPUs on which to run WRF
-"
+USAGE
+}
 
 ##############
 # Parse input options
@@ -57,58 +60,58 @@ while [[ $# > 0 ]]
 do
     key="$1"
     case $key in
-	-i|--input)
+        -i|--input)
             # Remove any trailing slashes from path names
             INPUT_DATA_DIR=$(echo $2 | sed -e "s/\/*$//g")
-	    if [[ ! -d "${INPUT_DATA_DIR}" ]];
-	    then
-	        echo "ERROR: the directory \"${INPUT_DATA_DIR}\" does not exist. Exiting..."
-		echo -e $USAGE
-		exit 1
-	    fi
-            shift # past argument
-	    ;;
-        -g|--geog)
-	    if [[ "$2" == "low" ]];
-	    then
-                GEOG="geog_low_res_mandatory.tar.gz";
-		GEOG_DATA_RES="lowres"
-	    elif [[ "$2" == "high" ]];
+            if [[ ! -d "${INPUT_DATA_DIR}" ]];
             then
-		GEOG="geog_high_res_mandatory.tar.gz";
-		GEOG_DATA_RES="default"
-	    else
-		echo "Incorrect option"
-		echo "Allowed options: \"low\", \"high\""
-		echo -e "$USAGE"
-		exit 1
-	    fi
+                echo "ERROR: the directory \"${INPUT_DATA_DIR}\" does not exist. Exiting..."
+                usage
+                exit 1
+            fi
             shift # past argument
             ;;
-	-p|--proj-version)
-	    PROJ_VERSION=$2
+        -g|--geog)
+            if [[ "$2" == "low" ]];
+            then
+                GEOG="geog_low_res_mandatory.tar.gz";
+                GEOG_DATA_RES="lowres"
+            elif [[ "$2" == "high" ]];
+            then
+                GEOG="geog_high_res_mandatory.tar.gz";
+                GEOG_DATA_RES="default"
+            else
+            echo "Incorrect option"
+            echo "Allowed options: \"low\", \"high\""
+            usage
+            exit 1
+            fi
             shift # past argument
-	    ;;
-	-r|--run-history)
-	    if [[ ! "$2" =~ ^[1-9]+[0-9]*$ ]];
-	    then
+            ;;
+        -p|--proj-version)
+            PROJ_VERSION=$2
+            shift # past argument
+            ;;
+        -r|--run-history)
+            if [[ ! "$2" =~ ^[1-9]+[0-9]*$ ]];
+            then
                 echo "ERROR: run-history must be a positive integer. Exiting..."
-		echo -e "$USAGE"
-		exit 1
-	    fi
-	    RUN_HISTORY=$2
-	    ;;
-	-n|--num-cpus)
-	    if [[ ! "$2" =~ ^[1-9]+$ ]];
-	    then
+                usage
+                exit 1
+            fi
+            RUN_HISTORY=$2
+            ;;
+        -n|--num-cpus)
+            if [[ ! "$2" =~ ^[1-9]+$ ]];
+            then
                 echo "ERROR: num-cpus must be a positive integer. Exiting..."
-		echo -e "$USAGE"
-		exit 1
-	    fi
-	    NUM_CPUS=$2
-	    ;;
+                usage
+                exit 1
+            fi
+            NUM_CPUS=$2
+            ;;
         -h|--help)
-            echo -e $USAGE
+            usage
             exit 0
             ;;
     esac
@@ -119,16 +122,17 @@ done
 # Set default variables
 ##############
 
-echo "-----------------------------------------------"
-echo "Checking input variables..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Checking input variables...
+-----------------------------------------------"
 echo ""
 
 # Ensure the INPUT_DATA_DIR variable has been set
 if [[ -z "${INPUT_DATA_DIR}" ]];
 then
     echo "ERROR: An input data directory is a required argument. Exiting..."
-    echo -e $USAGE
+    usage
     exit 1
 fi
 
@@ -151,8 +155,8 @@ then
     if [[ "${CONTINUE}" != "y" ]];
     then
         echo "Exiting..."
-	echo -e ${USAGE}
-	exit 0
+        usage
+        exit 0
     fi
     PROJ_VERSION="latest"
 fi
@@ -191,16 +195,21 @@ export PROJ_DIR=$(pwd)
 # Download Docker images
 ##############
 
-echo "-----------------------------------------------"
-echo "Pulling dtcenter/wps_wrf:${PROJ_VERSION}"
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Pulling dtcenter/wps_wrf:${PROJ_VERSION}
+-----------------------------------------------"
 echo ""
+
 docker pull dtcenter/wps_wrf:${PROJ_VERSION} || { echo "Pull failed. Exiting..."; exit 1; }
 echo ""
-echo "-----------------------------------------------"
-echo "Pulling dtcenter/upp:${PROJ_VERSION}"
-echo "-----------------------------------------------"
+
+echo "
+-----------------------------------------------
+Pulling dtcenter/upp:${PROJ_VERSION}
+-----------------------------------------------"
 echo ""
+
 docker pull dtcenter/upp:${PROJ_VERSION} || { echo "Pull failed. Exiting..."; exit 1; }
 echo ""
 
@@ -208,9 +217,10 @@ echo ""
 # Official DTC repo has all the scripts necessary to run WRF
 ##############
 
-echo "-----------------------------------------------"
-echo "Cloning NCAR/container-dtc-nwp repository..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Cloning NCAR/container-dtc-nwp repository...
+-----------------------------------------------"
 echo ""
 git clone https://github.com/NCAR/container-dtc-nwp ${PROJ_DIR}/container-dtc-nwp
 echo ""
@@ -220,10 +230,12 @@ echo ""
 # directories that are shared by all model runs
 ##############
 
-echo "-----------------------------------------------"
-echo "Cloning unidata/science-gateway repository..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Cloning unidata/science-gateway repository...
+-----------------------------------------------"
 echo ""
+
 # git clone https://github.com/Unidata/science-gateway ${PROJ_DIR}/science-gateway
 # For dev purposes only v
 git clone https://github.com/robertej09/science-gateway ${PROJ_DIR}/science-gateway
@@ -248,31 +260,21 @@ rm -rf ${PROJ_DIR}/science-gateway
 # Edit env and config files
 ##############
 
-echo "-----------------------------------------------"
-echo "Editing config files..."
-echo "-----------------------------------------------"
+echo "
+-----------------------------------------------
+Editing config files...
+-----------------------------------------------"
 echo ""
 
-# Set the PROJ_DIR variable in the cron_scripts/set_env.sh file
-sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/set_env.sh
-
-# Set the PROJ_DIR variable in the cron_scripts/full_run.sh file
 sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/full_run.sh
 
-# Set the INPUT_DATA_DIR variable in the cron_scripts/set_env.sh file
+sed -i "s|export PROJ_DIR=|&${PROJ_DIR}|" ${PROJ_DIR}/cron_scripts/set_env.sh
 sed -i "s|export INPUT_DATA_DIR=|&${INPUT_DATA_DIR}|" ${PROJ_DIR}/cron_scripts/set_env.sh
-
-# Set the appropriate WPS_GEOG resolution in namelist.wps
-sed -i "s|GEOG_DATA_RES|${GEOG_DATA_RES}|g" ${PROJ_DIR}/output/template/config/namelist.wps
-
-# Set the PROJ_VERSION variable in the cron_scripts/set_env.sh file
 sed -i "s|export PROJ_VERSION=|&${PROJ_VERSION}|" ${PROJ_DIR}/cron_scripts/set_env.sh
-
-# Set the RUN_HISTORY variable in the cron_scripts/set_env.sh file
 sed -i "s|export RUN_HISTORY=|&${RUN_HISTORY}|" ${PROJ_DIR}/cron_scripts/set_env.sh
-
-# Set the NUM_CPUS variable in the cron_scripts/set_env.sh file
 sed -i "s|export NUM_CPUS=|&${NUM_CPUS}|" ${PROJ_DIR}/cron_scripts/set_env.sh
+
+sed -i "s|GEOG_DATA_RES|${GEOG_DATA_RES}|g" ${PROJ_DIR}/output/template/config/namelist.wps
 
 echo "Done"
 echo ""
@@ -284,79 +286,93 @@ echo ""
 mkdir -p ${PROJ_DIR}/data/model_data
 cd ${PROJ_DIR}/data
 
+##############
 # Grab the WPS_GEOG files from MMM
-echo "-----------------------------------------------"
-echo "Downloading WPS_GEOG files from MMM..."
-echo "-----------------------------------------------"
+##############
+
+echo "
+-----------------------------------------------
+Downloading WPS_GEOG files from MMM...
+-----------------------------------------------"
 echo ""
+
 curl https://www2.mmm.ucar.edu/wrf/src/wps_files/${GEOG} --output ${PROJ_DIR}/data/${GEOG}
-echo ""
 
 # Unzip
 tar xzf ${PROJ_DIR}/data/${GEOG}
 
 # When unzipping the low res data, the resulting directory is named
 # "WPS_GEOG_LOW_RES"; ensure our GEOG data is named "WPS_GEOG"
-mv ${PROJ_DIR}/data/WPS_GEOG* ${PROJ_DIR}/data/WPS_GEOG
+if [[ "$GEOG_DATA_RES" == "lowres" ]]
+then
+    mv ${PROJ_DIR}/data/WPS_GEOG_LOW_RES ${PROJ_DIR}/data/WPS_GEOG
+fi
 
-# Remove downloaded tar.gz file
 rm ${PROJ_DIR}/data/${GEOG}
-
-##############
-# Prompt user to edit crontab
-##############
-
-echo ""
-echo "-----------------------------------------------"
-echo "!!! Additional user actions !!!"
-echo "-----------------------------------------------"
-echo ""
 
 cd ${PROJ_DIR}
 
-echo "Edit your crontab with: crontab -e"
-echo "Add the following line to run the model at the time specified and log output:"
-echo ""
-echo "<min> <hr> <day-of-month> <month> <day-of-week> bash -l -c '${PROJ_DIR}/cron_scripts/full_run.sh'"
-echo ""
-echo "NOTE: The cron job will run according to the system time, whose timezone is:
-$(timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')"
-echo ""
-echo "Some versions of cron allow you to specify a time zone on which the cron
+cat <<MSG
+-----------------------------------------------
+!!! Begin additional user actions           !!!
+-----------------------------------------------
+
+For support, please contact support-gateway@unidata.ucar.edu
+
+-----------------------------------------------
+Set crontab
+-----------------------------------------------
+Edit your crontab with: crontab -e
+
+Add the following line to run the model at the time specified and log output:
+
+<min> <hr> <day-of-month> <month> <day-of-week> bash -l -c '${PROJ_DIR}/cron_scripts/full_run.sh'
+
+NOTE: The cron job will run according to the system time, whose timezone is:
+timedatectl status | grep "Time zone" | awk -F ": " '{print $2}')
+
+Some versions of cron allow you to specify a time zone on which the cron
 jobs will run. Check \"man 5 crontab\" to see if your version is compatible with
-the CRON_TZ environment variable:"
-echo ""
-echo "To make the cron job run according to a specific time zone, e.g. UTC, add
-the following to the top of the cron tab:"
-echo ""
-echo "CRON_TZ=\"<timezone>\""
-echo ""
-echo "Where <timezone> is one of the timezones listed when you run \"timedatectl list-timezones\""
-echo ""
+the CRON_TZ environment variable.
 
-##############
-# Prompt user to edit environment config file
-##############
+To make the cron job run according to a specific time zone, e.g. UTC, add
+the following to the top of the cron tab:
 
-echo "Edit the cron job environment file: ${PROJ_DIR}/cron_scripts/set_env.sh to
+CRON_TZ=\"<timezone>\"
+
+Where <timezone> is one of the timezones listed when you run \"timedatectl list-timezones\"
+
+-----------------------------------------------
+Edit ${PROJ_DIR}/cron_scripts/set_env.sh:
+-----------------------------------------------"
+
+Edit the cron job environment file: ${PROJ_DIR}/cron_scripts/set_env.sh to
 specify the start hour:min:sec of each model run for each day, as well as the
 model run time. These can be changed whenever and will take effect the next time
-the cron job runs"
-echo ""
+the cron job runs
 
-##############
-# Prompt user to edit WRF config files
-##############
+-----------------------------------------------
+Edit WRF config files
+-----------------------------------------------"
 
-echo "Edit WRF config files in ${PROJ_DIR}/output/template/config to your liking"
-echo "These can be changed whenever and will take effect the next time the cron
-job runs"
-echo "Do NOT edit any variable values that are strings in capital letters,
-as these will be handled by the cron job--e.g. in the namelist.input file:"
-echo "\"run_days = RUN_DAYS,\" should NOT be changed"
+Edit WRF config files in ${PROJ_DIR}/output/template/config to your liking.
 
-echo ""
-echo "-----------------------------------------------"
-echo "wrf_proj_init.sh complete!"
-echo "-----------------------------------------------"
-echo ""
+These can be changed whenever and will take effect the next time the cron job
+runs.
+
+Do NOT edit any variable values that are strings in capital letters, as these
+will be handled by the cron job--e.g. in the namelist.input file. For example,
+the following line from ${PROJ_DIR}/output/template/config should NOT be
+changed:
+
+\"run_days = RUN_DAYS,\"
+
+-----------------------------------------------
+!!! End additional user actions             !!!
+-----------------------------------------------
+
+For support, please contact support-gateway@unidata.ucar.edu
+
+Happy WRF-ing! :)
+
+MSG
