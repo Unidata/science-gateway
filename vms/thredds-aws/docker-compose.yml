@@ -5,9 +5,9 @@ version: '3'
 
 services:
   thredds-production:
-    image: unidata/nexrad-tds-docker:4.6.20
+    image: unidata/thredds-docker:5.5-SNAPSHOT
     container_name: thredds
-    # restart: always
+    restart: always
     ports:
       - "80:8080"
       - "443:8443"
@@ -23,9 +23,9 @@ services:
       # HTTPS
       - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
       - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/web.xml:/usr/local/tomcat/conf/web.xml
       # AWS TDS Nexrad server
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
-      - ~/S3Objects/:/usr/local/tomcat/temp/S3Objects/
       - ~/files/credentials:/usr/local/tomcat/.aws/credentials
     env_file:
       - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
