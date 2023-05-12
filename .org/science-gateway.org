@@ -27,7 +27,7 @@ Publishing
   (setq web-base-dir (concat org-root
                              "/vms/science-gateway/web"))
 
-  (setq web-pub-dir (concat project-root "/vms/science-gateway/web"))
+  (setq web-pub-dir (concat project-root "vms/science-gateway/web"))
 
   ;; (setq web-pub-dir
   ;;        "/ssh:ubuntu@science-gateway-js-tun:/home/ubuntu/science-gateway/vms/science-gateway/web")
@@ -50,6 +50,8 @@ Publishing
            "vms/science-gateway/web/news.org\\|science-gateway.org\\|index.org\\|presentations/.*\\|cv/.*"
            :publishing-directory ,project-root
            :publishing-function org-gfm-publish-to-gfm)
+          ;; Remember jetstream.bib is referenced in index.org. That is how
+          ;; jetstream.html and jetstream_bib.html are produced.
           ("science-gateway-html"
            :base-directory ,web-base-dir
            :recursive nil
@@ -57,6 +59,8 @@ Publishing
            :publishing-directory ,web-pub-dir
            :exclude "news.org"
            :publishing-function org-html-publish-to-html)
+          ;; jetstream.html and jetstream_bib.html are then moved to the web
+          ;; publishing directory here.
           ("science-gateway-static"
            :base-directory ,web-base-dir
            :base-extension "bib\\|jpg\\|html"
@@ -70,6 +74,9 @@ Publishing
            :exclude ".*"
            :include ["news.org"]
            :publishing-function org-rss-publish-to-rss)
+          ("science-gateway-html-bib"
+           :components ("science-gateway-static"
+                        "science-gateway-html"))
           ("science-gateway"
            :components ("science-gateway-static"
                         "science-gateway-html"
