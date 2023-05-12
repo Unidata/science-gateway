@@ -67,28 +67,9 @@ export START_HOUR_D1=$(date --utc --date="-3 hours" +%H)
 export START_HOUR_D2=$(date --utc --date="-3 hours" +%H)
 ```
 
-## What the cron job will NOT do
+## Downloading Data
 
 The cron job will *not* provide you with input data. You must provide that on
 your own through some means. One way to do this by downloading it from NOAA's
-[NOMADS](https://nomads.ncep.noaa.gov/) using `curl`. For example, to download
-the first 24 hours of the 00z GFS 1.00 degree run on October 10, 2022 you could
-execute a script like the following:
-
-```shell
-# Directory specified when running ./wrf_proj_init.sh
-cd $INPUT_DATA_DIR
-
-FHRS=($(seq -f '%03g' 0 3 24))
-
-for FHR in ${FHRS[@]}
-do
-    curl -O https://nomads.ncep.noaa.gov/pub/data/nccf/com/gfs/prod/gfs.20221010/00/atmos/gfs.t00z.pgrb2b.1p00.f000
-done
-
-# In its current state, the cron job will only look for data with the grib2
-# file format suffix
-for FILE in $(ls --ignore="*.grib2"); do mv ${FILE} ${FILE}.grib2; done
-```
-
-ls -lah
+[NOMADS](https://nomads.ncep.noaa.gov/) using `ftp`. An example script is found
+(here)[./examples/fetch-ncep-gfs.sh].

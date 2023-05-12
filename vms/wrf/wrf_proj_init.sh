@@ -249,6 +249,7 @@ git checkout WRF
 
 mkdir -p ${PROJ_DIR}/output/
 cp -r ${PROJ_DIR}/science-gateway/vms/wrf/cron_scripts ${PROJ_DIR} 
+cp -r ${PROJ_DIR}/science-gateway/vms/wrf/examples ${PROJ_DIR} 
 cp -r ${PROJ_DIR}/science-gateway/vms/wrf/template ${PROJ_DIR}/output/ 
 mkdir ${PROJ_DIR}/output/template/{wpsprd,wrfprd,postprd}
 
