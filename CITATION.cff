@@ -13,6 +13,7 @@ authors:
   - family-names: Espinoza
     given-names: Ana
     affiliation: UCAR/UCP/EODS/Unidata
+    orcid: https://orcid.org/0000-0002-6292-073X
 title: "Unidata Science Gateway"
 doi: 10.5065/688s-2w73
 repository-code: https://github.com/Unidata/science-gateway
