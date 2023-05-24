@@ -575,7 +575,8 @@ Once, the script is complete, let the VMs settle for a while (let's say ten minu
         or you can reboot all VMs with:
 
         ```sh
-        osl | grep $CLUSTER | awk '{print $2}' | xargs -n1 openstack server reboot
+        openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
+            tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
         ```
 
         If VMs stuck in `ERROR` state. You may be able to fix this problem with:
