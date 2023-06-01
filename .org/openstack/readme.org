@@ -725,7 +725,7 @@ Run ~kube-setup2.sh~ again.
 Ensure the Kubernetes cluster is running:
 
 #+BEGIN_SRC
-  kubectl get pods --all-namespaces
+  kubectl get pods -o wide --all-namespaces
 #+END_SRC
 
 and get a list of the nodes:

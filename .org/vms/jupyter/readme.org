@@ -471,7 +471,7 @@ Make ~pvc.yaml.ro~ ~pv.yaml.ro~ read only since these files could become preciou
 Next, start investigating by issuing:
 
 #+BEGIN_SRC shell
-  kubectl get pods -n jhub
+  kubectl get pods -o wide -n jhub
 #+END_SRC
 
 this command will yield something like
