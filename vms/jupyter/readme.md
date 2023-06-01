@@ -477,7 +477,7 @@ Also make sure that list is accurate and complete, i.e., all JupyterHub clusters
     Next, start investigating by issuing:
 
     ```shell
-    kubectl get pods -n jhub
+    kubectl get pods -o wide -n jhub
     ```
 
     this command will yield something like
