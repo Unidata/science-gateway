@@ -15,7 +15,8 @@ RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends \
     bzip2  ca-certificates locales sudo wget software-properties-common \
-    libproj-dev proj-data proj-bin libgeos-dev && \
+    libproj-dev proj-data proj-bin libgeos-dev libx11-6 libgl1-mesa-glx \
+    libxrender1 xvfb && \
     # updating Python messes up Tensorflow from base container, unfort.
     # add-apt-repository ppa:deadsnakes/ppa && apt-get update --yes && \
     # apt-get install -y python3.10 python3.10-distutils && \
@@ -24,9 +25,11 @@ RUN apt-get update --yes && \
     # ln -sfn /usr/bin/python3 /usr/bin/python && \
     # ln -sfn /usr/bin/pip3 /usr/bin/pip && \
     pip install --no-cache-dir jupyterhub==3.0.0 && \
-    pip install --no-cache-dir --upgrade jupyterlab notebook jupyter_server && \
+    pip install --no-cache-dir --upgrade jupyterlab>=3 notebook jupyter_server \
+    trame && \
     python3 -m pip install cartopy catboost metpy minisom netCDF4 pillow \
-    pyvista seaborn shapely torch torchaudio torchvision verde xarray \
+    pyvista[all,trame] seaborn shapely torch torchaudio torchvision verde xarray \
+    ipywidgets jupyterlab_widgets jupyter-server-proxy \
     --extra-index-url https://download.pytorch.org/whl/cu112 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
