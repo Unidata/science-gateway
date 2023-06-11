@@ -305,18 +305,38 @@ sudo apt install -y nfs-common
 
 When a JupyterHub is expected to be used for especially resource intensive tasks, for example running WRF from within JupyterHub, by multiple users simultaneously, their single user pods can use all of a worker node's resources. This is a problem when these worker nodes also contain the JupyterHub's [core pods](https://z2jh.jupyter.org/en/stable/resources/reference.html#scheduling-corepods), which all perform some essential function of a healthy Zero-to-JupyterHub cluster. In particular, it's been observed that if the proxy pod, the component which routes both internal and external requests to the Hub and single user servers, does not have the necessary resources, the JupyterHub will crash.
 
-To prevent this from happening, we can ensure all core pods are scheduled on a dedicated node. This is accomplished by assigning to a chosen node a [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/), an attritube which prevents pods from spawning unless they have the corresponding [toleration](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). This alone is not enough however, as a pod's [node affinity](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/) must require it to spawn on that specific node. The process is described below.
+To prevent this from happening, we can ensure all core pods are scheduled on a dedicated node. This is accomplished by assigning to a chosen node a [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/), an attribute which prevents pods from spawning unless they have the corresponding [toleration](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). This alone is not enough however, as a pod's [node affinity](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/) must require it to spawn on that specific node. The process is described below.
 
-Add the taint to `<node-name`:
+Add the taint to `<node-name>`:
 
 ```shell
 kubectl taint nodes <node-name> hub.jupyter.org/dedicated=core:NoSchedule
+```
+
+This taint can then be viewed by doing:
+
+```shell
+kubectl describe nodes | less
+```
+
+and searching for `Taints`. You will be able to see which nodes the taints are attached to.
+
+You can remove the taint with:
+
+```shell
+kubectl taint nodes <node-name> hub.jupyter.org/dedicated-node/<node-name> untainted
 ```
 
 Add the label that the pods will look for when being scheduled on a node:
 
 ```shell
 kubectl label nodes <node-name> hub.jupyter.org/node-purpose=core
+```
+
+You can view this label with:
+
+```shell
+kubectl get nodes --show-labels | grep -i core
 ```
 
 No `kubectl` commands need to be explicitly executed to modify the core pods. The toleration is applied to the core pods [by default](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L552), however add the following to the `secrets.yaml` in order to make our intentions explicit. It is also noted that, by default, pods are [preferred](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L563), not required, to spawn on this dedicated core node. Thus, ensure that `scheduling.corePods.nodeAffinity.matchNodePurpose` is set to `require`.
