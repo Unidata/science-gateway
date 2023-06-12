@@ -26,7 +26,7 @@ RUN apt-get update --yes && \
     pip install --no-cache-dir jupyterhub==3.0.0 && \
     pip install --no-cache-dir --upgrade jupyterlab notebook jupyter_server && \
     python3 -m pip install cartopy catboost metpy minisom netCDF4 pillow \
-    pyvista seaborn shapely torch torchaudio torchvision verde xarray \
+    pyvista pyvista-xarray seaborn shapely torch torchaudio torchvision verde xarray \
     --extra-index-url https://download.pytorch.org/whl/cu112 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
