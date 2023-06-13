@@ -26,11 +26,18 @@ RUN apt-get update --yes && \
     pip install --no-cache-dir jupyterhub==3.0.0 && \
     pip install --no-cache-dir --upgrade jupyterlab notebook jupyter_server && \
     python3 -m pip install cartopy catboost metpy minisom netCDF4 pillow \
-    pyvista pyvista-xarray seaborn shapely torch torchaudio torchvision verde xarray \
+    seaborn shapely torch torchaudio torchvision verde xarray \
     --extra-index-url https://download.pytorch.org/whl/cu112 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
+
+# Handle PyVista on its own
+# Be sure not to pull `vtk`, but `vtk-osmesa` from Kitware's package index
+RUN python3 -m pip install --no-cache-dir --upgrade \
+    pyvista pyvista-xarray jupyter-server-proxy trame && \
+    python3 -m pip uninstall vtk && \
+    python3 -m pip install --no-cache-dir --upgrade --extra-index-url https://wheels.vtk.org vtk-osmesa
 
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
