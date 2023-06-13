@@ -36,7 +36,7 @@ RUN apt-get update --yes && \
 # Be sure not to pull `vtk`, but `vtk-osmesa` from Kitware's package index
 RUN python3 -m pip install --no-cache-dir --upgrade \
     pyvista pyvista-xarray jupyter-server-proxy trame && \
-    python3 -m pip uninstall vtk && \
+    python3 -m pip uninstall vtk -y && \
     python3 -m pip install --no-cache-dir --upgrade --extra-index-url https://wheels.vtk.org vtk-osmesa
 
 ARG NB_USER="jovyan"
