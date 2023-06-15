@@ -1,0 +1,52 @@
+#+title: References
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:nil date:nil author:nil auto-id:t
+#+startup: content
+
+#+begin_src emacs-lisp :results silent :exports none
+  (require 'oc-csl)
+  (setq org-cite-export-processors
+        '((t csl "~/git/science-gateway/.org/proposals/2023/jetstream2-access-maximize/american-geophysical-union.csl")
+          ))
+  #+end_src
+
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{margin=1in}
+
+# grep -r -o -h -E "\[cite:@.*\]" /path/to/your/directory
+
+* References
+[cite:@Chastang2023a]
+[cite:@Ramamurthy2023a]
+[cite:@Chastang2022a]
+[cite:@Zonca2017a]
+[cite:@Zonca2018a]
+[cite:@Espinoza2022a]
+[cite:@Weber2023a]
+[cite:@Espinoza2023a]
+[cite:@Chastang2022b]
+[cite:@Meyer2023a]
+[cite:@Unidata2019]
+[cite:@Chastang2016]
+[cite:@ansari2018]
+[cite:@Chastang2016]
+[cite:@Wixtrom2017]
+[cite:@Kluyver:2016aa]
+[cite:@Arms2020b]
+[cite:@4be80a98eb09448fa2ef0e98ed52ad37]
+[cite:@Meyer2022a]
+[cite:@Chastang2017e]
+[cite:@Chastang2017c]
+[cite:@Chastang2022b]
+[cite:@Chastang2023a]
+
+\newpage
+
+* References
+:PROPERTIES:
+:END:
+
+#+print_bibliography:
