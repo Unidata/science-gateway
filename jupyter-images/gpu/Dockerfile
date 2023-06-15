@@ -24,13 +24,15 @@ RUN apt-get update --yes && \
     # ln -sfn /usr/bin/python3.10 /usr/bin/python3 && \
     # ln -sfn /usr/bin/python3 /usr/bin/python && \
     # ln -sfn /usr/bin/pip3 /usr/bin/pip && \
-    pip install --no-cache-dir jupyterhub==3.0.0 && \
-    pip install --no-cache-dir --upgrade jupyterlab>=3 notebook jupyter_server \
-    trame && \
-    python3 -m pip install cartopy catboost metpy minisom netCDF4 pillow \
-    pyvista[all,trame] seaborn shapely torch torchaudio torchvision verde xarray \
-    ipywidgets jupyterlab_widgets jupyter-server-proxy \
-    --extra-index-url https://download.pytorch.org/whl/cu112 && \
+    python3 -m pip uninstall vtk -y && \
+    python3 -m pip install --no-cache-dir jupyterhub==3.0.0 jupyterlab>=3 \
+    notebook jupyter_server trame cartopy catboost metpy minisom netCDF4 \
+    pillow pyvista[all,trame] pyvista-xarray seaborn shapely torch torchaudio \
+    torchvision verde xarray ipywidgets jupyterlab_widgets jupyter-server-proxy \
+    --upgrade && \
+    python3 -m pip install --no-cache-dir --upgrade --extra-index-url \
+    https://wheels.vtk.org vtk-osmesa --extra-index-url \
+    https://download.pytorch.org/whl/cu112 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
