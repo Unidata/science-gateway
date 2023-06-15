@@ -15,8 +15,7 @@ RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends \
     bzip2  ca-certificates locales sudo wget software-properties-common \
-    libproj-dev proj-data proj-bin libgeos-dev libx11-6 libgl1-mesa-glx \
-    libxrender1 xvfb && \
+    libproj-dev proj-data proj-bin libgeos-dev && \
     # updating Python messes up Tensorflow from base container, unfort.
     # add-apt-repository ppa:deadsnakes/ppa && apt-get update --yes && \
     # apt-get install -y python3.10 python3.10-distutils && \
@@ -24,12 +23,12 @@ RUN apt-get update --yes && \
     # ln -sfn /usr/bin/python3.10 /usr/bin/python3 && \
     # ln -sfn /usr/bin/python3 /usr/bin/python && \
     # ln -sfn /usr/bin/pip3 /usr/bin/pip && \
-    python3 -m pip uninstall vtk -y && \
     python3 -m pip install --no-cache-dir jupyterhub==3.0.0 jupyterlab>=3 \
-    notebook jupyter_server trame cartopy catboost metpy minisom netCDF4 \
-    pillow pyvista[all,trame] pyvista-xarray seaborn shapely torch torchaudio \
-    torchvision verde xarray ipywidgets jupyterlab_widgets jupyter-server-proxy \
-    --upgrade && \
+    notebook jupyter_server cartopy catboost metpy minisom netCDF4 pillow \
+    pyvista[all,trame] pyvista-xarray seaborn shapely torch torchaudio \
+    torchvision verde xarray ipywidgets jupyterlab_widgets \
+    jupyter-server-proxy --upgrade && \
+    python3 -m pip uninstall vtk -y && \
     python3 -m pip install --no-cache-dir --upgrade --extra-index-url \
     https://wheels.vtk.org vtk-osmesa --extra-index-url \
     https://download.pytorch.org/whl/cu112 && \
