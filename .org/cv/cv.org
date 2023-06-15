@@ -67,13 +67,9 @@
 \fullcite{Sarajlic2018a}\\
 
 * Recent Conference Presentations
+\fullcite{Chastang2023a}\\
+
 \fullcite{Chastang2022a}\\
-
-
-\fullcite{Ramamurthy2021a}\\
-
-
-\fullcite{Chastang2021a}\\
 
 * Honors & Awards
 #+ATTR_LATEX: :center nil
