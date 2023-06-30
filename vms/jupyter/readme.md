@@ -322,10 +322,10 @@ kubectl describe nodes | less
 
 and searching for `Taints`. You will be able to see which nodes the taints are attached to.
 
-You can remove the taint with:
+You can remove the taint with (note the `-` at the end of the key:effect argument):
 
 ```shell
-kubectl taint nodes <node-name> hub.jupyter.org/dedicated-node/<node-name> untainted
+kubectl taint nodes <node-name> hub.jupyter.org/dedicated:NoSchedule-
 ```
 
 Add the label that the pods will look for when being scheduled on a node:
