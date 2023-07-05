@@ -20,8 +20,7 @@ ADD environment.yml environment-awips.yml /tmp/
 
 RUN conda install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
-    mamba env update --name users-workshop-2023 -f /tmp/environment.yml && \
-    mamba env update --name python3-awips -f /tmp/environment-awips.yml && \
+    mamba env update --name ucar-intern-pdws -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     conda clean --all -f -y && \
     jupyter lab clean -y && \
