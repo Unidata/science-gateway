@@ -7,11 +7,13 @@ singleuser:
           nvidia.com/gpu: "1"
     - display_name: "CPU Server"
       description: "Spawns a standard notebook server"
+      kubespawner_override:
+        image: "unidata/unidatahub:xxxxx"
   image:
       # name: zonca/nvidia-tensorflow-jupyterhub
       # tag: "23.1.5"
-      name: unidata/jupyter-gpu
-      tag: 2023Mar09_013300_4d987fc9
+    name: unidata/jupyter-gpu
+    tag: "xxxxx"
   # very small limits for testing on small instances
   memory:
     guarantee: 5G
@@ -35,4 +37,9 @@ singleuser:
              chmod 700 .ssh;
              chmod g-s .ssh;
              chmod 600 .ssh/*;
+             cp /Acknowledgements.ipynb /home/jovyan;
+             cp /gpu.ipynb /home/jovyan;
+             cp /weatherbench_TF.ipynb /home/jovyan;
+             cp /MNIST_Example_PyTorch.ipynb /home/jovyan;
+             [ ! -h /home/jovyan/shared ] && ln -s /shared/shared /home/jovyan/shared || echo "sym link exists";
              exit 0

@@ -1,0 +1,40 @@
+name: unidata-cpu
+channels:
+  - conda-forge
+dependencies:
+  - python==3.10
+  - act-atmos
+  - arm_pyart
+  - cartopy
+  - cf_xarray
+  - dask
+  - geopandas
+  - intake
+  - intake-esm
+  - intake-xarray
+  - jupyter
+  - jupyterlab
+  - matplotlib
+  - metpy
+  - netcdf4
+  - numpy
+  - pandas
+  - pint
+  - pint-xarray
+  - pip
+  - pykdtree
+  - pyproj
+  - python
+  - scikit-learn
+  - scipy
+  - seaborn
+  - shapely
+  - siphon
+  - tensorflow-cpu
+  - xarray
+  - xgboost
+  - pip:
+    - palmerpenguins
+    - rich
+    - jupyterlab_myst
+    - wget
