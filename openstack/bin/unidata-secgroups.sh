@@ -21,6 +21,8 @@ openstack security group rule create global-ssh-22 --protocol tcp --dst-port \
           22:22 --remote-ip 128.117.144.0/24
 openstack security group rule create  global-ssh-22 --protocol tcp --dst-port \
           22:22 --remote-ip 128.117.165.80/28
+openstack security group rule create  global-ssh-22 --protocol tcp --dst-port \
+          22:22 --remote-ip 128.117.164.80/28
 openstack security group rule create --protocol icmp global-ssh-22
 secgroup.sh  -p 80 -n global-www
 openstack security group rule create global-www --protocol tcp --dst-port \
