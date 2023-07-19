@@ -927,3 +927,44 @@ Once both secrets have been updated, restart the cluster via openstack for chang
   # Reboot
   for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
 #+end_example
+
+*** Persistent File/Directory Permissions e.g., ~/.ssh
+:PROPERTIES:
+:CUSTOM_ID: h-761EE5B5
+:END:
+
+If a user changes ownership or permissions to files/directories in their home directories, for example by using ~chmod~, they will be surprised to find that these file permissions have been reset the next time they spawn their server (i.e., Pod). This situation can arise when, for example, an instructor uses the JupyterHub to push updated material to GitHub using ssh key authentication, in which the permissions of the =~/.ssh= directory, as well as the private and public key pair, need to be set in a certain manner. First, a brief explanation for why this happens is presented, followed by a simple workaround.
+
+**** Why This Occurs
+:PROPERTIES:
+:CUSTOM_ID: h-7275F48A
+:END:
+
+A user's data exists on Openstack volumes which are created and managed by Kubernetes via the ~cinder-csi~ storage class and driver. Ultimately, Kubernetes exposes these volumes to pods via PersistentVolumeClaims.  When a user logs into the JupyterHub, their persistent volume is mounted onto the pod as it spins up. According to the Kubernetes [[https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods][docs on configuring pods]], "Kubernetes recursively changes ownership and permissions for the contents of each volume to match the ~fsGroup~ specified in a Pod's ~securityContext~ when that volume is mounted."  Thus, this behavior is a consequence of Kubernetes re-mounting an openstack volume onto a user's pod.
+
+**** Simple Workaround
+:PROPERTIES:
+:CUSTOM_ID: h-FB656610
+:END:
+
+This security context described can be [[https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext][specified]] when installing the JupyterHub (see default value [[https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86][here]]).  However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
+
+- If the permissions change is desired for a single user, that user can include their ~chmod~ commands in one of the profile files read by ~bash~ (see NOTE below).
+- If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this ~chmod~ command take place on pod startup via ~secrets.yaml~.  See the example below which updates the permissions for the =~/.ssh= directory:
+
+#+begin_src yaml
+  # secrets.yaml
+  singleuser:
+    lifecycleHooks:
+      postStart:
+        exec:
+          command:
+            - "sh"
+            - "-c"
+            - >
+              <other startup commands>;
+              dir="/home/jovyan/.ssh";
+              [ -d $dir ] && { chmod 700 $dir && chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true
+#+end_src
+
+NOTE: See the INVOCATION section of ~man 1 bash~ for a full explanation of which configuration files are sourced, and in what order they are searched for.
