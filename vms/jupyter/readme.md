@@ -366,6 +366,31 @@ echo $CLUSTER; sleep 60; kubectl delete namespace jhub
 
 To further tear down the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
 
+1.  What to Do If Deleting the jhub Namespace Gets Stuck
+
+    ```sh
+    kubectl edit svc proxy-public -n jhub
+    ```
+
+    Change
+
+    ```yaml
+    metadata:
+      ...
+      finalizers:
+        - service.kubernetes.io/load-balancer-cleanup
+    ```
+
+    to
+
+    ```yaml
+    metadata:
+      ...
+      finalizers: []
+    ```
+
+    Save the file and exit
+
 
 <a id="h-5F2AA05F"></a>
 
