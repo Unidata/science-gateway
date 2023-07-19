@@ -1,0 +1,43 @@
+---
+# allowed_users.yaml template that has Unidata employees' github usernames
+# 
+# There will be a lot of users, so we keep secrets.yaml short by using a
+# separate file (this file) for the allow list. It is passed to helm via
+# ./install_jhub.sh
+#
+# IMPORTANT: As you'll likely copy and paste usernames from a spreadsheet onto
+# here, ensure that all usernames consist of only lower-case characters.
+# You can do this in vim by selecting a block of text in Visual Line mode
+# (`V`), selecting the appropriate lines, then using the `gu` command
+hub:
+  config:
+    Authenticator:
+      allowed_users:
+        # Unidata
+        - dcamron
+        - ddirks
+        - dennisheimbigner
+        - dopplershift
+        - ethanrd
+        - haileyajohnson
+        - julienchastang
+        - m1schmidt
+        - mnlerman
+        - mperna33
+        - mzuranski
+        - ncorbin-id
+        - oxelson
+        - robertej09
+        - semmerson
+        - srcarter3
+        - stonecooper
+        - tdrwenski
+        - thomasmgeo
+        - tiffanycmeyer13
+        - tyoksas
+        - wardf
+        - yuanho        
+        # Interns Summer 2023
+        - cssjessica
+        - jgreenwood13
+        - erin6541
