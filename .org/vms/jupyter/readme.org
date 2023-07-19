@@ -345,6 +345,34 @@ Tearing down the JupyterHub including user OpenStack volumes is possible. From t
 
 To further tear down the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
 
+**** What to Do If Deleting the jhub Namespace Gets Stuck
+:PROPERTIES:
+:CUSTOM_ID: h-8CD654F7
+:END:
+
+#+BEGIN_SRC sh
+  kubectl edit svc proxy-public -n jhub
+#+END_SRC
+
+Change
+
+#+begin_src yaml
+metadata:
+  ...
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+#+end_src
+
+to
+
+#+begin_src yaml
+metadata:
+  ...
+  finalizers: []
+#+end_src
+
+Save the file and exit
+
 *** Tear Down While Preserving User Volumes
     :PROPERTIES:
     :CUSTOM_ID: h-5F2AA05F
