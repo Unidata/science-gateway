@@ -32,7 +32,7 @@ Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
 #+END_SRC
 
@@ -48,7 +48,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
    :CUSTOM_ID: h-1E5D6712
    :END:
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+#+begin_src shell :tangle ../../../vms/thredds/thredds-install.sh
   mkdir -p ~/tdsconfig/
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
@@ -87,7 +87,7 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
 
 You will need Apache Tomcat and TDS log directories:
 
- #+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+ #+begin_src shell :tangle ../../../vms/thredds/thredds-install.sh
    mkdir -p /logs/tds-tomcat/
    mkdir -p /logs/tds/
  #+END_SRC
@@ -99,14 +99,14 @@ You will need Apache Tomcat and TDS log directories:
 
 The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.8~:
 
-#+BEGIN_SRC shell :exports none :tangle ../../../vms/thredds/nfs-install.sh :shebang "#!/bin/bash"
+#+begin_src shell :exports none :tangle ../../../vms/thredds/nfs-install.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
     exit
   fi
 #+END_SRC
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/thredds/nfs-install.sh
   # create the NFS mount point
   mkdir -p /data
   mount 10.0.0.8:/data /data
@@ -119,7 +119,7 @@ The TDS will need access to the =/data/ldm/= directory from ~idd-archiver~ in or
 
 You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/thredds/nfs-install.sh
   echo 10.0.0.8:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
 #+END_SRC
 
@@ -137,7 +137,7 @@ At the very least, you will need a self-signed certificate to enable communicati
 
 In the =~/science-gateway/vms/thredds/files/= directory, generate a self-signed certificate with ~openssl~ (or better yet, obtain a real certificate from a certificate authority).
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds/thredds-install.sh
+#+begin_src shell :tangle ../../../vms/thredds/thredds-install.sh
   openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
     "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
     -keyout ~/science-gateway/vms/thredds/files/ssl.key \
@@ -190,7 +190,7 @@ You can provide additional THREDDS parameterization via the =compose.env= file r
 
 Once you have done the work of setting up THREDDS related directories in the way you like,
 
-#+BEGIN_SRC shell
+#+begin_src shell
   docker-compose up -d
 #+END_SRC
 

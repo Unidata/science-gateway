@@ -32,7 +32,7 @@ Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h-03303143
 
  We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
 #+END_SRC
 
@@ -43,7 +43,7 @@ Create an ~m1.small~ VM with the  [[file:../../openstack/readme.org::#h-03303143
 
 From the =~/science-gateway/vms/science-gateway= directory:
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   docker build -t unidata/science-gateway:latest .
 #+END_SRC
 
@@ -61,7 +61,7 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD ar
 
 Create the following nginx log directory:
 
-#+BEGIN_SRC shell
+#+begin_src shell
   mkdir -p /logs/nginx
  #+END_SRC
 
@@ -91,7 +91,7 @@ Work with system admin staff to obtain an HTTPS key and certificate from a certi
 
 [[https://en.wikipedia.org/wiki/OCSP_stapling][OCSP (Online Certificate Status Protocol) stapling]] is recommended for web server communication privacy and efficiency. To enable this feature in an nginx server, have a file containing the intermediate and root certificates. Simply take the full chain certificate file described above and remove the base certificate leaving the intermediate and root certificates only. Call this file =ca-certs.pem= and put it in the =/etc/ssl/= directory along side the ~key~ and ~crt~ file described above. It will be mounted into the container with [[file:../../../vms/science-gateway/docker-compose.yml][docker-compose.yml]] and referred to in =nginx.conf= with
 
-#+BEGIN_SRC fundamental
+#+begin_src fundamental
   ssl_trusted_certificate /etc/nginx/ca-certs.pem
 #+END_SRC
 
@@ -102,7 +102,7 @@ Work with system admin staff to obtain an HTTPS key and certificate from a certi
 
 Once you have done the work of setting up nginx related directories,
 
-#+BEGIN_SRC shell
+#+begin_src shell
   docker-compose up -d
 #+END_SRC
 

@@ -33,7 +33,7 @@ Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell :eval no
+#+begin_src shell :eval no
   git clone https://github.com/Unidata/science-gateway
 #+END_SRC
 
@@ -50,7 +50,7 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD re
    :END:
 
 This =~/etc= directory will contain your LDM configuration files.
-#+BEGIN_SRC shell :tangle ../../../vms/idd-relay/relay-install.sh :shebang "#!/bin/bash"
+#+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh :shebang "#!/bin/bash"
   mkdir -p ~/etc
   cp ~/science-gateway/vms/idd-relay/etc/* ~/etc/
 #+END_SRC
@@ -64,7 +64,7 @@ You may have to tailor the =ldmd.conf= to your data feed requirements. Also edit
 
 This =~/queues= directory will contain the LDM queue file.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-relay/relay-install.sh
+#+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh
   mkdir -p ~/queues
 #+END_SRC
 
@@ -76,7 +76,7 @@ This =~/queues= directory will contain the LDM queue file.
 
 Create the LDM =logs= directory.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-relay/relay-install.sh
+#+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh
   mkdir -p /logs/ldm
 #+END_SRC
 
@@ -112,7 +112,7 @@ You can provide additional LDM parameterization via the =compose.env= file refer
 
 To start the IDD relay node:
 
-#+BEGIN_SRC shell
+#+begin_src shell
   # wherever you cloned the repo above
   cd ~/science-gateway/vms/idd-relay/
   docker-compose up -d

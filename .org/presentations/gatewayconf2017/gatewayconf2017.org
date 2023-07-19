@@ -35,7 +35,7 @@
   :CUSTOM_ID: h-6BAB6253
   :END:
 
-#+BEGIN_SRC emacs-lisp  :eval yes :results silent
+#+begin_src emacs-lisp  :eval yes :results silent
   (setq base-dir (concat (projectile-project-root) ".org/presentations"))
 
   (setq pub-dir (concat (projectile-project-root) "presentations"))
