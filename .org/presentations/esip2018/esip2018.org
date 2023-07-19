@@ -111,12 +111,12 @@ Cells of:
    :END:
 
 _APL_:
-#+BEGIN_SRC APL
+#+begin_src APL
 1,↑¨+.×\N⍴⊂2 2⍴1 1 1 0
 #+END_SRC
 
 _Python_:
-#+BEGIN_SRC python
+#+begin_src python
 def fb(n):
     if n < 2:
         return n

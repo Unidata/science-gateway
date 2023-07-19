@@ -53,7 +53,7 @@ Install Docker via the ~rocky-init.sh~ script because we will be interacting wit
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   git clone https://github.com/Unidata/science-gateway
 #+END_SRC
 
@@ -62,7 +62,7 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
    :CUSTOM_ID: h-4A9632CC
    :END:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   cd science-gateway/openstack
 #+END_SRC
 
@@ -72,7 +72,7 @@ At this point, you can either pull or build the ~science-gateway~ container:
     :PROPERTIES:
     :CUSTOM_ID: h-B5690030
     :END:
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   docker pull unidata/science-gateway
 #+END_SRC
 
@@ -80,7 +80,7 @@ At this point, you can either pull or build the ~science-gateway~ container:
     :PROPERTIES:
     :CUSTOM_ID: h-1C54F677
     :END:
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   docker build -t unidata/science-gateway .
 #+END_SRC
 
@@ -122,13 +122,13 @@ For convenience, you may wish to add your password to the =openrc.sh= file. Agai
 
 Edit the =openrc.sh= file and the supply the TACC resource =OS_PASSWORD= you [[#h-8B3E8EEE][reset earlier]]:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   export OS_PASSWORD="changeme!"
 #+END_SRC
 
 Comment out
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 # echo "Please enter your OpenStack Password: "
 # read -sr OS_PASSWORD_INPUT
 #+END_SRC
@@ -144,7 +144,7 @@ Comment out
 
 Start the ~unidata/science-gateway~ container with =openstack.sh= convenience script. The script take a ~-o~ argument for your =openrc.sh= file and a ~-s~ argument for the directory containing or will contain your ssh keys (e.g., =/home/jane/science-gateway/openstack/ssh= or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). *Both arguments must be supplied with fully qualified path names.*
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   chmod +x openstack.sh
   ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
 #+END_SRC
@@ -153,7 +153,7 @@ Subsequently, when interacting with Jetstream via OpenStack API now and in the f
 
 A wrapper script =run.sh= is provided, which assumes that directories =bin/= and =ssh/= exist in the working directory, and that =bin/= contains =openrc.sh=:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   ./run.sh
 #+END_SRC
 
@@ -166,7 +166,7 @@ You can use this =run.sh= script as a template for you to parameterize, perhaps 
 
 This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the ~-f~ argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like ~<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key~. Then you add your public key the TACC dashboard with ~openstack keypair create~.
 
- #+BEGIN_SRC sh :eval no
+ #+begin_src sh :eval no
   cd ~/.ssh
   ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
   openstack keypair create --public-key <key-name>.pub <key-name>
@@ -208,7 +208,7 @@ At this point, we are past the hard work. You will employ the ~unidata/science-g
 
 If you have not done so already:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
 #+END_SRC
 
@@ -219,7 +219,7 @@ If you have not done so already:
 
 We are ready to fire up VMs. First create an IP number which we will be using shortly:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   openstack floating ip create public
   openstack floating ip list
 #+END_SRC
@@ -237,19 +237,19 @@ or you can just ~openstack floating ip list~ if you have IP numbers left around 
     :END:
 Now you can boot up a VM with something like the following command:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
 #+END_SRC
 
 The ~boot.sh~ command takes a VM name, [[#h-EE48476C][ssh key name]] defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with ~openstack image list | grep -i featured~. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 $ openstack image list | grep -i featured
 #+END_SRC
 
 may yield something like:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
 | 45405d78-e108-48bf-a502-14a0dab81915 | Featured-RockyLinux8 | active |
 | e85293e8-c9b0-4fc9-88b6-e3645c7d1ad3 | Featured-Ubuntu18    | active |
 | 49d5e275-23d6-44b5-aa60-94242d92caf1 | Featured-Ubuntu20    | active |
@@ -267,13 +267,13 @@ Also see ~boot.sh -h~ and ~openstack flavor list~ for more information.
 
 At this point, you can ~ssh~ into our newly minted VM. Explicitly providing the key name with the ~ssh~ ~-i~ argument and a user name (e.g., ~rocky~) may be important:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   ssh -i ~/.ssh/<key-name> rocky@149.165.157.137
 #+END_SRC
 
 At this point, you might see
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   ssh: connect to host 149.165.157.137 port 22: No route to host
 #+END_SRC
 
@@ -293,7 +293,7 @@ Once you are in your VM, it is probably best to add additional ssh public keys i
 
 You can create data volumes via the OpenStack API. As an example, here, we will be creating a 750GB ~data~ volume. You will subsequently attach the data volume:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   openstack volume create --size 750 data
 
   openstack volume list && openstack server list
@@ -312,7 +312,7 @@ There is a ~mount.sh~ convenience script to mount *uninitialized* data volumes. 
 
 You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the ~/etc/fstab~ file:
 
-#+BEGIN_SRC shell :eval no
+#+begin_src shell :eval no
   echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /data ext4 defaults 1 1 | tee \
       --append /etc/fstab > /dev/null
 #+END_SRC
@@ -326,19 +326,19 @@ where the ~UUID~ represents the ID of the data volume device name (e.g., ~/dev/s
 
 Opening TCP ports on VMs must be done via OpenStack with the ~openstack security group~ command line interfaces. In addition, this can be For example, to create a security group that will enable the opening of TCP port ~80~:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   secgroup.sh -n my-vm-ports -p 80
 #+END_SRC
 
 Once the security group is created, you can attach multiple TCP ports to that security group with ~openstack security group~ commands. For example, here we are attaching port ~8080~ to the ~global-my-vm-ports~ security group.
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   openstack security group rule create global-my-vm-ports --protocol tcp --dst-port 8080:8080 --remote-ip 0.0.0.0/0
 #+END_SRC
 
 Finally, you can attach the security group to the VM (e.g., ~my-vm~) with:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   openstack server add security group my-vm global-my-vm-ports
 #+END_SRC
 *** Dynamic DNS and Recordsets
@@ -362,7 +362,7 @@ When creating a new VM using [[./bin/boot.sh][boot.sh]], the VM is added to the 
 
 If you wanted to manually create/edit domain names, do so using the ~openstack recordset~ commands. Note that you must have ~python-designateclient~ [[https://docs.openstack.org/python-designateclient/latest/user/shell-v2.html][installed]].
 
-#+BEGIN_SRC shell
+#+begin_src shell
   # See the current state of your project's DNS zone
   # Useful for getting IDs of individual recordsets
   openstack recordset list <project-ID>.projects.jetstream-cloud.org.
@@ -391,7 +391,7 @@ If you wanted to manually create/edit domain names, do so using the ~openstack r
 
 There is also a ~teardown.sh~ convenience script for deleting VMs. Be sure to ~umount~ any data volumes before deleting a VM. For example on the VM in question,
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   umount /data
 #+END_SRC
 
@@ -399,7 +399,7 @@ You may have to verify, here, that nothing is writing to that data volume such a
 
 In addition, just to be on the safe side, remove the volume from the VM via OpenStack:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   openstack volume list && openstack server list
 
   openstack server remove volume <vm-uid-number> <volume-uid-number>
@@ -412,7 +412,7 @@ In addition, just to be on the safe side, remove the volume from the VM via Open
 
 Then finally from the OpenStack CL,
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   teardown.sh -n unicloud -ip 149.165.157.137
 #+END_SRC
 
@@ -452,11 +452,11 @@ Examine =/etc/fstab= to find all relevant mounts on "old" VM. Copy over =fstab= 
 
 From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
 
-#+BEGIN_SRC shell :eval no
+#+begin_src shell :eval no
   openstack volume list && openstack server list
 #+END_SRC
 
-#+BEGIN_SRC shell :exports none :shebang "#!/bin/bash" :tangle "../../openstack/bin/swap-vm.sh"
+#+begin_src shell :exports none :shebang "#!/bin/bash" :tangle "../../openstack/bin/swap-vm.sh"
 
   echo Make sure to:
   echo  - initialize new VM
@@ -538,7 +538,7 @@ From the OpenStack command line, identify the VM IDs of the old and new VM as we
 
 Then swap out both the IP address as well as zero or more external data volumes with the new server.
 
-#+BEGIN_SRC shell :tangle "../../openstack/bin/swap-vm.sh"
+#+begin_src shell :tangle "../../openstack/bin/swap-vm.sh"
 
   openstack server remove floating ip ${VM_ID_OLD} ${IP}
   openstack server add floating ip ${VM_ID_NEW} ${IP}
@@ -572,13 +572,13 @@ Make sure to run both ~kubectl~ and ~helm~ from the client and ~ssh~ tunnel (~ss
 
 First, set the ~CLUSTER~ name environment variable (named "k8s-unidata", for example) for the current shell and all processes started from the current shell. It will be referenced by various scripts. This step is done for you by supplying the ~--name~ argument to ~jupyterhub.sh~ and subsequently ~z2j.sh~ (see [[../vms/jupyter/readme.org][here]]). However, if you want to do this manually, run this from within the docker container launched by ~jupyterhub.sh~:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   export CLUSTER="$CLUSTER"
 #+END_SRC
 
 Then, modify =~/jetstream_kubespray/inventory/kubejetstream/cluster.tfvars= to specify the number of nodes in the cluster and the size ([[#h-958EA909][flavor]]) of the VMs. For example,
 
-#+BEGIN_SRC sh
+#+begin_src sh
   # nodes
   number_of_k8s_nodes = 0
   number_of_k8s_nodes_no_floating_ip = 2
@@ -604,7 +604,7 @@ JetStream2 handles dynamic DNS differently than JetStream1; domain names will lo
 
 To configure terraform to set this property, add/edit the line below in ~cluster.tfvars~.
 
-#+BEGIN_SRC shell
+#+begin_src shell
   # Uncomment below and edit to set dns-domain network property
   # network_dns_domain = "<project-ID>.projects.jetstream-cloud.org."
 #+END_SRC
@@ -613,7 +613,7 @@ Note the (necessary) trailing "." at the end of the domain.
 
 After running the terraform scripts (see the next section), you can ensure that the dns name was correctly assigned to your cluster's master node with:
 
-#+BEGIN_SRC shell
+#+begin_src shell
   nslookup <instance-name>.<project-ID>.projects.jetstream-cloud.org
 #+END_SRC
 
@@ -637,13 +637,13 @@ Once, the script is complete,  let the VMs settle for a while (let's say ten min
 
 Check to see the status of the VMs with:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   openstack server list | grep $CLUSTER
 #+END_SRC
 
 and
 
-#+BEGIN_SRC sh
+#+begin_src sh
   watch -n 15 \
        ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
 #+END_SRC
@@ -677,27 +677,27 @@ If the check status process did not go smoothly, here are some thing you can try
 
 If you see any errors, you can try to wait a bit more or reboot the offending VM with:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   openstack server reboot <vm>
 #+END_SRC
 
 or you can reboot all VMs with:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
       tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
 #+END_SRC
 
 If VMs stuck in ~ERROR~ state. You may be able to fix this problem with:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray/inventory/$CLUSTER/
   sh terraform_apply.sh
 #+END_SRC
 
 or you can destroy the VMs and try again
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray/inventory/$CLUSTER/
   sh terraform_destroy.sh
 #+END_SRC
@@ -709,7 +709,7 @@ or you can destroy the VMs and try again
 
 Next, run
 
-#+BEGIN_SRC sh
+#+begin_src sh
   kube-setup2.sh
 #+END_SRC
 
@@ -724,13 +724,13 @@ Run ~kube-setup2.sh~ again.
 
 Ensure the Kubernetes cluster is running:
 
-#+BEGIN_SRC
+#+begin_src
   kubectl get pods -o wide --all-namespaces
 #+END_SRC
 
 and get a list of the nodes:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   kubectl get nodes --all-namespaces
 #+END_SRC
 
@@ -743,14 +743,14 @@ and get a list of the nodes:
 
 You can augment the computational capacity of your cluster by adding nodes. In theory, this is just a simple matter of [[#h-F44D1317][adding worker nodes]] in =jetstream_kubespray/inventory/$CLUSTER/cluster.tfvars= followed by running:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray/inventory/$CLUSTER/
   sh terraform_apply.sh
 #+END_SRC
 
 Wait a bit to allow ~dpkg~ to finish running on the new node(s). [[#h-136A4851][Check the VMS]]. Next:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray
   sleep 1000; sh k8s_scale.sh
 #+END_SRC
@@ -764,13 +764,13 @@ Wait a bit to allow ~dpkg~ to finish running on the new node(s). [[#h-136A4851][
 
 It is also possible to remove nodes from a Kubernetes cluster. First see what nodes are running:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   kubectl get nodes --all-namespaces
 #+END_SRC
 
 which will yield something like:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   NAME                     STATUS   ROLES    AGE   VERSION
   k8s-unidata-k8s-master-1    Ready    master   42h   v1.12.5
   k8s-unidata-k8s-node-nf-1   Ready    node     42h   v1.12.5
@@ -779,14 +779,14 @@ which will yield something like:
 
 From the Kubernetes client:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray
   sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-2
 #+END_SRC
 
 followed by running:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   teardown.sh -n  k8s-unidata-k8s-node-nf-2
 #+END_SRC
 
@@ -794,7 +794,7 @@ from the openstack command line.
 
 If tearing down many nodes/VMs, you can try something like:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   for i in {3..10}; do sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-$i; done
 
   for i in {3..10}; do teardown.sh -n k8s-unidata-k8s-node-nf-$i; done
@@ -804,13 +804,13 @@ If tearing down many nodes/VMs, you can try something like:
 
 *Note*, you can make the tear down process go faster by not having ~k8s_remove_node.sh~ prompt you ever time it removes a node. This can be done by editing the ~k8s_remove_node.sh~ script and appending:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   -e skip_confirmation=true
 #+END_SRC
 
 so that the script looks like:
 
-#+BEGIN_SRC sh
+#+begin_src sh
   ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --extra-vars "node=$1" -e skip_confirmation=true
 #+END_SRC
 
@@ -825,7 +825,7 @@ so that the script looks like:
 
 Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray/inventory/$CLUSTER/
   sh terraform_destroy.sh
 #+END_SRC
@@ -837,7 +837,7 @@ Once you are finished with your Kubernetes cluster you can completely wipe it ou
 
 You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
 
-#+BEGIN_SRC sh
+#+begin_src sh
   cd ~/jetstream_kubespray/inventory/$CLUSTER/
   sh terraform_destroy_keep_floatingip.sh
 #+END_SRC
@@ -861,7 +861,7 @@ Installing these monitoring technologies is fairly straightforward and [[https:/
 
 You'll want to keep the master node security patched as it will have a publicly accessible IP number attached to a well known DNS name. If you see packages out of date upon login, as root user:
 
- #+BEGIN_SRC sh :eval no
+ #+begin_src sh :eval no
    apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade \
        && apt autoremove -y
   reboot -h now
@@ -875,13 +875,13 @@ In order to build a GPU enabled cluster, [[https://www.zonca.dev/posts/2023-01-2
 
 There is an image you will need to pull:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   docker pull unidata/science-gateway-gpu
 #+END_SRC
 
 or build with:
 
-#+BEGIN_SRC sh :eval no
+#+begin_src sh :eval no
   docker build -t unidata/science-gateway -f Dockerfile.gpu .
 #+END_SRC
 

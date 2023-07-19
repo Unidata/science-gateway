@@ -13,13 +13,13 @@
 
 The markdown documentation of this project is automatically generated from ~org~.
 
-#+BEGIN_SRC emacs-lisp :results silent
+#+begin_src emacs-lisp :results silent
   (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
 Publishing
 
-#+BEGIN_SRC emacs-lisp :results silent
+#+begin_src emacs-lisp :results silent
   (setq org-root (concat (projectile-project-root) ".org"))
 
   (setq project-root (projectile-project-root))

@@ -33,7 +33,7 @@ Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell
+#+begin_src shell
   git clone https://github.com/Unidata/science-gateway
 #+END_SRC
 
@@ -51,7 +51,7 @@ With the help of Docker and ~docker-compose~, starting a VM with an ADDE server 
 
 A minor amount of configuration is required to get ADDE going.
 
-#+BEGIN_SRC shell :tangle ../../../vms/mcidas/mcidas-install.sh :shebang "#!/bin/bash"
+#+begin_src shell :tangle ../../../vms/mcidas/mcidas-install.sh :shebang "#!/bin/bash"
   mkdir -p ~/etc ~/mcidas/upcworkdata/ ~/mcidas/decoders/ ~/mcidas/util/
   cp pqact.conf_mcidasA ~/etc
   cp RESOLV.SRV ~/mcidas/upcworkdata/
@@ -64,14 +64,14 @@ A minor amount of configuration is required to get ADDE going.
 
 ADDE will need access to the =/data/ldm/= directory from ~idd-archiver~ in order to serve data. Mount it via NFS on the ~10.0.~ network. For example, if ~idd-archiver~ is at ~10.0.0.4~:
 
-#+BEGIN_SRC shell :exports none :tangle ../../../vms/mcidas/nfs-install.sh :shebang "#!/bin/bash"
+#+begin_src shell :exports none :tangle ../../../vms/mcidas/nfs-install.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
     exit
   fi
 #+END_SRC
 
-#+BEGIN_SRC shell :tangle ../../../vms/mcidas/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/mcidas/nfs-install.sh
   # create the NFS mount point
   mkdir -p /data
   mount 10.0.0.4:/data /data
@@ -84,7 +84,7 @@ ADDE will need access to the =/data/ldm/= directory from ~idd-archiver~ in order
 
 You will want to ensure the NFS =/data= volume is available with the help of =fstab=.
 
-#+BEGIN_SRC shell :tangle ../../../vms/mcidas/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/mcidas/nfs-install.sh
   echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
 #+END_SRC
 
@@ -114,7 +114,7 @@ Note the ~unidata/mcidas~ container is closed source so is unavailable at Docker
 
 Once you have done the work of setting up ADDE related directories in the way you like,
 
-#+BEGIN_SRC shell
+#+begin_src shell
   docker-compose up -d
 #+END_SRC
 

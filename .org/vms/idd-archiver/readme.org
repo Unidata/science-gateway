@@ -33,13 +33,13 @@ Create an ~m1.medium~ VM with the [[file:../../openstack/readme.org::#h-03303143
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
 #+END_SRC
 
 In addition, we will employ the ~Unidata/TdsConfig~ repository to obtain our LDM pqacts. We will *not* be running the TDS on the IDD archiver VM.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :exports code :shebang "#!/bin/bash"
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :exports code :shebang "#!/bin/bash"
   git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
 #+END_SRC
 
@@ -57,7 +57,7 @@ With the help of Docker and ~docker-compose~, starting a VM containing an IDD ar
 
 This =~/etc= directory will contain your LDM configuration files.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p ~/etc
   cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
 #+END_SRC
@@ -69,7 +69,7 @@ This =~/etc= directory will contain your LDM configuration files.
 
 You may have to tailor the =ldmd.conf= to your data feed requirements. In addition, change the following request line
 
-#+BEGIN_SRC shell :tangle no
+#+begin_src shell :tangle no
   REQUEST ANY ".*" 10.0.0.21
 #+END_SRC
 
@@ -77,7 +77,7 @@ to point the local IDD relay *10.0 address*.
 
 or something like
 
-#+BEGIN_SRC shell :tangle no
+#+begin_src shell :tangle no
   REQUEST CONDUIT ".*" 10.0.0.21
   REQUEST NGRID ".*" 10.0.0.21
   REQUEST NOTHER ".*" 10.0.0.21
@@ -106,7 +106,7 @@ Scouring the =/data/ldm= directory is achieved through the LDM =scour.conf= mech
 
 Unpack the pqacts configurations from the ~TdsConfig~ project and put them in the expected =~/etc/TDS= location.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p ~/tdsconfig/ ~/etc/TDS
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
@@ -134,7 +134,7 @@ This will ensure =ldmfile.sh= can properly invoked from the =pqact= files.
 
 We can achieve this change with a bit of ~sed~:
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   # in place change of logs dir w/ sed
   sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
       ~/etc/TDS/util/ldmfile.sh
@@ -142,7 +142,7 @@ We can achieve this change with a bit of ~sed~:
 
 Also ensure that =ldmfile.sh= is executable.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   chmod +x ~/etc/TDS/util/ldmfile.sh
 #+END_SRC
 
@@ -153,7 +153,7 @@ Also ensure that =ldmfile.sh= is executable.
 
 This =queues= directory will contain the LDM queue file.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/ldm/queues
 #+END_SRC
 
@@ -164,7 +164,7 @@ This =queues= directory will contain the LDM queue file.
 
 Create the LDM =logs= directory.
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/ldm/logs/
 #+END_SRC
 
@@ -182,14 +182,14 @@ Create the LDM =logs= directory.
 
 Because volume multi-attach is not yet available via OpenStack, we will want to share the =/data= directory via NFS to client VMs over the ~10.0~ network by adding and an entry to the =/etc/exports= file. For example, here we are sharing the =/data= directory to the VM at ~10.0.0.18~.
 
-#+BEGIN_SRC sh :exports none :tangle ../../../vms/idd-archiver/nfs-install.sh :shebang "#!/bin/bash"
+#+begin_src sh :exports none :tangle ../../../vms/idd-archiver/nfs-install.sh :shebang "#!/bin/bash"
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
     exit
   fi
 #+END_SRC
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   echo /data		10.0.0.18(rw,sync,no_subtree_check) | sudo tee \
       --append /etc/exports > /dev/null
   echo /data		10.0.0.15(rw,sync,no_subtree_check) | sudo tee \
@@ -200,14 +200,14 @@ Because volume multi-attach is not yet available via OpenStack, we will want to 
 
 Now start NFS:
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   sudo exportfs -a
   sudo service nfs-kernel-server start
 #+END_SRC
 
 Finally, ensure NFS will be available when the VM starts:
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/nfs-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   sudo update-rc.d nfs-kernel-server defaults
 #+END_SRC
 
@@ -218,7 +218,7 @@ Finally, ensure NFS will be available when the VM starts:
 
 Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it does not exist already, create the ~local-nfs~ security group with the ~secgroup.sh~ convenience script and additional ~openstack~ commands.
 
-#+BEGIN_SRC shell :tangle no
+#+begin_src shell :tangle no
     # Will create a "local-nfs" security group.
   secgroup.sh  -p 111 -n local-nfs --remote-ip 10.0.0.0/24
   openstack security group rule create local-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 10.0.0.0/24
@@ -228,7 +228,7 @@ Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it 
 
 Finally, attach the ~local-nfs~ security group to the newly created VM. The VM ID can be obtained with ~openstack server list~.
 
-#+BEGIN_SRC shell :tangle no
+#+begin_src shell :tangle no
   openstack server add security group <VM name or ID> local-nfs
 #+END_SRC
 
@@ -265,7 +265,7 @@ While not related to IDD archival, the [[https://docs.unidata.ucar.edu/tds/5.0/u
 
 Create a logging directory for the TDM:
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   sudo mkdir -p /logs/tdm
 #+END_SRC
 
@@ -276,7 +276,7 @@ Create a logging directory for the TDM:
 
 [[https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container][TDM logging will not be configurable until TDS 5.0]]. Until then we are running the TDM out of the =/logs/tdm= directory:
 
-#+BEGIN_SRC shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
+#+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   curl -SL  \
        https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.13/tdmFat-4.6.13.jar \
        -o /logs/tdm/tdm.jar
@@ -316,13 +316,13 @@ Supply the TDM password. For example,
 
 Note that this password should correspond to the ~sha-512~ digested password of the ~tdm~ user in =~/science-gateway/vm/thredds/files/tomcat-users.xml= file on the *tds.scigw* VM. You can create a password/SHA pair with the following command:
 
-  #+BEGIN_SRC shell
+  #+begin_src shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
   #+END_SRC
 
 Ensure you are using the correct hashing algorithm in the ~server.xml~ on the TDS server running on the tds.scigw VM. For example,
 
-#+BEGIN_SRC xml
+#+begin_src xml
   <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
          resourceName="UserDatabase">
     <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512" />
@@ -379,7 +379,7 @@ You can provide additional LDM parameterization via the =compose.env= file refer
 
 To start the IDD archiver node:
 
-#+BEGIN_SRC shell :tangle no
+#+begin_src shell :tangle no
   cd ~/science-gateway/vms/idd-archiver/
   docker-compose up -d
 #+END_SRC

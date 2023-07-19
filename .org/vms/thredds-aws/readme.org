@@ -32,7 +32,7 @@ Create an ~m1.large~ VM with the [[file:../../openstack/readme.org][Jetstream Op
 
 We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
 #+END_SRC
 
@@ -43,7 +43,7 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 From the =~/science-gateway/vms/thredds-aws= directory:
 
-#+BEGIN_SRC shell :tangle no :exports code
+#+begin_src shell :tangle no :exports code
   docker build -t unidata/nexrad-tds-docker:latest .
 #+END_SRC
 
@@ -59,7 +59,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
    :CUSTOM_ID: h-717697EB
    :END:
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
+#+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
   mkdir -p ~/tdsconfig/
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
@@ -97,7 +97,7 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
 
 You will need Apache Tomcat and TDS log directories:
 
- #+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
+ #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
    mkdir -p /logs/tds-tomcat/
    mkdir -p /logs/tds/
  #+END_SRC
@@ -114,7 +114,7 @@ You will need Apache Tomcat and TDS log directories:
 
 Files served out of S3 are first written to local file system, then served via THREDDS.
 
- #+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
+ #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
    mkdir -p ~/S3Objects
  #+END_SRC
 
@@ -123,7 +123,7 @@ Files served out of S3 are first written to local file system, then served via T
     :CUSTOM_ID: h-483C35F9
     :END:
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
+#+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
   (crontab -l ; echo "*/5 * * * * find ~/S3Objects -mindepth 1 -mmin +15 -delete")| crontab -
 #+END_SRC
 
@@ -134,7 +134,7 @@ Files served out of S3 are first written to local file system, then served via T
 
 In the =~/science-gateway/vms/thredds-aws/files/= directory, generate a self-signed certificate with ~openssl~ (or better yet, obtain a real certificate from a certificate authority).
 
-#+BEGIN_SRC shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
+#+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
   openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 -subj \
     "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
     -keyout ~/science-gateway/vms/thredds-aws/files/ssl.key \
@@ -173,7 +173,7 @@ You can provide additional THREDDS parameterization via the =compose.env= file r
 
 Once you have done the work of setting up THREDDS related directories in the way you like,
 
-#+BEGIN_SRC shell
+#+begin_src shell
   docker-compose up -d
 #+END_SRC
 
