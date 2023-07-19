@@ -21,7 +21,8 @@
     - [Renew Expired K8s Certificates](#h-60D08FB6)
     - [Evicted Pods Due to Node Pressure](#h-CEF2540C)
     - [Updating Openstack Credentials for Kubernetes](#h-FABFCED0)
-    - [Persistent File/Directory Permissions e.g. ~/.ssh](#h-f6679529)
+    - [Persistent File/Directory Permissions e.g., ~/.ssh](#h-761EE5B5)
+
 
 
 <a id="h-D73CBC56"></a>
@@ -905,37 +906,37 @@ Doing a `kubectl describe pod -n jhub <single-user-pod>` on the offending pod wi
     for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
     ```
 
-<a id="#h-f6679529"></a>
 
-### Persistent File/Directory Permissions e.g. ~/.ssh
+<a id="h-761EE5B5"></a>
 
-If a user changes ownership or permissions to files/directories in their home directories, for example by using `chmod`, they will be surprised to find that these file permissions have been reset the next time they spawn their server (i.e.  Pod). This situation can arise when, for example, an instructor uses the JupyterHub to push updated material to GitHub using ssh key authentication, in which the permissions of the `~/.ssh` directory, as well as the private and public key pair, need to be set in a certain manner. First, a brief explanation for why this happens is presented, followed by a simple workaround.
+### Persistent File/Directory Permissions e.g., ~/.ssh
 
-#### Why This Occurs
+If a user changes ownership or permissions to files/directories in their home directories, for example by using `chmod`, they will be surprised to find that these file permissions have been reset the next time they spawn their server (i.e., Pod). This situation can arise when, for example, an instructor uses the JupyterHub to push updated material to GitHub using ssh key authentication, in which the permissions of the `~/.ssh` directory, as well as the private and public key pair, need to be set in a certain manner. First, a brief explanation for why this happens is presented, followed by a simple workaround.
 
-A user's data exists on Openstack volumes which are created and managed by Kubernetes via the `cinder-csi` storage class and driver. Ultimately, Kubernetes exposes these volumes to pods via PersistentVolumeClaims. When a user logs into the JupyterHub, their persistent volume is mounted onto the pod as it spins up.  According to the Kubernetes [docs on configuring pods](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods), "Kubernetes recursively changes ownership and permissions for the contents of each volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is mounted." Thus, this behavior is a consequence of Kubernetes re-mounting an openstack volume onto a user's pod.
+1.  Why This Occurs
 
-#### Simple Workaround
+    A user's data exists on Openstack volumes which are created and managed by Kubernetes via the `cinder-csi` storage class and driver. Ultimately, Kubernetes exposes these volumes to pods via PersistentVolumeClaims. When a user logs into the JupyterHub, their persistent volume is mounted onto the pod as it spins up. According to the Kubernetes [docs on configuring pods](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods), "Kubernetes recursively changes ownership and permissions for the contents of each volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is mounted." Thus, this behavior is a consequence of Kubernetes re-mounting an openstack volume onto a user's pod.
 
-This security context described can be [specified](https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext) when installing the JupyterHub (see default value [here](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86)).  However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
+2.  Simple Workaround
 
-1) If the permissions change is desired for a single user, that user can include their `chmod` commands in one of the profile files read by `bash` (see NOTE below).
+    This security context described can be [specified](https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext) when installing the JupyterHub (see default value [here](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86)). However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
 
-2) If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this `chmod` command take place on pod startup via `secrets.yaml`. See the example below which updates the permissions for the `~/.ssh` directory:
+    -   If the permissions change is desired for a single user, that user can include their `chmod` commands in one of the profile files read by `bash` (see NOTE below).
+    -   If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this `chmod` command take place on pod startup via `secrets.yaml`. See the example below which updates the permissions for the `~/.ssh` directory:
 
-```yaml
-# secrets.yaml
-singleuser:
-  lifecycleHooks:
-    postStart:
-      exec:
-        command:
-          - "sh"
-          - "-c"
-          - >
-            <other startup commands>;
-            dir="/home/jovyan/.ssh";
-            [ -d $dir ] && { chmod 700 $dir && chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true
-```
+    ```yaml
+    # secrets.yaml
+    singleuser:
+      lifecycleHooks:
+        postStart:
+          exec:
+            command:
+              - "sh"
+              - "-c"
+              - >
+                <other startup commands>;
+                dir="/home/jovyan/.ssh";
+                [ -d $dir ] && { chmod 700 $dir && chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true
+    ```
 
-NOTE: See the INVOCATION section of `man 1 bash` for a full explanation of which configuration files are sourced, and in what order they are searched for.
+    NOTE: See the INVOCATION section of `man 1 bash` for a full explanation of which configuration files are sourced, and in what order they are searched for.
