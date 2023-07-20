@@ -7,24 +7,45 @@
     - [Build Container](#h-1C54F677)
   - [API Setup](#h-CBD5EC54)
     - [Download and Edit openrc.sh (Do This Once)](#h-8B3E8EEE)
+      - [[Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/)](#h-3E2185E5)
+      - [Download your `openrc.sh` file from the IU (not TACC) dashboard at  <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.](#h-B34CC3AF)
+      - [Edit `bin/openrc.sh` Password (Optional)](#h-9C0700C5)
     - [Fire Up Container and More Setup](#h-30B73273)
+      - [openstack.sh](#h-5F4AFF6F)
+      - [Create ssh Keys (Do This Once)](#h-EE48476C)
+      - [Testing Setup](#h-257FBBBE)
   - [Working with Jetstream API to Create VMs](#h-03303143)
     - [IP Numbers](#h-5E7A7E65)
     - [Boot VM](#h-EA17C2D9)
+      - [Create VM](#h-7E8034E7)
+      - [SSH Into New VM](#h-10ACA1BC)
+      - [Adding Additional SSH Keys (Optional)](#h-A66BED33)
     - [Create and Attach Data Volumes](#h-9BEEAB97)
+      - [Ensure Volume Availability Upon Machine Restart](#h-F6AF5F18)
     - [Opening TCP Ports](#h-D6B1D4C2)
     - [Dynamic DNS and Recordsets](#h-612458CB)
     - [Tearing Down VMs](#h-1B38941F)
+      - [umount External Volumes](#h-B367439E)
+      - [Tear Down](#h-8FDA03F6)
     - [Swapping VMs](#h-56B1F4AC)
+      - [Prerequisites](#h-82627F76)
+      - [/etc/fstab and umount](#h-5122BD67)
+      - [OpenStack Swap](#h-45D6670A)
+      - [/etc/fstab and mount](#h-152E6DAB)
   - [Building a Kubernetes Cluster](#h-DA34BC11)
     - [Define cluster with cluster.tfvars](#h-F44D1317)
     - [Enable Dynamic DNS with cluster.tfvars](#h-7801DD3F)
     - [Create VMs with kube-setup.sh](#h-0C658E7B)
+      - [Check Status of VMs](#h-136A4851)
+        - [Ansible Timeouts](#h-2B239C73)
+        - [Steps if VMs are Unhappy](#h-F4401658)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
     - [Adding Nodes to Cluster](#h-1991828D)
     - [Removing Nodes from Cluster](#h-0324031E)
     - [Tearing Down the Cluster](#h-DABDACC7)
+      - [Without Preserving IP of Master Node](#h-25092B48)
+      - [With Preserving IP of Master Node](#h-AA4B8849)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
     - [Patching Master Node](#h-9BC6B08B)
     - [GPU Enabled Clusters](#h-7062BF9B)
@@ -119,81 +140,99 @@ We will be using the Jetstream API directly and via convenience scripts.
 
 The next part involves downloading the `openrc.sh` file to work with our OpenStack allocation. You will have first login to the OpenStack TACC dashboard which will necessitate a password reset. Unfortunately, this login is not the same as the Jetstream Atmosphere web interface login. Also, follow the usual password advice of not reusing passwords as this password will end up in your OpenStack environment and [you may want to add it](#h-9C0700C5) in the `openrc.sh` file for convenience.
 
-1.  [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/)
 
-2.  Download your `openrc.sh` file from the IU (not TACC) dashboard at  <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.
+<a id="h-3E2185E5"></a>
 
-    -   See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://docs.jetstream-cloud.org/ui/cli/openrc/).
-    -   From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
-    -   Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
-    -   Move this file to `bin/openrc.sh` (e.g., `/home/jane/science-gateway/openstack/bin/openrc.sh`).
+#### [Reset your OpenStack TACC dashboard password](https://portal.tacc.utexas.edu/password-reset/)
 
-3.  Edit `bin/openrc.sh` Password (Optional)
 
-    For convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
+<a id="h-B34CC3AF"></a>
 
-    Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h-8B3E8EEE):
+#### Download your `openrc.sh` file from the IU (not TACC) dashboard at  <https://iu.jetstream-cloud.org> and move it to the `openstack/bin` directory.
 
-    ```sh
-    export OS_PASSWORD="changeme!"
-    ```
+-   See *"Use the Horizon dashboard to generate openrc.sh"* in the [Jetstream API instructions](https://docs.jetstream-cloud.org/ui/cli/openrc/).
+-   From the [IU dashboard](https://iu.jetstream-cloud.org/project/api_access/), navigate to `Project`, `API Access`, then select `Download OpenStack RC File` at top-right.
+-   Select **OpenStack RC File (Identity API 3)** , which will download as a script named something like `TG-ATM160027-openrc.sh`. You should rename it to `openrc.sh`.
+-   Move this file to `bin/openrc.sh` (e.g., `/home/jane/science-gateway/openstack/bin/openrc.sh`).
 
-    Comment out
 
-    ```sh
-    # echo "Please enter your OpenStack Password: "
-    # read -sr OS_PASSWORD_INPUT
-    ```
+<a id="h-9C0700C5"></a>
+
+#### Edit `bin/openrc.sh` Password (Optional)
+
+For convenience, you may wish to add your password to the `openrc.sh` file. Again, follow the usual advice of not reusing passwords as this password will end up in your OpenStack environment.
+
+Edit the `openrc.sh` file and the supply the TACC resource `OS_PASSWORD` you [reset earlier](#h-8B3E8EEE):
+
+```sh
+export OS_PASSWORD="changeme!"
+```
+
+Comment out
+
+```sh
+# echo "Please enter your OpenStack Password: "
+# read -sr OS_PASSWORD_INPUT
+```
 
 
 <a id="h-30B73273"></a>
 
 ### Fire Up Container and More Setup
 
-1.  openstack.sh
 
-    Start the `unidata/science-gateway` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `/home/jane/science-gateway/openstack/ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). **Both arguments must be supplied with fully qualified path names.**
+<a id="h-5F4AFF6F"></a>
 
-    ```sh
-    chmod +x openstack.sh
-    ./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
-    ```
+#### openstack.sh
 
-    Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
+Start the `unidata/science-gateway` container with `openstack.sh` convenience script. The script take a `-o` argument for your `openrc.sh` file and a `-s` argument for the directory containing or will contain your ssh keys (e.g., `/home/jane/science-gateway/openstack/ssh` or a new directory that will contain contain your Jetstream OpenStack keys that we will be creating shortly). **Both arguments must be supplied with fully qualified path names.**
 
-    A wrapper script `run.sh` is provided, which assumes that directories `bin/` and `ssh/` exist in the working directory, and that `bin/` contains `openrc.sh`:
+```sh
+chmod +x openstack.sh
+./openstack.sh -o </path/to/your openrc.sh file> -s </path/to/your/ssh directory>
+```
 
-    ```sh
-    ./run.sh
-    ```
+Subsequently, when interacting with Jetstream via OpenStack API now and in the future, you will be using this container to create VMs, mount volumes, etc.
 
-    You can use this `run.sh` script as a template for you to parameterize, perhaps for alternative `openrc.sh` files.
+A wrapper script `run.sh` is provided, which assumes that directories `bin/` and `ssh/` exist in the working directory, and that `bin/` contains `openrc.sh`:
 
-2.  Create ssh Keys (Do This Once)
+```sh
+./run.sh
+```
 
-    This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `openstack keypair create`.
+You can use this `run.sh` script as a template for you to parameterize, perhaps for alternative `openrc.sh` files.
 
-    ```sh
-    cd ~/.ssh
-    ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
-    openstack keypair create --public-key <key-name>.pub <key-name>
-    # go back to home directory
-    cd
-    ```
 
-    The `ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
+<a id="h-EE48476C"></a>
 
-3.  Testing Setup
+#### Create ssh Keys (Do This Once)
 
-    At this point, you should be able to run `openstack image list` which should yield something like:
+This step of ssh key generation is important. In our experience, we have not had good luck with preexisting keys. You may have to generate a new one. Be careful with the `-f` argument below. We are operating under one allocation so make sure your key names do not collide with other users. Name your key something like `<some short somewhat unique id>-${OS_PROJECT_NAME}-api-key`. Then you add your public key the TACC dashboard with `openstack keypair create`.
 
-    | ID                                   | Name                               |
-    |------------------------------------ |---------------------------------- |
-    | fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
-    | 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
-    | b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
+```sh
+cd ~/.ssh
+ssh-keygen -b 2048 -t rsa -f <key-name> -P ""
+openstack keypair create --public-key <key-name>.pub <key-name>
+# go back to home directory
+cd
+```
 
-    If not, check your setup.
+The `ssh` directory was mounted from outside the Docker container you are currently running. Your public/private key should be saved there. Don't lose it or else you may not be able to delete the VMs you are about to create.
+
+
+<a id="h-257FBBBE"></a>
+
+#### Testing Setup
+
+At this point, you should be able to run `openstack image list` which should yield something like:
+
+| ID                                   | Name                               |
+|------------------------------------ |---------------------------------- |
+| fd4bf587-39e6-4640-b459-96471c9edb5c | AutoDock Vina Launch at Boot       |
+| 02217ab0-3ee0-444e-b16e-8fbdae4ed33f | AutoDock Vina with ChemBridge Data |
+| b40b2ef5-23e9-4305-8372-35e891e55fc5 | BioLinux 8                         |
+
+If not, check your setup.
 
 
 <a id="h-03303143"></a>
@@ -233,52 +272,61 @@ or you can just `openstack floating ip list` if you have IP numbers left around 
 
 ### Boot VM
 
-1.  Create VM
 
-    Now you can boot up a VM with something like the following command:
+<a id="h-7E8034E7"></a>
 
-    ```sh
-    boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
-    ```
+#### Create VM
 
-    The `boot.sh` command takes a VM name, [ssh key name](#h-EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `openstack image list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
+Now you can boot up a VM with something like the following command:
 
-    ```sh
-    $ openstack image list | grep -i featured
-    ```
+```sh
+boot.sh -n unicloud -k <key-name> -s m1.medium -ip 149.165.157.137
+```
 
-    may yield something like:
+The `boot.sh` command takes a VM name, [ssh key name](#h-EE48476C) defined earlier, size, and IP number created earlier, and optionally an image UID which can be obtained with `openstack image list | grep -i featured`. Note that these feature VMs are recommended by Jetstream staff, and have a default user corresponding to the Linux distribution flavor. For example,
 
-    ```sh
-    | 45405d78-e108-48bf-a502-14a0dab81915 | Featured-RockyLinux8 | active |
-    | e85293e8-c9b0-4fc9-88b6-e3645c7d1ad3 | Featured-Ubuntu18    | active |
-    | 49d5e275-23d6-44b5-aa60-94242d92caf1 | Featured-Ubuntu20    | active |
-    | e41dc578-b911-48c6-a468-e607a8b2c87c | Featured-Ubuntu22    | active |
-    ```
+```sh
+$ openstack image list | grep -i featured
+```
 
-    The Rocky VMs will have a default of user `rocky` and the Ubuntu VMs will have a default user of `ubuntu`.
+may yield something like:
 
-    Also see `boot.sh -h` and `openstack flavor list` for more information.
+```sh
+| 45405d78-e108-48bf-a502-14a0dab81915 | Featured-RockyLinux8 | active |
+| e85293e8-c9b0-4fc9-88b6-e3645c7d1ad3 | Featured-Ubuntu18    | active |
+| 49d5e275-23d6-44b5-aa60-94242d92caf1 | Featured-Ubuntu20    | active |
+| e41dc578-b911-48c6-a468-e607a8b2c87c | Featured-Ubuntu22    | active |
+```
 
-2.  SSH Into New VM
+The Rocky VMs will have a default of user `rocky` and the Ubuntu VMs will have a default user of `ubuntu`.
 
-    At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `rocky`) may be important:
+Also see `boot.sh -h` and `openstack flavor list` for more information.
 
-    ```sh
-    ssh -i ~/.ssh/<key-name> rocky@149.165.157.137
-    ```
 
-    At this point, you might see
+<a id="h-10ACA1BC"></a>
 
-    ```sh
-    ssh: connect to host 149.165.157.137 port 22: No route to host
-    ```
+#### SSH Into New VM
 
-    Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `openstack server stop <vm-uid-number>` followed by `openstack server start <vm-uid-number>`.
+At this point, you can `ssh` into our newly minted VM. Explicitly providing the key name with the `ssh` `-i` argument and a user name (e.g., `rocky`) may be important:
 
-3.  Adding Additional SSH Keys (Optional)
+```sh
+ssh -i ~/.ssh/<key-name> rocky@149.165.157.137
+```
 
-    Once you are in your VM, it is probably best to add additional ssh public keys into the `authorized_keys` file to make logging in easier from whatever host you are connecting from.
+At this point, you might see
+
+```sh
+ssh: connect to host 149.165.157.137 port 22: No route to host
+```
+
+Usually waiting for a few minutes resolves the issue. If you are still have trouble, try `openstack server stop <vm-uid-number>` followed by `openstack server start <vm-uid-number>`.
+
+
+<a id="h-A66BED33"></a>
+
+#### Adding Additional SSH Keys (Optional)
+
+Once you are in your VM, it is probably best to add additional ssh public keys into the `authorized_keys` file to make logging in easier from whatever host you are connecting from.
 
 
 <a id="h-9BEEAB97"></a>
@@ -299,16 +347,19 @@ You will then be able to log in to your VM and mount your data volume with typic
 
 There is a `mount.sh` convenience script to mount **uninitialized** data volumes. Run this script as root or `sudo` on the newly created VM not from the OpenStack CL.
 
-1.  Ensure Volume Availability Upon Machine Restart
 
-    You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the `/etc/fstab` file:
+<a id="h-F6AF5F18"></a>
 
-    ```shell
-    echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /data ext4 defaults 1 1 | tee \
-        --append /etc/fstab > /dev/null
-    ```
+#### Ensure Volume Availability Upon Machine Restart
 
-    where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` (or `ls -la /dev/disk/by-uuid`) command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
+You want to ensure data volumes are available when the VM starts (for example after a reboot). To achieve this objective, you can run this command which will add an entry to the `/etc/fstab` file:
+
+```shell
+echo UUID=2c571c6b-c190-49bb-b13f-392e984a4f7e /data ext4 defaults 1 1 | tee \
+    --append /etc/fstab > /dev/null
+```
+
+where the `UUID` represents the ID of the data volume device name (e.g., `/dev/sdb`) which you can discover with the `blkid` (or `ls -la /dev/disk/by-uuid`) command. [askubuntu](https://askubuntu.com/questions/164926/how-to-make-partitions-mount-at-startup-in-ubuntu-12-04) has a good discussion on this topic.
 
 
 <a id="h-D6B1D4C2"></a>
@@ -378,33 +429,39 @@ openstack recordset delete <project-ID>.projects.jetstream-cloud.org. <old-recor
 
 ### Tearing Down VMs
 
-1.  umount External Volumes
 
-    There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `umount` any data volumes before deleting a VM. For example on the VM in question,
+<a id="h-B367439E"></a>
 
-    ```sh
-    umount /data
-    ```
+#### umount External Volumes
 
-    You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., `docker-compose stop`, `sudo service nfs-kernel-server stop`), in case you get errors about the volume being busy.
+There is also a `teardown.sh` convenience script for deleting VMs. Be sure to `umount` any data volumes before deleting a VM. For example on the VM in question,
 
-    In addition, just to be on the safe side, remove the volume from the VM via OpenStack:
+```sh
+umount /data
+```
 
-    ```sh
-    openstack volume list && openstack server list
+You may have to verify, here, that nothing is writing to that data volume such as Docker or NFS (e.g., `docker-compose stop`, `sudo service nfs-kernel-server stop`), in case you get errors about the volume being busy.
 
-    openstack server remove volume <vm-uid-number> <volume-uid-number>
-    ```
+In addition, just to be on the safe side, remove the volume from the VM via OpenStack:
 
-2.  Tear Down
+```sh
+openstack volume list && openstack server list
 
-    Then finally from the OpenStack CL,
+openstack server remove volume <vm-uid-number> <volume-uid-number>
+```
 
-    ```sh
-    teardown.sh -n unicloud -ip 149.165.157.137
-    ```
 
-    For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
+<a id="h-8FDA03F6"></a>
+
+#### Tear Down
+
+Then finally from the OpenStack CL,
+
+```sh
+teardown.sh -n unicloud -ip 149.165.157.137
+```
+
+For now, you have to supply the IP number even though the script should theoretically be smart enough to figure that out.
 
 
 <a id="h-56B1F4AC"></a>
@@ -413,47 +470,59 @@ openstack recordset delete <project-ID>.projects.jetstream-cloud.org. <old-recor
 
 Cloud-computing promotes the notion of the throwaway VM. We can swap in VMs that will have the same IP address and attached volume disk storage. However, before swapping out VMs, we should do a bit of homework and careful preparation so that the swap can go as smoothly as possible.
 
-1.  Prerequisites
 
-    Create the VM that will be swapped in. Make sure to:
+<a id="h-82627F76"></a>
 
-    -   initialize the new VM with the `rocky-init.sh` script
-    -   build or fetch relevant Docker containers
-    -   copy over the relevant configuration files. E.g., check with `git diff` and scrutinize `~/config`
-    -   check the crontab with `crontab -l`
-    -   beware of any `10.0` address changes that need to be made (e.g., NFS mounts)
-    -   consider other ancillary stuff (e.g., check home directory, `docker-compose` files)
-    -   think before you type
+#### Prerequisites
 
-2.  /etc/fstab and umount
+Create the VM that will be swapped in. Make sure to:
 
-    Examine `/etc/fstab` to find all relevant mounts on "old" VM. Copy over `fstab` to new host (the `UUIDs` should remain the same but double check). Then `umount` mounts.
+-   initialize the new VM with the `rocky-init.sh` script
+-   build or fetch relevant Docker containers
+-   copy over the relevant configuration files. E.g., check with `git diff` and scrutinize `~/config`
+-   check the crontab with `crontab -l`
+-   beware of any `10.0` address changes that need to be made (e.g., NFS mounts)
+-   consider other ancillary stuff (e.g., check home directory, `docker-compose` files)
+-   think before you type
 
-3.  OpenStack Swap
 
-    From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
+<a id="h-5122BD67"></a>
 
-    ```shell
-    openstack volume list && openstack server list
-    ```
+#### /etc/fstab and umount
 
-    Then swap out both the IP address as well as zero or more external data volumes with the new server.
+Examine `/etc/fstab` to find all relevant mounts on "old" VM. Copy over `fstab` to new host (the `UUIDs` should remain the same but double check). Then `umount` mounts.
 
-    ```shell
 
-    openstack server remove floating ip ${VM_ID_OLD} ${IP}
-    openstack server add floating ip ${VM_ID_NEW} ${IP}
+<a id="h-45D6670A"></a>
 
-    for i in ${VOLUME_IDS}
-    do
-         openstack server remove volume ${VM_ID_OLD} $i
-         openstack server add volume ${VM_ID_NEW} $i
-    done
-    ```
+#### OpenStack Swap
 
-4.  /etc/fstab and mount
+From the OpenStack command line, identify the VM IDs of the old and new VM as well as any attached external volume ID:
 
-    Issue `blkid` (or `ls -la /dev/disk/by-uuid`) command to find `UUIDs` that will be inserted into the `/etc/fstab`. Lastly, `mount -a`.
+```shell
+openstack volume list && openstack server list
+```
+
+Then swap out both the IP address as well as zero or more external data volumes with the new server.
+
+```shell
+
+openstack server remove floating ip ${VM_ID_OLD} ${IP}
+openstack server add floating ip ${VM_ID_NEW} ${IP}
+
+for i in ${VOLUME_IDS}
+do
+     openstack server remove volume ${VM_ID_OLD} $i
+     openstack server add volume ${VM_ID_NEW} $i
+done
+```
+
+
+<a id="h-152E6DAB"></a>
+
+#### /etc/fstab and mount
+
+Issue `blkid` (or `ls -la /dev/disk/by-uuid`) command to find `UUIDs` that will be inserted into the `/etc/fstab`. Lastly, `mount -a`.
 
 
 <a id="h-DA34BC11"></a>
@@ -529,69 +598,78 @@ This script essentially wraps Terraform install scripts to launch the VMs accord
 
 Once, the script is complete, let the VMs settle for a while (let's say ten minutes). Behind the scenes `dpkg` is running on the newly created VMs which can take some time to complete.
 
-1.  Check Status of VMs
 
-    Check to see the status of the VMs with:
+<a id="h-136A4851"></a>
 
-    ```sh
-    openstack server list | grep $CLUSTER
-    ```
+#### Check Status of VMs
 
-    and
+Check to see the status of the VMs with:
 
-    ```sh
-    watch -n 15 \
-         ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
-    ```
+```sh
+openstack server list | grep $CLUSTER
+```
 
-    1.  Ansible Timeouts
+and
 
-        The ansible script works via `sudo`. That escalation can lead to timeout errors if `sudo` is not fast enough. For example:
+```sh
+watch -n 15 \
+     ansible -i $HOME/jetstream_kubespray/inventory/$CLUSTER/hosts -m ping all
+```
 
-        ```shell
-        fatal: [gpu-test3-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
-        fatal: [gpu-test3-k8s-node-nf-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
-        ```
 
-        In that case add
+<a id="h-2B239C73"></a>
 
-        ```shell
-        timeout = 60
-        gather_timeout = 60
-        ```
+##### Ansible Timeouts
 
-        under the `[default]` tag in `jetstream_kubespray/ansible.cfg`.
+The ansible script works via `sudo`. That escalation can lead to timeout errors if `sudo` is not fast enough. For example:
 
-    2.  Steps if VMs are Unhappy
+```shell
+fatal: [gpu-test3-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+fatal: [gpu-test3-k8s-node-nf-1]: FAILED! => {"msg": "Timeout (12s) waiting for privilege escalation prompt: "}
+```
 
-        If the check status process did not go smoothly, here are some thing you can try to remedy the problem.
+In that case add
 
-        If you see any errors, you can try to wait a bit more or reboot the offending VM with:
+```shell
+timeout = 60
+gather_timeout = 60
+```
 
-        ```sh
-        openstack server reboot <vm>
-        ```
+under the `[default]` tag in `jetstream_kubespray/ansible.cfg`.
 
-        or you can reboot all VMs with:
 
-        ```sh
-        openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
-            tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
-        ```
+<a id="h-F4401658"></a>
 
-        If VMs stuck in `ERROR` state. You may be able to fix this problem with:
+##### Steps if VMs are Unhappy
 
-        ```sh
-        cd ~/jetstream_kubespray/inventory/$CLUSTER/
-        sh terraform_apply.sh
-        ```
+If the check status process did not go smoothly, here are some thing you can try to remedy the problem.
 
-        or you can destroy the VMs and try again
+If you see any errors, you can try to wait a bit more or reboot the offending VM with:
 
-        ```sh
-        cd ~/jetstream_kubespray/inventory/$CLUSTER/
-        sh terraform_destroy.sh
-        ```
+```sh
+openstack server reboot <vm>
+```
+
+or you can reboot all VMs with:
+
+```sh
+openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
+    tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
+```
+
+If VMs stuck in `ERROR` state. You may be able to fix this problem with:
+
+```sh
+cd ~/jetstream_kubespray/inventory/$CLUSTER/
+sh terraform_apply.sh
+```
+
+or you can destroy the VMs and try again
+
+```sh
+cd ~/jetstream_kubespray/inventory/$CLUSTER/
+sh terraform_destroy.sh
+```
 
 
 <a id="h-05F9D0A2"></a>
@@ -710,27 +788,33 @@ ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --ex
 
 ### Tearing Down the Cluster
 
-1.  Without Preserving IP of Master Node
 
-    Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
+<a id="h-25092B48"></a>
 
-    ```sh
-    cd ~/jetstream_kubespray/inventory/$CLUSTER/
-    sh terraform_destroy.sh
-    ```
+#### Without Preserving IP of Master Node
 
-2.  With Preserving IP of Master Node
+Once you are finished with your Kubernetes cluster you can completely wipe it out (think before you type and make sure you have the cluster name correct):
 
-    You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
+```sh
+cd ~/jetstream_kubespray/inventory/$CLUSTER/
+sh terraform_destroy.sh
+```
 
-    ```sh
-    cd ~/jetstream_kubespray/inventory/$CLUSTER/
-    sh terraform_destroy_keep_floatingip.sh
-    ```
 
-    Subsequently, when you invoke `terraform_apply.sh`, the master node should have the same IP number as before.
+<a id="h-AA4B8849"></a>
 
-    **Note**: AFTER invoking `terraform_apply.sh` remove the `~/.ssh/known_hosts` line that corresponds to the old master node! This can easily be achieved by sshing into the new master node which will indicate the offending line in `~/.ssh/known_hosts`. This will avoid headaches when invoking `kube-setup2.sh`.
+#### With Preserving IP of Master Node
+
+You can also tear down your cluster but still preserve the IP number of the master node. This is useful and important when the IP of the master node is associated with a DNS name that you wish to keep associated.
+
+```sh
+cd ~/jetstream_kubespray/inventory/$CLUSTER/
+sh terraform_destroy_keep_floatingip.sh
+```
+
+Subsequently, when you invoke `terraform_apply.sh`, the master node should have the same IP number as before.
+
+**Note**: AFTER invoking `terraform_apply.sh` remove the `~/.ssh/known_hosts` line that corresponds to the old master node! This can easily be achieved by sshing into the new master node which will indicate the offending line in `~/.ssh/known_hosts`. This will avoid headaches when invoking `kube-setup2.sh`.
 
 
 <a id="h-005364BF"></a>
