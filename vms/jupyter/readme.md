@@ -5,7 +5,12 @@
   - [Docker Image for JupyterHub User Environment](#h-CD007D2A)
   - [Configure and Deploy the JupyterHub](#h-E5CA5D99)
     - [SSL Certificates](#h-294A4A20)
+      - [Letsencrypt](#h-E1082806)
+      - [Certificate from Certificate Authority](#h-205AEDAB)
+        - [Certificate Expiration and Renewal](#h-055BCE98)
     - [OAuth Authentication](#h-8A3C5434)
+      - [Globus](#h-C0E8193F)
+      - [GitHub](#h-BB3C66CD)
     - [Docker Image and Other Configuration](#h-214D1D4C)
     - [JupyterHub Profiles](#h-5BE09B80)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
@@ -13,15 +18,32 @@
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
+      - [What to Do If Deleting the jhub Namespace Gets Stuck](#h-8CD654F7)
     - [Tear Down While Preserving User Volumes](#h-5F2AA05F)
     - [Locating and Deleting Orphaned PVCs](#h-801B7EE9)
+      - [Obtain PVCs That Are in Use](#h-020D86A3)
+      - [Obtain All the OpenStack Volumes](#h-0ACAC986)
+      - [Find the Orphaned Volumes](#h-ED8A929F)
+      - [Delete Orphaned Volumes](#h-D62E010F)
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
+      - [Preliminary Work](#h-C2429D6E)
+      - [Delete jhub Pods](#h-6404011E)
+      - [Delete jhub, But Do Not Purge Namespace](#h-1C4D98E6)
     - [Volumes Stuck in Reserved State](#h-354DE174)
+      - [Background](#h-1765D7EB)
+      - [Script to Mitigate Problem](#h-F7B1FC52)
+      - [Not a Solution but a Longer Term Workaround](#h-CB601D7B)
     - [Renew Expired K8s Certificates](#h-60D08FB6)
+      - [Background](#h-01F8D10F)
+      - [Resolution](#h-0A5DF245)
     - [Evicted Pods Due to Node Pressure](#h-CEF2540C)
     - [Updating Openstack Credentials for Kubernetes](#h-FABFCED0)
+      - [Creating New Credentials](#h-6F9D771F)
+      - [Updating Credentials in K8s](#h-4126F02C)
     - [Persistent File/Directory Permissions e.g., ~/.ssh](#h-761EE5B5)
+      - [Why This Occurs](#h-7275F48A)
+      - [Simple Workaround](#h-FB656610)
 
 
 
@@ -84,88 +106,103 @@ After you have created the `secrets.yaml` as instructed, customize it with the c
 
 ### SSL Certificates
 
-1.  Letsencrypt
 
-    Follow [Andrea's instructions](https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html) on setting up letsencrypt using [cert-manager](https://cert-manager.io/). Due to a [network change between JS1 and JS2](https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host), the cert-manager pods must be run on the k8s master node in order to successfully complete the [challenges](https://letsencrypt.org/how-it-works/) required by letsencrypt to issue the certificate. Pay special attention to the [Bind the pods to the master node](https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html#bind-the-pods-to-the-master-node) section.
+<a id="h-E1082806"></a>
 
-    For further reading:
+#### Letsencrypt
 
-    -   [Assigning a pod to a specific node](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node)
-    -   [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+Follow [Andrea's instructions](https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html) on setting up letsencrypt using [cert-manager](https://cert-manager.io/). Due to a [network change between JS1 and JS2](https://docs.jetstream-cloud.org/faq/trouble/#i-cant-ping-or-reach-a-publicfloating-ip-from-an-internal-non-routed-host), the cert-manager pods must be run on the k8s master node in order to successfully complete the [challenges](https://letsencrypt.org/how-it-works/) required by letsencrypt to issue the certificate. Pay special attention to the [Bind the pods to the master node](https://www.zonca.dev/posts/2020-03-13-setup-https-kubernetes-letsencrypt.html#bind-the-pods-to-the-master-node) section.
 
-2.  Certificate from Certificate Authority
+For further reading:
 
-    Work with Unidata system administrator staff to obtain a certificate from a trusted certificate authority.
+-   [Assigning a pod to a specific node](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/#create-a-pod-that-gets-scheduled-to-your-chosen-node)
+-   [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
 
-    Follow [Andrea's instructions](https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub#setup-https-with-custom-certificates) on setting up HTTPS with custom certificates. Note that when adding the key with
 
-    ```shell
-    kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
-    ```
+<a id="h-205AEDAB"></a>
 
-    supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates). You can find these certificates [here](https://uit.stanford.edu/service/ssl/chain).
+#### Certificate from Certificate Authority
 
-    Here is a snippet of what the ingress configuration will look like in the `secrets.yaml`.
+Work with Unidata system administrator staff to obtain a certificate from a trusted certificate authority.
 
-    ```yaml
-    ingress:
-      enabled: true
-      annotations:
-        cert-manager.io/issuer: "incommon"
-      hosts:
-          - <jupyterhub-host>
-      tls:
-          - hosts:
-             - <jupyterhub-host>
-            secretName: <secret_name>
-    ```
+Follow [Andrea's instructions](https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_jupyterhub#setup-https-with-custom-certificates) on setting up HTTPS with custom certificates. Note that when adding the key with
 
-    1.  Certificate Expiration and Renewal
+```shell
+kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
+```
 
-        When these certificates expire, they can be updated with the snippet below, but **be careful** to update the certificate on the correct JupyterHub deployment. Otherwise, you will be in cert-manger hell.
+supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates). You can find these certificates [here](https://uit.stanford.edu/service/ssl/chain).
 
-        ```shell
-        kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
-            --dry-run=client -o yaml | kubectl apply -f -
-        ```
+Here is a snippet of what the ingress configuration will look like in the `secrets.yaml`.
+
+```yaml
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/issuer: "incommon"
+  hosts:
+      - <jupyterhub-host>
+  tls:
+      - hosts:
+         - <jupyterhub-host>
+        secretName: <secret_name>
+```
+
+
+<a id="h-055BCE98"></a>
+
+##### Certificate Expiration and Renewal
+
+When these certificates expire, they can be updated with the snippet below, but **be careful** to update the certificate on the correct JupyterHub deployment. Otherwise, you will be in cert-manger hell.
+
+```shell
+kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
+    --dry-run=client -o yaml | kubectl apply -f -
+```
 
 
 <a id="h-8A3C5434"></a>
 
 ### OAuth Authentication
 
-1.  Globus
 
-    [Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.globus.html) are relatively straightforward.
+<a id="h-C0E8193F"></a>
 
-    ```yaml
-    auth:
-      type: globus
-      globus:
-        clientId: "xxx"
-        clientSecret: "xxx"
-        callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
-        identityProvider: "xsede.org"
-      admin:
-        users:
-          - adminuser1
-    ```
+#### Globus
 
-2.  GitHub
+[Globus OAuth capability](https://developers.globus.org/) is available for user authentication. The instructions [here](https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.globus.html) are relatively straightforward.
 
-    Setup an OAuth app on GitHub
+```yaml
+auth:
+  type: globus
+  globus:
+    clientId: "xxx"
+    clientSecret: "xxx"
+    callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
+    identityProvider: "xsede.org"
+  admin:
+    users:
+      - adminuser1
+```
 
-    ```yaml
-    auth:
-      type: github
-      github:
-        clientId: "xxx"
-        clientSecret: "xxx"
-        callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
-      admin:
-        users:
-          - adminuser1
-    ```
+
+<a id="h-BB3C66CD"></a>
+
+#### GitHub
+
+Setup an OAuth app on GitHub
+
+```yaml
+auth:
+  type: github
+  github:
+    clientId: "xxx"
+    clientSecret: "xxx"
+    callbackUrl: "https://<jupyterhub-host>:443/oauth_callback"
+  admin:
+    users:
+      - adminuser1
+```
 
 
 <a id="h-214D1D4C"></a>
@@ -322,7 +359,7 @@ kubectl describe nodes | less
 
 and searching for `Taints`. You will be able to see which nodes the taints are attached to.
 
-You can remove the taint with (note the `-` at the end of the key:effect argument):
+You can remove the taint with (note the \`-\` at the end of the key:effect argument):
 
 ```shell
 kubectl taint nodes <node-name> hub.jupyter.org/dedicated:NoSchedule-
@@ -387,30 +424,33 @@ echo $CLUSTER; sleep 60; kubectl delete namespace jhub
 
 To further tear down the Kubernetes cluster see [Tearing Down the Cluster](../../openstack/readme.md).
 
-1.  What to Do If Deleting the jhub Namespace Gets Stuck
 
-    ```sh
-    kubectl edit svc proxy-public -n jhub
-    ```
+<a id="h-8CD654F7"></a>
 
-    Change
+#### What to Do If Deleting the jhub Namespace Gets Stuck
 
-    ```yaml
-    metadata:
-      ...
-      finalizers:
-        - service.kubernetes.io/load-balancer-cleanup
-    ```
+```sh
+kubectl edit svc proxy-public -n jhub
+```
 
-    to
+Change
 
-    ```yaml
-    metadata:
-      ...
-      finalizers: []
-    ```
+```yaml
+metadata:
+  ...
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+```
 
-    Save the file and exit
+to
+
+```yaml
+metadata:
+  ...
+  finalizers: []
+```
+
+Save the file and exit
 
 
 <a id="h-5F2AA05F"></a>
@@ -440,61 +480,73 @@ ead47ea3eb99   unidata/science-gateway       "/bin/bash"   3 months ago   Up 4 w
 
 Also make sure that list is accurate and complete, i.e., all JupyterHub clusters currently running are accounted for. Otherwise, you may miss active PVC volumes that you could potentially accidentally delete.
 
-1.  Obtain PVCs That Are in Use
 
-    This command chain performs several actions to get a list of all Kubernetes Persistent Volume Claims (PVCs) within multiple Docker containers, each managing a JupyterHub cluster. The output is then sorted, cleaned of white space, and saved to a file. The end result is that you have a list of all PVCs that are currently in use.
+<a id="h-020D86A3"></a>
 
-    ```sh
-    docker ps -q | xargs -I {} -n1 docker exec -t {} bash -c \
-                         'kubectl get pvc -A | tail -n +2' | \
-        awk '{print $4}' | sort | tr -d "[:blank:]" > /tmp/pvc.out
-    ```
+#### Obtain PVCs That Are in Use
 
-2.  Obtain All the OpenStack Volumes
+This command chain performs several actions to get a list of all Kubernetes Persistent Volume Claims (PVCs) within multiple Docker containers, each managing a JupyterHub cluster. The output is then sorted, cleaned of white space, and saved to a file. The end result is that you have a list of all PVCs that are currently in use.
 
-    This command chain performs several actions to get a list of all the OpenStack volume names related to PVCs (active or orphaned) from within a specific Docker container. The output is then sorted, cleaned of blanks, and saved to a file. The `container_id` can be chosen from the list of containers described above. It does not matter which one as long as it has access to the OpenStack CLI.
+```sh
+docker ps -q | xargs -I {} -n1 docker exec -t {} bash -c \
+                     'kubectl get pvc -A | tail -n +2' | \
+    awk '{print $4}' | sort | tr -d "[:blank:]" > /tmp/pvc.out
+```
 
-    ```sh
-    docker exec -t <container_id> bash -c \
-           'source ~/.bashrc && openstack volume list' | grep pvc | \
-        awk -F'|' '{print $3}' | sort | tr -d "[:blank:]" > /tmp/pvc-total.out
-    ```
 
-3.  Find the Orphaned Volumes
+<a id="h-0ACAC986"></a>
 
-    Find the orphaned volumes by taking the set difference of the files generated by the last two commands:
+#### Obtain All the OpenStack Volumes
 
-    ```sh
-    comm -23 /tmp/pvc-total.out /tmp/pvc.out > /tmp/pvc-orphaned.out
-    ```
+This command chain performs several actions to get a list of all the OpenStack volume names related to PVCs (active or orphaned) from within a specific Docker container. The output is then sorted, cleaned of blanks, and saved to a file. The `container_id` can be chosen from the list of containers described above. It does not matter which one as long as it has access to the OpenStack CLI.
 
-    **Important**: Scrutinize the contents of `/tmp/pvc-orphaned.out` to ensure they are not, in fact, being used anywhere.
+```sh
+docker exec -t <container_id> bash -c \
+       'source ~/.bashrc && openstack volume list' | grep pvc | \
+    awk -F'|' '{print $3}' | sort | tr -d "[:blank:]" > /tmp/pvc-total.out
+```
 
-4.  Delete Orphaned Volumes
 
-    Copy this file into one of the Docker containers listed above. It does not matter which one as long as you have an OpenStack CLI.
+<a id="h-ED8A929F"></a>
 
-    ```sh
-    docker ps -q | xargs -I {} -n1 docker cp /tmp/pvc-orphaned.out {}:/tmp/pvc-orphaned.out
-    ```
+#### Find the Orphaned Volumes
 
-    You can now delete the orphaned volumes with a script the looks like this. Again, think before you type as you are about to delete a number of OpenStack volumes.
+Find the orphaned volumes by taking the set difference of the files generated by the last two commands:
 
-    ```sh
-    #!/bin/bash
+```sh
+comm -23 /tmp/pvc-total.out /tmp/pvc.out > /tmp/pvc-orphaned.out
+```
 
-    # Source your OpenStack credentials
-    # source openrc
+**Important**: Scrutinize the contents of `/tmp/pvc-orphaned.out` to ensure they are not, in fact, being used anywhere.
 
-    # Read the file line by line
-    while IFS= read -r volume_name
-    do
-      # Use the OpenStack CLI to get the volume ID
-      volume_id=$(openstack volume show "$volume_name" -f value -c id)
-      echo "$volume_name: $volume_id"
-      # openstack volume delete $volume_id
-    done < /tmp/pvc-orphaned.out
-    ```
+
+<a id="h-D62E010F"></a>
+
+#### Delete Orphaned Volumes
+
+Copy this file into one of the Docker containers listed above. It does not matter which one as long as you have an OpenStack CLI.
+
+```sh
+docker ps -q | xargs -I {} -n1 docker cp /tmp/pvc-orphaned.out {}:/tmp/pvc-orphaned.out
+```
+
+You can now delete the orphaned volumes with a script the looks like this. Again, think before you type as you are about to delete a number of OpenStack volumes.
+
+```sh
+#!/bin/bash
+
+# Source your OpenStack credentials
+# source openrc
+
+# Read the file line by line
+while IFS= read -r volume_name
+do
+  # Use the OpenStack CLI to get the volume ID
+  volume_id=$(openstack volume show "$volume_name" -f value -c id)
+  echo "$volume_name: $volume_id"
+  # openstack volume delete $volume_id
+done < /tmp/pvc-orphaned.out
+```
 
 
 <a id="h-0E48EFE9"></a>
@@ -506,264 +558,288 @@ Also make sure that list is accurate and complete, i.e., all JupyterHub clusters
 
 ### Unresponsive JupyterHub
 
-1.  Preliminary Work
 
-    If a JupyterHub becomes unresponsive (e.g., 504 Gateway Time-out), login in to the Kubernetes client and do preliminary backup work in case things go badly. First:
+<a id="h-C2429D6E"></a>
 
-    ```shell
-    kubectl get pvc -n jhub -o yaml > pvc.yaml.ro
-    kubectl get pv -n jhub -o yaml > pv.yaml.ro
-    chmod 400 pvc.yaml.ro pv.yaml.ro
-    ```
+#### Preliminary Work
 
-    Make `pvc.yaml.ro` `pv.yaml.ro` read only since these files could become precious in case you have to do data recovery for users. More on this subject below.
+If a JupyterHub becomes unresponsive (e.g., 504 Gateway Time-out), login in to the Kubernetes client and do preliminary backup work in case things go badly. First:
 
-2.  Delete jhub Pods
+```shell
+kubectl get pvc -n jhub -o yaml > pvc.yaml.ro
+kubectl get pv -n jhub -o yaml > pv.yaml.ro
+chmod 400 pvc.yaml.ro pv.yaml.ro
+```
 
-    Next, start investigating by issuing:
+Make `pvc.yaml.ro` `pv.yaml.ro` read only since these files could become precious in case you have to do data recovery for users. More on this subject below.
 
-    ```shell
-    kubectl get pods -o wide -n jhub
-    ```
 
-    this command will yield something like
+<a id="h-6404011E"></a>
 
-    ```shell
-    NAME                      READY   STATUS    RESTARTS   AGE
-    hub-5bdccd4784-lzw87      1/1     Running   0          17h
-    jupyter-joe               1/1     Running   0          4h51m
-    proxy-7b986cdb75-mhl86    1/1     Running   0          29d
-    ```
+#### Delete jhub Pods
 
-    Now start deleting the `jhub` pods starting with the user pods (e.g., `jupyter-joe`).
+Next, start investigating by issuing:
 
-    ```
-    kubectl delete pod <pod name> -n jhub
-    ```
+```shell
+kubectl get pods -o wide -n jhub
+```
 
-    Check to see if the JupyterHub is reachable. If it is not, keep deleting pods checking for reachability after each pod deletion.
+this command will yield something like
 
-3.  Delete jhub, But Do Not Purge Namespace
+```shell
+NAME                      READY   STATUS    RESTARTS   AGE
+hub-5bdccd4784-lzw87      1/1     Running   0          17h
+jupyter-joe               1/1     Running   0          4h51m
+proxy-7b986cdb75-mhl86    1/1     Running   0          29d
+```
 
-    If the JupyterHub is still not reachable, you can try deleting and recreating the JupyterHub but **do not** delete the namespace as you will wipe out user data.
+Now start deleting the `jhub` pods starting with the user pods (e.g., `jupyter-joe`).
 
-    ```shell
-    helm uninstall jhub -n jhub
-    # But DO NOT issue this command
-    # kubectl delete namespace jhub
-    ```
+```
+kubectl delete pod <pod name> -n jhub
+```
 
-    Then try reinstalling with
+Check to see if the JupyterHub is reachable. If it is not, keep deleting pods checking for reachability after each pod deletion.
 
-    ```
-    bash install_jhub.sh
-    ```
 
-    Now, try recover user volumes as [described at the end of the section here](https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html#delete-and-recreate-openstack-instances) with the `pvc.yaml.ro` `pv.yaml.ro` saved earlier (make writable copies of those `ro` files). If that still does not work, you can try destroying the entire cluster and recreating it as described in that same link.
+<a id="h-1C4D98E6"></a>
+
+#### Delete jhub, But Do Not Purge Namespace
+
+If the JupyterHub is still not reachable, you can try deleting and recreating the JupyterHub but **do not** delete the namespace as you will wipe out user data.
+
+```shell
+helm uninstall jhub -n jhub
+# But DO NOT issue this command
+# kubectl delete namespace jhub
+```
+
+Then try reinstalling with
+
+```
+bash install_jhub.sh
+```
+
+Now, try recover user volumes as [described at the end of the section here](https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html#delete-and-recreate-openstack-instances) with the `pvc.yaml.ro` `pv.yaml.ro` saved earlier (make writable copies of those `ro` files). If that still does not work, you can try destroying the entire cluster and recreating it as described in that same link.
 
 
 <a id="h-354DE174"></a>
 
 ### Volumes Stuck in Reserved State
 
-1.  Background
 
-    Occasionally, when logging into a JupyterHub the user will encounter a volume attachment error that causes a failure in the login process. [This is an ongoing issue on Jetstream that we have never been able to get to the bottom of](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40). The user will see an error that looks something like:
+<a id="h-1765D7EB"></a>
 
-    ```shell
-    2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
-    ```
+#### Background
 
-    When you then do an `openstack volume list`, you will see something like this where a volume is stuck in "reserved":
+Occasionally, when logging into a JupyterHub the user will encounter a volume attachment error that causes a failure in the login process. [This is an ongoing issue on Jetstream that we have never been able to get to the bottom of](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40). The user will see an error that looks something like:
 
-    ```shell
-    |--------------------------------------+------------------------------------------+----------|
-    | ID                                   | Name                                     | Status   |
-    |--------------------------------------+------------------------------------------+----------|
-    | 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved |
-    |--------------------------------------+------------------------------------------+----------|
-    ```
+```shell
+2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
+```
 
-    You (or if you do not have permission, Jetstream staff) can reset the volume with:
+When you then do an `openstack volume list`, you will see something like this where a volume is stuck in "reserved":
 
-    ```shell
-    openstack volume set --state available <volume uuid>
-    ```
+```shell
+|--------------------------------------+------------------------------------------+----------|
+| ID                                   | Name                                     | Status   |
+|--------------------------------------+------------------------------------------+----------|
+| 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved |
+|--------------------------------------+------------------------------------------+----------|
+```
 
-    or with
+You (or if you do not have permission, Jetstream staff) can reset the volume with:
 
-    ```shell
-    openstack volume list | grep -i reserved | awk \
-        'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
-    --state available
-    ```
+```shell
+openstack volume set --state available <volume uuid>
+```
 
-    The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, [you have to provide a long term solution to the user](#h-CB601D7B).
+or with
 
-2.  Script to Mitigate Problem
+```shell
+openstack volume list | grep -i reserved | awk \
+    'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
+--state available
+```
 
-    Invoking this script (e.g., call it `notify.sh`) from crontab, maybe every three minutes or so, can help mitigate the problem and give you faster notification of the issue. Note [iftt](https://ifttt.com) is a push notification service with webhooks available that can notify your smart phone triggered by a `curl` invocation as demonstrated below. You'll have to create an ifttt login and download the app on your smart phone.
+The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, [you have to provide a long term solution to the user](#h-CB601D7B).
 
-    ```shell
-    #!/bin/bash
 
-    source /home/rocky/.bash_profile
+<a id="h-F7B1FC52"></a>
 
-    VAR=$(openstack volume list -f value -c ID -c Status | grep -i reserved | wc -l)
+#### Script to Mitigate Problem
 
-    MSG="Subject: Volume Stuck in Reserved on Jetstream"
+Invoking this script (e.g., call it `notify.sh`) from crontab, maybe every three minutes or so, can help mitigate the problem and give you faster notification of the issue. Note [iftt](https://ifttt.com) is a push notification service with webhooks available that can notify your smart phone triggered by a `curl` invocation as demonstrated below. You'll have to create an ifttt login and download the app on your smart phone.
 
-    if [[ $VAR -gt 0 ]]
-    then
-        echo $MSG | /usr/sbin/sendmail my@email.com
-        openstack volume list | grep -i reserved >> /tmp/stuck.txt
-        curl -X POST https://maker.ifttt.com/trigger/jetstream/with/key/xyz
-        openstack volume list -f value -c ID -c Status | grep -i reserved | awk \
-            '{ print $1 }' | xargs -n1 openstack volume set --state available
-    fi
-    ```
+```shell
+#!/bin/bash
 
-    you can invoke this script from crontab:
+source /home/rocky/.bash_profile
 
-    ```shell
-    */3 * * * * /home/rocky/notify.bash > /dev/null 2>&1
-    ```
+VAR=$(openstack volume list -f value -c ID -c Status | grep -i reserved | wc -l)
 
-    Note, again, this is just a temporary solution. You still have to provide a longer-term workaround described in the next section:
+MSG="Subject: Volume Stuck in Reserved on Jetstream"
 
-3.  Not a Solution but a Longer Term Workaround
+if [[ $VAR -gt 0 ]]
+then
+    echo $MSG | /usr/sbin/sendmail my@email.com
+    openstack volume list | grep -i reserved >> /tmp/stuck.txt
+    curl -X POST https://maker.ifttt.com/trigger/jetstream/with/key/xyz
+    openstack volume list -f value -c ID -c Status | grep -i reserved | awk \
+        '{ print $1 }' | xargs -n1 openstack volume set --state available
+fi
+```
 
-    [With the volume ID obtained earlier](#h-1765D7EB), issue:
+you can invoke this script from crontab:
 
-    ```shell
-    openstack volume attachment list --os-volume-api-version 3.27 | grep -i d910c7fae38b
-    ```
+```shell
+*/3 * * * * /home/rocky/notify.bash > /dev/null 2>&1
+```
 
-    which will yield something like:
+Note, again, this is just a temporary solution. You still have to provide a longer-term workaround described in the next section:
 
-    ```shell
-    | 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
-    ```
 
-    At this point, you may see *two* entries (even though only one is shown here). One attachment in reserved and one that is attached.
+<a id="h-CB601D7B"></a>
 
-    Next, delete the reserved attachment:
+#### Not a Solution but a Longer Term Workaround
 
-    ```shell
-    cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
-    ```
+[With the volume ID obtained earlier](#h-1765D7EB), issue:
+
+```shell
+openstack volume attachment list --os-volume-api-version 3.27 | grep -i d910c7fae38b
+```
+
+which will yield something like:
+
+```shell
+| 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
+```
+
+At this point, you may see *two* entries (even though only one is shown here). One attachment in reserved and one that is attached.
+
+Next, delete the reserved attachment:
+
+```shell
+cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
+```
 
 
 <a id="h-60D08FB6"></a>
 
 ### Renew Expired K8s Certificates
 
-1.  Background
 
-    Kubernetes clusters use PKI certificates to allow the different components of K8s to communicate and authenticate with one another. See the [official docs](https://kubernetes.io/docs/setup/best-practices/certificates/) for more information. When firing up a JupyterHub cluster using the procedures outlined in this documentation, the certificates are automatically generated for us on cluster creation, however they expire after a full year. You can check the expiration date of your current certificates by running the following on the master node of the cluster:
+<a id="h-01F8D10F"></a>
 
-    ```shell
-    sudo kubeadm alpha certs check-expiration
-    ```
+#### Background
 
-    Once the certificates have expired, you will be unable to run, for example, `kubectl` commands, and the [control plane components](https://kubernetes.io/docs/setup/best-practices/certificates/) will not be able to, for example, fire up new pods, ie new JupyterLab servers, nor perform `helm` upgrades to the server. Example output of running `kubectl` commands with expired certificates is:
+Kubernetes clusters use PKI certificates to allow the different components of K8s to communicate and authenticate with one another. See the [official docs](https://kubernetes.io/docs/setup/best-practices/certificates/) for more information. When firing up a JupyterHub cluster using the procedures outlined in this documentation, the certificates are automatically generated for us on cluster creation, however they expire after a full year. You can check the expiration date of your current certificates by running the following on the master node of the cluster:
 
-    ```shell
-    # kubectl get pods -n jhub
-    Unable to connect to the server: x509: certificate has expired or is not yet valid: current time 2022-06-29T23:09:31Z is after 2022-06-28T17:38:37Z
-    ```
+```shell
+sudo kubeadm alpha certs check-expiration
+```
 
-2.  Resolution
+Once the certificates have expired, you will be unable to run, for example, `kubectl` commands, and the [control plane components](https://kubernetes.io/docs/setup/best-practices/certificates/) will not be able to, for example, fire up new pods, ie new JupyterLab servers, nor perform `helm` upgrades to the server. Example output of running `kubectl` commands with expired certificates is:
 
-    There are a number of ways to renew certificates outlined in the [official docs](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/). Here, the manual renewal method is outlined. While this procedure should be non-destructive, it is recommended to have users backup data/notebooks before this is done. In addition, one of the steps requires a manual restart of the control plane pods, which means the Hub (and potentially user servers) may suffer a small amount of downtime.
+```shell
+# kubectl get pods -n jhub
+Unable to connect to the server: x509: certificate has expired or is not yet valid: current time 2022-06-29T23:09:31Z is after 2022-06-28T17:38:37Z
+```
 
-    All commands are ran on the master node of the cluster. In addition, the documentation does not include the `alpha` portion of the `kubeadm` commands outlined below. This is required: see the answer to [this](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) question.
 
-    First, confirm that your certificates truly are expired:
+<a id="h-0A5DF245"></a>
 
-    ```shell
-    sudo kubeadm alpha certs check-expiration
-    ```
+#### Resolution
 
-    Then, run the renewal command to renew all certs:
+There are a number of ways to renew certificates outlined in the [official docs](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/). Here, the manual renewal method is outlined. While this procedure should be non-destructive, it is recommended to have users backup data/notebooks before this is done. In addition, one of the steps requires a manual restart of the control plane pods, which means the Hub (and potentially user servers) may suffer a small amount of downtime.
 
-    ```shell
-    sudo kubeadm alpha certs renew all
-    ```
+All commands are ran on the master node of the cluster. In addition, the documentation does not include the `alpha` portion of the `kubeadm` commands outlined below. This is required: see the answer to [this](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) question.
 
-    Double check the certificates were renewed:
+First, confirm that your certificates truly are expired:
 
-    ```shell
-    sudo kubeadm alpha certs check-expiration
-    ```
+```shell
+sudo kubeadm alpha certs check-expiration
+```
 
-    Now, we must restart the control plane pods. We do this by moving the files found in `/etc/kubernetes/manifests` to a temporary place, waiting for the [kubelet](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) to recognize the change in the manifests, and tear down the pods. Once this is done, the files can be moved back into `/etc/kubernetes/manifests`, and we can wait for the kubelet to respawn the pods. Finally, reset the `~/.kube/config` file and run `kubectl` commands.
+Then, run the renewal command to renew all certs:
 
-    ```shell
-    ###
-    # All commands ran on the master node
-    ###
+```shell
+sudo kubeadm alpha certs renew all
+```
 
-    # Copy manifests
-    mkdir ~/manifestsBackup_yyyy_mm_dd
-    sudo cp /etc/kubernetes/manifests/* ~/manifestsBackup_yyyy_mm_dd/
+Double check the certificates were renewed:
 
-    # Sanity check
-    ls ~/manifestsBackup_yyyy_mm_dd
+```shell
+sudo kubeadm alpha certs check-expiration
+```
 
-    # Navigate to /etc/kubernetes/manifests and list files, to ensure we're removing
-    # what we think we are
-    cd /etc/kubernetes/manifests
-    ls
+Now, we must restart the control plane pods. We do this by moving the files found in `/etc/kubernetes/manifests` to a temporary place, waiting for the [kubelet](https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12) to recognize the change in the manifests, and tear down the pods. Once this is done, the files can be moved back into `/etc/kubernetes/manifests`, and we can wait for the kubelet to respawn the pods. Finally, reset the `~/.kube/config` file and run `kubectl` commands.
 
-    # Verify the containers you are about to remove are currently running
-    sudo docker ps
+```shell
+###
+# All commands ran on the master node
+###
 
-    # Remove files
-    rm ./*
+# Copy manifests
+mkdir ~/manifestsBackup_yyyy_mm_dd
+sudo cp /etc/kubernetes/manifests/* ~/manifestsBackup_yyyy_mm_dd/
 
-    # Wait until the containers are removed
-    sudo docker ps
+# Sanity check
+ls ~/manifestsBackup_yyyy_mm_dd
 
-    # Replace files
-    sudo cp ~/manifestsBackup_yyyy_mm_dd/* /etc/kubernetes/manifests/
+# Navigate to /etc/kubernetes/manifests and list files, to ensure we're removing
+# what we think we are
+cd /etc/kubernetes/manifests
+ls
 
-    # Wait until containers are respawned
-    sudo docker ps
+# Verify the containers you are about to remove are currently running
+sudo docker ps
 
-    # Reset the config
-    mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# Remove files
+rm ./*
 
-    # Cross your fingers and hope you can now run kubectl commands again!
-    kubectl get pods --all-namespaces
-    ```
+# Wait until the containers are removed
+sudo docker ps
 
-    If you want to run kubectl commands from another machine, for example the machine where we launch JupyterHubs from within docker containers, you must copy this config file to that machine's `$HOME/.kube` directory.
+# Replace files
+sudo cp ~/manifestsBackup_yyyy_mm_dd/* /etc/kubernetes/manifests/
 
-    You should have the IP and `ssh` access of/to the master node. Copy over the config through `scp`:
+# Wait until containers are respawned
+sudo docker ps
 
-    ```shell
-    ###
-    # On the appropriate "Jupyter control center" docker container
-    ###
+# Reset the config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-    # Directory probably already exists, but try creating the directory anyways
-    mkdir $HOME/.kube
-    scp ubuntu@<ip>:~/.kube/config $HOME/.kube/config
-    ```
+# Cross your fingers and hope you can now run kubectl commands again!
+kubectl get pods --all-namespaces
+```
 
-    Finally, edit the `server` value in the `$HOME/.kube/config` to point to `127.0.0.1`, as kubectl will communicate with the api-server through a tunnel created on the Jupyter control container. See [this](../../../openstack/bin/kube-setup2.sh) script and the reference therein for the reason behind doing this.
+If you want to run kubectl commands from another machine, for example the machine where we launch JupyterHubs from within docker containers, you must copy this config file to that machine's `$HOME/.kube` directory.
 
-    ```shell
-    # Change a line that looks like the following
-    server: https://<some-ip>:6443
-    # to
-    server: https://127.0.0.1:6443
-    ```
+You should have the IP and `ssh` access of/to the master node. Copy over the config through `scp`:
 
-    You should now be able to run `kubectl` commands, fire up new user servers, and run `helm` upgrades.
+```shell
+###
+# On the appropriate "Jupyter control center" docker container
+###
+
+# Directory probably already exists, but try creating the directory anyways
+mkdir $HOME/.kube
+scp ubuntu@<ip>:~/.kube/config $HOME/.kube/config
+```
+
+Finally, edit the `server` value in the `$HOME/.kube/config` to point to `127.0.0.1`, as kubectl will communicate with the api-server through a tunnel created on the Jupyter control container. See [this](../../../openstack/bin/kube-setup2.sh) script and the reference therein for the reason behind doing this.
+
+```shell
+# Change a line that looks like the following
+server: https://<some-ip>:6443
+# to
+server: https://127.0.0.1:6443
+```
+
+You should now be able to run `kubectl` commands, fire up new user servers, and run `helm` upgrades.
 
 
 <a id="h-CEF2540C"></a>
@@ -890,41 +966,47 @@ Event log
 
 Doing a `kubectl describe pod -n jhub <single-user-pod>` on the offending pod will reveal that the volume is failing to attach due to an authentication issue.
 
-1.  Creating New Credentials
 
-    Follow the instructions in the [Jetstream2 docs](https://docs.jetstream-cloud.org/ui/cli/auth/#using-the-horizon-dashboard-to-generate-openrcsh) to navigate to the "Application Credentials" page of the Horizon interface. From here, you can verify that your credentials are expired and create a new set of credentials.
+<a id="h-6F9D771F"></a>
 
-    Once you've created the new credentials, you can update any necessary `openrc.sh` files. Note that it is [important](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) to use a text editor, such as `nano`, that will not change the inode of the file being edited, as docker mounts files by their inode and not their file name. Once this has been done, you will have to re-source `openrc.sh` for the changes to take effect: `source /path/to/openrc.sh`. Ensure you are able to use these new credentials to run openstack commands: `openstack server list`.
+#### Creating New Credentials
 
-2.  Updating Credentials in K8s
+Follow the instructions in the [Jetstream2 docs](https://docs.jetstream-cloud.org/ui/cli/auth/#using-the-horizon-dashboard-to-generate-openrcsh) to navigate to the "Application Credentials" page of the Horizon interface. From here, you can verify that your credentials are expired and create a new set of credentials.
 
-    Start a shell with `kubectl` capabilities for the cluster. Follow Andrea Zonca's [instructions](https://www.zonca.dev/posts/2023-03-23-update-openstack-credentials-kubernetes) to update the credentials. The procedure is outlined below, and has to be repeated for two Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/), `external-openstack-cloud-config` and `cloud-config`.
+Once you've created the new credentials, you can update any necessary `openrc.sh` files. Note that it is [important](https://medium.com/@jonsbun/why-need-to-be-careful-when-mounting-single-files-into-a-docker-container-4f929340834) to use a text editor, such as `nano`, that will not change the inode of the file being edited, as docker mounts files by their inode and not their file name. Once this has been done, you will have to re-source `openrc.sh` for the changes to take effect: `source /path/to/openrc.sh`. Ensure you are able to use these new credentials to run openstack commands: `openstack server list`.
 
-    ```
-    # Print out the base64 encoded secret
-    kubectl get secret -n kube-system <secret-name> -o jsonpath='{.data}'
 
-    # Copy/paste the secret to decode it; dump to file
-    echo <secret> | base64 --decode > /tmp/cloud.conf
+<a id="h-4126F02C"></a>
 
-    # Update the temporary with the new credentials
-    vim /tmp/cloud.conf
+#### Updating Credentials in K8s
 
-    # Re-encode the secret; copy the terminal output
-    cat /tmp/cloud.conf | base64 -w0
+Start a shell with `kubectl` capabilities for the cluster. Follow Andrea Zonca's [instructions](https://www.zonca.dev/posts/2023-03-23-update-openstack-credentials-kubernetes) to update the credentials. The procedure is outlined below, and has to be repeated for two Kubernetes [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/), `external-openstack-cloud-config` and `cloud-config`.
 
-    # Edit update the K8s secret
-    kubectl edit secret -n kube-system <secret-name>
-    ```
+```
+# Print out the base64 encoded secret
+kubectl get secret -n kube-system <secret-name> -o jsonpath='{.data}'
 
-    Once both secrets have been updated, restart the cluster via openstack for changes to take effect
+# Copy/paste the secret to decode it; dump to file
+echo <secret> | base64 --decode > /tmp/cloud.conf
 
-    ```
-    # Ensure you're rebooting what you think you are
-    for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do echo "openstack server reboot $INSTANCE"; done
-    # Reboot
-    for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
-    ```
+# Update the temporary with the new credentials
+vim /tmp/cloud.conf
+
+# Re-encode the secret; copy the terminal output
+cat /tmp/cloud.conf | base64 -w0
+
+# Edit update the K8s secret
+kubectl edit secret -n kube-system <secret-name>
+```
+
+Once both secrets have been updated, restart the cluster via openstack for changes to take effect
+
+```
+# Ensure you're rebooting what you think you are
+for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do echo "openstack server reboot $INSTANCE"; done
+# Reboot
+for INSTANCE in $(openstack server list -c Name -f value | grep <PATTERN>); do openstack server reboot $INSTANCE; done
+```
 
 
 <a id="h-761EE5B5"></a>
@@ -933,30 +1015,36 @@ Doing a `kubectl describe pod -n jhub <single-user-pod>` on the offending pod wi
 
 If a user changes ownership or permissions to files/directories in their home directories, for example by using `chmod`, they will be surprised to find that these file permissions have been reset the next time they spawn their server (i.e., Pod). This situation can arise when, for example, an instructor uses the JupyterHub to push updated material to GitHub using ssh key authentication, in which the permissions of the `~/.ssh` directory, as well as the private and public key pair, need to be set in a certain manner. First, a brief explanation for why this happens is presented, followed by a simple workaround.
 
-1.  Why This Occurs
 
-    A user's data exists on Openstack volumes which are created and managed by Kubernetes via the `cinder-csi` storage class and driver. Ultimately, Kubernetes exposes these volumes to pods via PersistentVolumeClaims. When a user logs into the JupyterHub, their persistent volume is mounted onto the pod as it spins up. According to the Kubernetes [docs on configuring pods](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods), "Kubernetes recursively changes ownership and permissions for the contents of each volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is mounted." Thus, this behavior is a consequence of Kubernetes re-mounting an openstack volume onto a user's pod.
+<a id="h-7275F48A"></a>
 
-2.  Simple Workaround
+#### Why This Occurs
 
-    This security context described can be [specified](https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext) when installing the JupyterHub (see default value [here](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86)). However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
+A user's data exists on Openstack volumes which are created and managed by Kubernetes via the `cinder-csi` storage class and driver. Ultimately, Kubernetes exposes these volumes to pods via PersistentVolumeClaims. When a user logs into the JupyterHub, their persistent volume is mounted onto the pod as it spins up. According to the Kubernetes [docs on configuring pods](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods), "Kubernetes recursively changes ownership and permissions for the contents of each volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is mounted." Thus, this behavior is a consequence of Kubernetes re-mounting an openstack volume onto a user's pod.
 
-    -   If the permissions change is desired for a single user, that user can include their `chmod` commands in one of the profile files read by `bash` (see NOTE below).
-    -   If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this `chmod` command take place on pod startup via `secrets.yaml`. See the example below which updates the permissions for the `~/.ssh` directory:
 
-    ```yaml
-    # secrets.yaml
-    singleuser:
-      lifecycleHooks:
-        postStart:
-          exec:
-            command:
-              - "sh"
-              - "-c"
-              - >
-                <other startup commands>;
-                dir="/home/jovyan/.ssh";
-                [ -d $dir ] && { chmod 700 $dir && chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true
-    ```
+<a id="h-FB656610"></a>
 
-    NOTE: See the INVOCATION section of `man 1 bash` for a full explanation of which configuration files are sourced, and in what order they are searched for.
+#### Simple Workaround
+
+This security context described can be [specified](https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext) when installing the JupyterHub (see default value [here](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86)). However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
+
+1.  If the permissions change is desired for a single user, that user can include their `chmod` commands in one of the profile files read by `bash` (see NOTE below).
+2.  If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this `chmod` command take place on pod startup via `secrets.yaml`. See the example below which updates the permissions for the `~/.ssh` directory:
+
+```yaml
+# secrets.yaml
+singleuser:
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            <other startup commands>;
+            dir="/home/jovyan/.ssh";
+            [ -d $dir ] && { chmod 700 $dir && chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true
+```
+
+NOTE: See the INVOCATION section of `man 1 bash` for a full explanation of which configuration files are sourced, and in what order they are searched for.

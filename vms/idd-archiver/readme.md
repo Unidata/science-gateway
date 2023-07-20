@@ -16,7 +16,12 @@
     - [Ensure `firewalld` is Inactive](#h-89622EDA)
   - [THREDDS Data Manager (TDM)](#h-DB469C8D)
     - [TDM Logging Directory](#h-865C1FF8)
+      - [Running the TDM Out the TDM Log Directory](#h-94768FE5)
     - [Configuring the TDM to work with the TDS](#h-2C5BF1CA)
+      - [`TDS_CONTENT_ROOT_PATH`](#h-DB951BAE)
+      - [`TDM_PW`](#h-DB951BAE)
+      - [`TDS_HOST`](#h-02D6C753)
+      - [`TDM_XMX_SIZE`, `TDM_XMS_SIZE`](#h-F5791708)
   - [docker-compose.yml](#h-498535EC)
     - [LDM Environment Variable Parameterization](#h-A6C77825)
   - [Start the IDD Archiver Node](#h-4167D52C)
@@ -272,18 +277,21 @@ Create a logging directory for the TDM:
 sudo mkdir -p /logs/tdm
 ```
 
-1.  Running the TDM Out the TDM Log Directory
 
-    [TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `/logs/tdm` directory:
+<a id="h-94768FE5"></a>
 
-    ```shell
-    curl -SL  \
-         https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.13/tdmFat-4.6.13.jar \
-         -o /logs/tdm/tdm.jar
-    curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
-         -o /logs/tdm/tdm.sh
-    chmod +x  /logs/tdm/tdm.sh
-    ```
+#### Running the TDM Out the TDM Log Directory
+
+[TDM logging will not be configurable until TDS 5.0](https://github.com/Unidata/tdm-docker#capturing-tdm-log-files-outside-the-container). Until then we are running the TDM out of the `/logs/tdm` directory:
+
+```shell
+curl -SL  \
+     https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/edu/ucar/tdmFat/4.6.13/tdmFat-4.6.13.jar \
+     -o /logs/tdm/tdm.jar
+curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
+     -o /logs/tdm/tdm.sh
+chmod +x  /logs/tdm/tdm.sh
+```
 
 
 <a id="h-2C5BF1CA"></a>
@@ -325,50 +333,62 @@ LDM_GROUP_ID=1000
 
 Let's consider each environment variable (i.e., configuration option), in turn.
 
-1.  `TDS_CONTENT_ROOT_PATH`
 
-    This environment variable relates to the TDS content root **inside** the container and probably does not need to be changed.
+<a id="h-DB951BAE"></a>
 
-2.  `TDM_PW`
+#### `TDS_CONTENT_ROOT_PATH`
 
-    Supply the TDM password. For example,
+This environment variable relates to the TDS content root **inside** the container and probably does not need to be changed.
 
-    ```
-    TDM_PW=CHANGEME!
-    ```
 
-    Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/science-gateway/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
+<a id="h-DB951BAE"></a>
 
-    ```shell
-    docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
-    ```
+#### `TDM_PW`
 
-    Ensure you are using the correct hashing algorithm in the `server.xml` on the TDS server running on the tds.scigw VM. For example,
+Supply the TDM password. For example,
 
-    ```xml
-    <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-           resourceName="UserDatabase">
-      <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512" />
-    </Realm>
-    ```
+```
+TDM_PW=CHANGEME!
+```
 
-3.  `TDS_HOST`
+Note that this password should correspond to the `sha-512` digested password of the `tdm` user in `~/science-gateway/vm/thredds/files/tomcat-users.xml` file on the **tds.scigw** VM. You can create a password/SHA pair with the following command:
 
-    Supply the hostname of the TDS that the TDM will notify:
+```shell
+docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
+```
 
-    ```
-    TDS_HOST=https://tds.scigw.unidata.ucar.edu/
-    ```
+Ensure you are using the correct hashing algorithm in the `server.xml` on the TDS server running on the tds.scigw VM. For example,
 
-4.  `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
+```xml
+<Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+       resourceName="UserDatabase">
+  <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512" />
+</Realm>
+```
 
-    Define the maximum and minimum size of the Java heap under which the TDM can operate:
 
-    ```
-    TDM_XMX_SIZE=6G
+<a id="h-02D6C753"></a>
 
-    TDM_XMS_SIZE=1G
-    ```
+#### `TDS_HOST`
+
+Supply the hostname of the TDS that the TDM will notify:
+
+```
+TDS_HOST=https://tds.scigw.unidata.ucar.edu/
+```
+
+
+<a id="h-F5791708"></a>
+
+#### `TDM_XMX_SIZE`, `TDM_XMS_SIZE`
+
+Define the maximum and minimum size of the Java heap under which the TDM can operate:
+
+```
+TDM_XMX_SIZE=6G
+
+TDM_XMS_SIZE=1G
+```
 
 
 <a id="h-498535EC"></a>

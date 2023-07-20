@@ -3,6 +3,7 @@
 #+OPTIONS: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+OPTIONS: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+OPTIONS: auto-id:t
+#+OPTIONS: H:6
 #+TITLE: Creating a JupyterHub on Jetstream with the Zero to JupyterHub Project
 #+DATE:  <2017-06-26 Mon>
 #+AUTHOR: Julien Chastang
@@ -969,8 +970,8 @@ A user's data exists on Openstack volumes which are created and managed by Kuber
 
 This security context described can be [[https://z2jh.jupyter.org/en/stable/resources/reference.html#hub-podsecuritycontext][specified]] when installing the JupyterHub (see default value [[https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/56c921de05ffeed559fe906972975856e4639cb6/jupyterhub/values.yaml#L86][here]]).  However, it seems fine grained permissions are either difficult or highly inconvenient to accommodate. To work around this there is a solution for two cases:
 
-- If the permissions change is desired for a single user, that user can include their ~chmod~ commands in one of the profile files read by ~bash~ (see NOTE below).
-- If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this ~chmod~ command take place on pod startup via ~secrets.yaml~.  See the example below which updates the permissions for the =~/.ssh= directory:
+1. If the permissions change is desired for a single user, that user can include their ~chmod~ commands in one of the profile files read by ~bash~ (see NOTE below).
+2. If the permission change is desired for all users, have the user contact the Unidata Science Gateway team with a request for the permissions change. Science Gateway staff will then be able to make this ~chmod~ command take place on pod startup via ~secrets.yaml~.  See the example below which updates the permissions for the =~/.ssh= directory:
 
 #+begin_src yaml
   # secrets.yaml
