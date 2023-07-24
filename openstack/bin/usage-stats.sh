@@ -19,7 +19,7 @@ list" for all ACTIVE instances.
 
 If the -s|--stdin option is given, the input must be a list of instances on
 seperate lines where each line has at least the flavor type (i.e. m3.*, g3.*,
-and r3.*).
+and r3.*) and the word "ACTIVE".
 
 USAGE
 }
@@ -34,7 +34,7 @@ SERVERLIST=/tmp/usage-stats-server-list
 TMPOUT=/tmp/usage-stats
 
 # Usage limits
-REG_LIMIT=5098320
+REG_LIMIT=7098320
 GPU_LIMIT=600000
 LRG_LIMIT=400000
 
@@ -57,7 +57,7 @@ do
             ;;
         -s|--stdin)
             STDIN=1
-            cat <&0 > $SERVERLIST
+            cat <&0 | grep -ie "ACTIVE" > $SERVERLIST
             ;;
         -h|--help)
 	    usage
