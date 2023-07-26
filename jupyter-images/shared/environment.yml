@@ -1,9 +1,28 @@
-name: users-workshop-2023
+name: unidata-standard
 channels:
  - conda-forge
 dependencies:
+  # Required by JupyterLab
   - python=3
   - nb_conda_kernels
   - ipykernel
+  # User requested packages
+  - numpy
+  - matplotlib
+  - cartopy
+  - jupyter
+  - metpy
+  - siphon
+  - pandas<1.1.0
+  - pip
+  - xarray
+  - ipywidgets
+  - ffmpeg
+  - boto3
+  - botocore
+  - jupyterlab
+  - python-awips
   - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
     - palmerpenguins
