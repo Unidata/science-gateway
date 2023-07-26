@@ -1,9 +1,0 @@
-name: users-workshop-2023
-channels:
- - conda-forge
-dependencies:
-  - python=3
-  - nb_conda_kernels
-  - ipykernel
-  - pip:
-    - palmerpenguins
