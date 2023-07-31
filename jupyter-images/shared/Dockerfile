@@ -20,11 +20,11 @@ USER $NB_UID
 
 ADD environment.yml /tmp
 
-RUN conda install --quiet --yes \
+RUN mamba install --quiet --yes \
     'conda-forge::nb_conda_kernels'  && \
     mamba env update --name $ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
-    conda clean --all -f -y && \
+    mamba clean --all -f -y && \
     jupyter lab clean -y && \
     npm cache clean --force && \
     rm -rf /home/$NB_USER/.cache/yarn && \
