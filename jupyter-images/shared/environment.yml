@@ -7,7 +7,7 @@ dependencies:
   - nb_conda_kernels
   - ipykernel
   # User requested packages
-  - numpy
+  - numpy=1.19.5
   - matplotlib
   - cartopy
   - metpy
