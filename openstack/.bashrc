@@ -15,6 +15,7 @@ alias onl='openstack network list'
 alias ovl='openstack volume list'
 alias k='kubectl'
 alias kctl='kubectl'
+alias sshmain='ssh ubuntu@$IP -L 6443:localhost:6443'
 alias h='history'
 alias hist='history'
 
