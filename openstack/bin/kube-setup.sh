@@ -6,6 +6,7 @@ cd $HOME/jetstream_kubespray/
 mkdir -p inventory/$CLUSTER && cp -LRp inventory/kubejetstream/* inventory/$CLUSTER
 cd inventory/$CLUSTER
 
+sed -i "s/# k8s_master_fips/k8s_master_fips/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" cluster.tfvars
 sed -i "s/number_of_k8s_nodes = 1/number_of_k8s_nodes = 0/g" cluster.tfvars
 sed -i "s/number_of_k8s_nodes_no_floating_ip = 0/number_of_k8s_nodes_no_floating_ip = 1/g" cluster.tfvars
@@ -19,10 +20,9 @@ sed -i "s/tg-xxxxxxxxx/tg-ees220002/g" cluster.tfvars
 
 # According to Jeremy Fischer, IU/Jetstream we should use the
 # auto_allocated_router default router
-ROUTER_ID=$(openstack router list | grep auto_allocated_router |  \
-                  awk 'BEGIN { FS = "|" } ; { print $2 }' | tr -d ' ')
+ROUTER_ID=$(openstack router list --name auto_sllocated_router --format value --column ID)
 
-sed -i "s/router_id = \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"/router_id = \"$ROUTER_ID\"/g" cluster.tfvars
+sed -i "s/router_id = \".*\"/router_id = \"$ROUTER_ID\"/g" cluster.tfvars
 
 bash terraform_init.sh
 bash terraform_apply.sh
