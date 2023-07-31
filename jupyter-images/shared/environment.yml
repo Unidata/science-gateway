@@ -10,17 +10,12 @@ dependencies:
   - numpy
   - matplotlib
   - cartopy
-  - jupyter
   - metpy
   - siphon
   - pandas<1.1.0
   - pip
   - xarray
   - ipywidgets
-  - ffmpeg
-  - boto3
-  - botocore
-  - jupyterlab
   - python-awips
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
