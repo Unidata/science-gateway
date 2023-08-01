@@ -15,7 +15,9 @@
     - [JupyterHub Profiles](#h-5BE09B80)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
     - [Ensure "Core" Pods Are Scheduled on a Dedicated Node](#h-6784737C)
-    - [Bug Fix: Remove Username Based Labels from Pods and PVCs](#h-1a179c1a)
+    - [Bug Fix: Remove Username Based Labels from Pods and PVCs](#h-FEBAC1B8)
+      - [Description of Bug](#h-931927DA)
+      - ["Fixing" The Bug](#h-A1B31674)
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
@@ -398,15 +400,22 @@ scheduling:
 
 After all these changes have been made, run `bash install_jhub.sh` once again to apply them, and run a `kubectl get pods -n jhub -o wide` to confirm that core pods are running on the intended node. Single user pods should no longer be spawned on the dedicated core node, but any preexisting single user pods will may still reside on this node until they are eventually culled by the Hub.
 
-<a id="h-1a179c1a"></a>
+
+<a id="h-FEBAC1B8"></a>
 
 ### Bug Fix: Remove Username Based Labels from Pods and PVCs
 
+
+<a id="h-931927DA"></a>
+
 #### Description of Bug
 
-Admin users have the ability to add usernames to the JupyterHub allow list via the admin panel.  This can result in admins adding usernames that start with certain characters that will be escaped by the [Kubespawner](https://github.com/jupyterhub/kubespawner/tree/main), the portion of the JupyterHub that creates single user JupyterLab Pods. The escape character used is a hyphen (`-`), and Kubespawner escapes anything that isn't an `ascii_lowercase` string or a `digits` string (perform a `grep -Rie "safe_chars"` in the `kubespawner/kubespawner` sub-directory to confirm).
+Admin users have the ability to add usernames to the JupyterHub allow list via the admin panel. This can result in admins adding usernames that start with certain characters that will be escaped by the [Kubespawner](https://github.com/jupyterhub/kubespawner/tree/main), the portion of the JupyterHub that creates single user JupyterLab Pods. The escape character used is a hyphen (`-`), and Kubespawner escapes anything that isn't an `ascii_lowercase` string or a `digits` string (perform a `grep -Rie "safe_chars"` in the `kubespawner/kubespawner` sub-directory to confirm).
 
-When a user logs in, the Kubespawner will create a Pod and PVC (if one does not already exist) with labels based on a user's username (see [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L638C8-L638C8), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1856), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L2091), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1952), and [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1868)).  If the first character of this username is escaped, the label will begin with a character that is invalid and rejected by Kubernetes. If the user attempts to spawn their server and [repeatedly fails (default 5 times)](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/5b6e57ed66af8734364e598a008f54ff38efd3ad/jupyterhub/values.yaml#L52), the [entire JupyterHub will crash](https://discourse.jupyter.org/t/spawner-unnecessarily-encoding-capital-letters-leading-to-pvc-creation-errors-and-jhub-crash/17704).  This is a [known bug](https://github.com/jupyterhub/kubespawner/issues/498).
+When a user logs in, the Kubespawner will create a Pod and PVC (if one does not already exist) with labels based on a user's username (see [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L638C8-L638C8), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1856), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L2091), [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1952), and [here](https://github.com/jupyterhub/kubespawner/blob/cd17869ed4fe0eb9e65dd3bc7b994687a2a72b8e/kubespawner/spawner.py#L1868)). If the first character of this username is escaped, the label will begin with a character that is invalid and rejected by Kubernetes. If the user attempts to spawn their server and [repeatedly fails (default 5 times)](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/5b6e57ed66af8734364e598a008f54ff38efd3ad/jupyterhub/values.yaml#L52), the [entire JupyterHub will crash](https://discourse.jupyter.org/t/spawner-unnecessarily-encoding-capital-letters-leading-to-pvc-creation-errors-and-jhub-crash/17704). This is a [known bug](https://github.com/jupyterhub/kubespawner/issues/498).
+
+
+<a id="h-A1B31674"></a>
 
 #### "Fixing" The Bug
 
@@ -427,7 +436,8 @@ hub:
       c.JupyterHub.spawner_class = CustomSpawner
 ```
 
-This _should_ not have any unintended consequences, as this username label is [meant for gathering metrics](https://github.com/jupyterhub/kubespawner/issues/498#issuecomment-1578188004) on individual users, which we don't partake in.
+This *should* not have any unintended consequences, as this username label is [meant for gathering metrics](https://github.com/jupyterhub/kubespawner/issues/498#issuecomment-1578188004) on individual users, which we don't partake in.
+
 
 <a id="h-209E2FBC"></a>
 
