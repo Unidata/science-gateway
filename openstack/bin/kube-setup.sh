@@ -20,7 +20,7 @@ sed -i "s/tg-xxxxxxxxx/tg-ees220002/g" cluster.tfvars
 
 # According to Jeremy Fischer, IU/Jetstream we should use the
 # auto_allocated_router default router
-ROUTER_ID=$(openstack router list --name auto_sllocated_router --format value --column ID)
+ROUTER_ID=$(openstack router list --name auto_allocated_router --format value --column ID)
 
 sed -i "s/router_id = \".*\"/router_id = \"$ROUTER_ID\"/g" cluster.tfvars
 
