@@ -653,7 +653,7 @@ openstack server reboot <vm>
 or you can reboot all VMs with:
 
 ```sh
-openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
+openstack server list | grep ${CLUSTER} | \ awk -F'|' '{print $2}' | \
     tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
 ```
 

@@ -684,7 +684,7 @@ If you see any errors, you can try to wait a bit more or reboot the offending VM
 or you can reboot all VMs with:
 
 #+begin_src sh
-  openstack server list | ${CLUSTER} | \ awk -F'|' '{print $2}' | \
+  openstack server list | grep ${CLUSTER} | \ awk -F'|' '{print $2}' | \
       tr -d "[:blank:]"  | xargs -I {} -n1 openstack server reboot {}
 #+END_SRC
 
