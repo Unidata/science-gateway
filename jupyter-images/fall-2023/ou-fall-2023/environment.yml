@@ -1,0 +1,11 @@
+name: ou-fall-2023
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - python=3
+  - arm_pyart
