@@ -5,7 +5,7 @@
 ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
-ARG ENV_NAME=users-workshop-2023
+ENV DEFAULT_ENV_NAME=unidata-standard
 
 LABEL maintainer="Unidata <support-python@unidata.ucar.edu>"
 
@@ -21,8 +21,9 @@ USER $NB_UID
 ADD environment.yml /tmp
 
 RUN mamba install --quiet --yes \
-    'conda-forge::nb_conda_kernels'  && \
-    mamba env update --name $ENV_NAME -f /tmp/environment.yml && \
+      'conda-forge::nb_conda_kernels' \
+      'conda-forge::ipywidgets' && \
+    mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \
