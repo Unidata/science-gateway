@@ -130,6 +130,23 @@ kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
     --dry-run=client -o yaml | kubectl apply -f -
 #+END_SRC
 
+**** Redoing the Kubernetes cert-manager
+:PROPERTIES:
+:CUSTOM_ID: h-330B6475
+:END:
+
+Sometimes when working with the Kubernetes cert-manager, you can get yourself into a pickle for one reason or another. If you just want to "do over" the cert-manager installation, you can:
+
+#+begin_src shell
+  kubectl delete namespace cert-manager
+  kubectl delete -f \
+          https://github.com/cert-manager/cert-manager/releases/download/vX.Y.Z/cert-manager.crds.yaml
+#+end_src
+
+with the version ~vX.Y.Z~ you installed.
+
+At that point, you can try the certificate installation again.
+
 *** OAuth Authentication
   :PROPERTIES:
   :CUSTOM_ID: h-8A3C5434
