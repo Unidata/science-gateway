@@ -6,7 +6,7 @@ function collapse_toc_elements_on_click (nav_li_a){
       states.  The active attribute is documented in bootstrap.
       https://getbootstrap.com/docs/4.0/components/navbar/#nav
     */
-    $(nav_li_el).parent().toggleClass("active");
+    $(nav_li_a).parent().toggleClass("active");
 }
 
 $( document ).ready(function() {
@@ -19,16 +19,56 @@ $( document ).ready(function() {
 });
 
 $(function() {
-    $('.note').before("<p class='admonition-title note'>Note</p>");
-    $('.seealso').before("<p class='admonition-title seealso'>See also</p>");
-    $('.warning').before("<p class='admonition-title warning'>Warning</p>");
-    $('.caution').before("<p class='admonition-title caution'>Caution</p>");
-    $('.attention').before("<p class='admonition-title attention'>Attention</p>");
-    $('.tip').before("<p class='admonition-title tip'>Tip</p>");
-    $('.important').before("<p class='admonition-title important'>Important</p>");
-    $('.hint').before("<p class='admonition-title hint'>Hint</p>");
-    $('.error').before("<p class='admonition-title error'>Error</p>");
-    $('.danger').before("<p class='admonition-title danger'>Danger</p>");
+    function replace_admonition (tag, map, language) {
+        var language = document.documentElement.lang;
+        var translations = map.get(tag);
+        var readable = translations.get(language) || translations.get("en"); // fallback to english
+        $(`span.${tag}:not(#table-of-contents *)`) .parent().parent()
+            .replaceWith(`<p id='${this.id}' class='admonition-title ${tag}'>${readable}</p>`);
+        $(`div.${tag}`).before(`<p class='admonition-title ${tag}'>${readable}</p>`)
+    }
+    const map = new Map()
+          .set("note", new Map()
+               .set("en", "Note")
+               .set("de", "Hinweis"))
+          .set("seealso", new Map()
+               .set("en", "See also")
+               .set("de", "Siehe auch"))
+          .set("warning", new Map()
+               .set("en", "Warning")
+               .set("de", "Warnung"))
+          .set("caution", new Map()
+               .set("en", "Caution")
+               .set("de", "Vorsicht"))
+          .set("attention", new Map()
+               .set("en", "Attention")
+               .set("de", "Obacht"))
+          .set("tip", new Map()
+               .set("en", "Tip")
+               .set("de", "Tipp"))
+          .set("important", new Map()
+               .set("en", "Important")
+               .set("de", "Wichtig"))
+          .set("hint", new Map()
+               .set("en", "Hint")
+               .set("de", "Hinweis"))
+          .set("error", new Map()
+               .set("en", "Error")
+               .set("de", "Fehler"))
+          .set("danger", new Map()
+               .set("en", "Danger")
+               .set("de", "Gefahr"))
+    ;
+    replace_admonition('note', map);
+    replace_admonition('seealso', map);
+    replace_admonition('warning', map);
+    replace_admonition('caution', map);
+    replace_admonition('attention', map);
+    replace_admonition('tip', map);
+    replace_admonition('important', map);
+    replace_admonition('hint', map);
+    replace_admonition('error', map);
+    replace_admonition('danger', map);
 });
 
 $( document ).ready(function() {
