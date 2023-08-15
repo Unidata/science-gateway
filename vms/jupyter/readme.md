@@ -8,6 +8,7 @@
       - [Letsencrypt](#h-E1082806)
       - [Certificate from Certificate Authority](#h-205AEDAB)
         - [Certificate Expiration and Renewal](#h-055BCE98)
+      - [Redoing the Kubernetes cert-manager](#h-330B6475)
     - [OAuth Authentication](#h-8A3C5434)
       - [Globus](#h-C0E8193F)
       - [GitHub](#h-BB3C66CD)
@@ -162,6 +163,23 @@ When these certificates expire, they can be updated with the snippet below, but 
 kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
     --dry-run=client -o yaml | kubectl apply -f -
 ```
+
+
+<a id="h-330B6475"></a>
+
+#### Redoing the Kubernetes cert-manager
+
+Sometimes when working with the Kubernetes cert-manager, you can get yourself into a pickle for one reason or another. If you just want to "do over" the cert-manager installation, you can:
+
+```shell
+kubectl delete namespace cert-manager
+kubectl delete -f \
+        https://github.com/cert-manager/cert-manager/releases/download/vX.Y.Z/cert-manager.crds.yaml
+```
+
+with the version `vX.Y.Z` you installed.
+
+At that point, you can try the certificate installation again.
 
 
 <a id="h-8A3C5434"></a>
