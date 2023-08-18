@@ -1,0 +1,15 @@
+websites:
+  - jupyterhub.unidata.ucar.edu
+  - soars.unidata.ucar.edu
+  - pyaos-workshop.unidata.ucar.edu
+  - science-gateway.unidata.ucar.edu
+  - thredds-aws.unidata.ucar.edu
+  - ramadda.scigw.unidata.ucar.edu
+  - tds.scigw.unidata.ucar.edu
+
+email_sender: xxx@ucar.edu
+  
+email_recipients:
+  - xxx@ucar.edu
+
+warning_days: 30
