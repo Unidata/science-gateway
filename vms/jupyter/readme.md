@@ -779,7 +779,7 @@ At this point, you may see *two* entries (even though only one is shown here). O
 Next, delete the reserved attachment:
 
 ```shell
-cinder attachment-delete 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
+openstack volume attachment delete --os-volume-api-version 3.27 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
 ```
 
 
