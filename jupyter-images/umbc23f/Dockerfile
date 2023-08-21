@@ -21,7 +21,8 @@ USER $NB_UID
 ADD environment.yml /tmp
 
 RUN mamba install --quiet --yes \
-    'conda-forge::nb_conda_kernels'  && \
+      'conda-forge::nb_conda_kernels' \
+      'conda-forge::ipywidgets' && \
     mamba env update --name $ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
