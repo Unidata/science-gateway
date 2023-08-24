@@ -33,6 +33,11 @@ RUN mamba install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+RUN curl -o /tmp/TTT.zip https://elearning.unidata.ucar.edu/metpy/PythonReadiness/TTT/TTT.zip \
+    && mkdir -p /tmp/TTT/ \
+    && unzip /tmp/TTT.zip -d /tmp/TTT/ \
+    && rm /tmp/TTT.zip
+
 COPY update_material.ipynb Acknowledgements.ipynb default-kernel.py /
 
 USER $NB_UID
