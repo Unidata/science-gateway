@@ -1,0 +1,29 @@
+name: fit23f
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - matplotlib
+  - cartopy
+  - numpy
+  - metpy
+  - siphon
+  - pandas
+  - xarray
+  - boto3
+  - botocore
+  - python-awips
+  - netcdf4
+  - scipy
+  - arm_pyart
+  - pint
+  - tensorflow
+  - keras
+  - geopandas
+  - ipywidgets
+  - pip
+  - python-awips
