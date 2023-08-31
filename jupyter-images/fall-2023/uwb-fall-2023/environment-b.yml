@@ -1,0 +1,17 @@
+name: uwb-fall-2023-b
+channels:
+ - conda-forge
+ - defaults
+dependencies:
+  # Required by JupyterLab
+  - python=3.10
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - cartopy
+  - goes2go
+  - imageio
+  - imageio-ffmpeg
+  - matplotlib
+  - satpy
+  - xarray
