@@ -814,6 +814,18 @@ so that the script looks like:
   ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --extra-vars "node=$1" -e skip_confirmation=true
 #+END_SRC
 
+*** Sshing into Cluster Node
+:PROPERTIES:
+:CUSTOM_ID: h-6BB96836
+:END:
+
+It is occasionally necessary to jump on cluster worker nodes to install a package (e.g., ~nfs-common~) or to investigate a problem. This can be easily accomplished with
+
+#+begin_src sh
+  ssh -J ubuntu@${IP} ubuntu@<worker-private-ip>
+#+end_src
+
+from the Kubernetes client machine.
 *** Tearing Down the Cluster
     :PROPERTIES:
     :CUSTOM_ID: h-DABDACC7

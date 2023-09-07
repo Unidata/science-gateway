@@ -43,6 +43,7 @@
     - [Check Cluster](#h-D833684A)
     - [Adding Nodes to Cluster](#h-1991828D)
     - [Removing Nodes from Cluster](#h-0324031E)
+    - [Sshing into Cluster Node](#h-6BB96836)
     - [Tearing Down the Cluster](#h-DABDACC7)
       - [Without Preserving IP of Master Node](#h-25092B48)
       - [With Preserving IP of Master Node](#h-AA4B8849)
@@ -782,6 +783,19 @@ so that the script looks like:
 ```sh
 ansible-playbook --become -i inventory/$CLUSTER/hosts remove-node.yml -b -v --extra-vars "node=$1" -e skip_confirmation=true
 ```
+
+
+<a id="h-6BB96836"></a>
+
+### Sshing into Cluster Node
+
+It is occasionally necessary to jump on cluster worker nodes to install a package (e.g., `nfs-common`) or to investigate a problem. This can be easily accomplished with
+
+```sh
+ssh -J ubuntu@${IP} ubuntu@<worker-private-ip>
+```
+
+from the Kubernetes client machine.
 
 
 <a id="h-DABDACC7"></a>
