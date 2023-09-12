@@ -31,3 +31,17 @@ echo https://iujetstream.atlassian.net/wiki/display/JWT/OpenStack+command+line
 
 echo You will find cluster.tf here:
 find /home/openstack -name cluster.tf\*
+
+worker ()
+{
+ # SSH into a worker node of a JupyterHub cluster by jumping through the main node
+ # Usage: worker <N>
+ WORKER_N=$1
+ PRIVATE_IP=$(kubectl get nodes -o custom-columns="NAME:.metadata.name,INTERNAL-IP:.status.addresses[?(@.type=='InternalIP')].address" | grep -e "node-nf-${WORKER_N}" | awk '{print $2}')
+ if [ -n "$PRIVATE_IP" ]; then
+  ssh ubuntu@$PRIVATE_IP -J ubuntu@${IP}
+ else
+  echo "Worker $WORKER_N doesn't exist, try one of these:"
+  kubectl get nodes -o wide
+ fi
+}

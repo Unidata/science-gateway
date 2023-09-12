@@ -797,6 +797,9 @@ ssh -J ubuntu@${IP} ubuntu@<worker-private-ip>
 
 from the Kubernetes client machine.
 
+A convenience function has been added to the `.bashrc` file included in the `science-gateway` docker image to quickly jump to worker node `N` without having to first query `kubectl get nodes -o wide` for the private IP.
+
+Simply run `worker <N>` from within a cluster's associated control container to ssh jump from the main node of the cluster to the N'th worker node.
 
 <a id="h-DABDACC7"></a>
 
