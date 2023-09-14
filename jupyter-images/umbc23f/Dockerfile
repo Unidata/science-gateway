@@ -5,7 +5,7 @@
 ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
-ARG ENV_NAME=metpy-analysis
+ARG ENV_NAME=python-readiness
 
 LABEL maintainer="Unidata <support-python@unidata.ucar.edu>"
 
@@ -18,7 +18,7 @@ RUN apt-get update && \
 
 USER $NB_UID
 
-ADD environment.yml /tmp
+ADD ./environment_python-readiness.yml /tmp/environment.yml
 
 RUN mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
@@ -32,11 +32,6 @@ RUN mamba install --quiet --yes \
     rm -rf /home/$NB_USER/.node-gyp && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
-
-RUN curl -o /tmp/TTT.zip https://elearning.unidata.ucar.edu/metpy/PythonReadiness/TTT/TTT.zip \
-    && mkdir -p /tmp/TTT/ \
-    && unzip /tmp/TTT.zip -d /tmp/TTT/ \
-    && rm /tmp/TTT.zip
 
 COPY update_material.ipynb Acknowledgements.ipynb default-kernel.py /
 

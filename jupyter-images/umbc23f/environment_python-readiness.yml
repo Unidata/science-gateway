@@ -1,0 +1,13 @@
+name: python-readiness
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - cartopy
+  - ipywidgets
+  - jupyterlab
+  - matplotlib
+  - metpy
+  - numpy
+  - pandas
+  - siphon
