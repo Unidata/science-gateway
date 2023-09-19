@@ -30,6 +30,7 @@
       - [Obtain All the OpenStack Volumes](#h-0ACAC986)
       - [Find the Orphaned Volumes](#h-ED8A929F)
       - [Delete Orphaned Volumes](#h-D62E010F)
+  - ["Soft Scaling" a Cluster](#h-BB3DBC8C)
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
       - [Preliminary Work](#h-C2429D6E)
@@ -635,6 +636,63 @@ do
 done < /tmp/pvc-orphaned.out
 ```
 
+<a id="#h-BB3DBC8C"></a>
+
+## "Soft Scaling" a Cluster
+
+Often we deploy long lived JupyterHub clusters (e.g. pyaos-workshop) that receive heavy itermittent use. Some examples are: a two part workshop where each part takes place once a week; or a cluster is used for a Unidata sponsored workshop, and another independent workshop will be given 2 weeks from the first. In cases such as these, it is preferrable to keep the clusters up and running so as to not have to expend the effort of tearing down and reprovisioning the cluster. At the same time, it is desirable to scale down the cluster to conserve JS2 service units.
+
+While it's possible to [remove nodes from a Kubernetes cluster](../openstack/readme.md#h-0324031E), the scale down, and subsequent scale up, can be time consuming as it involves running ansible playbooks that can take up to a half hour each or more. Instead, it's possible to do a "soft scale down" (not a technical term; one of our own creation) of the cluster by setting a node as unschedulable, migrating pods to any nodes that will still be available after the scale down, and shelving the appropriate nodes.
+
+### Scaling Down
+
+Cordon off the nodes to be shelved. This will set their status to `Ready,SchedulingDisabled` and prevent new pods from being spawned on them:
+
+```kubectl cordon <node>```
+
+Pods that are currently running on those nodes, i.e. a JupyterHub, proxy, or user-scheduler pod, must now be migrated to another node. This can be accomplished by "draining" the node:
+
+```kubectl drain <node> --ignore-daemonset```
+
+The `--ignore-daemonset` flag is necessary if any pods on that node were provisioned as part of a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/), a set of pods that are scheduled to be ran on every node of a cluster.
+
+You may run into an error that looks like the following:
+
+```
+[openstack@e2080e1eaea6 .ssh]$ kubectl drain --ignore-daemonsets mines23f-k8s-node-nf-3
+node/mines23f-k8s-node-nf-3 cordoned
+error: unable to drain node "mines23f-k8s-node-nf-3" due to error:cannot delete Pods with local storage (use --delete-emptydir-data to override): kube-system/csi-cinder-controllerplugin-648ffdc6db-xgzgw, continuing command...
+```
+
+Some Pods use an [emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) to store what is *nominally* temporary data. This `emptyDir` is stored on the node itself, and is permanently deleted when its associated Pod is deleted. If you are sure that the data found in an `emptyDir` can be deleted without any loss of important information, add the `--delete-emptydir-data` as instructed by the error to proceed with the draining of the node.
+
+You can now perform a `kubectl get pods -A -o wide` to ensure that nothing is running on the cordoned nodes.
+
+Shelve the cordoned nodes with the usual `openstack` command:
+
+```openstack server shelve <node>```
+
+A `kubectl get nodes` should reveal the status of the shelved nodes as `NotReady,SchedulingDisabled`
+
+### Scaling Back Up
+
+To re-add the nodes to the cluster, first unshelve them:
+
+```openstack server unshelve <node>```
+
+After the nodes are back online, Kubernetes should recognize them as `Ready,SchedulingDisabled` once more. Uncordon the nodes, making them schedulable once more, with:
+
+```kubectl uncordon <node>```
+
+### NOTE
+
+When performing these scaling operations, it's likely that you want to operate on more than 1 node. To reduce typing and waiting, you can use a `bash` for loop to accomplish these operations in one command. For example, to soft up scale multiple nodes with just a few commands:
+
+```bash
+$ for i in $(seq 2 4); do openstack server unshelve mines23f-k8s-node-nf-${i}; done
+$ sleep 60 && kubectl get nodes -o wide # wait for nodes to come back online
+$ for i in $(seq 2 4); do kubectl uncordon mines23f-k8s-node-nf-${i}; done
+```
 
 <a id="h-0E48EFE9"></a>
 
