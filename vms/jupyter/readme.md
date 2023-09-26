@@ -48,6 +48,7 @@
     - [Persistent File/Directory Permissions e.g., ~/.ssh](#h-761EE5B5)
       - [Why This Occurs](#h-7275F48A)
       - [Simple Workaround](#h-FB656610)
+      - [Deleting Kubernetes Pods That Have Failed](#h-390B3BC8)
 
 
 
@@ -1107,3 +1108,16 @@ singleuser:
 ```
 
 NOTE: See the INVOCATION section of `man 1 bash` for a full explanation of which configuration files are sourced, and in what order they are searched for.
+
+
+<a id="h-390B3BC8"></a>
+
+#### Deleting Kubernetes Pods That Have Failed
+
+When a cluster is "sick" because of node pressure or other issues, you will see, sometimes hundreds of pods that have failed, been evicted etc. It is unwieldy to investigate all these failed pods and sometimes it is necessary to get them out of the way to better diagnose root problems. In order to delete these pods, you can
+
+```sh
+kubectl delete pods --all-namespaces --field-selector=status.phase==Failed
+```
+
+xxx
