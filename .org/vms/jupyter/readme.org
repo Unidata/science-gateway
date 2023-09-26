@@ -1043,3 +1043,16 @@ This security context described can be [[https://z2jh.jupyter.org/en/stable/reso
 #+end_src
 
 NOTE: See the INVOCATION section of ~man 1 bash~ for a full explanation of which configuration files are sourced, and in what order they are searched for.
+
+**** Deleting Kubernetes Pods That Have Failed
+:PROPERTIES:
+:CUSTOM_ID: h-390B3BC8
+:END:
+
+When a cluster is "sick" because of node pressure or other issues, you will see, sometimes hundreds of pods that have failed, been evicted etc. It is unwieldy to investigate all these failed pods and sometimes it is necessary to get them out of the way to better diagnose root problems. In order to delete these pods, you can
+
+#+begin_src sh
+  kubectl delete pods --all-namespaces --field-selector=status.phase==Failed
+#+end_src
+
+xxx
