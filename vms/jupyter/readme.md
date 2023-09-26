@@ -1119,5 +1119,3 @@ When a cluster is "sick" because of node pressure or other issues, you will see,
 ```sh
 kubectl delete pods --all-namespaces --field-selector=status.phase==Failed
 ```
-
-xxx

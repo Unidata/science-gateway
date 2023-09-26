@@ -1054,5 +1054,3 @@ When a cluster is "sick" because of node pressure or other issues, you will see,
 #+begin_src sh
   kubectl delete pods --all-namespaces --field-selector=status.phase==Failed
 #+end_src
-
-xxx
