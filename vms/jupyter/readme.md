@@ -14,6 +14,7 @@
       - [GitHub](#h-BB3C66CD)
     - [Docker Image and Other Configuration](#h-214D1D4C)
     - [JupyterHub Profiles](#h-5BE09B80)
+    - [Using gitpuller for Private Repos](#h-33AF1B4C)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
     - [Ensure "Core" Pods Are Scheduled on a Dedicated Node](#h-6784737C)
     - [Bug Fix: Remove Username Based Labels from Pods and PVCs](#h-FEBAC1B8)
@@ -326,6 +327,32 @@ singleuser:
 
 See [this](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1242#issuecomment-484895216) GitHub issue for a description of the discrepancy, and the [Kubespawner docs](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html) for the appropriate names to use for the various options when creating profiles.
 
+<a id="#h-33AF1B4C"></a>
+
+### Using gitpuller for Private Repos
+
+Sometimes, a science gateway user may request their JupyterHub to pull in a private GitHub repository. This is possible using `gitpuller`, as it's simply a wrapper around `git`. Two things need to happen for this to be accomplished:
+
+1. The owner of the repository must create an appropriately scoped [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). Here, "appropriately scoped" means one that has the minimum permissions allowed to it in order for it to perform its function (see NOTE below), typically read-only. Follow the instructions linked above to create a token with "Read-Only" access to the "Contents" under "Repository Permissions".
+2. The JupyterHub must be configured appropriately to use this PAT
+
+The second of these is done via `singleuser.lifecycleHooks.postStart.exec.command` in `secrets.yaml`. First, we configure `git` to use the PAT, which will be stored in a file. We then create this file, if it does not already exist. Finally, we run `gitpuller` on the private repo.
+
+```yaml
+singleuser:
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "bash"
+          - "-c"
+          - >
+            [ "$(git config credential.helper)" == "store" ] || git config --global credential.helper store;
+            [ -f .git-credentials ] || echo 'https://<PAT-owners-username>:<PAT>@github.com' > .git-credentials;
+            [ -f .git-credentials ] && gitpuller <private-repo-url> <branch> <destination>;
+```
+
+NOTE: This PAT will be stored in *plain text* in each user's home directory. Thus, anybody with an account on the JupyterHub cluster will be able to read this PAT and use it outside of the cluster with the correct know-how. Therefore, to prevent this token for being used for anything other than its intended purpose, we scope it appropriately, i.e. set the PAT to only be able to read the contents of the intended private repo.
 
 <a id="h-C95C198A"></a>
 
