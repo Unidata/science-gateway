@@ -2,7 +2,7 @@
 # https://github.com/jupyter/docker-stacks/blob/main/scipy-notebook/Dockerfile
 
 # https://discourse.jupyter.org/t/keyerror-missing-required-environment-jupyterhub-service-url/19096
-ARG BASE_CONTAINER=jupyter/minimal-notebook
+ARG BASE_CONTAINER=jupyter/scipy-notebook
 FROM $BASE_CONTAINER
 
 ENV DEFAULT_ENV_NAME=unidata-standard
