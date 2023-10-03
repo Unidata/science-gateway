@@ -1,7 +1,6 @@
-# Heavily borrowed from docker-stacks/scipy-notebook/
-# https://github.com/jupyter/docker-stacks/blob/main/scipy-notebook/Dockerfile
+# Heavily borrowed from docker-stacks/minimal-notebook/
+# https://github.com/jupyter/docker-stacks/blob/main/minimal-notebook/Dockerfile
 
-# https://discourse.jupyter.org/t/keyerror-missing-required-environment-jupyterhub-service-url/19096
 ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
@@ -22,6 +21,7 @@ ADD environment.yml /tmp
 
 RUN mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
+      'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
     mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
