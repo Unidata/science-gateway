@@ -1,0 +1,11 @@
+singleuser:
+  image:
+    name: "unidata/uwd-fall-2023"
+    tag: "xxx"
+
+hub:
+  services:
+    dask-gateway:
+      # This makes the gateway available at ${HUB_URL}/services/dask-gateway
+      url: http://traefik-dask-gateway
+      apiToken: "xxx"

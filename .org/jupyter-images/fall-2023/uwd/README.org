@@ -1,0 +1,56 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil f:t inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
+#+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+options: auto-id:t
+#+options: H:6
+
+#+title: README
+#+date: <2023-10-31 Tue>
+#+author: Julien Chastang
+#+email: chastang@ucar.edu
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 29.1 (Org mode 9.6.9)
+#+startup: content
+
+* JupyterHub Dask Cluster
+:PROPERTIES:
+:CUSTOM_ID: h-EA49F0AB
+:END:
+
+** Introduction
+:PROPERTIES:
+:CUSTOM_ID: h-F0B09257
+:END:
+
+To build a JupyterHub Dask cluster on Jetstream2 follow Andrea Zonca's [[https://www.zonca.dev/posts/2023-09-28-dask-gateway-jupyterhub][instructions on the topic]].
+
+** Dockerfiles
+:PROPERTIES:
+:CUSTOM_ID: h-6BC18085
+:END:
+
+There are two Dockerfiles that need to be built for a Dask cluster instead of the usual one:
+
+1. The Dockerfile (co-located to this readme) that will represent the user environment. Note that the usual conda environments are absent. All packages are installed in the default environment via ~pip~ so the user never needs to switch environments and Dask will not get confused. The image built (e.g., ~unidata/uwd-fall-2023:2023Oct27_161125_25a339bb~) from this Dockerfile will be pushed out to DockerHub and referenced in the usual ~secrets.yaml~ file and *also* =dask_gateway/config_jupyterhub.yaml=.
+2. A second Dockerfile (see Dask directory) is for Dask workers. This Dockerfile is much smaller, but does need to contain some of the same packages as the user environment. During execution of the notebook, it will sometimes complain about library version mismatches or discrepancies. It is best to resolve these by building Docker images with consistent package versions. The image built (e.g., ~unidata/dask-gateway:2023.9.0c~) from this Dockerfile will be pushed out to DockerHub and referenced in =dask_gateway/config_dask-gateway.yaml=. For example,
+
+#+begin_src yaml
+  c.Backend.cluster_options = Options(
+      Integer("worker_cores", 2, min=1, max=4, label="Worker Cores"),
+      Float("worker_memory", 4, min=1, max=8, label="Worker Memory (GiB)"),
+      String("image", default="unidata/dask-gateway:2023.9.0c", label="Image")
+   #+end_src
+
+** Notebooks
+:PROPERTIES:
+:CUSTOM_ID: h-CA62E6C3
+:END:
+
+There are a couple of notebooks that can be used as Dask case studies: ~Dask.ipynb~ and ~wrf.ipynb~. Both notebooks fetch data from the UCAR RDA THREDDS server.
+
+~Dask.ipynb~ discusses the use of Xarray and Dask for handling large geospatial datasets, specifically ERA5 potential vorticity data. It covers how to optimize data chunking strategies for efficient calculations and introduces Dask's distributed computing capabilities to speed up operations across multiple cores. Some of the data can be fetched via FTP at adhara.aos.wisc.edu under =pub/zanowski/ERA5/=.
+
+~wrf.ipynb~ uses Dask and Xarray to analyze and visualize wind speed data from the WRF model. The notebook walks through setting up a Dask cluster, and then delves into reading and processing the WRF data, including unstaggering grids and calculating wind speeds.
