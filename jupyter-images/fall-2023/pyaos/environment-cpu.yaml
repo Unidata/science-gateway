@@ -47,12 +47,12 @@ dependencies:
   - tensorflow-cpu
   - tqdm
   - xarray
-  - xgboost
   - zarr
   - pip:
     - palmerpenguins
     - rich
+    - xgboost==2.0.1
+    - catboost
     - jupyterlab_myst
     - wget
-    # - git+https://github.com/user/repo.git@branch_name#egg=package_name
     - git+https://github.com/djgagne/hagelslag.git@master#egg=hagelslag
