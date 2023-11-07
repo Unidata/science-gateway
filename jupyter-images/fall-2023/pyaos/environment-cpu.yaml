@@ -1,42 +1,58 @@
 name: unidata-cpu
 channels:
   - conda-forge
+  - defaults
 dependencies:
   - act-atmos
   - arm_pyart
+  - arrow
   - cartopy
   - cf_xarray
+  - cython
   - dask
+  - flake8
   - geopandas
+  - h5py
   - intake
   - intake-esm
   - intake-xarray
   - ipympl
+  - jasper
   - jupyter
   - jupyterlab
   - matplotlib
   - metpy
+  - mock
   - netcdf4
   - numpy
   - pandas
   - pint
   - pint-xarray
   - pip
+  - pyarrow
+  - pygrib
   - pykdtree
   - pyproj
+  - pytest
   - python
   - python==3.10
+  - s3fs
+  - scikit-image
   - scikit-learn
   - scipy
   - seaborn
   - shapely
   - siphon
+  - sphinx
   - tensorflow-cpu
   - tqdm
   - xarray
   - xgboost
+  - zarr
   - pip:
     - palmerpenguins
     - rich
     - jupyterlab_myst
     - wget
+    # - git+https://github.com/user/repo.git@branch_name#egg=package_name
+    - git+https://github.com/djgagne/hagelslag.git@master#egg=hagelslag
