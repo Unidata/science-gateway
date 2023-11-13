@@ -14,7 +14,7 @@
       - [GitHub](#h-BB3C66CD)
     - [Docker Image and Other Configuration](#h-214D1D4C)
     - [JupyterHub Profiles](#h-5BE09B80)
-    - [Using gitpuller for Private Repos](#h-33AF1B4C)
+    - [Using gitpuller for Private Repos](#h-84D4CA51)
     - [Create a Large Data Directory That Can Be Shared Among All Users](#h-C95C198A)
     - [Ensure "Core" Pods Are Scheduled on a Dedicated Node](#h-6784737C)
     - [Bug Fix: Remove Username Based Labels from Pods and PVCs](#h-FEBAC1B8)
@@ -30,7 +30,10 @@
       - [Obtain All the OpenStack Volumes](#h-0ACAC986)
       - [Find the Orphaned Volumes](#h-ED8A929F)
       - [Delete Orphaned Volumes](#h-D62E010F)
-  - ["Soft Scaling" a Cluster](#h-BB3DBC8C)
+  - ["Soft Scaling" a Cluster](#h-1354855E)
+    - [Scaling Down](#h-D0F4F547)
+    - [Scaling Back Up](#h-F17CDE88)
+    - [NOTE](#h-89E34B43)
   - [Troubleshooting](#h-0E48EFE9)
     - [Unresponsive JupyterHub](#h-FF4348F8)
       - [Preliminary Work](#h-C2429D6E)
@@ -270,7 +273,7 @@ singleuser:
 
 ### JupyterHub Profiles
 
-A JupyterHub may be configured to give users different [profile options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment) when logging in. This can be useful when, for example, a faculty member is using JupyterHub for multiple courses and wants to keep them seperate. Another use case is for creating "high power" or "low power" environments, which are allocated varying levels of computational resources, i.e. RAM and CPU. This can be applied in an undergraduate research setting where an instructor and their students use the low power environments during synchronous instruction and the high power environment for asynchronous workflows.
+A JupyterHub may be configured to give users different [profile options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment) when logging in. This can be useful when, for example, a faculty member is using JupyterHub for multiple courses and wants to keep them seperate. Another use case is for creating "high power" or "low power" environments, which are allocated varying levels of computational resources, i.e., RAM and CPU. This can be applied in an undergraduate research setting where an instructor and their students use the low power environments during synchronous instruction and the high power environment for asynchronous workflows.
 
 An example of high and low power environments is shown below.
 
@@ -328,14 +331,15 @@ singleuser:
 
 See [this](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1242#issuecomment-484895216) GitHub issue for a description of the discrepancy, and the [Kubespawner docs](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html) for the appropriate names to use for the various options when creating profiles.
 
-<a id="#h-33AF1B4C"></a>
+
+<a id="h-84D4CA51"></a>
 
 ### Using gitpuller for Private Repos
 
 Sometimes, a science gateway user may request their JupyterHub to pull in a private GitHub repository. This is possible using `gitpuller`, as it's simply a wrapper around `git`. Two things need to happen for this to be accomplished:
 
-1. The owner of the repository must create an appropriately scoped [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). Here, "appropriately scoped" means one that has the minimum permissions allowed to it in order for it to perform its function (see NOTE below), typically read-only. Follow the instructions linked above to create a token with "Read-Only" access to the "Contents" under "Repository Permissions".
-2. The JupyterHub must be configured appropriately to use this PAT
+1.  The owner of the repository must create an appropriately scoped [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). Here, "appropriately scoped" means one that has the minimum permissions allowed to it in order for it to perform its function (see NOTE below), typically read-only. Follow the instructions linked above to create a token with "Read-Only" access to the "Contents" under "Repository Permissions".
+2.  The JupyterHub must be configured appropriately to use this PAT
 
 The second of these is done via `singleuser.lifecycleHooks.postStart.exec.command` in `secrets.yaml`. First, we configure `git` to use the PAT, which will be stored in a file. We then create this file, if it does not already exist. Finally, we run `gitpuller` on the private repo.
 
@@ -353,7 +357,8 @@ singleuser:
             [ -f .git-credentials ] && gitpuller <private-repo-url> <branch> <destination>;
 ```
 
-NOTE: This PAT will be stored in *plain text* in each user's home directory. Thus, anybody with an account on the JupyterHub cluster will be able to read this PAT and use it outside of the cluster with the correct know-how. Therefore, to prevent this token for being used for anything other than its intended purpose, we scope it appropriately, i.e. set the PAT to only be able to read the contents of the intended private repo.
+NOTE: This PAT will be stored in *plain text* in each user's home directory. Thus, anybody with an account on the JupyterHub cluster will be able to read this PAT and use it outside of the cluster with the correct know-how. Therefore, to prevent this token for being used for anything other than its intended purpose, we scope it appropriately, i.e., set the PAT to only be able to read the contents of the intended private repo.
+
 
 <a id="h-C95C198A"></a>
 
@@ -636,23 +641,31 @@ do
 done < /tmp/pvc-orphaned.out
 ```
 
-<a id="#h-BB3DBC8C"></a>
+
+<a id="h-1354855E"></a>
 
 ## "Soft Scaling" a Cluster
 
-Often we deploy long lived JupyterHub clusters (e.g. pyaos-workshop) that receive heavy itermittent use. Some examples are: a two part workshop where each part takes place once a week; or a cluster is used for a Unidata sponsored workshop, and another independent workshop will be given 2 weeks from the first. In cases such as these, it is preferrable to keep the clusters up and running so as to not have to expend the effort of tearing down and reprovisioning the cluster. At the same time, it is desirable to scale down the cluster to conserve JS2 service units.
+Often we deploy long lived JupyterHub clusters (e.g., pyaos-workshop) that receive heavy itermittent use. Some examples are: a two part workshop where each part takes place once a week; or a cluster is used for a Unidata sponsored workshop, and another independent workshop will be given 2 weeks from the first. In cases such as these, it is preferrable to keep the clusters up and running so as to not have to expend the effort of tearing down and reprovisioning the cluster. At the same time, it is desirable to scale down the cluster to conserve JS2 service units.
 
 While it's possible to [remove nodes from a Kubernetes cluster](../openstack/readme.md#h-0324031E), the scale down, and subsequent scale up, can be time consuming as it involves running ansible playbooks that can take up to a half hour each or more. Instead, it's possible to do a "soft scale down" (not a technical term; one of our own creation) of the cluster by setting a node as unschedulable, migrating pods to any nodes that will still be available after the scale down, and shelving the appropriate nodes.
+
+
+<a id="h-D0F4F547"></a>
 
 ### Scaling Down
 
 Cordon off the nodes to be shelved. This will set their status to `Ready,SchedulingDisabled` and prevent new pods from being spawned on them:
 
-```kubectl cordon <node>```
+```sh
+kubectl cordon <node>
+```
 
-Pods that are currently running on those nodes, i.e. a JupyterHub, proxy, or user-scheduler pod, must now be migrated to another node. This can be accomplished by "draining" the node:
+Pods that are currently running on those nodes, i.e. a JupyterHub, proxy, or user-scheduler pod, must now be migrated to another node. This can be accomplished by "draining" the node:
 
-```kubectl drain <node> --ignore-daemonset```
+```sh
+kubectl drain <node> --ignore-daemonset
+```
 
 The `--ignore-daemonset` flag is necessary if any pods on that node were provisioned as part of a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/), a set of pods that are scheduled to be ran on every node of a cluster.
 
@@ -670,19 +683,31 @@ You can now perform a `kubectl get pods -A -o wide` to ensure that nothing is ru
 
 Shelve the cordoned nodes with the usual `openstack` command:
 
-```openstack server shelve <node>```
+```sh
+openstack server shelve <node>
+```
 
 A `kubectl get nodes` should reveal the status of the shelved nodes as `NotReady,SchedulingDisabled`
+
+
+<a id="h-F17CDE88"></a>
 
 ### Scaling Back Up
 
 To re-add the nodes to the cluster, first unshelve them:
 
-```openstack server unshelve <node>```
+```sh
+openstack server unshelve <node>
+```
 
 After the nodes are back online, Kubernetes should recognize them as `Ready,SchedulingDisabled` once more. Uncordon the nodes, making them schedulable once more, with:
 
-```kubectl uncordon <node>```
+```sh
+kubectl uncordon <node>
+```
+
+
+<a id="h-89E34B43"></a>
 
 ### NOTE
 
@@ -693,6 +718,7 @@ $ for i in $(seq 2 4); do openstack server unshelve mines23f-k8s-node-nf-${i}; d
 $ sleep 60 && kubectl get nodes -o wide # wait for nodes to come back online
 $ for i in $(seq 2 4); do kubectl uncordon mines23f-k8s-node-nf-${i}; done
 ```
+
 
 <a id="h-0E48EFE9"></a>
 
