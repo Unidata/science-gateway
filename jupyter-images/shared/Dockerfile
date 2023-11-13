@@ -33,6 +33,6 @@ RUN mamba install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-COPY update_material.ipynb Acknowledgements.ipynb default-kernel.py /
+COPY update_material.ipynb Acknowledgements.ipynb default_kernel.py /
 
 USER $NB_UID
