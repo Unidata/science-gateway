@@ -23,7 +23,7 @@ singleuser:
     limit: 1
   storage:
     type: dynamic
-    capacity: 1Gi
+    capacity: 10Gi
   # default is 300s, sometimes Jetstream volumes are slow to attach
   startTimeout: 600
   # See https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/38
