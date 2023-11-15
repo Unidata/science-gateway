@@ -18,7 +18,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 ###
 
 RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
-    nano wget unzip kubectl openssl sudo python3 procps pip
+    nano wget unzip kubectl openssl sudo python3 procps pip rsync
 
 ###
 # Terraform

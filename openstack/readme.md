@@ -39,6 +39,7 @@
       - [Check Status of VMs](#h-136A4851)
         - [Ansible Timeouts](#h-2B239C73)
         - [Steps if VMs are Unhappy](#h-F4401658)
+        - [Large Clusters with Many VMs](#h-E988560D)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
     - [Adding Nodes to Cluster](#h-1991828D)
@@ -673,6 +674,21 @@ sh terraform_destroy.sh
 ```
 
 
+<a id="h-E988560D"></a>
+
+##### Large Clusters with Many VMs
+
+In the event of deploying a large cluster with many VMs, during the invocation of the Ansible playbook, there will be parallel downloading of images from DockerHub. This will sometimes yield an error message saying that we reached our download limit of 100 anonymous downloads over six hours. In order to preempt this problem, modify `jetstream_kubespray/k8s_install.sh` and append `-e '{"download_run_once":true}'` i.e.,
+
+```sh
+ansible-playbook --become -i inventory/$CLUSTER/hosts cluster.yml -b -v --limit "${CLUSTER}*" -e '{"download_run_once":true}'
+```
+
+This modified command will be run in the next `kube-setup2.sh` step.
+
+Also see [Large deployments of K8s](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md).
+
+
 <a id="h-05F9D0A2"></a>
 
 ### Install Kubernetes with kube-setup2.sh
@@ -800,6 +816,7 @@ from the Kubernetes client machine.
 A convenience function has been added to the `.bashrc` file included in the `science-gateway` docker image to quickly jump to worker node `N` without having to first query `kubectl get nodes -o wide` for the private IP.
 
 Simply run `worker <N>` from within a cluster's associated control container to ssh jump from the main node of the cluster to the N'th worker node.
+
 
 <a id="h-DABDACC7"></a>
 
