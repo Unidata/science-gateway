@@ -40,6 +40,7 @@
         - [Ansible Timeouts](#h-2B239C73)
         - [Steps if VMs are Unhappy](#h-F4401658)
         - [Large Clusters with Many VMs](#h-E988560D)
+        - [Broadcasting Commands With Ansible](#h-36DE33F4)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
     - [Check Cluster](#h-D833684A)
     - [Adding Nodes to Cluster](#h-1991828D)
@@ -687,6 +688,19 @@ ansible-playbook --become -i inventory/$CLUSTER/hosts cluster.yml -b -v --limit 
 This modified command will be run in the next `kube-setup2.sh` step.
 
 Also see [Large deployments of K8s](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md).
+
+
+<a id="h-36DE33F4"></a>
+
+##### Broadcasting Commands With Ansible
+
+With the help of Ansible, it is possible to "broadcast" a command to all VMs in a cluster. For example, to run the Unix `top` command on all VMs, you can:
+
+```sh
+ansible all --limit ${CLUSTER}* -m command -a "sh -c 'top -b -n 1 | head -n 9'" -i inventory/$CLUSTER/hosts
+```
+
+Theoretically, there is no need to `ssh` into each individual VM on a cluster to issue a command in the situation where you want a package installed, for example.
 
 
 <a id="h-05F9D0A2"></a>
