@@ -702,6 +702,21 @@ or you can destroy the VMs and try again
   sh terraform_destroy.sh
 #+END_SRC
 
+***** Large Clusters with Many VMs
+:PROPERTIES:
+:CUSTOM_ID: h-E988560D
+:END:
+
+In the event of deploying a large cluster with many VMs, during the invocation of the Ansible playbook, there will be parallel downloading of images from DockerHub. This will sometimes yield an error message saying that we reached our download limit of 100 anonymous downloads over six hours. In order to preempt this problem, modify =jetstream_kubespray/k8s_install.sh= and append ~-e '{"download_run_once":true}'~ i.e.,
+
+#+begin_src sh
+  ansible-playbook --become -i inventory/$CLUSTER/hosts cluster.yml -b -v --limit "${CLUSTER}*" -e '{"download_run_once":true}'
+#+end_src
+
+This modified command will be run in the next ~kube-setup2.sh~ step.
+
+Also see [[https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md][Large deployments of K8s]].
+
 *** Install Kubernetes with kube-setup2.sh
     :PROPERTIES:
     :CUSTOM_ID: h-05F9D0A2
