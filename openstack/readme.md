@@ -47,6 +47,7 @@
     - [Removing Nodes from Cluster](#h-0324031E)
     - [Sshing into Cluster Node](#h-6BB96836)
     - [Tearing Down the Cluster](#h-DABDACC7)
+      - [Preparation](#h-325387C7)
       - [Without Preserving IP of Master Node](#h-25092B48)
       - [With Preserving IP of Master Node](#h-AA4B8849)
     - [Monitoring the Cluster with Grafana and Prometheus](#h-005364BF)
@@ -835,6 +836,17 @@ Simply run `worker <N>` from within a cluster's associated control container to 
 <a id="h-DABDACC7"></a>
 
 ### Tearing Down the Cluster
+
+
+<a id="h-325387C7"></a>
+
+#### Preparation
+
+As a matter of due diligence and for future possible forensic analysis, you may have to capture the state of the main node VM by backing up the disk to an internal Unidata location (e.g., `fserv`). Work with Unidata system administrator staff to determine where that place should be. Use the `remote_sync_backup.sh` script from the Unidata host to save that information, e.g.,
+
+```sh
+./remote_sync_backup.sh ubuntu k8s-bsu-jhub /raid/share/jetstream/jupyterhub_backups
+```
 
 
 <a id="h-25092B48"></a>

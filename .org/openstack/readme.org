@@ -862,6 +862,17 @@ Simply run ~worker <N>~ from within a cluster's associated control container to 
     :PROPERTIES:
     :CUSTOM_ID: h-DABDACC7
     :END:
+**** Preparation
+:PROPERTIES:
+:CUSTOM_ID: h-325387C7
+:END:
+
+As a matter of due diligence and for future possible forensic analysis, you may have to capture the state of the main node VM by backing up the disk to an internal Unidata location (e.g., ~fserv~). Work with Unidata system administrator staff to determine where that place should be. Use the ~remote_sync_backup.sh~ script from the Unidata host to save that information, e.g.,
+
+#+begin_src sh
+  ./remote_sync_backup.sh ubuntu k8s-bsu-jhub /raid/share/jetstream/jupyterhub_backups
+#+end_src
+
 **** Without Preserving IP of Master Node
      :PROPERTIES:
      :CUSTOM_ID: h-25092B48
