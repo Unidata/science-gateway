@@ -83,11 +83,14 @@ RUN cd /home \
 
 ADD bin/boot.sh bin/mount.sh bin/secgroup.sh bin/teardown.sh \
     bin/unidata-secgroups.sh bin/swap-vm.sh bin/kube-setup.sh bin/swap-vm.sh \
-    bin/kube-setup2.sh $HOME/bin/
+    bin/kube-setup2.sh bin/kube-setup3.sh bin/remove-bloat.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
 ADD .bashrc $HOME/
+
+COPY ./ansible/turnoff-unneeded-services.yml /
+COPY ./ansible/uninstall-packages-cleanup.yml /
 
 ###
 # Finalize

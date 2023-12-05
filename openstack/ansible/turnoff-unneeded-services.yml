@@ -1,0 +1,130 @@
+---
+- name: Combined Tasks for Cluster Management
+  hosts: all
+  become: yes
+  tasks:
+    - name: Disable CUPS Service
+      systemd:
+        name: cups
+        enabled: no
+        state: stopped
+      register: cups_service
+      failed_when: >
+        cups_service.failed and
+        ('Could not find the requested service' not in cups_service.msg|default('') and
+        'Service is in unknown state' not in cups_service.msg|default(''))
+
+    - name: Disable ModemManager Service
+      systemd:
+        name: ModemManager
+        enabled: no
+        state: stopped
+      register: modemmanager_service
+      failed_when: >
+        modemmanager_service.failed and
+        ('Could not find the requested service' not in modemmanager_service.msg|default('') and
+        'Service is in unknown state' not in modemmanager_service.msg|default(''))
+
+
+    - name: Disable Apport Service
+      systemd:
+        name: apport
+        enabled: no
+        state: stopped
+      register: apport_service
+      failed_when: >
+        apport_service.failed and
+        ('Could not find the requested service' not in apport_service.msg|default('') and
+        'Service is in unknown state' not in apport_service.msg|default(''))
+
+
+    - name: Disable avahi-daemon Service
+      systemd:
+        name: avahi-daemon
+        enabled: no
+        state: stopped
+      register: avahi_daemon_service
+      failed_when: >
+        avahi_daemon_service.failed and
+        ('Could not find the requested service' not in avahi_daemon_service.msg|default('') and
+        'Service is in unknown state' not in avahi_daemon_service.msg|default(''))
+
+
+    - name: Disable openvpn Service
+      systemd:
+        name: openvpn
+        enabled: no
+        state: stopped
+      register: openvpn_service
+      failed_when: >
+        openvpn_service.failed and
+        ('Could not find the requested service' not in openvpn_service.msg|default('') and
+        'Service is in unknown state' not in openvpn_service.msg|default(''))
+
+
+    - name: Disable kerneloops Service
+      systemd:
+        name: kerneloops
+        enabled: no
+        state: stopped
+      register: kerneloops_service
+      failed_when: >
+        kerneloops_service.failed and
+        ('Could not find the requested service' not in kerneloops_service.msg|default('') and
+        'Service is in unknown state' not in kerneloops_service.msg|default(''))
+
+
+    - name: Disable whoopsie Service
+      systemd:
+        name: whoopsie
+        enabled: no
+        state: stopped
+      register: whoopsie_service
+      failed_when: >
+        whoopsie_service.failed and
+        ('Could not find the requested service' not in whoopsie_service.msg|default('') and
+        'Service is in unknown state' not in whoopsie_service.msg|default(''))
+
+
+    - name: Disable snapd Service
+      systemd:
+        name: snapd
+        enabled: no
+        state: stopped
+      register: snapd_service
+      failed_when: >
+        snapd_service.failed and
+        ('Could not find the requested service' not in snapd_service.msg|default('') and
+        'Service is in unknown state' not in snapd_service.msg|default(''))
+
+
+    - name: Disable software.automount Service
+      systemd:
+        name: software.automount
+        enabled: no
+        daemon_reload: yes
+        state: stopped
+      register: software_automount_service
+      failed_when: >
+        software_automount_service.failed and
+        ('Could not find the requested service' not in software_automount_service.msg|default('') and
+        'Service is in unknown state' not in software_automount_service.msg|default(''))
+
+    - name: Comment out the NFS mount in /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        regexp: '^(.* /software .*)$'
+        line: '#\1'
+        backrefs: yes
+
+    - name: Unmount /software NFS mount
+      mount:
+        path: /software
+        state: unmounted
+
+    # - name: Set rotate to 0 in logrotate.conf
+    #   lineinfile:
+    #     path: /etc/logrotate.conf
+    #     regexp: '^rotate 4'
+    #     line: 'rotate 0'
+    #     backrefs: yes

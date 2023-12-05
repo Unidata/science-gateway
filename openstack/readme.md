@@ -41,7 +41,9 @@
         - [Steps if VMs are Unhappy](#h-F4401658)
         - [Large Clusters with Many VMs](#h-E988560D)
         - [Broadcasting Commands With Ansible](#h-36DE33F4)
+    - [Remove Bloat and Unneeded Software With remove-bloat.sh](#h-C54338F3)
     - [Install Kubernetes with kube-setup2.sh](#h-05F9D0A2)
+    - [Tie up Loose Ends With kube-setup3.sh](#h-51612F75)
     - [Check Cluster](#h-D833684A)
     - [Adding Nodes to Cluster](#h-1991828D)
     - [Removing Nodes from Cluster](#h-0324031E)
@@ -704,6 +706,17 @@ ansible all --limit ${CLUSTER}* -m command -a "sh -c 'top -b -n 1 | head -n 9'" 
 Theoretically, there is no need to `ssh` into each individual VM on a cluster to issue a command in the situation where you want a package installed, for example.
 
 
+<a id="h-C54338F3"></a>
+
+### Remove Bloat and Unneeded Software With remove-bloat.sh
+
+Ubuntu VMs come with a lot of software and services that are unneeded for JupyterHub clusters (e.g., Firefox, CUPS, for printing services). The following commands with run a couple of ansible playbooks to perform some cleanup in that respect.
+
+```sh
+remove-bloat.sh
+```
+
+
 <a id="h-05F9D0A2"></a>
 
 ### Install Kubernetes with kube-setup2.sh
@@ -717,6 +730,19 @@ kube-setup2.sh
 If seeing errors related to `dpkg`, wait and try again or [try these steps](#h-F4401658).
 
 Run `kube-setup2.sh` again.
+
+
+<a id="h-51612F75"></a>
+
+### Tie up Loose Ends With kube-setup3.sh
+
+Next, run
+
+```sh
+kube-setup3.sh <optional email>
+```
+
+which ensures ssh keys are distributed on the cluster. Finally, it inserts an email address in files located `~/jupyterhub-deploy-kubernetes-jetstream/setup_https/` which will be [necessary later on for the retrieval letsencrypt SSL certificates](https://www.zonca.dev/posts/2023-09-26-https-kubernetes-letsencrypt).
 
 
 <a id="h-D833684A"></a>

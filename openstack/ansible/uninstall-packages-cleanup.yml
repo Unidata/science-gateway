@@ -1,0 +1,61 @@
+---
+- name: Uninstall Specific Packages and Cleanup
+  hosts: all
+  become: yes
+  tasks:
+    - name: Remove ubuntu-desktop-minimal metapackage
+      apt:
+        name: ubuntu-desktop-minimal
+        state: absent
+        purge: yes
+
+    - name: Uninstall GNOME
+      apt:
+        name: gnome-shell
+        state: absent
+        purge: yes
+
+    - name: Uninstall OpenJDK
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: yes
+      loop:
+        - openjdk-11-jdk-headless
+        - openjdk-11-jre-headless
+
+    - name: Uninstall Emacs
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: yes
+      loop:
+        - emacs-gtk
+        - emacs-common
+
+    - name: Uninstall Firefox
+      apt:
+        name: firefox
+        state: absent
+        purge: yes
+
+    - name: Uninstall Git
+      apt:
+        name: git
+        state: absent
+        purge: yes
+
+    - name: Uninstall snapd
+      apt:
+        name: snapd
+        state: absent
+        purge: yes
+
+    - name: Remove unused dependencies
+      apt:
+        autoremove: yes
+        purge: yes
+
+    - name: Clean up the local repository of retrieved package files
+      apt:
+        autoclean: yes

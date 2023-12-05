@@ -18,9 +18,6 @@ cp $HOME/jetstream_kubespray/inventory/$CLUSTER/artifacts/admin.conf \
 
 sed -i 's/10\.[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/127.0.0.1/g' $HOME/.kube/config
 
-echo When cluster is ready, ssh tunnel into master node:
-echo ssh ubuntu@${IP} -L 6443:localhost:6443
-echo Add your PKs to ~/.ssh/authorized_keys on ${IP}
 echo
-echo Add your email to \
-     ~/jupyterhub-deploy-kubernetes-jetstream/setup_https/https_issuer.yml
+echo --------------------------------------------------------------------------------
+echo When ready, call kube-setup3.sh <your-optional-email>
