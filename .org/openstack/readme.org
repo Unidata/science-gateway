@@ -730,6 +730,17 @@ With the help of Ansible, it is possible to "broadcast" a command to all VMs in 
 
 Theoretically, there is no need to ~ssh~ into each individual VM on a cluster to issue a command in the situation where you want a package installed, for example.
 
+*** Remove Bloat and Unneeded Software With remove-bloat.sh
+:PROPERTIES:
+:CUSTOM_ID: h-C54338F3
+:END:
+
+Ubuntu VMs come with a lot of software and services that are unneeded for JupyterHub clusters (e.g., Firefox, CUPS, for printing services). The following commands with run a couple of ansible playbooks to perform some cleanup in that respect.
+
+#+begin_src sh
+  remove-bloat.sh
+#+END_SRC
+
 *** Install Kubernetes with kube-setup2.sh
     :PROPERTIES:
     :CUSTOM_ID: h-05F9D0A2
@@ -744,6 +755,19 @@ Next, run
 If seeing errors related to ~dpkg~, wait and try again or [[#h-F4401658][try these steps]].
 
 Run ~kube-setup2.sh~ again.
+
+*** Tie up Loose Ends With kube-setup3.sh
+:PROPERTIES:
+:CUSTOM_ID: h-51612F75
+:END:
+
+Next, run
+
+#+begin_src sh
+  kube-setup3.sh <optional email>
+#+END_SRC
+
+which ensures ssh keys are distributed on the cluster. Finally, it inserts an email address in files located  =~/jupyterhub-deploy-kubernetes-jetstream/setup_https/= which will be [[https://www.zonca.dev/posts/2023-09-26-https-kubernetes-letsencrypt][necessary later on for the retrieval letsencrypt SSL certificates]].
 
 *** Check Cluster
     :PROPERTIES:
