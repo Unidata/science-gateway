@@ -16,6 +16,7 @@
     - [THREDDS Environment Variable Parameterization](#h-F0A8F4C2)
   - [Start the TDS](#h-DF4BC998)
   - [Navigate to the TDS](#h-628E2897)
+  - [Blocking IPs That Are Filling up the Cache](#h-9906607B)
 
 
 
@@ -245,3 +246,41 @@ to start the TDS
 ## Navigate to the TDS
 
 In a web browser, navigate to [https://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://thredds-aws.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+
+
+<a id="h-9906607B"></a>
+
+## Blocking IPs That Are Filling up the Cache
+
+You will sometimes find that data scraper bots are overloading the TDS Radar server which leads to the cache filling up the disk. One way to mitigate this is to block IPs via `iptables`. To find the offending IP ranges, navigate to the `/logs/tds-tomcat` looking for user agents like "spider", "oc4", etc. in the Tomcat access logs.
+
+```shell
+grep -i -h -E "oc4|rain|spider"  access*  | awk '{print $1}' | sort | uniq | awk -F "." '{print $1 "." $2}' | sort -n | uniq
+```
+
+Work with Unidata system administration staff to block the IP ranges with something like the snippet below. Note that the rule is being inserted into the `DOCKER-USER` chain with the `-I` option which is important to get `iptables` to work with the THREDDS Docker container.
+
+```shell
+sudo iptables -I DOCKER-USER -s xx.xxx.0.0/16 -j DROP
+# etc.
+```
+
+To see how these rules take affect you can:
+
+```shell
+sudo iptables -L DOCKER-USER -n -v
+```
+
+which will yield something like:
+
+```shell
+Chain DOCKER-USER (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+22404 1344K DROP       all  --  *      *       xx.22.0.0/16         0.0.0.0/0
+ 134K 8044K DROP       all  --  *      *       xx.128.0.0/16        0.0.0.0/0
+ 270K   16M DROP       all  --  *      *       xx.249.0.0/16        0.0.0.0/0
+ 265K   16M DROP       all  --  *      *       xx.225.0.0/16        0.0.0.0/0
+30892 1606K DROP       all  --  *      *       xx.199.0.0/16        0.0.0.0/0
+60216 3613K DROP       all  --  *      *       xx.204.182.0/24      0.0.0.0/0
+  50M  107G RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0
+```
