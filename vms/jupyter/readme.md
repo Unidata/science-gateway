@@ -23,6 +23,8 @@
   - [Navigate to JupyterHub](#h-209E2FBC)
   - [Tearing Down JupyterHub](#h-1E027567)
     - [Total Destructive Tear Down](#h-A69ADD92)
+      - [Undo NFS Mounts](#h-9325DFDF)
+      - [Uninstall and Delete Namespace](#h-4991635C)
       - [What to Do If Deleting the jhub Namespace Gets Stuck](#h-8CD654F7)
     - [Tear Down While Preserving User Volumes](#h-5F2AA05F)
     - [Locating and Deleting Orphaned PVCs](#h-801B7EE9)
@@ -506,6 +508,25 @@ In a web browser, navigate to your newly minted JupyterHub and see if it is as y
 <a id="h-A69ADD92"></a>
 
 ### Total Destructive Tear Down
+
+
+<a id="h-9325DFDF"></a>
+
+#### Undo NFS Mounts
+
+[If you set up any NFS mounts](https://www.zonca.dev/posts/2023-02-06-nfs-server-kubernetes-jetstream), tear those down to ensure resources are not orphaned. First, look for any NFS pods with `kubectl get pods -A`. Then,
+
+```sh
+cd ~/jupyterhub-deploy-kubernetes-jetstream/nfs/
+kubectl delete -f nfs_server.yaml
+kubectl delete -f service_nfs.yaml
+kubectl delete -f create_nfs_volume.yaml
+```
+
+
+<a id="h-4991635C"></a>
+
+#### Uninstall and Delete Namespace
 
 Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
 

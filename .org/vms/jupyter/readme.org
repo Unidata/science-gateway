@@ -439,6 +439,25 @@ In a web browser, navigate to your newly minted JupyterHub and see if it is as y
     :CUSTOM_ID: h-A69ADD92
     :END:
 
+**** Undo NFS Mounts
+:PROPERTIES:
+:CUSTOM_ID: h-9325DFDF
+:END:
+
+[[https://www.zonca.dev/posts/2023-02-06-nfs-server-kubernetes-jetstream][If you set up any NFS mounts]], tear those down to ensure resources are not orphaned. First, look for any NFS pods with ~kubectl get pods -A~. Then,
+
+#+begin_src sh
+  cd ~/jupyterhub-deploy-kubernetes-jetstream/nfs/
+  kubectl delete -f nfs_server.yaml
+  kubectl delete -f service_nfs.yaml
+  kubectl delete -f create_nfs_volume.yaml
+#+end_src
+
+**** Uninstall and Delete Namespace
+:PROPERTIES:
+:CUSTOM_ID: h-4991635C
+:END:
+
 Tearing down the JupyterHub including user OpenStack volumes is possible. From the Helm and Kubernetes client:
 
 #+begin_src sh
