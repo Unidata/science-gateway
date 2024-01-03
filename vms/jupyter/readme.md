@@ -592,7 +592,7 @@ ead47ea3eb99   unidata/science-gateway       "/bin/bash"   3 months ago   Up 4 w
 196a6308afdb   unidata/science-gateway       "/bin/bash"   3 months ago   Up 4 weeks             fsu-s23
 ```
 
-Also make sure that list is accurate and complete, i.e., all JupyterHub clusters currently running are accounted for. Otherwise, you may miss active PVC volumes that you could potentially accidentally delete.
+Also make sure that list is accurate and complete, i.e., all JupyterHub clusters currently running are accounted for (**e.g.**, `docker ps -a`). Otherwise, you may miss active PVC volumes that you could potentially accidentally delete.
 
 
 <a id="h-020D86A3"></a>
