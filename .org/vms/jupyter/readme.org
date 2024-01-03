@@ -520,7 +520,7 @@ The following set of commands should be done on the JupyterHub control VM where 
   196a6308afdb   unidata/science-gateway       "/bin/bash"   3 months ago   Up 4 weeks             fsu-s23
 #+end_src
 
-Also make sure that list is accurate and complete, i.e., all JupyterHub clusters currently running are accounted for. Otherwise, you may miss active PVC volumes that you could potentially accidentally delete.
+Also make sure that list is accurate and complete, i.e., all JupyterHub clusters currently running are accounted for (*e.g.*, ~docker ps -a~). Otherwise, you may miss active PVC volumes that you could potentially accidentally delete.
 
 **** Obtain PVCs That Are in Use
 :PROPERTIES:
