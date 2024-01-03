@@ -644,6 +644,16 @@ Copy this file into one of the Docker containers listed above. It does not matte
 docker ps -q | xargs -I {} -n1 docker cp /tmp/pvc-orphaned.out {}:/tmp/pvc-orphaned.out
 ```
 
+Sanity check in each container to make sure the PVCs you are about to delete are not in use.
+
+```sh
+cat /tmp/pvc-orphaned.out | \
+   xargs -I {} sh -c \
+   'kubectl get pvc --all-namespaces | grep -q {} && \
+   echo "PVC {} is present in the cluster." || \
+   echo "PVC {} is NOT present in the cluster."'
+```
+
 You can now delete the orphaned volumes with a script the looks like this. Again, think before you type as you are about to delete a number of OpenStack volumes.
 
 ```sh
