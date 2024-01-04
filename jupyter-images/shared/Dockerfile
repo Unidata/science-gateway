@@ -6,7 +6,7 @@ FROM $BASE_CONTAINER
 
 ENV DEFAULT_ENV_NAME=unidata-standard
 
-LABEL maintainer="Unidata <support-python@unidata.ucar.edu>"
+LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
 
 USER root
 
