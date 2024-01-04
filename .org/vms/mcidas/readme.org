@@ -36,7 +36,7 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 #+begin_src shell
   git clone https://github.com/Unidata/science-gateway
-#+END_SRC
+#+end_src
 
 ** Start ADDE With Docker and docker-compose
    :PROPERTIES:
@@ -56,7 +56,7 @@ A minor amount of configuration is required to get ADDE going.
   mkdir -p ~/etc ~/mcidas/upcworkdata/ ~/mcidas/decoders/ ~/mcidas/util/
   cp pqact.conf_mcidasA ~/etc
   cp RESOLV.SRV ~/mcidas/upcworkdata/
-#+END_SRC
+#+end_src
 
 ** LDM Data Directory from idd-archiver Via NFS
    :PROPERTIES:
@@ -70,13 +70,13 @@ ADDE will need access to the =/data/ldm/= directory from ~idd-archiver~ in order
     then echo "Please run as root"
     exit
   fi
-#+END_SRC
+#+end_src
 
 #+begin_src shell :tangle ../../../vms/mcidas/nfs-install.sh
   # create the NFS mount point
   mkdir -p /data
   mount 10.0.0.4:/data /data
-#+END_SRC
+#+end_src
 
 *** Ensure /data Availability Upon Machine Restart
     :PROPERTIES:
@@ -87,7 +87,7 @@ You will want to ensure the NFS =/data= volume is available with the help of =fs
 
 #+begin_src shell :tangle ../../../vms/mcidas/nfs-install.sh
   echo 10.0.0.4:/data    /data   nfs rsize=32768,wsize=32768,timeo=14,intr | tee --append /etc/fstab > /dev/null
-#+END_SRC
+#+end_src
 
 ** Port 112
    :PROPERTIES:
@@ -117,7 +117,7 @@ Once you have done the work of setting up ADDE related directories in the way yo
 
 #+begin_src shell
   docker-compose up -d
-#+END_SRC
+#+end_src
 
 to start ADDE.
 

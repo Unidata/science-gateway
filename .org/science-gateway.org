@@ -15,7 +15,7 @@ The markdown documentation of this project is automatically generated from ~org~
 
 #+begin_src emacs-lisp :results silent
   (setq org-confirm-babel-evaluate nil)
-#+END_SRC
+#+end_src
 
 Publishing
 
@@ -88,4 +88,4 @@ Publishing
   (add-hook 'org-publish-after-publishing-hook 'nuke-trailing-whitespace)
 
   ;; To clear out the hook (setq org-publish-after-publishing-hook nil)
-#+END_SRC
+#+end_src
