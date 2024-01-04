@@ -110,7 +110,10 @@ docker push unidata/unidatahub:<container id>
 
 ## Configure and Deploy the JupyterHub
 
-From the client host where you created the Kubernetes cluster, follow [Andrea Zonca's instructions](https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html#install-jupyterhub).
+From the client host where you created the Kubernetes cluster, follow Andrea Zonca's instructions here:
+
+-   <https://www.zonca.dev/posts/2023-07-19-jetstream2_kubernetes_kubespray>
+-   <https://www.zonca.dev/posts/2022-03-31-jetstream2_jupyterhub>
 
 After you have created the `secrets.yaml` as instructed, customize it with the choices below
 
