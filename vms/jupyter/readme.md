@@ -56,6 +56,7 @@
       - [Why This Occurs](#h-7275F48A)
       - [Simple Workaround](#h-FB656610)
       - [Deleting Kubernetes Pods That Have Failed](#h-390B3BC8)
+    - [JupyterHub URL Not Working](#h-BA408BA2)
 
 
 
@@ -1261,3 +1262,29 @@ When a cluster is "sick" because of node pressure or other issues, you will see,
 ```sh
 kubectl delete pods --all-namespaces --field-selector=status.phase==Failed
 ```
+
+
+<a id="h-BA408BA2"></a>
+
+### JupyterHub URL Not Working
+
+After JupyterHub launch, when navigating to the Hub, you may get a "This site can't be reached" error. You may have simply entered the wrong URL. The Jetstream2 automatic DNS name is formed by the VM name and the network it is attached to. For example:
+
+```sh
+$ openstack server show fsu24s-1 -c name -c addresses
++-----------+----------------------------------------------------+
+| Field     | Value                                              |
++-----------+----------------------------------------------------+
+| addresses | auto_allocated_network=10.0.38.22, 149.165.154.218 |
+| name      | fsu24s-1                                           |
++-----------+----------------------------------------------------+
+
+$ openstack network show auto_allocated_network -c dns_domain
++------------+-----------------------------------------+
+| Field      | Value                                   |
++------------+-----------------------------------------+
+| dns_domain | ees220002.projects.jetstream-cloud.org. |
++------------+-----------------------------------------+
+```
+
+would result in the following URL: <https://fsu24s-1.ees220002.projects.jetstream-cloud.org/>
