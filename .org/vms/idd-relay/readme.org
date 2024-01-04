@@ -36,7 +36,7 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 #+begin_src shell :eval no
   git clone https://github.com/Unidata/science-gateway
-#+END_SRC
+#+end_src
 
 ** Start IDD Relay With Docker and docker-compose
    :PROPERTIES:
@@ -54,7 +54,7 @@ This =~/etc= directory will contain your LDM configuration files.
 #+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh :shebang "#!/bin/bash"
   mkdir -p ~/etc
   cp ~/science-gateway/vms/idd-relay/etc/* ~/etc/
-#+END_SRC
+#+end_src
 
 You may have to tailor the =ldmd.conf= to your data feed requirements. Also edit the =registry.xml= file to update the ~hostname~ element so that Real-Time IDD Statistics can be properly reported. Finally, you may have to adjust the size of the queue currently at 10GBs.
 
@@ -67,7 +67,7 @@ This =~/queues= directory will contain the LDM queue file.
 
 #+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh
   mkdir -p ~/queues
-#+END_SRC
+#+end_src
 
 ** /logs Directory
    :PROPERTIES:
@@ -79,7 +79,7 @@ Create the LDM =logs= directory.
 
 #+begin_src shell :tangle ../../../vms/idd-relay/relay-install.sh
   mkdir -p /logs/ldm
-#+END_SRC
+#+end_src
 
 ** Port 388
    :PROPERTIES:
@@ -117,4 +117,4 @@ To start the IDD relay node:
   # wherever you cloned the repo above
   cd ~/science-gateway/vms/idd-relay/
   docker-compose up -d
-#+END_SRC
+#+end_src

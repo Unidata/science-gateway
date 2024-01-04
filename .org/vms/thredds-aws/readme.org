@@ -35,7 +35,7 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 #+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
-#+END_SRC
+#+end_src
 
 ** Build the AWS Nexrad TDS Docker Container
    :PROPERTIES:
@@ -46,7 +46,7 @@ From the =~/science-gateway/vms/thredds-aws= directory:
 
 #+begin_src shell :tangle no :exports code
   docker build -t unidata/nexrad-tds-docker:latest .
-#+END_SRC
+#+end_src
 
 ** Start TDS With Docker and docker-compose
    :PROPERTIES:
@@ -64,7 +64,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
   mkdir -p ~/tdsconfig/
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
-#+END_SRC
+#+end_src
 
 *** Supply Contact and Host Information in threddsConfig.xml
     :PROPERTIES:
@@ -101,7 +101,7 @@ You will need Apache Tomcat and TDS log directories:
  #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
    mkdir -p /logs/tds-tomcat/
    mkdir -p /logs/tds/
- #+END_SRC
+ #+end_src
 
 ** S3Objects Directory
    :PROPERTIES:
@@ -117,7 +117,7 @@ Files served out of S3 are first written to local file system, then served via T
 
  #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
    mkdir -p ~/S3Objects
- #+END_SRC
+ #+end_src
 
 *** Scour S3Objects Directory
     :PROPERTIES:
@@ -126,7 +126,7 @@ Files served out of S3 are first written to local file system, then served via T
 
 #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
   (crontab -l ; echo "*/5 * * * * find ~/S3Objects -mindepth 1 -mmin +15 -delete")| crontab -
-#+END_SRC
+#+end_src
 
 ** SSL Certificate
    :PROPERTIES:
@@ -140,7 +140,7 @@ In the =~/science-gateway/vms/thredds-aws/files/= directory, generate a self-sig
     "/C=US/ST=Colorado/L=Boulder/O=Unidata/CN=jetstream.unidata.ucar.edu" \
     -keyout ~/science-gateway/vms/thredds-aws/files/ssl.key \
     -out ~/science-gateway/vms/thredds-aws/files/ssl.crt
-#+END_SRC
+#+end_src
 
 ** Ports 80, 443 and 8443
    :PROPERTIES:
@@ -176,7 +176,7 @@ Once you have done the work of setting up THREDDS related directories in the way
 
 #+begin_src shell
   docker-compose up -d
-#+END_SRC
+#+end_src
 
 to start the TDS
 ** Navigate to the TDS

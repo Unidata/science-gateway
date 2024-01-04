@@ -36,13 +36,13 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 #+begin_src shell :tangle no :exports code
   git clone https://github.com/Unidata/science-gateway ~/science-gateway
-#+END_SRC
+#+end_src
 
 In addition, we will employ the ~Unidata/TdsConfig~ repository to obtain our LDM pqacts. We will *not* be running the TDS on the IDD archiver VM.
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh :exports code :shebang "#!/bin/bash"
   git clone https://github.com/Unidata/TdsConfig ~/TdsConfig
-#+END_SRC
+#+end_src
 
 ** Prepare IDD Archiver for Docker and docker-compose
    :PROPERTIES:
@@ -61,7 +61,7 @@ This =~/etc= directory will contain your LDM configuration files.
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p ~/etc
   cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
-#+END_SRC
+#+end_src
 
 *** ~/etc/ldmd.conf
     :PROPERTIES:
@@ -72,7 +72,7 @@ You may have to tailor the =ldmd.conf= to your data feed requirements. In additi
 
 #+begin_src shell :tangle no
   REQUEST ANY ".*" 10.0.0.21
-#+END_SRC
+#+end_src
 
 to point the local IDD relay *10.0 address*.
 
@@ -84,7 +84,7 @@ or something like
   REQUEST NOTHER ".*" 10.0.0.21
   REQUEST NEXRAD3 ".*" 10.0.0.21
   REQUEST ANY-NEXRAD3-NOTHER-NGRID-CONDUIT ".*" 10.0.0.21
-#+END_SRC
+#+end_src
 
 to break apart the requests.
 
@@ -112,7 +112,7 @@ Unpack the pqacts configurations from the ~TdsConfig~ project and put them in th
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
   cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
-#+END_SRC
+#+end_src
 
 ** Edit ldmfile.sh
    :PROPERTIES:
@@ -139,13 +139,13 @@ We can achieve this change with a bit of ~sed~:
   # in place change of logs dir w/ sed
   sed -i s/logs\\/ldm-mcidas.log/var\\/logs\\/ldm-mcidas\\.log/g \
       ~/etc/TDS/util/ldmfile.sh
-#+END_SRC
+#+end_src
 
 Also ensure that =ldmfile.sh= is executable.
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   chmod +x ~/etc/TDS/util/ldmfile.sh
-#+END_SRC
+#+end_src
 
 ** /data/ldm/queues Directory
    :PROPERTIES:
@@ -156,7 +156,7 @@ This =queues= directory will contain the LDM queue file.
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/ldm/queues
-#+END_SRC
+#+end_src
 
 ** /data/ldm/logs Directory
    :PROPERTIES:
@@ -167,7 +167,7 @@ Create the LDM =logs= directory.
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   mkdir -p /data/ldm/logs/
-#+END_SRC
+#+end_src
 
 ** Ensure /data Volume Availability Upon Machine Restart
    :PROPERTIES:
@@ -188,7 +188,7 @@ Because volume multi-attach is not yet available via OpenStack, we will want to 
     then echo "Please run as root"
     exit
   fi
-#+END_SRC
+#+end_src
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   echo /data		10.0.0.18(rw,sync,no_subtree_check) | sudo tee \
@@ -197,20 +197,20 @@ Because volume multi-attach is not yet available via OpenStack, we will want to 
       --append /etc/exports > /dev/null
   echo /data		10.0.0.11(rw,sync,no_subtree_check) | sudo tee \
       --append /etc/exports > /dev/null
-#+END_SRC
+#+end_src
 
 Now start NFS:
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   sudo exportfs -a
   sudo service nfs-kernel-server start
-#+END_SRC
+#+end_src
 
 Finally, ensure NFS will be available when the VM starts:
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/nfs-install.sh
   sudo update-rc.d nfs-kernel-server defaults
-#+END_SRC
+#+end_src
 
 *** Open NFS Related Ports
      :PROPERTIES:
@@ -225,13 +225,13 @@ Via OpenStack also open NFS related ports: ~111~, ~1110~, ~2049~, ~4045~. If it 
   openstack security group rule create local-nfs --protocol tcp --dst-port 1110:1110 --remote-ip 10.0.0.0/24
   openstack security group rule create local-nfs --protocol tcp --dst-port 2049:2049 --remote-ip 10.0.0.0/24
   openstack security group rule create local-nfs --protocol tcp --dst-port 4045:4045 --remote-ip 10.0.0.0/24
-#+END_SRC
+#+end_src
 
 Finally, attach the ~local-nfs~ security group to the newly created VM. The VM ID can be obtained with ~openstack server list~.
 
 #+begin_src shell :tangle no
   openstack server add security group <VM name or ID> local-nfs
-#+END_SRC
+#+end_src
 
 
 *** Ensure ~firewalld~ is Inactive
@@ -268,7 +268,7 @@ Create a logging directory for the TDM:
 
 #+begin_src shell :tangle ../../../vms/idd-archiver/idd-archiver-install.sh
   sudo mkdir -p /logs/tdm
-#+END_SRC
+#+end_src
 
 **** Running the TDM Out the TDM Log Directory
      :PROPERTIES:
@@ -284,7 +284,7 @@ Create a logging directory for the TDM:
   curl -SL https://raw.githubusercontent.com/Unidata/tdm-docker/master/tdm.sh \
        -o /logs/tdm/tdm.sh
   chmod +x  /logs/tdm/tdm.sh
-#+END_SRC
+#+end_src
 
 *** Configuring the TDM to work with the TDS
     :PROPERTIES:
@@ -319,7 +319,7 @@ Note that this password should correspond to the ~sha-512~ digested password of 
 
   #+begin_src shell
     docker run tomcat  /usr/local/tomcat/bin/digest.sh -a "sha-512" CHANGEME!
-  #+END_SRC
+  #+end_src
 
 Ensure you are using the correct hashing algorithm in the ~server.xml~ on the TDS server running on the tds.scigw VM. For example,
 
@@ -328,7 +328,7 @@ Ensure you are using the correct hashing algorithm in the ~server.xml~ on the TD
          resourceName="UserDatabase">
     <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512" />
   </Realm>
-#+END_SRC
+#+end_src
 
 **** ~TDS_HOST~
      :PROPERTIES:
@@ -383,4 +383,4 @@ To start the IDD archiver node:
 #+begin_src shell :tangle no
   cd ~/science-gateway/vms/idd-archiver/
   docker-compose up -d
-#+END_SRC
+#+end_src

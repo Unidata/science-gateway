@@ -48,7 +48,7 @@
            :publishing-directory ,pub-dir
            :recursive t
            :publishing-function org-publish-attachment)))
-#+END_SRC
+#+end_src
 
 *
     :PROPERTIES:

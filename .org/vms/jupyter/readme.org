@@ -36,7 +36,7 @@ required arguments:
 -n, --name JupyterHub name
 -p, --ip JupyterHub IP
 -o, --openrc openrc.sh absolute path
-#+END_SRC
+#+end_src
 
 /Important/: The ~--name~ argument is used to set the names of the instances (VMs) of the cluster, which in turn is used to define the DNS name of assigned to the floating IP of the master node ([[../../vms/openstack/readme.org::#h-612458CB][see here]]). Ensure that the name provided to ~jupyterhub.sh~ results in a domain name that is less than 64 characters long, else LetsEncrypt will not be able to issue a certificate ([[https://letsencrypt.org/docs/glossary/#def-CN][see here]]).
 
@@ -60,7 +60,7 @@ Build the Docker container that will be employed by the user environment on thei
 #+begin_src sh
   docker build -t unidata/unidatahub:`date +%Y%b%d_%H%M%S`_`openssl rand -hex 4` . > /tmp/docker.out 2>&1 &
   docker push unidata/unidatahub:<container id>
-#+END_SRC
+#+end_src
 
 ** Configure and Deploy the JupyterHub
    :PROPERTIES:
@@ -102,7 +102,7 @@ Follow [[https://www.zonca.dev/posts/2018-09-24-jetstream_kubernetes_kubespray_j
 
 #+begin_src shell
  kubectl create secret tls <cert-secret> --key ssl.key --cert ssl.crt -n jhub
-#+END_SRC
+#+end_src
 
 supply the base and intermediate certificates and not the full chain certificate (i.e., with root certificates). You can find these certificates [[https://uit.stanford.edu/service/ssl/chain][here]].
 
@@ -119,7 +119,7 @@ Here is a snippet of what the ingress configuration will look like in the ~secre
         - hosts:
            - <jupyterhub-host>
           secretName: <secret_name>
-#+END_SRC
+#+end_src
 
 ***** Certificate Expiration and Renewal
 :PROPERTIES:
@@ -131,7 +131,7 @@ When these certificates expire, they can be updated with the snippet below, but 
 #+begin_src shell
 kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
     --dry-run=client -o yaml | kubectl apply -f -
-#+END_SRC
+#+end_src
 
 **** Redoing the Kubernetes cert-manager
 :PROPERTIES:
@@ -173,7 +173,7 @@ At that point, you can try the certificate installation again.
     admin:
       users:
         - adminuser1
-#+END_SRC
+#+end_src
 
 **** GitHub
      :PROPERTIES:
@@ -192,7 +192,7 @@ Setup an OAuth app on GitHub
     admin:
       users:
         - adminuser1
-#+END_SRC
+#+end_src
 
 *** Docker Image and Other Configuration
     :PROPERTIES:
@@ -340,33 +340,33 @@ Add the taint to ~<node-name>~:
 
 #+begin_src shell
   kubectl taint nodes <node-name> hub.jupyter.org/dedicated=core:NoSchedule
-#+END_SRC
+#+end_src
 
 This taint can then be viewed by doing:
 
-#+BEGIN_SRC shell
+#+begin_src shell
   kubectl describe nodes | less
-#+END_SRC
+#+end_src
 
 and searching for ~Taints~. You will be able to see which nodes the taints are attached to.
 
 You can remove the taint with (note the `-` at the end of the key:effect argument):
 
-#+BEGIN_SRC shell
+#+begin_src shell
   kubectl taint nodes <node-name> hub.jupyter.org/dedicated:NoSchedule-
-#+END_SRC
+#+end_src
 
 Add the label that the pods will look for when being scheduled on a node:
 
 #+begin_src shell
   kubectl label nodes <node-name> hub.jupyter.org/node-purpose=core
-#+END_SRC
+#+end_src
 
 You can view this label with:
 
-#+BEGIN_SRC shell
+#+begin_src shell
   kubectl get nodes --show-labels | grep -i core
-#+END_SRC
+#+end_src
 
 No ~kubectl~ commands need to be explicitly executed to modify the core pods. The toleration is applied to the core pods [[https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L552][by default]], however add the following to the ~secrets.yaml~ in order to make our intentions explicit. It is also noted that, by default, pods are [[https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml#L563][preferred]], not required, to spawn on this dedicated core node. Thus, ensure that ~scheduling.corePods.nodeAffinity.matchNodePurpose~ is set to ~require~.
 
@@ -384,7 +384,7 @@ No ~kubectl~ commands need to be explicitly executed to modify the core pods. Th
           effect: NoSchedule
       nodeAffinity:
         matchNodePurpose: require
-#+END_SRC
+#+end_src
 
 After all these changes have been made, run ~bash install_jhub.sh~ once again to apply them, and run a ~kubectl get pods -n jhub -o wide~ to confirm that core pods are running on the intended node. Single user pods should no longer be spawned on the dedicated core node, but any preexisting single user pods will may still reside on this node until they are eventually culled by the Hub.
 
@@ -467,7 +467,7 @@ Tearing down the JupyterHub including user OpenStack volumes is possible. From t
   helm uninstall jhub -n jhub
   # Think before you type !
   echo $CLUSTER; sleep 60; kubectl delete namespace jhub
-#+END_SRC
+#+end_src
 
 To further tear down the Kubernetes cluster see [[file:../../openstack/readme.org::#h-DABDACC7][Tearing Down the Cluster]].
 
@@ -478,7 +478,7 @@ To further tear down the Kubernetes cluster see [[file:../../openstack/readme.or
 
 #+begin_src sh
   kubectl edit svc proxy-public -n jhub
-#+END_SRC
+#+end_src
 
 Change
 
@@ -701,7 +701,7 @@ If a JupyterHub becomes unresponsive (e.g., 504 Gateway Time-out), login in to t
   kubectl get pvc -n jhub -o yaml > pvc.yaml.ro
   kubectl get pv -n jhub -o yaml > pv.yaml.ro
   chmod 400 pvc.yaml.ro pv.yaml.ro
-#+END_SRC
+#+end_src
 
 Make ~pvc.yaml.ro~ ~pv.yaml.ro~ read only since these files could become precious in  case you have to do data recovery for users. More on this subject below.
 
@@ -714,7 +714,7 @@ Next, start investigating by issuing:
 
 #+begin_src shell
   kubectl get pods -o wide -n jhub
-#+END_SRC
+#+end_src
 
 this command will yield something like
 
@@ -723,13 +723,13 @@ this command will yield something like
   hub-5bdccd4784-lzw87      1/1     Running   0          17h
   jupyter-joe               1/1     Running   0          4h51m
   proxy-7b986cdb75-mhl86    1/1     Running   0          29d
-#+END_SRC
+#+end_src
 
 Now start deleting the ~jhub~ pods starting with the user pods (e.g., ~jupyter-joe~).
 
 #+begin_src
   kubectl delete pod <pod name> -n jhub
-#+END_SRC
+#+end_src
 
 Check to see if the JupyterHub is reachable. If it is not, keep deleting pods checking for reachability after each pod deletion.
 
@@ -744,13 +744,13 @@ If the JupyterHub is still not reachable, you can try deleting and recreating th
   helm uninstall jhub -n jhub
   # But DO NOT issue this command
   # kubectl delete namespace jhub
-#+END_SRC
+#+end_src
 
 Then try reinstalling with
 
 #+begin_src
   bash install_jhub.sh
-#+END_SRC
+#+end_src
 
 Now, try recover user volumes as [[https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html#delete-and-recreate-openstack-instances][described at the end of the section here]] with the ~pvc.yaml.ro~ ~pv.yaml.ro~ saved earlier (make writable copies of those ~ro~ files). If that still does not work, you can try destroying the entire cluster and recreating it as described in that same link.
 
@@ -768,7 +768,7 @@ Occasionally, when logging into a JupyterHub the user will encounter a volume at
 
 #+begin_src shell
 2020-03-27 17:54:51+00:00 [Warning] AttachVolume.Attach failed for volume "pvc-5ce953e4-6ad9-11ea-a62a-fa163ebb95dd" : Volume "0349603a-967b-44e2-98d1-0ba1d42c37d8" is attaching, can't finish within the alloted time
-#+END_SRC
+#+end_src
 
 When you then do an ~openstack volume list~, you will see something like this where a volume is stuck in "reserved":
 
@@ -778,13 +778,13 @@ When you then do an ~openstack volume list~, you will see something like this wh
 |--------------------------------------+------------------------------------------+----------|
 | 25c25c5d-75cb-48fd-a9c4-4fd680bea79b | pvc-41d76080-6ad7-11ea-a62a-fa163ebb95dd | reserved |
 |--------------------------------------+------------------------------------------+----------|
-#+END_SRC
+#+end_src
 
 You (or if you do not have permission, Jetstream staff) can reset the volume with:
 
 #+begin_src shell
   openstack volume set --state available <volume uuid>
-#+END_SRC
+#+end_src
 
 or with
 
@@ -792,7 +792,7 @@ or with
       openstack volume list | grep -i reserved | awk \
           'BEGIN { FS = "|" } ; { print $2 }' | xargs -n1 openstack volume set \
       --state available
-#+END_SRC
+#+end_src
 
 The problem is that once a volume gets stuck like this, it tends to happen again and again. In this scenario, [[#h-CB601D7B][you have to provide a long term solution to the user]].
 
@@ -820,13 +820,13 @@ Invoking this script (e.g., call it ~notify.sh~) from crontab, maybe every three
       openstack volume list -f value -c ID -c Status | grep -i reserved | awk \
           '{ print $1 }' | xargs -n1 openstack volume set --state available
   fi
-#+END_SRC
+#+end_src
 
 you can invoke this script from crontab:
 
 #+begin_src shell
   */3 * * * * /home/rocky/notify.bash > /dev/null 2>&1
-#+END_SRC
+#+end_src
 
 Note, again, this is just a temporary solution. You still have to provide a longer-term workaround described in the next section:
 
@@ -839,13 +839,13 @@ Note, again, this is just a temporary solution. You still have to provide a long
 
 #+begin_src shell
   openstack volume attachment list --os-volume-api-version 3.27 | grep -i d910c7fae38b
-#+END_SRC
+#+end_src
 
 which will yield something like:
 
 #+begin_src shell
   | 67dbf5c3-c190-4f9e-a2c9-78da44df6c75 | cf1a7adf-7b0a-422f-8843-d910c7fae38b | reserved  | 0593faaf-8ba0-4eb5-84ad-b7282ce5aac2 |
-#+END_SRC
+#+end_src
 
 At this point, you may see /two/ entries (even though only one is shown here). One attachment in reserved and one that is attached.
 
@@ -853,7 +853,7 @@ Next, delete the reserved attachment:
 
 #+begin_src shell
   openstack volume attachment delete --os-volume-api-version 3.27 67dbf5c3-c190-4f9e-a2c9-78da44df6c75
-#+END_SRC
+#+end_src
 
 *** Renew Expired K8s Certificates
 :PROPERTIES:
@@ -869,7 +869,7 @@ Kubernetes clusters use PKI certificates to allow the different components of K8
 
 #+begin_src shell
   sudo kubeadm alpha certs check-expiration
-#+END_SRC
+#+end_src
 
 Once the certificates have expired, you will be unable to run, for example, ~kubectl~ commands, and the [[https://kubernetes.io/docs/setup/best-practices/certificates/][control plane components]] will not be able to, for example, fire up new pods, ie new JupyterLab servers, nor perform ~helm~ upgrades to the server. Example output of running ~kubectl~ commands with expired
 certificates is:
@@ -877,7 +877,7 @@ certificates is:
 #+begin_src shell
   # kubectl get pods -n jhub
   Unable to connect to the server: x509: certificate has expired or is not yet valid: current time 2022-06-29T23:09:31Z is after 2022-06-28T17:38:37Z
-#+END_SRC
+#+end_src
 
 **** Resolution
 :PROPERTIES:
@@ -892,19 +892,19 @@ First, confirm that your certificates truly are expired:
 
 #+begin_src shell
   sudo kubeadm alpha certs check-expiration
-#+END_SRC
+#+end_src
 
 Then, run the renewal command to renew all certs:
 
 #+begin_src shell
    sudo kubeadm alpha certs renew all
-#+END_SRC
+#+end_src
 
 Double check the certificates were renewed:
 
 #+begin_src shell
   sudo kubeadm alpha certs check-expiration
-#+END_SRC
+#+end_src
 
 Now, we must restart the control plane pods. We do this by moving the files found in ~/etc/kubernetes/manifests~ to a temporary place, waiting for the [[https://serverfault.com/questions/1051333/how-to-renew-a-certificate-in-kubernetes-1-12][kubelet]] to recognize the change in the manifests, and tear down the pods. Once this is done, the files can be moved back into ~/etc/kubernetes/manifests~, and we can wait for the kubelet to respawn the pods. Finally, reset the ~~/.kube/config~ file and run ~kubectl~ commands.
 
@@ -947,7 +947,7 @@ Now, we must restart the control plane pods. We do this by moving the files foun
 
   # Cross your fingers and hope you can now run kubectl commands again!
   kubectl get pods --all-namespaces
-#+END_SRC
+#+end_src
 
 If you want to run kubectl commands from another machine, for example the machine where we launch JupyterHubs from within docker containers, you must copy this config file to that machine's ~$HOME/.kube~ directory.
 
@@ -961,7 +961,7 @@ You should have the IP and ~ssh~ access of/to the master node. Copy over the con
   # Directory probably already exists, but try creating the directory anyways
   mkdir $HOME/.kube
   scp ubuntu@<ip>:~/.kube/config $HOME/.kube/config
-#+END_SRC
+#+end_src
 
 Finally, edit the ~server~ value in the =$HOME/.kube/config= to point to ~127.0.0.1~, as kubectl will communicate with the api-server through a tunnel created on the Jupyter control container. See [[../../../openstack/bin/kube-setup2.sh][this]] script and the reference
 therein for the reason behind doing this.
@@ -971,7 +971,7 @@ therein for the reason behind doing this.
   server: https://<some-ip>:6443
   # to
   server: https://127.0.0.1:6443
-#+END_SRC
+#+end_src
 
 You should now be able to run ~kubectl~ commands, fire up new user servers, and run ~helm~ upgrades.
 
@@ -1001,7 +1001,7 @@ This is what a "healthy" cluster looks like:
   NAME                     STATUS   ROLES                  AGE   VERSION
   mvu-test-1               Ready    control-plane,master   10d   v1.22.5
   mvu-test-k8s-node-nf-1   Ready    <none>                 10d   v1.22.5
-#+END_SRC
+#+end_src
 
 If we inspect the worker node, we will see the following relevant
 information:
@@ -1016,7 +1016,7 @@ information:
     DiskPressure         False   Thu, 16 Feb 2023 23:39:42 +0000   Thu, 16 Feb 2023 01:43:51 +0000   KubeletHasNoDiskPressure     kubelet has no disk pressure
     PIDPressure          False   Thu, 16 Feb 2023 23:39:42 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
     Ready                True    Thu, 16 Feb 2023 23:39:42 +0000   Mon, 06 Feb 2023 03:39:59 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
-#+END_SRC
+#+end_src
 
 The "Conditions" field describes that the node is undergoing no [[https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/][Node Pressure]]. If the node were experiencing some kind of node pressure, attempting to create any pods would cause them to become stuck in the "evicted" state. By [[https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/#hard-eviction-thresholds][default]], pods will be evicted from a node if the available storage space on the node falls below ~10%~.
 
@@ -1036,7 +1036,7 @@ Attempting to re-deploy the JupyterHub with a new image will cause the JupyterHu
   proxy-6675c69dd4-47b4d            1/1     Running   0          10d
   user-scheduler-79c85f98dd-r7gl4   1/1     Running   0          10d
   user-scheduler-79c85f98dd-vqz24   1/1     Running   0          10d
-#+END_SRC
+#+end_src
 
 The node will show that it is indeed experiencing disk pressure:
 
@@ -1050,7 +1050,7 @@ The node will show that it is indeed experiencing disk pressure:
     DiskPressure         True    Fri, 17 Feb 2023 00:48:47 +0000   Fri, 17 Feb 2023 00:45:37 +0000   KubeletHasDiskPressure       kubelet has disk pressure
     PIDPressure          False   Fri, 17 Feb 2023 00:48:47 +0000   Mon, 06 Feb 2023 03:39:25 +0000   KubeletHasSufficientPID      kubelet has sufficient PID available
     Ready                True    Fri, 17 Feb 2023 00:48:47 +0000   Mon, 06 Feb 2023 03:39:59 +0000   KubeletReady                 kubelet is posting ready status. AppArmor enabled
-#+END_SRC
+#+end_src
 
 Scrolling to the "Events" section of the ~describe node~ output, you may find that Kubernetes is attempting to salvage the install by freeing up storage space. This particular output was created while JupyterHub was being upgraded on the "main" ~mvu-23s~ cluster:
 
@@ -1061,7 +1061,7 @@ Scrolling to the "Events" section of the ~describe node~ output, you may find th
     Warning  EvictionThresholdMet   55m (x4 over 17d)  kubelet  Attempting to reclaim ephemeral-storage
     Normal   NodeHasDiskPressure    55m (x4 over 17d)  kubelet  Node mvu23s-k8s-node-nf-9 status is now: NodeHasDiskPressure
     Normal   NodeHasNoDiskPressure  50m (x5 over 29d)  kubelet  Node mvu23s-k8s-node-nf-9 status is now: NodeHasNoDiskPressure
-#+END_SRC
+#+end_src
 
 In this case, Kubernetes successfully performed garbage collection and was able to recover enough storage space to complete the install after some period of waiting.
 
@@ -1080,7 +1080,7 @@ Through some inspection, you may find that the worker nodes contain a cache of n
         - docker.io/unidata/mvu-spring-2023@sha256:2a257f0673482a110dd73b42f91854ecc2d7a3244aa7fd34c988b2fb591d4335
         - docker.io/unidata/mvu-spring-2023:2023Feb04_021143_912787ce
         sizeBytes: 2653100806
-#+END_SRC
+#+end_src
 
 The work-around is to force the removal of one of the images by installing a small single user image in the JupyterHub that you know will fit on the node's available storage space. The [[https://hub.docker.com/r/jupyter/base-notebook/tags][jupyter/base-notebook]] image is a good candidate for this. Edit the appropriate sections of ~secrets.yaml~ to install this smaller image, run ~bash install_jhub.sh~, and watch ~kubectl get pods -n jhub~ to ensure everything installs correctly. Kubernetes should have purged one of the previous images and freed up storage space. Now, re-edit ~secrets.yaml~ and install the image you desire.
 *** Updating Openstack Credentials for Kubernetes
