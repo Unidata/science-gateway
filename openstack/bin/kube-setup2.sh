@@ -20,4 +20,4 @@ sed -i 's/10\.[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/127.0.0.1/g' $HOME/.ku
 
 echo
 echo --------------------------------------------------------------------------------
-echo When ready, call kube-setup3.sh <your-optional-email>
+echo "When ready, call kube-setup3.sh <your-optional-email>"
