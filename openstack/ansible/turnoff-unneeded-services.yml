@@ -98,6 +98,18 @@
         'Service is in unknown state' not in snapd_service.msg|default(''))
 
 
+    - name: Disable wpa_supplicant Service
+      systemd:
+        name: wpa_supplicant
+        enabled: no
+        state: stopped
+      register: wpa_supplicant_service
+      failed_when: >
+        wpa_supplicant_service.failed and
+        ('Could not find the requested service' not in wpa_supplicant_service.msg|default('') and
+        'Service is in unknown state' not in wpa_supplicant_service.msg|default(''))
+
+
     - name: Disable software.automount Service
       systemd:
         name: software.automount
@@ -109,6 +121,7 @@
         software_automount_service.failed and
         ('Could not find the requested service' not in software_automount_service.msg|default('') and
         'Service is in unknown state' not in software_automount_service.msg|default(''))
+
 
     - name: Comment out the NFS mount in /etc/fstab
       lineinfile:
