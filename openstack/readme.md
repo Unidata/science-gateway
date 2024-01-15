@@ -940,7 +940,7 @@ docker pull unidata/science-gateway-gpu
 or build with:
 
 ```sh
-docker build -t unidata/science-gateway -f Dockerfile.gpu .
+docker build -t unidata/science-gateway-gpu -f Dockerfile.gpu .
 ```
 
 Pay special attention to the `cluster.tfvars` to select VMs that have GPU hardware.
