@@ -1,4 +1,4 @@
-FROM unidata/rockylinux:latest-8
+FROM unidata/rockylinux:9.1.20230215
 
 ###
 # Kubectl
@@ -18,7 +18,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 ###
 
 RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
-    nano wget unzip kubectl openssl sudo python3 procps
+    nano wget unzip kubectl openssl sudo python3 procps pip rsync
 
 ###
 # Terraform
@@ -83,11 +83,14 @@ RUN cd /home \
 
 ADD bin/boot.sh bin/mount.sh bin/secgroup.sh bin/teardown.sh \
     bin/unidata-secgroups.sh bin/swap-vm.sh bin/kube-setup.sh bin/swap-vm.sh \
-    bin/kube-setup2.sh $HOME/bin/
+    bin/kube-setup2.sh bin/kube-setup3.sh bin/remove-bloat.sh $HOME/bin/
 
 RUN chmod +x $HOME/bin/*.sh
 
 ADD .bashrc $HOME/
+
+COPY ./ansible/turnoff-unneeded-services.yml /
+COPY ./ansible/uninstall-packages-cleanup.yml /
 
 ###
 # Finalize
