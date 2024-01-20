@@ -623,14 +623,13 @@ Cordon off the nodes to be shelved. This will set their status to ~Ready,Schedul
   kubectl cordon <node>
 #+end_src
 
-
-Pods that are currently running on those nodes, i.e. a JupyterHub, proxy, or user-scheduler pod, must now be migrated to another node. This can be accomplished by "draining" the node:
+Pods that are currently running on those nodes, i.e., a JupyterHub, proxy, or user-scheduler pod, must now be migrated to another node. This can be accomplished by "draining" the node:
 
 #+begin_src sh
-  kubectl drain <node> --ignore-daemonset
+  kubectl drain <node> --ignore-daemonsets
 #+end_src
 
-The ~--ignore-daemonset~ flag is necessary if any pods on that node were provisioned as part of a [[https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/][DaemonSet]], a set of pods that are scheduled to be ran on every node of a cluster.
+The ~--ignore-daemonsets~ flag is necessary if any pods on that node were provisioned as part of a [[https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/][DaemonSet]], a set of pods that are scheduled to be ran on every node of a cluster.
 
 You may run into an error that looks like the following:
 
