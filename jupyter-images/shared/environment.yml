@@ -7,12 +7,12 @@ dependencies:
   - nb_conda_kernels
   - ipykernel
   # User requested packages
-  - numpy=1.19.5
+  - numpy
   - matplotlib
   - cartopy
   - metpy
   - siphon
-  - pandas<1.1.0
+  - pandas
   - pip
   - xarray
   - ipywidgets
