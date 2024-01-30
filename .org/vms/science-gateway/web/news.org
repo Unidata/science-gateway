@@ -16,39 +16,15 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
-* 12/02/2022, AMS 2023
+* 01/30/2024, AMS 2024
   :PROPERTIES:
-  :RSS_TITLE:  AMS 2023
-  :PUBDATE: <2022-12-02 Fri>
-  :RSS_PERMALINK: index.html#h-8863E90E
-  :CUSTOM_ID: h-8863E90E
-  :ID:       EE8327E3-15E0-42D9-B445-F5CF66ADDE91
+  :RSS_TITLE:  AMS 2024
+  :PUBDATE: <2024-01-30 Tue>
+  :RSS_PERMALINK: index.html#h-37ACD03C
+  :CUSTOM_ID: h-37ACD03C
+  :ID:       5159A3A4-5347-4CEE-BA34-BBC9B66C70BE
   :END:
 
-We will be presenting [[https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Paper/420649][Unidata Science Gateway: Past, Present, and Future Plans]] at the American Meteorological Society 103rd Annual Meeting in Denver, Colorado USA.
+We will be presenting an e-poster entitled [[https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/439732][Advancing Atmospheric Science Education: Customized PyAOS JupyterHubs via the Unidata Science Gateway]]
 
-* 10/04/2022, Gateways 2022 Conference
-  :PROPERTIES:
-  :RSS_TITLE: Gateways 2022 Conference
-  :PUBDATE: <2022-10-04 Tue>
-  :RSS_PERMALINK: index.html#h-777BAAA8
-  :CUSTOM_ID: h-777BAAA8
-  :ID:       3CD41376-9029-4976-8977-541690D969EC
-  :END:
-
-The Unidata Science Gateway project will have two poster presentations at the [[https://sciencegateways.org/][Gateways 2022 conference]]:
-
-- Democratizing Access to Atmospheric Modeling with WRF employing NSF Cloud Computing Resources
-- Unidata Science Gateway Reimagined: Unifying Access to Educational and Research Resources
-
-* 05/20/2022, Unidata Science Gateway Talk at EGU
-  :PROPERTIES:
-  :RSS_TITLE: Unidata Science Gateway Talk at EGU
-  :PUBDATE: <2022-05-20 Fri>
-  :RSS_PERMALINK: index.html#h-642E7F66
-  :CUSTOM_ID: h-642E7F66
-  :ID:       2D590004-6AE6-4BDC-AB6D-35EB6B86A25F
-  :END:
-
-Unidata Director, Mohan Ramamurthy, will be speaking at the European Geosciences Union on Monday, May 23 giving a talk entitled "[[https://meetingorganizer.copernicus.org/EGU22/session/42416][The use of the Unidata Science Gateway as a cyberinfrastructure resource to facilitate education and research during COVID-19]]".
 
