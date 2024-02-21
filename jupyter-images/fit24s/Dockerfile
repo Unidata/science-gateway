@@ -18,12 +18,16 @@ RUN apt-get update && \
 USER $NB_UID
 
 ADD environment.yml /tmp
+RUN curl --output /tmp/environment-era5.yml https://raw.githubusercontent.com/ProjectPythia/ERA5_interactive-cookbook/main/environment.yml && \
+    curl --output /tmp/environment-2mt.yml https://raw.githubusercontent.com/ProjectPythia/HRRR-AWS-cookbook/main/environment.yml
 
 RUN mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
     mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
+    mamba env create --name era5 -f /tmp/environment-era5.yml && \
+    mamba env create --name 2mt -f /tmp/environment-2mt.yml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \
