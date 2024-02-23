@@ -20,12 +20,14 @@ USER $NB_UID
 # environment.yml pulled from a github repository instead
 # ADD environment.yml /tmp
 RUN curl -o /tmp/environment.yml https://raw.githubusercontent.com/freemansw1/AES690ST-SP24-Public/main/environment.yml
+COPY additional-env.yaml /tmp/additional-env.yaml
 
 RUN mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
     mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
+    mamba env update --name $DEFAULT_ENV_NAME -f /tmp/additional-env.yaml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \

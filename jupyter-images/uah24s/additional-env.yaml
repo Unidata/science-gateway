@@ -1,0 +1,11 @@
+name: additional-env
+channels:
+ - conda-forge
+dependencies:
+  # User requested packages
+  - seaborn
+  - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - optuna
+    - jupyterlab-optuna
