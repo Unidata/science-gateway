@@ -34,8 +34,8 @@ SERVERLIST=/tmp/usage-stats-server-list
 TMPOUT=/tmp/usage-stats
 
 # Usage limits
-REG_LIMIT=7098320
-GPU_LIMIT=600000
+REG_LIMIT=8191300
+GPU_LIMIT=672768
 LRG_LIMIT=400000
 
 # Parse input arguments 
