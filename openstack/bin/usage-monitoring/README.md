@@ -19,7 +19,7 @@ To collect usage data on a daily basis, run the wrapper script (which sets the
 appropriate env variables) as a cron job by adding this to your `crontab`.
 
 ```shell
-@daily bash -c '/path/to/usage_monitoring.sh'
+@daily bash /path/to/usage_monitoring.sh
 ```
 
 For more fine grained scheduling, see `man 5 crontab`.

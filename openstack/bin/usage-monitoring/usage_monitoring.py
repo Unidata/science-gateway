@@ -31,10 +31,10 @@ def get_os_token(token_file='/tmp/os-token.json', force_new_token=False):
             if expire > now:
                 return f_json['id']
             else:
-                print("Token expired. Creating new token", file=stderr)
+                #print("Token expired. Creating new token", file=stderr)
                 create_os_token(token_file)
     else:
-        print('Creating new token file'.format(token_file), file=stderr)
+        #print('Creating new token file'.format(token_file), file=stderr)
         create_os_token(token_file)
         return get_os_token(token_file)
 
