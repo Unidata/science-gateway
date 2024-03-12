@@ -161,7 +161,7 @@ USER root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends vim curl wget \
     gcc cpp gfortran g++ openmpi-bin libopenmpi-dev git csh perl file \
-    make m4 ca-certificates && \
+    make m4 ca-certificates libgl1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
