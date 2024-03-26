@@ -30,11 +30,14 @@ dependencies:
   - seaborn
   - shapely
   - siphon
-  - tensorflow-cpu
   - xarray
-  - xgboost
   - pip:
     - palmerpenguins
     - rich
     - jupyterlab_myst
     - wget
+    - rasterio
+    - xgboost
+    - catboost
+    - keras
+    - tensorflow-cpu
