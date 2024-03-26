@@ -1,14 +1,18 @@
 # Heavily borrowed from docker-stacks
-# https://github.com/jupyter/docker-stacks/blob/main/docker-stacks-foundation/Dockerfile
-
-ARG BASE_CONTAINER=nvcr.io/nvidia/tensorflow:22.04-tf2-py3
+# https://raw.githubusercontent.com/jupyter/docker-stacks/main/images/docker-stacks-foundation/Dockerfile
+ARG BASE_CONTAINER=nvcr.io/nvidia/tensorflow:24.01-tf2-py3
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
+ARG NB_USER="jovyan"
+ARG NB_UID="1000"
+ARG NB_GID="100"
 
 # Fix: https://github.com/hadolint/hadolint/wiki/DL4006
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
@@ -36,14 +40,18 @@ RUN apt-get update --yes && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
-ARG NB_USER="jovyan"
-ARG NB_UID="1000"
-ARG NB_GID="100"
+# Configure environment
+ENV SHELL=/bin/bash \
+    NB_USER="${NB_USER}" \
+    NB_UID=${NB_UID} \
+    NB_GID=${NB_GID} \
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8 \
+    LANGUAGE=C.UTF-8 \
+    HOME="/home/${NB_USER}"
 
 COPY fix-permissions /usr/local/bin/fix-permissions
 RUN chmod a+rx /usr/local/bin/fix-permissions
-
-ENV HOME="/home/${NB_USER}"
 
 # Enable prompt color in the skeleton .bashrc before creating the default NB_USER
 # hadolint ignore=SC2016
@@ -52,7 +60,9 @@ RUN sed -i 's/^#force_color_prompt=yes/force_color_prompt=yes/' /etc/skel/.bashr
 # Create NB_USER with name jovyan user with UID=1000 and in the 'users' group
 # and make sure these dirs are writable by the `users` group.
 RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
-    useradd -l -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" && \
+    sed -i.bak -e 's/^%admin/#%admin/' /etc/sudoers && \
+    sed -i.bak -e 's/^%sudo/#%sudo/' /etc/sudoers && \
+    useradd --no-log-init --create-home --shell /bin/bash --uid "${NB_UID}" --no-user-group "${NB_USER}" && \
     chmod g+w /etc/passwd && \
     fix-permissions "${HOME}"
 
