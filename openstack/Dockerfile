@@ -10,7 +10,7 @@ baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/\n\
 enabled=1\n\
 gpgcheck=1\n\
 repo_gpgcheck=1\n\
-gpgkey=https://pkgs.k8s.io/core:/v1.29/rpm/repodata/repomd.xml.key\n'\
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key\n'\
 >> /etc/yum.repos.d/kubernetes.repo
 
 ###
