@@ -185,13 +185,39 @@ Sometimes when working with the Kubernetes cert-manager, you can get yourself in
 
 ```shell
 kubectl delete namespace cert-manager
-kubectl delete -f \
-        https://github.com/cert-manager/cert-manager/releases/download/vX.Y.Z/cert-manager.crds.yaml
+kubectl delete clusterissuer letsencrypt
+kubectl delete certificates --all --all-namespaces
+kubectl delete certificaterequests.cert-manager.io --all --all-namespaces
 ```
 
-with the version `vX.Y.Z` you installed.
+As of this writing, ensure the `deploymentPatch.yml` looks like:
 
-At that point, you can try the certificate installation again.
+```yaml
+# deploymentPatch.yml referenced in deploymentPatch.sh
+---
+spec:
+  template:
+    spec:
+      nodeSelector:
+        "node-role.kubernetes.io/control-plane": ""
+      tolerations:
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+```
+
+Then you can redo the cert-manger with:
+
+```shell
+kubectl apply -f \
+        https://github.com/cert-manager/cert-manager/releases/download/v<version>/cert-manager.yaml
+bash setup_https/deploymentPatch.sh
+kubectl create -f setup_https/https_cluster_issuer.yml
+bash install_jhub.sh
+```
 
 
 <a id="h-8A3C5434"></a>
