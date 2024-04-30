@@ -1,0 +1,19 @@
+name: metpy-hytest-2024
+channels:
+  - conda-forge
+dependencies:
+  - cartopy
+  - dask
+  - geopandas
+  - jupyterlab
+  - matplotlib
+  - metpy
+  - nc-time-axis
+  - netcdf4
+  - numpy
+  - pandas<2  # siphon NCSS endian-ness fun
+  - pythia-datasets
+  - s3fs
+  - siphon
+  - xarray<2023.03
+  - zarr
