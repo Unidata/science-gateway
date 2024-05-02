@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cartopy
+  - dataretrieval
   - dask
   - geopandas
   - jupyterlab
@@ -12,8 +13,10 @@ dependencies:
   - netcdf4
   - numpy
   - pandas<2  # siphon NCSS endian-ness fun
+  - pykdtree
   - pythia-datasets
   - s3fs
+  - seaborn
   - siphon
   - xarray<2023.03
   - zarr
