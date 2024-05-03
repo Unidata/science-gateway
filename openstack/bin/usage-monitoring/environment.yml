@@ -4,7 +4,7 @@ channels:
  - plotly
 dependencies:
   - python
-  - plotly
+  - matplotlib
   - pip
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
