@@ -1,15 +1,14 @@
 from os import system
 from os.path import isfile
-from sys import stderr
 from time import sleep
 
 import argparse
 
-from datetime import datetime, UTC 
+from datetime import datetime, UTC, timedelta
 import json
 import csv
 import requests
-import plotly
+from matplotlib import pyplot as plt
 
 from usage_monitoring_config import *
 
@@ -54,10 +53,9 @@ def get_js2_resources(query):
             if datetime.strptime(resource['start_date'],date_format) < now 
             and datetime.strptime(resource['end_date'],date_format) > now
         ]
-    resource_list = [ resource['resource'] for resource in allocation_resources ]
     desired_resources = [
             resource for resource in all_resources
-            if resource['resource'] in resource_list
+            if resource['resource'] in allocation_resources
         ]
     return desired_resources
 
@@ -101,10 +99,159 @@ def read_resource_csv(data_file):
         resources = [ resource for resource in csv.DictReader(f) ]
     return resources
 
-def generate_usage_plot():
-    return 0
+def get_data_by_resource(resources, resource_type):
+    return [ entry for entry in resources if entry['resource'] == resource_type ]
 
-def print_usage_analysis():
+def get_usage_rates(data,days):
+    '''
+    data -- A list of dictionaries as returned by get_data_by_resource
+    days -- int number of days from which to calculate the rate
+    '''
+    timestamps = [ float(entry['timestamp']) for entry in data ]
+    sus_used = [ float(entry['service_units_used']) for entry in data ]
+
+    date2 = timestamps[-1]
+    delta = timedelta(days=days).total_seconds()
+
+    dt1 = 9999999999999
+    idate2 = -1
+    date1 = date2 - delta
+    idate1 = 0
+
+    # Loop through timestamps to find the index of minimum difference
+    for i,ts in enumerate(timestamps):
+        # Get the entry that's closest to date1, i.e. "days" number of days before date2
+        if abs(date1 - ts) < dt1:
+            dt1 = date1 - ts
+            idate1 = i
+
+    # Rate at which SUs are used (should be positive, i.e. 1000 SU/s)
+    rate_second = (sus_used[idate2] - sus_used[idate1])/(timestamps[idate2] - timestamps[idate1])
+    rate_hour = 3600*rate_second
+    rate_day = 24*rate_hour
+    return { 'rate_second': rate_second,
+            'rate_hour': rate_hour,
+            'rate_day': rate_day,
+            'rate_start_date': datetime.fromtimestamp(date1),
+            'rate_end_date': datetime.fromtimestamp(date2)}
+
+
+def usage_analysis(data,days_prior):
+    '''Basic analysis of usage data between now and each value of days_prior
+    
+    Arguments:
+        data -- List: Array of dicts as returned by get_data_by_resource()
+        days_prior -- Int: or list of ints of days before "now" on which to perform analysis
+
+    Returns:
+        analysis -- array of Dicts with the following keys:
+            analysis_start -- datetime
+            analysis_end -- datetime
+            resource -- string: the resource being analyzed
+            daily_usage_rate -- float: rate of SU usage for the given resource
+            hourly_usage_rate -- float: rate of SU usage for the given resource
+            current_usage -- float: current SUs used
+            total_allocated -- float: the total number of SUs allocated
+            remaining_sus -- float: SUs remaining
+            exhausted_date -- datetime: date when SUs are predicted to be exhausted
+                based on current_usage and usage_rage
+            end_date_sus -- float: can be + or -; number of SUs remaining (or in
+                deficit) should usage_rate be constant until the end_date of the
+                resource described by data
+            break_even_daily_usage_rate -- float: the usage rate necessary so
+                that the exhausted_date is the end_date of the resource
+                described by data
+            break_even_hourly_usage_rate -- float: the usage rate necessary so
+                that the exhausted_date is the end_date of the resource
+                described by data
+            break_even_daily_delta -- float:
+                break_even_daily_usage_rate - daily_usage_rate
+            break_even_hourly_delta -- float:
+                break_even_hourly_usage_rate - hourly_usage_rate
+            break_even_m3_med_equivalents -- float: 
+                the break_even_hourly_usage_rate expressed as an amount of
+                m3.medium instances (8 SU/hr)
+    '''
+
+    if not isinstance(days_prior, (int, list)):
+        raise ValueError
+
+    # Make list if single value is passed to function
+    if isinstance(days_prior, int):
+        days_prior = [ days_prior ]
+
+    analysis = []
+    for day in days_prior:
+
+        # Analysis done using a line given by:
+        # sus_used - total_allocated = usage_rate*(timestamp - now)
+        # Or, for ease of reading:
+        # s2 - s1 = r*(t2 - t1)
+        #
+        # Where sus_used and timestamp are the dependent and independent
+        # variables, respectively
+        #
+        # timestamp is in seconds since the beginning of the Unix epoch
+
+        # Re-used in many calcs
+        usage_rates = get_usage_rates(data,day)
+        r = usage_rates['rate_second']
+        tot_sus = float(data[-1]['service_units_allocated'])
+        cur_sus = float(data[-1]['service_units_used'])
+        cur_ts = float(data[-1]['timestamp'])
+
+        remaining_sus = tot_sus - cur_sus
+
+        # tot_sus - s1 = remaining_sus = r*(t2 - t1) --> t2 = remaining_sus/r + t1
+        exhausted_ts = remaining_sus/r + cur_ts
+        exhausted_date = datetime.fromtimestamp(exhausted_ts)
+
+        # s2 - s1 = r*(t2 - t1) --> s2 = r*(t2 - t1) + s1
+        date_format = '%Y-%m-%d'
+        end_date_ts = datetime.strptime(data[-1]['end_date'],date_format).timestamp()
+        end_date_sus_used = r*(end_date_ts - cur_ts) + cur_sus
+        end_date_sus = tot_sus - end_date_sus_used
+
+        # s2 - s1 = r*(t2 - t1) --> r = -(s2-s1)/(t2 - t1)
+        break_even_second_usage_rate = remaining_sus/(end_date_ts - cur_ts)
+        break_even_hourly_usage_rate = 3600*break_even_second_usage_rate
+        break_even_daily_usage_rate = 24*break_even_hourly_usage_rate
+
+        break_even_hourly_delta = break_even_hourly_usage_rate - usage_rates['rate_hour']
+        break_even_daily_delta = break_even_daily_usage_rate - usage_rates['rate_day']
+
+        analysis.append({
+            'analysis_start': usage_rates['rate_start_date'],
+            'analysis_end': usage_rates['rate_end_date'],
+            'resource': data[-1]['resource'],
+            'daily_usage_rate': usage_rates['rate_day'],
+            'hourly_usage_rate': usage_rates['rate_hour'],
+            'current_usage': cur_sus,
+            'total_allocated': tot_sus,
+            'remaining_sus': remaining_sus,
+            'exhausted_date': exhausted_date,
+            'end_date_sus': end_date_sus,
+            'break_even_daily_usage_rate': break_even_daily_usage_rate,
+            'break_even_hourly_usage_rate': break_even_hourly_usage_rate,
+            'break_even_daily_delta': break_even_daily_delta,
+            'break_even_hourly_delta': break_even_hourly_delta,
+            'break_even_m3_med_equivalents': break_even_hourly_delta/8.0,
+        })
+
+    return analysis
+
+def generate_usage_plot(resources, analyses):
+    fig, ax = plt.subplots()
+    for resource_type in allocation_resources:
+        data = get_data_by_resource(resources, resource_type)
+
+        timestamps = [ datetime.fromtimestamp(float(entry['timestamp'])) for entry in data ]
+
+        sus_used = [ float(entry['service_units_used']) for entry in data ]
+        sus_remaining = [ float(data[-1]['service_units_allocated']) - elem for elem in sus_used ]
+
+        ax.plot(timestamps, sus_remaining)
+    plt.show()
     return 0
 
 def main():
@@ -114,12 +261,12 @@ def main():
     parser.add_argument('-c', '--dump-csv', help='Dump the data from {} in csv format'.format(data_file), action='store_true')
     parser.add_argument('-j', '--dump-json', help='Dump the data from {} in json format'.format(data_file), action='store_true')
     parser.add_argument('-p', '--plot', help='Generate an interactive plot of SU usage data', action='store_true')
-    parser.add_argument('-a', '--analysis', help='Print an analysis of SU usage data in json format', action='store_true')
+    parser.add_argument('-a', '--analysis-days', help='Days prior for which to perform an analysis', action='extend', nargs='+', type=int)
     args = vars(parser.parse_args())
 
     if not any([ args[key] for key in args.keys() ]):
         parser.parse_args(['--help'])
-        
+
     if args['write']:
         token = get_os_token(token_file,force_new_token=args['force_new_token'])
         query = query_accounting_api(token)
@@ -133,11 +280,24 @@ def main():
         resources = read_resource_csv(data_file)
         print(json.dumps(resources, indent=2))
 
-    if args['plot']:
-        print('plot')
+    if args['analysis_days']:
+        # Get resources
+        resources = read_resource_csv(data_file)
 
-    if args['analysis']:
-        print('analysis')
+        analyses = []
+        # Loop over resources to get each type of data found in allocation_resources
+        for resource_type in allocation_resources:
+            data = get_data_by_resource(resources, resource_type)
+            # Perform analysis (usage rates, "forecast", )
+            analyses.append(usage_analysis(data,args['analysis_days']))
+
+        print(json.dumps(analyses, indent=2, default=str))
+
+    if args['plot']:
+        if 'analyses' not in locals():
+            analyses = None
+        resources = read_resource_csv(data_file)
+        generate_usage_plot(resources, analyses)
 
 if __name__ == "__main__":
     main()
