@@ -7,6 +7,8 @@ import argparse
 from datetime import datetime, UTC, timedelta
 import json
 import csv
+import pandas as pd
+import numpy as np
 import requests
 from matplotlib import pyplot as plt
 
@@ -95,20 +97,22 @@ def read_resource_csv(data_file):
     File is in the following csv format:
     timestamp,resource,service_units_used,service_units_allocated,start_date,end_date
     '''
-    with open(data_file, 'r') as f:
-        resources = [ resource for resource in csv.DictReader(f) ]
-    return resources
+    return pd.read_csv(data_file)
 
 def get_data_by_resource(resources, resource_type):
-    return [ entry for entry in resources if entry['resource'] == resource_type ]
+    '''
+    resources -- pandas dataframe
+    resource_type -- string
+    '''
+    return resources.loc[resources['resource'] == resource_type]
 
 def get_usage_rates(data,days):
     '''
     data -- A list of dictionaries as returned by get_data_by_resource
     days -- int number of days from which to calculate the rate
     '''
-    timestamps = [ float(entry['timestamp']) for entry in data ]
-    sus_used = [ float(entry['service_units_used']) for entry in data ]
+    timestamps = pd.array(data['timestamp'])
+    sus_used = pd.array(data['service_units_used'])
 
     date2 = timestamps[-1]
     delta = timedelta(days=days).total_seconds()
@@ -140,7 +144,7 @@ def usage_analysis(data,days_prior):
     '''Basic analysis of usage data between now and each value of days_prior
     
     Arguments:
-        data -- List: Array of dicts as returned by get_data_by_resource()
+        data -- pandas dataframe: as returned by get_data_by_resource()
         days_prior -- Int: or list of ints of days before "now" on which to perform analysis
 
     Returns:
@@ -196,9 +200,9 @@ def usage_analysis(data,days_prior):
         # Re-used in many calcs
         usage_rates = get_usage_rates(data,day)
         r = usage_rates['rate_second']
-        tot_sus = float(data[-1]['service_units_allocated'])
-        cur_sus = float(data[-1]['service_units_used'])
-        cur_ts = float(data[-1]['timestamp'])
+        tot_sus = data['service_units_allocated'].iloc[-1]
+        cur_sus = data['service_units_used'].iloc[-1]
+        cur_ts = data['timestamp'].iloc[-1]
 
         remaining_sus = tot_sus - cur_sus
 
@@ -208,7 +212,7 @@ def usage_analysis(data,days_prior):
 
         # s2 - s1 = r*(t2 - t1) --> s2 = r*(t2 - t1) + s1
         date_format = '%Y-%m-%d'
-        end_date_ts = datetime.strptime(data[-1]['end_date'],date_format).timestamp()
+        end_date_ts = datetime.strptime(data['end_date'].iloc[-1],date_format).timestamp()
         end_date_sus_used = r*(end_date_ts - cur_ts) + cur_sus
         end_date_sus = tot_sus - end_date_sus_used
 
@@ -223,7 +227,7 @@ def usage_analysis(data,days_prior):
         analysis.append({
             'analysis_start': usage_rates['rate_start_date'],
             'analysis_end': usage_rates['rate_end_date'],
-            'resource': data[-1]['resource'],
+            'resource': data['resource'].iloc[-1],
             'daily_usage_rate': usage_rates['rate_day'],
             'hourly_usage_rate': usage_rates['rate_hour'],
             'current_usage': cur_sus,
@@ -245,16 +249,18 @@ def generate_usage_plot(resources, analyses):
     for resource_type in allocation_resources:
         data = get_data_by_resource(resources, resource_type)
 
-        timestamps = [ datetime.fromtimestamp(float(entry['timestamp'])) for entry in data ]
+        timestamps = pd.array(data['timestamp'])
+        dates = [ datetime.fromtimestamp(ts) for ts in timestamps ]
 
-        sus_used = [ float(entry['service_units_used']) for entry in data ]
-        sus_remaining = [ float(data[-1]['service_units_allocated']) - elem for elem in sus_used ]
+        sus_used = pd.array(data['service_units_used'])
+        sus_remaining = data['service_units_allocated'].iloc[-1] - sus_used
 
-        ax.plot(timestamps, sus_remaining)
+        ax.plot(dates, sus_remaining)
+
     plt.show()
     return 0
 
-def main():
+def main(data_file):
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--force-new-token', help='Force the creation of a new openstack token', action='store_true')
     parser.add_argument('-w', '--write', help='Query Jetstream2 for new allocation data and write to data file: {}'.format(data_file), action='store_true')
@@ -262,10 +268,14 @@ def main():
     parser.add_argument('-j', '--dump-json', help='Dump the data from {} in json format'.format(data_file), action='store_true')
     parser.add_argument('-p', '--plot', help='Generate an interactive plot of SU usage data', action='store_true')
     parser.add_argument('-a', '--analysis-days', help='Days prior for which to perform an analysis', action='extend', nargs='+', type=int)
+    parser.add_argument('-d', '--devel', help='Use test_csv_file for development work', action='store_true')
     args = vars(parser.parse_args())
 
     if not any([ args[key] for key in args.keys() ]):
         parser.parse_args(['--help'])
+
+    if args['devel']:
+        data_file = test_csv_file
 
     if args['write']:
         token = get_os_token(token_file,force_new_token=args['force_new_token'])
@@ -300,4 +310,4 @@ def main():
         generate_usage_plot(resources, analyses)
 
 if __name__ == "__main__":
-    main()
+    main(data_file)

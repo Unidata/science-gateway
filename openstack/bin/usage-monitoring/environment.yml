@@ -5,6 +5,8 @@ channels:
 dependencies:
   - python
   - matplotlib
+  - pandas
+  - numpy
   - pip
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
