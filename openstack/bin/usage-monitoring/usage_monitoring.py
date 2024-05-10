@@ -8,14 +8,13 @@ from datetime import datetime, UTC, timedelta
 import json
 import csv
 import pandas as pd
-import numpy as np
 import requests
 from matplotlib import pyplot as plt
 
 from usage_monitoring_config import *
 
 def create_os_token(token_file):
-    return_val = system('openstack token issue -f json > {}'.format(token_file))
+    return_val = system(f'openstack token issue -f json > {token_file}')
     # Sleep to give openstack the time to return the token
     sleep(5)
     if return_val != 0:
@@ -35,13 +34,12 @@ def get_os_token(token_file='/tmp/os-token.json', force_new_token=False):
                 #print("Token expired. Creating new token", file=stderr)
                 create_os_token(token_file)
     else:
-        #print('Creating new token file'.format(token_file), file=stderr)
         create_os_token(token_file)
         return get_os_token(token_file)
 
 def query_accounting_api(token):
     url = 'https://js2.jetstream-cloud.org:9001'
-    headers = { 'X-Auth-Token': '{}'.format(token) }
+    headers = { 'X-Auth-Token': f'{token}' }
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     query = json.loads(response.text)
@@ -262,10 +260,10 @@ def generate_usage_plot(resources, analyses):
 
 def main(data_file):
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--force-new-token', help='Force the creation of a new openstack token', action='store_true')
-    parser.add_argument('-w', '--write', help='Query Jetstream2 for new allocation data and write to data file: {}'.format(data_file), action='store_true')
-    parser.add_argument('-c', '--dump-csv', help='Dump the data from {} in csv format'.format(data_file), action='store_true')
-    parser.add_argument('-j', '--dump-json', help='Dump the data from {} in json format'.format(data_file), action='store_true')
+    parser.add_argument('-n', '--force-new-token', help='Force the creation of a new openstack token before query', action='store_true')
+    parser.add_argument('-w', '--write', help=f'Query Jetstream2 for new allocation data and write to data file: {data_file}', action='store_true')
+    parser.add_argument('-c', '--dump-csv', help=f'Dump the data from {data_file} in csv format', action='store_true')
+    parser.add_argument('-j', '--dump-json', help=f'Dump the data from {data_file} in json format', action='store_true')
     parser.add_argument('-p', '--plot', help='Generate an interactive plot of SU usage data', action='store_true')
     parser.add_argument('-a', '--analysis-days', help='Days prior for which to perform an analysis', action='extend', nargs='+', type=int)
     parser.add_argument('-d', '--devel', help='Use test_csv_file for development work', action='store_true')
@@ -284,7 +282,7 @@ def main(data_file):
         write_resource_csv(resources, data_file)
 
     if args['dump_csv']:
-        system('cat {}'.format(data_file))
+        system(f'cat {data_file}')
 
     if args['dump_json']:
         resources = read_resource_csv(data_file)
