@@ -12,8 +12,7 @@ allocation_resources = [ 'jetstream2.indiana.xsede.org',
         ]
 
 # String: Path to data file which stores persistent data
-data_file = '/tmp/usage_monitoring_test.csv'
-data_file = '{}/usage_monitoring.csv'.format(home)
+data_file = f'{home}/usage_monitoring.csv'
 
 # String: Path to a test data file used for development
 test_csv_file = '/tmp/usage_monitoring_test.csv'
