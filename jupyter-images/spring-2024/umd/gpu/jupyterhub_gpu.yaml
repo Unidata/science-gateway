@@ -1,0 +1,37 @@
+singleuser:
+  profileList:
+    - display_name: "GPU Server"
+      description: "Spawns a notebook server with access to a GPU"
+      kubespawner_override:
+        extra_resource_limits:
+          nvidia.com/gpu: "1"
+    - display_name: "CPU Server"
+      description: "Spawns a standard notebook server"
+  image:
+      name: "unidata/umd24s"
+      tag: "xxx"
+  # very small limits for testing on small instances
+  memory:
+    guarantee: 4G
+    limit: 4G
+  cpu:
+    guarantee: 1
+    limit: 2
+  storage:
+    type: dynamic
+    capacity: 10Gi
+  # default is 300s, sometimes Jetstream volumes are slow to attach
+  startTimeout: 600
+  # See https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/38
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+          - "sh"
+          - "-c"
+          - >
+            dir="/home/jovyan/.ssh"; [ -d $dir ] && { chmod 700 $dir && \
+            chmod -f 600 $dir/* && chmod -f 644 $dir/*.pub; } || true;
+            cp -t /home/jovyan /Acknowledgements.ipynb;
+            gitpuller https://github.com/mariajmolina/UMDAOSC650 main UMDAOSC650;
+            [ ! -L ~/share ] && ln -s /share ~/share
