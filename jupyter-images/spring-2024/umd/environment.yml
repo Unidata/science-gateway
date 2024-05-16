@@ -1,0 +1,23 @@
+name:  umd-spring-2024
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+  - r
+dependencies:
+  - cartopy=0.21.1
+  - dask=2023.6.0
+  - ipykernel=6.25.0
+  - ipython=8.15.0
+  - jupyter
+  - matplotlib=3.8.0
+  - netcdf4=1.6.2
+  - pip=23.3
+  - python=3.10.13
+  - scikit-learn
+  - xarray=2023.6.0
+  - pip:
+      - keras==3.0.5
+      - keras-tuner
+      - tensorrt
+      - -r requirements-tensorflow-cuda.txt
