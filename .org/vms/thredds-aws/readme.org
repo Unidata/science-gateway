@@ -44,9 +44,9 @@ We will be making heavy use of the ~Unidata/science-gateway~ git repository.
 
 From the =~/science-gateway/vms/thredds-aws= directory:
 
-#+begin_src shell :tangle no :exports code
-  docker build -t unidata/nexrad-tds-docker:latest .
-#+end_src
+#+BEGIN_SRC shell :tangle no :exports code
+  docker build -t unidata/thredds-docker:<5-version> .
+#+END_SRC
 
 ** Start TDS With Docker and docker-compose
    :PROPERTIES:
@@ -59,12 +59,31 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
    :PROPERTIES:
    :CUSTOM_ID: h-717697EB
    :END:
+*** Download Configuration
+:PROPERTIES:
+:CUSTOM_ID: h-FBD51637
+:END:
 
 #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
   mkdir -p ~/tdsconfig/
   wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
   unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 #+end_src
+
+*** Cache Clearing
+:PROPERTIES:
+:CUSTOM_ID: h-2BCD26ED
+:END:
+
+In order to not have the TDS fill up with data, the cache has to be periodically cleared. Edit the =~/tdsconfig/threddsConfig.xml= and add:
+
+#+BEGIN_SRC xml
+  <DiskCache>
+    <alwaysUse>true</alwaysUse>
+    <scour>1 hour</scour>
+    <maxSize>1 Gb</maxSize>
+  </DiskCache>
+#+END_SRC
 
 *** Supply Contact and Host Information in threddsConfig.xml
     :PROPERTIES:
@@ -73,7 +92,7 @@ With the help of Docker and ~docker-compose~, starting a VM with the TDS should 
 
 Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution by filling out the ~contact~ and ~hostInstitution~ XML elements. For example:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC xml
   <contact>
     <name>THREDDS Support</name>
     <organization>Unidata</organization>
@@ -85,7 +104,7 @@ Edit the =~/tdsconfig/threddsConfig.xml= to supply contact and host institution 
     <logoUrl>https://ral.ucar.edu/sites/default/files/public/images/project/Unidata_logo_vertical_400x400_alpha.png</logoUrl>
     <logoAltText>Unidata</logoAltText>
   </hostInstitution>
-#+END_EXAMPLE
+#+END_SRC
 
 ** TDS log Directories
    :PROPERTIES:
@@ -102,31 +121,6 @@ You will need Apache Tomcat and TDS log directories:
    mkdir -p /logs/tds-tomcat/
    mkdir -p /logs/tds/
  #+end_src
-
-** S3Objects Directory
-   :PROPERTIES:
-   :CUSTOM_ID: h-F6EBEBDF
-   :END:
-
-*** Create S3Objects Directory
-    :PROPERTIES:
-    :CUSTOM_ID: h-763C22DA
-    :END:
-
-Files served out of S3 are first written to local file system, then served via THREDDS.
-
- #+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
-   mkdir -p ~/S3Objects
- #+end_src
-
-*** Scour S3Objects Directory
-    :PROPERTIES:
-    :CUSTOM_ID: h-483C35F9
-    :END:
-
-#+begin_src shell :tangle ../../../vms/thredds-aws/thredds-aws-install.sh
-  (crontab -l ; echo "*/5 * * * * find ~/S3Objects -mindepth 1 -mmin +15 -delete")| crontab -
-#+end_src
 
 ** SSL Certificate
    :PROPERTIES:

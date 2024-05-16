@@ -4,12 +4,11 @@
   - [Build the AWS Nexrad TDS Docker Container](#h-154BBC9F)
   - [Start TDS With Docker and docker-compose](#h-74EEEE2C)
   - [TDS Configuration](#h-717697EB)
+    - [Download Configuration](#h-FBD51637)
+    - [Cache Clearing](#h-2BCD26ED)
     - [Supply Contact and Host Information in threddsConfig.xml](#h-615B0684)
   - [TDS log Directories](#h-F52D01A2)
     - [Create log Directories](#h-99E9AD76)
-  - [S3Objects Directory](#h-F6EBEBDF)
-    - [Create S3Objects Directory](#h-763C22DA)
-    - [Scour S3Objects Directory](#h-483C35F9)
   - [SSL Certificate](#h-0B00E7AE)
   - [Ports 80, 443 and 8443](#h-1541998B)
   - [docker-compose.yml](#h-B1EEBC0A)
@@ -50,7 +49,7 @@ git clone https://github.com/Unidata/science-gateway ~/science-gateway
 From the `~/science-gateway/vms/thredds-aws` directory:
 
 ```shell
-docker build -t unidata/nexrad-tds-docker:latest .
+docker build -t unidata/thredds-docker:<5-version> .
 ```
 
 
@@ -65,10 +64,30 @@ With the help of Docker and `docker-compose`, starting a VM with the TDS should 
 
 ## TDS Configuration
 
+
+<a id="h-FBD51637"></a>
+
+### Download Configuration
+
 ```shell
 mkdir -p ~/tdsconfig/
 wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
+```
+
+
+<a id="h-2BCD26ED"></a>
+
+### Cache Clearing
+
+In order to not have the TDS fill up with data, the cache has to be periodically cleared. Edit the `~/tdsconfig/threddsConfig.xml` and add:
+
+```xml
+<DiskCache>
+  <alwaysUse>true</alwaysUse>
+  <scour>1 hour</scour>
+  <maxSize>1 Gb</maxSize>
+</DiskCache>
 ```
 
 
@@ -78,7 +97,7 @@ unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
 Edit the `~/tdsconfig/threddsConfig.xml` to supply contact and host institution by filling out the `contact` and `hostInstitution` XML elements. For example:
 
-```
+```xml
 <contact>
   <name>THREDDS Support</name>
   <organization>Unidata</organization>
@@ -107,31 +126,6 @@ You will need Apache Tomcat and TDS log directories:
 ```shell
 mkdir -p /logs/tds-tomcat/
 mkdir -p /logs/tds/
-```
-
-
-<a id="h-F6EBEBDF"></a>
-
-## S3Objects Directory
-
-
-<a id="h-763C22DA"></a>
-
-### Create S3Objects Directory
-
-Files served out of S3 are first written to local file system, then served via THREDDS.
-
-```shell
-mkdir -p ~/S3Objects
-```
-
-
-<a id="h-483C35F9"></a>
-
-### Scour S3Objects Directory
-
-```shell
-(crontab -l ; echo "*/5 * * * * find ~/S3Objects -mindepth 1 -mmin +15 -delete")| crontab -
 ```
 
 
@@ -170,9 +164,9 @@ version: '3'
 
 services:
   thredds-production:
-    image: unidata/nexrad-tds-docker:latest
+    image: unidata/thredds-docker:5.5-SNAPSHOT
     container_name: thredds
-    # restart: always
+    restart: always
     ports:
       - "80:8080"
       - "443:8443"
@@ -188,9 +182,9 @@ services:
       # HTTPS
       - ./files/keystore.jks:/usr/local/tomcat/conf/keystore.jks
       - ./files/server.xml:/usr/local/tomcat/conf/server.xml
+      - ./files/web.xml:/usr/local/tomcat/conf/web.xml
       # AWS TDS Nexrad server
       - ~/tdsconfig/:/usr/local/tomcat/content/thredds/
-      - ~/S3Objects/:/usr/local/tomcat/temp/S3Objects/
       - ~/files/credentials:/usr/local/tomcat/.aws/credentials
     env_file:
       - "compose${THREDDS_COMPOSE_ENV_LOCAL}.env"
