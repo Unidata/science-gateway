@@ -4,7 +4,7 @@
 ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
-ENV DEFAULT_ENV_NAME=metpy-hytest-2024
+ENV DEFAULT_ENV_NAME=rmacc-2024
 
 LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
 

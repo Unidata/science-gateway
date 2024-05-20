@@ -1,22 +1,26 @@
-name: metpy-hytest-2024
+name: rmacc-2024
 channels:
-  - conda-forge
+ - conda-forge
 dependencies:
-  - cartopy
-  - dataretrieval
-  - dask
-  - geopandas
-  - jupyterlab
-  - matplotlib
-  - metpy
-  - nc-time-axis
-  - netcdf4
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
   - numpy
-  - pandas<2  # siphon NCSS endian-ness fun
-  - pykdtree
-  - pythia-datasets
-  - s3fs
-  - seaborn
+  - matplotlib
+  - cartopy
+  - metpy
   - siphon
-  - xarray<2023.03
-  - zarr
+  - pandas
+  - pip
+  - xarray
+  - ipywidgets
+  - python-awips
+  - scikit-learn
+  - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - palmerpenguins
+    - imbalanced-learn
+    - rasterio
