@@ -85,7 +85,7 @@ This TDS can be accessed from the  [[http://www.unidata.ucar.edu/software/idv/][
   :CUSTOM_ID: h-6B491DAA
   :END:
 
-[[https://thredds-aws.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
+[[https://tds-nexrad.scigw.unidata.ucar.edu/thredds/catalog.html][THREDDS AWS Nexrad Installation on Jetstream]]
 
 In collaboration with the [[https://data.noaa.gov/datasetsearch/][NOAA]] and Amazon Web Services (AWS), Unidata has deployed a THREDDS AWS Nexrad Server on the Jetstream Cloud. More than twenty years of [[https://registry.opendata.aws/noaa-nexrad/][Nexrad Level II]] data are available from this server. The data reside on AWS, but are served out by a THREDDS Data server running on Jetstream.
 

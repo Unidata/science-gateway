@@ -28,7 +28,7 @@
 
 ## Create a THREDDS VM on Jetstream
 
-Create an `m1.large` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `thredds-aws.unidata.ucar.edu`
+Create an `m1.large` VM with the [Jetstream OpenStack API](../../openstack/readme.md). Work with Unidata system administrator staff to have this VM's IP address resolve to `tds-nexrad.scigw.unidata.ucar.edu`
 
 
 <a id="h-966B0207"></a>
@@ -239,7 +239,7 @@ to start the TDS
 
 ## Navigate to the TDS
 
-In a web browser, navigate to [https://thredds-aws.unidata.ucar.edu/thredds/catalog.html](https://thredds-aws.unidata.ucar.edu/thredds/catalog.html) to see if is running.
+In a web browser, navigate to [https://tds-nexrad.scigw.unidata.ucar.edu/thredds/catalog.html](https://tds-nexrad.scigw.unidata.ucar.edu/thredds/catalog.html) to see if is running.
 
 
 <a id="h-9906607B"></a>
