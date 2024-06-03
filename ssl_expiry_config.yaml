@@ -4,6 +4,7 @@ websites:
   - pyaos-workshop.unidata.ucar.edu
   - science-gateway.unidata.ucar.edu
   - thredds-aws.unidata.ucar.edu
+  - tds-nexrad.scigw.unidata.ucar.edu
   - ramadda.scigw.unidata.ucar.edu
   - tds.scigw.unidata.ucar.edu
 
