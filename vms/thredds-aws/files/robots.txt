@@ -1,0 +1,20 @@
+User-agent: bingbot
+Disallow: /
+
+User-agent: MSIE
+Disallow: /
+
+User-agent: oc4.9.2
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
