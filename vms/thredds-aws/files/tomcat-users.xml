@@ -1,12 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<tomcat-users xmlns="http://tomcat.apache.org/xml"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
-              version="1.0">
-
+<?xml version="1.0" encoding="utf-8"?>
+<tomcat-users xmlns="http://tomcat.apache.org/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd" version="1.0">
   <role rolename="tdsConfig" description="can change THREDDS configuration files"/>
   <role rolename="tdsMonitor" description="can monitor log files with tdsMonitor program"/>
-  <user username="admin"
-        password="708710d74c7a40e6143899d4faad14a74a6d399b29ea4099d30a7f6555cda502$1$b06d1e973e0a2d5bbc1d28bc54ed52bf4e2ead11292873af72404ad085400d59d2627bc04ba6471f54ffd1da99c12115f5585237997ee92deb9c1a8939701dcb"
-        roles="tdsConfig,tdsMonitor"/>
+  <user username="admin" password="708710d74c7a40e6143899d4faad14a74a6d399b29ea4099d30a7f6555cda502$1$b06d1e973e0a2d5bbc1d28bc54ed52bf4e2ead11292873af72404ad085400d59d2627bc04ba6471f54ffd1da99c12115f5585237997ee92deb9c1a8939701dcb" roles="tdsConfig,tdsMonitor"/>
 </tomcat-users>
