@@ -1,0 +1,61 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:nil c:nil
+#+OPTIONS: creator:nil d:(not "LOGBOOK") date:nil e:t email:nil f:t inline:t
+#+OPTIONS: num:nil p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t timestamp:t
+#+OPTIONS: title:t toc:nil todo:t |:t
+#+TITLE: NSF Biographical Sketch
+#+SUBTITLE: Julien Chastang, M.Sc.
+#+DATE: <2024-06-07 Fri>
+#+AUTHOR: Julien Chastang
+#+EMAIL: chastang@ucar.edu
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 29.3 (Org mode 9.6.20)
+
+# latex
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [onecolumn,12pt,hidelinks]
+
+# small caps, bold section headers
+#+LATEX_HEADER: \usepackage[sc]{titlesec}
+#+LATEX_HEADER: \titleformat{\section}[hang]{\bfseries\scshape}{\thesection}{2ex}{}[]
+
+# latex margins
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+
+# no paragraph indentation
+#+LATEX_HEADER: \setlength{\parindent}{0em}
+
+# Suppress page numbers 
+#+LATEX_HEADER: \usepackage{nopageno}
+
+# Bibliography
+#+LATEX_HEADER: \usepackage[backend=bibtex]{biblatex}
+#+LATEX_HEADER: \bibliography{../../jetstream.bib}
+#+CITE_EXPORT: csl "ieee.csl"
+
+* Professional Preparation 
+#+ATTR_LATEX: :center nil :align @{}ll@{\hspace{1.5cm}}r
+| University of Colorado | Computer Science                            | M. Sc., 2000 |
+| University of Colorado | Molecular, Cellular & Developmental Biology | B. Sc., 1994 |
+
+* Professional Appointments
+/University Corporation for Atmospheric Research/
+
+#+ATTR_LATEX: :center nil :align @{}ll@{\hspace{4.5cm}}r
+| Software Engineer IV  | NSF-Unidata Program Center | 2021-present |
+| Software Engineer III | NSF-Unidata Program Center |    2010-2021 |
+| Software Engineer III | NSF-NCAR CISL              |    2006-2010 |
+| Software Engineer II  | NSF-NCAR RAL               |    2000-2006 |
+| Student Assistant     | NSF-NCAR RAL               |    1999-2000 |
+* Publications
+\fullcite{DeHart2024}\\
+
+\fullcite{Espinoza2023a}\\
+
+\fullcite{Arms2020b}\\
+* Synergistic Activities
+
+#+ATTR_LATEX: :center nil :align @{}l@{\hspace{1.6cm}}r
+| Co-organized NSF-Unidata Python for atmosphere and ocean science | 2020-present |
+| workshops at the American Meteorological Society annual meeting  |              |
