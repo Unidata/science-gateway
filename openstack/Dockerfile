@@ -1,4 +1,4 @@
-FROM unidata/rockylinux:9.1.20230215
+FROM unidata/rockylinux:9.3.20231119
 
 ###
 # Kubectl
