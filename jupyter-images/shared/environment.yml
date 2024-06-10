@@ -18,6 +18,7 @@ dependencies:
   - ipywidgets
   - python-awips
   - scikit-learn
+  - seaborn
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
     # when it is not found in the conda repos
