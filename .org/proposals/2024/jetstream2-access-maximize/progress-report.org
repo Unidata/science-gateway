@@ -1,0 +1,74 @@
+#+title: Progress Report
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+#+startup: content
+
+#+cite_export: csl ieee.csl
+
+#+latex_class: article
+
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+#+latex_header: \usepackage{mathptmx}
+#+latex_header: \usepackage{wrapfig}
+#+latex_header: \usepackage{graphicx}
+
+* Summary
+:PROPERTIES:
+:CUSTOM_ID: h-1DE76AA5
+:END:
+We are fully employing our Jetstream2 allocation by maintaining the high-quality services we have consistently provided to the NSF Unidata community over the years, while also leveraging new capabilities such as GPU-enabled virtual machines. Our ongoing collaboration with Jetstream2 has proven mutually beneficial to our teams as well as to the broader Jetstream2 user community.
+* AWIPS
+:PROPERTIES:
+:CUSTOM_ID: h-6DC849AD
+:END:
+In the last few months, NSF Unidata staff have launched two new EDEX (Environmental Data Exchange) deployments on Jetstream2 for a new AWIPS (Advanced Weather Interactive Processing System) version that runs on the Rocky8 operating system. These systems are available to the academic community for educational and research applications. Additionally, we continue to support the previous version of EDEX (running on CentOS7) for academic users who have not had a chance to update their CAVE (Common AWIPS Visualization Environment) clients. 
+
+At the annual American Meteorology Conference in January 2024, NSF Unidata developer Tiffany Meyer hosted an AWIPS Student Workshop, with over 70 students in attendance. Students gained experience by following along with demonstrations, connecting to NSF Unidata’s EDEX server on Jetstream2, and hearing about the importance of using AWIPS in the classroom. A yearly update on NSF Unidata’s AWIPS program was also presented at the main conference.  
+* Customized JupyterHub Resources for Atmospheric Science Education
+:PROPERTIES:
+:CUSTOM_ID: h-61C8317C
+:END:
+Throughout this ACCESS allocation period from October 1, 2023 to July 2024, using Jetstream2 resources, we supported 284 students at 12 universities with specialized, semester-long PyAOS (Python for Atmospheric and Ocean Science) JupyterHub resources for atmospheric science education. NSF Unidata staff also conducted eight workshops for 194 attendees touching on topics related to artificial intelligence and machine learning for atmospheric science and at venues such as the American Meteorological Society conference. We also continued our annual partnership with the UCAR NSF SOARS program to provide 19 summer interns with PyAOS JupyterHub resources. NSF Significant Opportunities in Atmospheric Research and Science (NSF SOARS) is an undergraduate-to-graduate bridge program designed to broaden participation of historically underrepresented communities in the atmospheric and related sciences. 
+** Dask Cluster
+:PROPERTIES:
+:CUSTOM_ID: h-E43D603A
+:END:
+In addition to these types of resources which we have consistently provided to our community over the years, we have introduced a Dask-enabled JupyterHub cluster for the first time to support an atmospheric science class at the University of Wisconsin, Madison. The cluster served 20 students, facilitating high performance, parallel computation using the Dask Python library. Our ability to offer this advanced computational resource is due to our significant allocation on Jetstream2, which allows us to launch a sufficient number of virtual machines in parallel to accommodate the Dask cluster.
+** Use of Jetstream2 GPU Capabilities
+:PROPERTIES:
+:CUSTOM_ID: h-76D12D6A
+:END:
+With the advent of the Jetstream2 program, the platform began offering a new class of GPU-enabled virtual machines. During this allocation period, NSF Unidata provided access to these advanced capabilities through GPU-enabled JupyterHub clusters. We successfully launched two clusters, one for a machine learning in atmospheric science class at the University of Maryland during the fall semester of 2024, and another to support a student at Northern Illinois University for his master's thesis. 
+* Jetstream2 Collaboration
+:PROPERTIES:
+:CUSTOM_ID: h-62D65A3D
+:END:
+NSF Unidata staff continues to collaborate with Andrea Zonca (SDSC/Jetstream2) on the adaptation of the “Zero to JupyterHub with Kubernetes” project for OpenStack and Jetstream2 environments. Over the past year, we have continued to provide feedback on Andrea’s instructional blog and workflows through real-world testing. In particular, to name a few collaborative areas, we worked with Andrea on:
+
+- Refinement of a GPU enabled JupyterHub workflow [cite:@zonca2024kubernetesgpu]. 
+- The deployment of clusters with smaller Linux distributions leading to a reduced cluster footprint [cite:@zonca2024minimal].
+- More rapid scaling of clusters through kubernetes “soft-scaling” workflows [cite:@zonca2024softscaling].
+
+This yearslong collaboration has proven to be mutually beneficial for NSF Unidata, Jetstream2 staff, and other groups using these workflows. This joint effort culminated in a Russell L. Desouza award for Andrea Zonca and Jeremy Fischer in 2023, recognizing their significant contributions to the NSF Unidata community [cite:@desouza2023awardees].
+* Use of Jetstream2 for Weather Research Forecast Model
+:PROPERTIES:
+:CUSTOM_ID: h-84A13C5D
+:END:
+We maintain the capability to run containerized versions of the Weather Research and Forecasting (WRF) model on Jetstream2. This setup offers two significant advantages: it allows easy distribution of the model to a Docker-enabled computing environment and facilitates the analysis and visualization of the output in a data-proximate manner, such as within a JupyterLab environment. In collaboration with Greg Blumberg at Millersville University, NSF Unidata staff have deployed an idealized single-column WRF model in a JupyterHub environment to support undergraduate instructional objectives. The collaboration led to a presentation at the Science Gateways 2023 conference [cite:@Espinoza2023a].
+* LROSE Collaboration
+:PROPERTIES:
+:CUSTOM_ID: h-D4D25F9A
+:END:
+Since 2022, NSF Unidata staff has collaborated with the NCAR Earth Observing Laboratory (EOL) and Colorado State University to provide the Lidar Radar Open Software Environment (LROSE) software in a JupyterHub environment for instructional and research purposes. This collaboration has evolved into a separate project with its own Jetstream2 allocation. We will showcase our work at the Gateways 2024 conference by presenting a paper entitled “A Lidar and Radar Meteorology Science Gateway for Education and Research on the NSF Jetstream2 Cloud.” [cite:@DeHart2024]
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-10584EEF
+:END:
+
+\setlength{\parindent}{0pt}
+
+#+print_bibliography:
