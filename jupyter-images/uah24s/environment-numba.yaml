@@ -1,0 +1,33 @@
+name: uah24s-numba
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - numpy
+  - matplotlib
+  - cartopy
+  - metpy
+  - siphon
+  - pandas
+  - pip
+  - xarray
+  - ipywidgets
+  - python-awips
+  - scikit-learn
+  - tobac
+  - s3fs
+  - arm_pyart
+  - netCDF4
+  - zarr
+  # numba and cuda
+  # See https://numba.pydata.org/numba-doc/latest/user/installing.html
+  - numba
+  - cudatoolkit
+  - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - palmerpenguins
