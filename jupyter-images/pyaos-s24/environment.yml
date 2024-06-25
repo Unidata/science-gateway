@@ -1,28 +1,20 @@
-name: rmacc-2024
+name: ucar-intern-pdws
 channels:
  - conda-forge
 dependencies:
-  # Required by JupyterLab
-  - python=3
-  - nb_conda_kernels
-  - ipykernel
-  # User requested packages
-  - numpy
-  - matplotlib
-  - cartopy
-  - metpy
-  - siphon
-  - pandas
-  - pip
-  - xarray
-  - ipywidgets
-  - python-awips
-  - scikit-learn=1.2
-  - seaborn
-  - geopandas
-  - pip:
-    # It is recommended to install a package using pip as a last resort, i.e.
-    # when it is not found in the conda repos
-    - palmerpenguins
-    - imbalanced-learn
-    - rasterio
+ # Required by JupyterLab
+ - python
+ - nb_conda_kernels
+ - ipykernel
+ # User requested packages
+ - cartopy
+ - jupyterlab
+ - matplotlib
+ - metpy
+ - netcdf4
+ - numpy
+ - pandas<2
+ - pint
+ - scipy
+ - siphon=0.9
+ - xarray
