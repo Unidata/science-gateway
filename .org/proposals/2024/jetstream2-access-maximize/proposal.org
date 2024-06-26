@@ -1,0 +1,61 @@
+#+title: Harnessing Established Strengths and New Technologies in Jetstream2 for Geoscience Research and Education
+#+author: Julien Chastang (PI), Mohan Ramamurthy (co-I)
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:t date:nil author:t auto-id:t
+#+startup: content
+
+#+cite_export: csl ieee.csl
+
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+#+latex_header: \usepackage{mathptmx}
+#+latex_header: \usepackage{wrapfig}
+#+latex_header: \usepackage{graphicx}
+
+* Project Summary
+:PROPERTIES:
+:CUSTOM_ID: h-4CDAECFF
+:UNNUMBERED: t
+:END:
+* Scientific Background
+:PROPERTIES:
+:CUSTOM_ID: h-7CC6DFCF
+:END:
+
+** Overview NSF Unidata Program Center
+
+
+** Overview of NSF Unidata Supporting Grant
+
+Lorem ipsum [cite:@DeHart2024]
+
+* Research Objectives
+:PROPERTIES:
+:CUSTOM_ID: h-AAA0A7ED
+:END:
+* Resource Usage Plan
+:PROPERTIES:
+:CUSTOM_ID: h-D8FBAB69
+:END:
+* Justification
+:PROPERTIES:
+:CUSTOM_ID: h-82587A36
+:END:
+* Resource Appropriateness
+:PROPERTIES:
+:CUSTOM_ID: h-8934061A
+:END:
+* Access to other CI resources
+:PROPERTIES:
+:CUSTOM_ID: h-9C7C0408
+:END:
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-C4A73937
+:UNNUMBERED: t
+:END:
+
+#+print_bibliography:
