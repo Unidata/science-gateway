@@ -17,4 +17,4 @@ dependencies:
  - pint
  - scipy
  - siphon=0.9
- - xarray
+ - xarray<2024.03
