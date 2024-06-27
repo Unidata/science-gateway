@@ -1,0 +1,200 @@
+#+title: A Lidar and Radar Meteorology Science Gateway for Education and Research on the NSF Jetstream2 Cloud
+
+#+bibliography: gateways2024.bib
+
+#+author: Julien Chastang
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+
+#+latex_class: IEEEtran
+#+latex_class_options: [conference]
+#+latex_header: \IEEEoverridecommandlockouts
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{cite}
+#+latex_header: \usepackage{amsmath,amssymb,amsfonts}
+#+latex_header: \usepackage{algorithmic}
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{textcomp}
+#+latex_header: \usepackage{xcolor}
+
+* Preamble                                            :noexport:
+
+Below is an org mode file that can be exported to ~tex~ format via ::`org-latex-export-to-latex` that will conform to the [[https://www.ieee.org/conferences/publishing/templates.html][Gateways2024 conference requirements for paper submissions]]. When the ~tex~ file is generated, it unfortunately needs a few small modifications to make the export to PDF work so you have to invoke the ::`jc/ieee` command below within the body of the ~tex~. This is really not ideal, but will do as a stop gap measure while trying to find a better solution.
+
+#+begin_src emacs-lisp :results silent :exports none
+  (setq org-confirm-babel-evaluate nil)
+#+end_src
+
+#+begin_src emacs-lisp :eval no :exports none
+  (defalias 'jc/ieee
+    (kmacro "M-< C-s t i t C-a C-k C-k C-s m a k e t C-a C-k C-s s e c t C-a C-k C-k C-k C-x C-s"))
+#+end_src
+
+#+begin_src emacs-lisp :results silent :exports none
+  (require 'oc-csl)
+  (setq org-cite-export-processors
+        '((t csl "~/git/science-gateway/.org/presentations/gateways2024/ieee.csl")
+          ))
+  #+end_src
+
+#+TBLNAME: authors-table
+| Rank | Order | Given Name | Surname  | Department Name                   | Organization Name         | City         | Country | Email Address or ORCID                |
+|------+-------+------------+----------+-----------------------------------+---------------------------+--------------+---------+---------------------------------------|
+|    1 | st    | Jennifer   | DeHart   | Department of Atmospheric Science | Colorado State University | Fort Collins | CO USA  | https://orcid.org/0000-0001-8536-4927 |
+|    2 | nd    | Brenda     | Javornik | Earth Observing Laboratory        | NSF NCAR, UCAR            | Boulder      | CO USA  | brenda@ucar.edu                       |
+|    3 | rd    | Julien     | Chastang | NSF Unidata Program Center        | UCP, UCAR                 | Boulder      | CO USA  | https://orcid.org/0000-0003-2482-3565 |
+|    4 | th    | Ana        | Espinoza | NSF Unidata Program Center        | UCP, UCAR                 | Boulder      | CO USA  | https://orcid.org/0000-0002-6292-073X |
+|    5 | th    | Michael    | Dixon    | Earth Observing Laboratory        | NSF NCAR, UCAR            | Boulder      | CO USA  | https://orcid.org/0000-0002-9597-9113 |
+|    6 | th    | Michael    | Bell     | Department of Atmospheric Science | Colorado State University | Fort Collins | CO USA  | https://orcid.org/0000-0002-0496-331X |
+
+* 
+
+#+begin_export latex
+\title{A Lidar and Radar Meteorology Science Gateway for Education and Research on the NSF Jetstream2 Cloud}
+#+end_export
+
+#+BEGIN_SRC emacs-lisp :var data=authors-table :exports results :results replace latex
+  (setq result-string "\\author{")
+
+  (mapc
+   (lambda (row)
+     (setq result-string
+           (concat result-string
+                   (format "\\IEEEauthorblockN{%s\\textsuperscript{%s} %s %s}\n\\IEEEauthorblockA{\\textit{%s} \\\\\n\\textit{%s}\\\\\n%s, %s \\\\\n%s}\n\\and\n"
+                           (nth 0 row) (nth 1 row) (nth 2 row) (nth 3 row)
+                           (nth 4 row) (nth 5 row) (nth 6 row) (nth 7 row) (nth 8 row)))))
+   data)
+
+  ;; Remove the last "\and" from the string
+  (setq result-string (substring result-string 0 (- (length result-string) 6)))
+
+  (concat result-string "\n}")
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\author{\IEEEauthorblockN{1\textsuperscript{st} Jennifer DeHart}
+\IEEEauthorblockA{\textit{Department of Atmospheric Science} \\
+\textit{Colorado State University}\\
+Fort Collins, CO USA \\
+https://orcid.org/0000-0001-8536-4927}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Brenda Javornik}
+\IEEEauthorblockA{\textit{Earth Observing Laboratory} \\
+\textit{NSF NCAR, UCAR}\\
+Boulder, CO USA \\
+brenda@ucar.edu}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Julien Chastang}
+\IEEEauthorblockA{\textit{NSF Unidata Program Center} \\
+\textit{UCP, UCAR}\\
+Boulder, CO USA \\
+https://orcid.org/0000-0003-2482-3565}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Ana Espinoza}
+\IEEEauthorblockA{\textit{NSF Unidata Program Center} \\
+\textit{UCP, UCAR}\\
+Boulder, CO USA \\
+https://orcid.org/0000-0002-6292-073X}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Michael Dixon}
+\IEEEauthorblockA{\textit{Earth Observing Laboratory} \\
+\textit{NSF NCAR, UCAR}\\
+Boulder, CO USA \\
+https://orcid.org/0000-0002-9597-9113}
+\and
+\IEEEauthorblockN{6\textsuperscript{th} Michael Bell}
+\IEEEauthorblockA{\textit{Department of Atmospheric Science} \\
+\textit{Colorado State University}\\
+Fort Collins, CO USA \\
+https://orcid.org/0000-0002-0496-331X}
+}
+#+end_export
+
+#+begin_export latex
+\maketitle
+#+end_export
+
+#+name: abstract
+#+BEGIN_SRC org :exports none
+This paper introduces a lidar and radar meteorology science gateway deployed on the NSF Jetstream2 cloud, designed to enhance educational and research activities in atmospheric science. Utilizing the "Zero to JupyterHub with Kubernetes" workflow, we have created a science gateway that integrates lidar and radar meteorology software packages, notably the Lidar Radar Open Software Environment (LROSE). This integration allows users to execute applications directly from the JupyterLab terminal, streamlining the creation of datasets for further analysis and visualization within Jupyter notebooks. By combining traditional command-line operations with modern Python-based tools for data analysis and visualization, this gateway provides a robust end-to-end solution that caters to both educational and research needs. The gateway has already been vital in facilitating LROSE instructional workshops and will see future enhancements such as GPU acceleration to boost performance. Our work demonstrates the significant potential of merging established scientific computing techniques with advanced Python environments, opening new avenues for computational science education and research.
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :var text=abstract :exports none :results replace raw
+(format "#+latex: \\begin{abstract}\n%s\n#+latex: \\end{abstract}" text)
+#+END_SRC
+
+#+RESULTS:
+#+latex: \begin{abstract}
+This paper introduces a lidar and radar meteorology science gateway deployed on the NSF Jetstream2 cloud, designed to enhance educational and research activities in atmospheric science. Utilizing the "Zero to JupyterHub with Kubernetes" workflow, we have created a science gateway that integrates lidar and radar meteorology software packages, notably the Lidar Radar Open Software Environment (LROSE). This integration allows users to execute applications directly from the JupyterLab terminal, streamlining the creation of datasets for further analysis and visualization within Jupyter notebooks. By combining traditional command-line operations with modern Python-based tools for data analysis and visualization, this gateway provides a robust end-to-end solution that caters to both educational and research needs. The gateway has already been vital in facilitating LROSE instructional workshops and will see future enhancements such as GPU acceleration to boost performance. Our work demonstrates the significant potential of merging established scientific computing techniques with advanced Python environments, opening new avenues for computational science education and research.
+#+latex: \end{abstract}
+
+#+name: keywords
+#+BEGIN_SRC org :exports none
+LROSE, Cloud-based Science Gateway, Radar Meteorology, Lidar Meteorology, Data Visualization, Educational Technology in Atmospheric Science, JupyterHub, NSF Jetstream2, Atmospheric Data Analysis
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :var text=keywords :exports none :results replace raw
+(format "#+latex: \\begin{IEEEkeywords}\n%s\n#+latex: \\end{IEEEkeywords}" text)
+#+END_SRC
+
+#+RESULTS:
+#+latex: \begin{IEEEkeywords}
+LROSE, Cloud-based Science Gateway, Radar Meteorology, Lidar Meteorology, Data Visualization, Educational Technology in Atmospheric Science, JupyterHub, NSF Jetstream2, Atmospheric Data Analysis
+#+latex: \end{IEEEkeywords}
+
+* Introduction
+
+In the rapidly evolving field of computational science, integrating traditional scientific tools with modern data analysis platforms is essential for advancing research and educational outcomes. The Lidar Radar Open Software Environment (LROSE; [cite: @bell2022lrosetopaz] [cite: @lrosemain] [cite: @lrosewiki]) is an open-source project collaboratively developed by Colorado State University's Department of Atmospheric Science and the Earth Observing Laboratory at the National Center for Atmospheric Research. It provides modular tools for processing lidar and radar observations, including data conversion, derived quantities, quality control, gridding, and visualization. The integration of Jupyter notebooks and JupyterLab with sophisticated scientific computing tools like LROSE facilitates access to advanced analytical capabilities, allowing users to manipulate software packages directly from a web browser. By deploying these tools on the NSF Jetstream2 cloud [cite: @hancock2021jetstream2] [cite: @boerner2023access] through a JupyterHub science gateway, we significantly lower barriers to entry and democratize access to compute resources for educational institutions and researchers, facilitating seamless transitions between executing complex command-line tools and visualizing outputs in pre-configured Jupyter notebooks.  Additionally, it facilitates the hosting of LROSE instructional workshops, enhancing learning through hands-on experience. This integration, which includes tools like the Python ARM Radar Toolkit (Py-ART) [cite: @helmus2016pyart], enhances educational and research activities by making advanced lidar and radar data analysis more accessible.
+
+** LROSE Background
+
+The goal of the LROSE suite is to provide the lidar and radar community with well-tested applications for scientific research. The primary programming language of most LROSE applications is C++, providing the computational speed to work with large datasets. The LROSE team contributes to the Open Source Radar community [cite: @heistermann2015opensource]. LROSE applications can be categorized into the following: data conversion, display, gridding, quality control, and scientific analysis of echo and Doppler wind observations. Examples of the scientific analysis supported by LROSE include particle identification (e.g., distinguishing between rain and snow), quantitative precipitation estimation analysis, and wind retrievals from either a single or multiple Doppler instruments. Most applications, particularly those that perform scientific analysis, are based on algorithms that are described in peer-reviewed literature, of which RadxPid [cite: @vivekanandan1999cloud] and RadxEvad [cite: @matejka1991improved] are examples.
+
+** Why LROSE in a Science Gateway?
+
+The LROSE team first explored the idea of an LROSE Science Gateway to improve accessibility. Educational exercises are often complicated by users having a variety of operating systems, potentially different versions of LROSE, and varying levels of experience with the applications. A cloud-based science gateway removes any installation barrier and ensures all participants are using the same version of the software. The use of JupyterHub as a science gateway was proposed by Zonca and Sinkovits [cite:@zonca2018jupyter]. Expanding upon the idea of using JupyterHub as a science gateway, since 2020 the NSF Unidata Program Center at the University Corporation for Atmospheric Research, has deployed numerous specialized PyAOS (Python for Atmospheric and Ocean Science) JupyterHubs tailored for semester-long academic courses and workshops [cite: @chastang2017unidata] [cite: @chastang2024advancing]. JupyterHub, and particularly Jupyter notebooks, is ideal as a Science Gateway for LROSE as notebooks mimic user workflows.
+
+Previously, the LROSE team explored a specialized graphical user interface (GUI) as a gateway; however, any modifications to the workflow required development by software engineers. In general, the LROSE audience is familiar with programming in Python and wants to customize their interactions with LROSE. With Jupyter and Python, the interface is directly customized, without the need for additional software engineering. Specialized JupyterLabs can be deployed for specific workshops by the software engineers and radar scientists can focus their efforts on tutorial and Jupyter notebook materials. Finally, community members can develop their own workflows and submit them to the Gateway, thereby increasing engagement.
+
+* Methodology
+
+In the spring of 2023, the LROSE team acquired an exploratory allocation on the NSF Jetstream2 cloud at Indiana University through ACCESS [cite: @boerner2023access]. To develop the LROSE Science Gateway [cite: @lrosehub2024], we employed the "Zero to JupyterHub with Kubernetes" workflow ported to the NSF Jetstream2 cloud [cite:@zonca2018jupyter], enabling rapid and scalable deployment to accommodate a variable number of users. Authentication is managed via GitHub OAuth, reducing the maintenance burden. Since LROSE is a collection of C/C++ applications, we configured Docker containers based on the Jupyter Docker Stack to integrate the LROSE software, including command-line tools such as RadxConvert, FRACTL (Fast Reorder and CEDRIC Technique in LROSE), and SAMURAI (Spline Analysis at Mesoscale Utilizing Radar and Aircraft Instrumentation; [cite: @bell2012airsea]) available via the JupyterLab terminal. These containers also include Conda package manager environments equipped with Python packages like Py-ART [cite: @helmus2016pyart] and Metpy [cite: @metpy] for further data analysis. A shared drive visible to all JupyterHub users contains instructional datasets for lidar and radar data analysis, which users can access and manipulate using LROSE command-line tools.  Additionally, we crafted custom Jupyter notebooks that can function as tutorials or operational tools, complete with pre-loaded examples to guide users from data analysis to visualization.
+
+A significant amount of effort was made to optimize resource allocation and enable the execution of computationally intensive command-line applications like SAMURAI within a multi-user JupyterHub environment. SAMURAI's substantial resource demands often caused the single user server to stall, rendering it inaccessible. Additionally, heavy concurrent usage by multiple users risked overloading the entire Kubernetes cluster. To mitigate these issues, we increased the CPU and RAM allocation per user and adjusted Kubernetes pod configurations to ensure the JupyterHub "core" pods are isolated from the single user pods which utilize the majority of CPU cycles when running such intensive workflows [cite: @espinoza2023jupyterhub]. These adjustments aimed to ensure cluster stability, despite occasional individual node disruptions. This remains an active area of research as we continue to refine our resource management strategies.
+
+* Results and Discussion
+
+** Education Applications
+
+These tutorials are designed to be used in workshop or classroom environments or by users who wish to learn more about specific LROSE tools. All the notebooks are also available on GitHub for offline usage on personal devices. The current tutorials offered on the LROSE Science Gateway highlight data quality control, particle identification (e.g., distinguishing between rain and snow, identifying ground clutter or birds), quantitative precipitation estimation, multi-Doppler analysis (e.g., SAMURAI), and the creation of mosaics from multiple radars. The user interface and the introductory portion of the quantitative precipitation estimation tutorial are shown in Fig. 1. Initial tutorials provided pre-made parameter files so a user could run all relevant applications without worrying about incorrect parameters that might produce errors. Based on user feedback, we have since created a "guided" multi-Doppler analysis tutorial that helps the user understand how to set each necessary parameter, inspired by instructional notebooks created for Metpy [cite: @metpy]. We plan to expand this type of tutorial to the existing notebooks.
+
+#+NAME: JupyterLab
+#+CAPTION: /A screenshot of the JupyterLab layout and the RadxRate tutorial that a user sees after logging into the LROSE Science Gateway./
+file:lrose_gateway_jupyterlab.png
+
+Our first class-based tutorial took place in the spring of 2024, where students in Prof. Michael Bell's Radar Meteorology class generated dual-Doppler analyses from two mobile radars that sampled a tornado in Goshen County, Wyoming observed during the Verification of the Origins of Rotation in Tornadoes Experiment (VORTEX2) field campaign in 2009. LROSE applications RadxPrint, FRACTL, and SAMURAI were used to generate gridded analyses of the two-dimensional wind field. RadxPrint provides the students with the radar file metadata, including variable names needed to run FRACTL and SAMURAI. FRACTL and SAMURAI use two different approaches to retrieve two-dimensional winds from radar data; FRACTL's point error statistics help identify regions where the SAMURAI analysis is of higher quality. Once the gridded analyses were produced, standard Python packages matplotlib [cite: @hunter2007], numpy [cite: @harris2020array], and xarray [cite: @hoyer2017xarray] were used in conjunction with cartopy [cite: @cartopy2010] and Metpy [cite: @metpy] to visualize the wind field and storm structure; one of the images the students created in the tutorial is shown in Fig. 2, showing the horizontal tornado circulation in vectors and the radar reflectivity in color shading. Students provided positive feedback about the exercises in the "guided" tutorial and constructive feedback to improve tutorials for the future.
+
+#+NAME: SAMURAI
+#+CAPTION: /Map of SAMURAI-analyzed 1.5-km radar reflectivity (colors) and wind vectors (arrows) of the VORTEX2 tornado case analyzed during the Spring 2024 classroom exercise./
+file:lrose_gateway_samurai_output.png
+
+** Challenges
+
+As previously discussed, computationally-intensive applications like SAMURAI are challenging to run, even when data sets are carefully chosen to minimize memory and computational usage for demonstrations and exercises. For example, SAMURAI will utilize as much CPU as is allocated to the environment–in this case, the Kubernetes pod–in which it is executed. When stress testing SAMURAI on the JupyterHub with two simultaneous JupyterLab instances on the same node, we noticed a slow down in the execution time as compared to the same workflow running on only one JupyterLab instance at a time. In addition, the step in the workflow where data is read into the program also suffers a significant performance hit with two simultaneous workflow executions. While the latter is being investigated in the SAMURAI code, the former is still a subject of research and uncertainty. It is speculated that the multiple degrees of separation from the physical hardware (i.e., a hypervisor/VM, Kubernetes/containerization, JupyterHub/Lab) may affect how efficiently SAMURAI and other computationally intensive processes are executed. We find it necessary to close the knowledge gap using new or existing documentation and research in order to better determine the cause of the performance losses due to simultaneous execution. One way to mitigate them is to isolate single user pods to their own Jetstream2 virtual machine. This solution, however, is only realistically viable for certain scenarios, as described below.
+
+With open-ended assignments, in contrast to time-limited workshops, preallocating virtual machines can unnecessarily drain ACCESS resources, particularly when usage is inconsistent (e.g., overnight when students are not working). In the cases where gateway usage is better known, we use the soft scale technique to quickly bring nodes up and down as needed [cite: @zonca2024softscaling]. This technique reduces the allocation usage rate by allowing for worker nodes to be pre-configured as part of the Kubernetes cluster and then "shelved," a VM state that does not exhaust Service Units. However, this technique requires developer intervention. Automated scaling of virtual machines on Jetstream2 would be a useful functionality in the future. The authors are open to feedback or suggestions on how the hurdles described in this section can be overcome.
+
+* Conclusion and Future Work
+
+In conclusion, the LROSE Science Gateway enhances the accessibility and usability of advanced atmospheric analysis tools in education and research. By leveraging the NSF Jetstream2 cloud infrastructure and integrating it with JupyterHub, we have effectively reduced the entry barrier for students and researchers to utilize sophisticated lidar and radar data analysis tools. This gateway facilitates seamless transitions between command-line operations and interactive data visualization, making it easier to enter this specialized field.
+
+Forthcoming development efforts will focus on improving the gateway's performance and exploring GPU acceleration. Future educational plans include partnering with more university classrooms, running an intermediate SAMURAI tutorial to help users understand how the advanced parameters affect scientific results, and developing more tutorials to encompass more aspects of lidar and radar meteorology. Based on the positive feedback to our "guided" multi-Doppler analysis tutorial, we plan to upgrade our remaining notebooks to teach users to create their own parameter files independently. New tutorials are in the preliminary stages of development, which would highlight other LROSE applications and explain how to debug common error messages. Finally, we intend to showcase how users can integrate LROSE applications with other open-source packages (e.g., Py-ART, CSU RadarTools [cite: @lang2019csuradartools]).
+
+* Acknowledgments
+
+LROSE development is supported by NSF grants #2103776 and #2103785. This material is based upon work supported by the NSF National Center for Atmospheric Research, which is a major facility sponsored by the U.S. National Science Foundation under Cooperative Agreement No. 1852977. NSF Unidata Program Center funding is supported by NSF grant #1901712. This work used NSF Jetstream2 at Indiana University through allocation #EES200002 from the Advanced Cyberinfrastructure Coordination Ecosystem: Services & Support (ACCESS) program, which is supported by National Science Foundation grants #2138259, #2138286, #2138307, #2137603, and #2138296.
+
+* References
+
+#+print_bibliography:
