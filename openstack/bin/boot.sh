@@ -55,9 +55,9 @@ if [[ -z "$VM_SIZE" ]]; then
     exit 1
 fi
 
-if [[ -z "$SECURITY" ]]; then
+if [[ -z "$SECURITY_SCRIPT" ]]; then
 	echo "Security script not specifed, defaulting to $HOME/security/security.sh"
-	SECURITY="$HOME/security/security.sh"
+	SECURITY_SCRIPT="$HOME/security/security.sh"
 fi
 
 # Set a default image name if not provided
