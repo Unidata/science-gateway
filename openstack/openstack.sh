@@ -1,53 +1,62 @@
 #!/bin/bash
 
-function usage()
-{
-  echo -e "Syntax: $(basename "$0") [-h] [-o] [-n]"
-  echo -e "script to  start OpenStack CL Docker container."
-  echo -e "Arguments must be supplied with fully qualified paths."
-  echo -e "\t-h show this help text"
-  echo -e "\t-o, --openrc full path to directory with openrc.sh file obtained from Jetstream2"
-  echo -e "\t-n, --name container name"
-  exit 1
+# Function to display help
+show_help() {
+    echo "Usage: $0 -o|--openrc <openrc-file> -n|--name <container-name> [-s|--ssh-dir <ssh-dir>]"
+    echo "  -o, --openrc    Specify the path to the openrc.sh file"
+    echo "  -n, --name      Specify the name of the Docker container"
+    echo "  -s, --ssh-dir   Optionally specify the path to the .ssh directory"
+    echo "  -h, --help      Display this help and exit"
 }
 
-while [[ $# > 0 ]]
-do
-    key="$1"
-    case $key in
+# Parse command-line options
+while [[ $# -gt 0 ]]; do
+    case "$1" in
         -o|--openrc)
-            OPENRC="$2"
-            shift # past argument
+            OPENRC_FILE="$2"
+            shift 2
             ;;
         -n|--name)
-            NAME="$2"
-            shift # past argument
+            CONTAINER_NAME="$2"
+            shift 2
+            ;;
+        -s|--ssh-dir)
+            SSH_DIR="$2"
+            shift 2
             ;;
         -h|--help)
-            usage
-            exit
+            show_help
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            show_help
+            exit 1
             ;;
     esac
-    shift # past argument or value
 done
 
-if [ -z "$OPENRC" ];
-   then
-      echo "Must supply an openrc.sh file:"
-      usage
-      exit 1
+# Validate mandatory input
+if [ -z "${OPENRC_FILE}" ] || [ -z "${CONTAINER_NAME}" ]; then
+    echo "Error: Both --openrc and --name are required."
+    show_help
+    exit 1
 fi
 
-if [ -z "$NAME" ];
-   then
-      echo "Must supply a name for the new docker container:"
-      usage
-      exit 1
+# Construct Docker command
+DOCKER_CMD="docker run --name ${CONTAINER_NAME} -it "
+DOCKER_CMD+=" -v $(pwd)/bin:/home/openstack/bin"
+DOCKER_CMD+=" -v $(pwd)/.bashrc:/home/openstack/.bashrc"
+DOCKER_CMD+=" -v ${OPENRC_FILE}:/home/openstack/bin/openrc.sh"
+DOCKER_CMD+=" -v $HOME/security:/home/openstack/security"
+
+# Optional .ssh directory
+if [ -n "${SSH_DIR}" ]; then
+    DOCKER_CMD+=" -v ${SSH_DIR}:/home/openstack/.ssh"
 fi
 
-docker run --name $NAME -it  \
-       -v ${PWD}/bin:/home/openstack/bin/ \
-       -v ${PWD}/.bashrc:/home/openstack/.bashrc \
-       -v ${OPENRC}:/home/openstack/bin/openrc.sh \
-       -v ${HOME}/security:/home/openstack/security \
-       unidata/science-gateway /bin/bash
+DOCKER_CMD+=" unidata/science-gateway /bin/bash"
+
+# Final Docker command to run the container
+echo "Launching Docker container..."
+eval "${DOCKER_CMD}"
