@@ -1,0 +1,19 @@
+name: uw-satpy-fall-2024
+channels:
+ - conda-forge
+ - defaults
+dependencies:
+  # Required by JupyterLab
+  - ipykernel
+  - nb_conda_kernels
+  - python=3.11
+  # User requested packages
+  - cartopy
+  - dask
+  - distributed
+  - goes2go
+  - imageio
+  - imageio-ffmpeg
+  - matplotlib
+  - satpy
+  - xarray
