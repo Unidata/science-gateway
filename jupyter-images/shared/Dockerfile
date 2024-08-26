@@ -4,14 +4,14 @@
 ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
-ENV DEFAULT_ENV_NAME=unidata-standard
+ENV DEFAULT_ENV_NAME=unidata-standard EDITOR=nano VISUAL=nano
 
 LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
 
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends vim curl zip unzip && \
+    apt-get install -y --no-install-recommends vim nano curl zip unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
