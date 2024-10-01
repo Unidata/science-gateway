@@ -18,6 +18,8 @@ done
 openstack security group create --description "global-ssh-22 & icmp enabled" \
           global-ssh-22
 openstack security group rule create global-ssh-22 --protocol tcp --dst-port \
+          22:22 --remote-ip 128.117.145.0/24
+openstack security group rule create global-ssh-22 --protocol tcp --dst-port \
           22:22 --remote-ip 128.117.144.0/24
 openstack security group rule create  global-ssh-22 --protocol tcp --dst-port \
           22:22 --remote-ip 128.117.165.80/28
