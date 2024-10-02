@@ -187,4 +187,10 @@ COPY additional_kernels.ipynb update_material.ipynb Acknowledgements.ipynb \
 ARG JUPYTER_SETTINGS_DIR=/opt/conda/share/jupyter/lab/settings/
 COPY overrides.json $JUPYTER_SETTINGS_DIR
 
+COPY --from=build-wrf /Build_WRF /Build_WRF
+
+USER root
+RUN chown -R ${NB_UID}:${NB_GID} /Build_WRF/WRF && \
+    ldconfig /Build_WRF/LIBRARIES/netcdf/lib
+
 USER $NB_UID
