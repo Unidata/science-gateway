@@ -4,7 +4,11 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  # Required by JupyterLab
   - python=3.10
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
   - numpy
   - matplotlib
   - pandas
@@ -12,7 +16,7 @@ dependencies:
   - metpy
   - xarray
   - scikit-learn
-    #- wrf-python
+  - wrf-python
   - cartopy
   - seaborn
   - netcdf4
