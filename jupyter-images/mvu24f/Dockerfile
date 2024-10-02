@@ -150,8 +150,7 @@ RUN set -x && \
 # Heavily borrowed from docker-stacks/minimal-notebook/
 # https://github.com/jupyter/docker-stacks/blob/main/minimal-notebook/Dockerfile
 
-ARG BASE_CONTAINER=jupyter/minimal-notebook
-FROM $BASE_CONTAINER
+FROM jupyter/minimal-notebook
 
 ENV DEFAULT_ENV_NAME=mvu24f EDITOR=nano VISUAL=nano
 
