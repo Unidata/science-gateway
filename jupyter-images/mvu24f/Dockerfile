@@ -159,7 +159,9 @@ LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
 USER root
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends vim nano curl zip unzip && \
+    apt-get install -y --no-install-recommends vim nano curl zip unzip wget \
+      gcc cpp gfortran g++ openmpi-bin libopenmpi-dev git csh perl file \
+      make m4 ca-certificates libgl1 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
