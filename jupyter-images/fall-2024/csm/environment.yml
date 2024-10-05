@@ -1,0 +1,30 @@
+name: csm-fall-2024
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - ipykernel
+  - nb_conda_kernels
+  - python=3.11
+  # User requested packages
+  - cartopy
+  - earthpy
+  - folium
+  - geopandas
+  - ipywidgets
+  - matplotlib
+  - metpy
+  - numpy
+  - pandas
+  - pip
+  - plotly
+  - python-awips
+  - python-ternary 
+  - scikit-learn
+  - scipy
+  - seaborn
+  - siphon
+  - xarray
+  - pip:
+    - lasio
