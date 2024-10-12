@@ -1,0 +1,14 @@
+name: vsu-fall-2024
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - cartopy
+  - gsw
+  - matplotlib
+  - numpy
+  - scipy
