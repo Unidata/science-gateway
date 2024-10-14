@@ -41,7 +41,7 @@ def update_kernelspec_in_notebooks(directory, new_name):
             # (including nested structures), preserving the overall structure
             # and formatting of the file.
             updated_contents = re.sub(
-                r'"kernelspec": \{.*?\}',
+                r'"kernelspec": *\{.*?\}',
                 f'"kernelspec": {updated_kernelspec}',
                 file_contents, flags=re.DOTALL
             )
