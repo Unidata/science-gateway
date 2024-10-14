@@ -16,6 +16,7 @@ dependencies:
   - matplotlib
   - metpy
   - numpy
+  - openpyxl
   - pandas
   - pip
   - plotly
@@ -28,3 +29,6 @@ dependencies:
   - xarray
   - pip:
     - lasio
+    - palmerpenguins
+    - rioxarray
+    - welly
