@@ -1,0 +1,8 @@
+name: create_ssh_config
+channels:
+        - conda-forge
+dependencies:
+        - openstacksdk
+        - pip
+        - pip:
+                - sshconf
