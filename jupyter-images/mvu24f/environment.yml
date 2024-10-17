@@ -31,7 +31,7 @@ dependencies:
   - typhon
   - ipympl
   - proplot
-  - pyarts=2.5.12
+  - pyarts
   - pip:
     - miepython
 variables:

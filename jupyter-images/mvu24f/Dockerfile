@@ -24,7 +24,7 @@ USER $NB_UID
 ADD environment.yml /tmp
 
 # Rename the previous environment before updating it
-RUN mamba rename mvu24s $DEFAULT_ENV_NAME && \
+RUN mamba rename -n mvu24s $DEFAULT_ENV_NAME && \
     mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
@@ -44,5 +44,8 @@ COPY additional_kernels.ipynb update_material.ipynb Acknowledgements.ipynb \
 
 ARG JUPYTER_SETTINGS_DIR=/opt/conda/share/jupyter/lab/settings/
 COPY overrides.json $JUPYTER_SETTINGS_DIR
+
+RUN chown -R ${NB_UID}:${NB_GID} /Build_WRF/WRF && \
+    ldconfig /Build_WRF/LIBRARIES/netcdf/lib
 
 USER $NB_UID
