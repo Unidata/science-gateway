@@ -62,9 +62,9 @@ fi
 
 # Set a default image name if not provided
 if [[ -z "$IMAGE_NAME" ]]; then
-    # Attempt to find a RockyLinux Featured Image
+    # Attempt to find a RockyLinux Featured Image (xargs to clean up whitespace)
     IMAGE_NAME=$(openstack image list | grep -i featured | grep -i rocky \
-                 | awk 'BEGIN { FS = "|" } ; { print $2 }' | tail -1)
+                 | awk 'BEGIN { FS = "|" } ; { print $2 }' | tail -1 | xargs)
     echo "No image name supplied, using ${IMAGE_NAME}."
 fi
 
