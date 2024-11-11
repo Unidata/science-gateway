@@ -6,7 +6,7 @@ cd $HOME/jetstream_kubespray/
 mkdir -p inventory/$CLUSTER && cp -LRp inventory/kubejetstream/* inventory/$CLUSTER
 cd inventory/$CLUSTER
 
-sed -i "s/Featured-Ubuntu[0-9]*/Featured-Minimal-Ubuntu24/g" cluster.tfvars
+sed -i "s/Featured-Ubuntu[0-9]*/Featured-Minimal-Ubuntu22/g" cluster.tfvars
 sed -i "s/# k8s_master_fips/k8s_master_fips/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" cluster.tfvars
 sed -i "s/number_of_k8s_nodes = 1/number_of_k8s_nodes = 0/g" cluster.tfvars
