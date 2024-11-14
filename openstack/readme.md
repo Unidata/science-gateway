@@ -929,21 +929,9 @@ reboot -h now
 
 ### GPU Enabled Clusters
 
-In order to build a GPU enabled cluster, [refer to Andrea's documentation](https://www.zonca.dev/posts/2023-01-23-kubernetes-gpu-jetstream2). `jupyterhub.sh` takes `-g` flag to help facilate this option.
+In order to build a GPU enabled cluster, [refer to Andrea's documentation](https://www.zonca.dev/posts/2024-02-09-kubernetes-gpu-jetstream2).
 
-There is an image you will need to pull:
-
-```sh
-docker pull unidata/science-gateway-gpu
-```
-
-or build with:
-
-```sh
-docker build -t unidata/science-gateway-gpu -f Dockerfile.gpu .
-```
-
-Pay special attention to the `cluster.tfvars` to select VMs that have GPU hardware.
+Also, pay special attention to the `cluster.tfvars` to select VMs that have GPU hardware.
 
 
 <a id="h-78283D4A"></a>
