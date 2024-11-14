@@ -1,0 +1,29 @@
+name: tm-fall-2024
+channels:
+ - nvidia
+ - pytorch
+ - defaults
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3.10
+  - nb_conda_kernels
+  - ipykernel
+  - notebook
+  - jupyter_server
+  # User requested packages
+  - cartopy
+  - cudatoolkit
+  - ipywidgets
+  - matplotlib
+  - metpy
+  - numpy
+  - pandas
+  - pip
+  - pytorch-cuda=12.1
+  - scikit-learn
+  - seaborn
+  - siphon
+  - xarray
+  - pip:
+    - ai-models-fourcastnetv2
