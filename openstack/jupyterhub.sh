@@ -14,7 +14,6 @@ function usage()
   echo -e "\t-n, --name JupyterHub name"
   echo -e "\t-p, --ip JupyterHub IP"
   echo -e "\t-o, --openrc openrc.sh path"
-  echo -e "\t-g, --gpu"
   exit 1
 }
 
@@ -32,10 +31,6 @@ do
             ;;
         -o|--openrc)
             OPENRC="$2"
-            shift # past argument
-            ;;
-        -g|--gpu)
-            GPU="$1"
             shift # past argument
             ;;
         -h|--help)
@@ -80,5 +75,4 @@ fi
     -i ${dir}/jhubs/${JUPYTERHUB}/${JUPYTERHUB} \
     -p ${IP} \
     -m ${dir}/jhubs/${JUPYTERHUB}/helm \
-    -c ${dir}/jhubs/${JUPYTERHUB}/secrets.yaml \
-    $GPU
+    -c ${dir}/jhubs/${JUPYTERHUB}/secrets.yaml
