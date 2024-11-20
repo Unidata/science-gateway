@@ -1,0 +1,29 @@
+name: fitb-fall-2024
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - python=3
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - arm_pyart
+  - boto3
+  - botocore
+  - cartopy
+  - cython
+  - geopandas
+  - geopy
+  - keras
+  - matplotlib
+  - metpy
+  - netCDF4
+  - numpy
+  - pandas
+  - pint
+  - python-awips
+  - pywavelets
+  - scipy
+  - siphon
+  - tensorflow
+  - xarray
