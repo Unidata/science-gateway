@@ -1,0 +1,20 @@
+name: ucar-intern-pdws
+channels:
+ - conda-forge
+dependencies:
+ # Required by JupyterLab
+ - python
+ - nb_conda_kernels
+ - ipykernel
+ # User requested packages
+ - cartopy
+ - jupyterlab
+ - matplotlib
+ - metpy
+ - netcdf4
+ - numpy
+ - pandas<2
+ - pint
+ - scipy
+ - siphon=0.9
+ - xarray<2024.03
