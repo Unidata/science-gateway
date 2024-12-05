@@ -1,29 +1,25 @@
 name: tm-fall-2024
 channels:
- - nvidia
- - pytorch
- - defaults
  - conda-forge
 dependencies:
   # Required by JupyterLab
-  - python=3.10
+  - 'python<3.13'
   - nb_conda_kernels
   - ipykernel
-  - notebook
-  - jupyter_server
   # User requested packages
-  - cartopy
-  - cudatoolkit
-  - ipywidgets
-  - matplotlib
-  - metpy
   - numpy
+  - matplotlib
+  - cartopy
+  - metpy
+  - siphon
   - pandas
   - pip
-  - pytorch-cuda=12.1
+  - xarray
+  - ipywidgets
+  - python-awips
   - scikit-learn
   - seaborn
-  - siphon
-  - xarray
   - pip:
-    - ai-models-fourcastnetv2
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - palmerpenguins
