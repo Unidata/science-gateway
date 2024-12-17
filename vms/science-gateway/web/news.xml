@@ -14,9 +14,9 @@
   <link>https://science-gateway.unidata.ucar.edu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Tue, 30 Jan 2024 14:38:21 -0500</pubDate>
-  <lastBuildDate>Tue, 30 Jan 2024 14:38:21 -0500</lastBuildDate>
-  <generator>Emacs 29.2 Org-mode 9.6.9</generator>
+  <pubDate>Tue, 17 Dec 2024 16:32:30 -0700</pubDate>
+  <lastBuildDate>Tue, 17 Dec 2024 16:32:30 -0700</lastBuildDate>
+  <generator>Emacs 29.4 Org-mode 9.7.9</generator>
   <webMaster>chastang at ucar dot edu (Julien Chastang)</webMaster>
   <image>
     <url>https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4</url>
@@ -28,20 +28,19 @@
     <h2>Table of Contents</h2>
     <div id="text-table-of-contents" role="doc-toc">
       <ul>
-        <li><a href="#h-37ACD03C">01/30/2024, AMS 2024</a></li>
+        <li><a href="#h-A38D3F37">12/17/2024, AMS 2025</a></li>
       </ul>
     </div>
   </div>
-
   <item>
-    <title>AMS 2024</title>
-    <link>https://science-gateway.unidata.ucar.edu/index.html#h-37ACD03C</link>
+    <title>AMS 2025</title>
+    <link>https://science-gateway.unidata.ucar.edu/index.html#h-A38D3F37</link>
     <author>chastang at ucar dot edu (Julien Chastang)</author>
-    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-37ACD03C</guid>
-    <pubDate>Tue, 30 Jan 2024 00:00:00 -0500</pubDate>
+    <guid isPermaLink="false">https://science-gateway.unidata.ucar.edu/index.html#h-A38D3F37</guid>
+    <pubDate>Tue, 17 Dec 2024 00:00:00 -0700</pubDate>
 
     <description><![CDATA[<p>
-    We will be presenting an e-poster entitled <a href="https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/439732">Advancing Atmospheric Science Education: Customized PyAOS JupyterHubs via the Unidata Science Gateway</a>
+    We will be delivering a presentation at the AMS 2025 meeting in New Orleans entitled <a href="https://ams.confex.com/ams/105ANNUAL/meetingapp.cgi/Paper/457067">Expanding Access to Advanced Scientific Workflows: The NSF Unidata Science Gateway Leverages Innovative Capabilities of the NSF Jetstream2 Cloud for Atmospheric Science Education</a>.
     </p>
     ]]></description>
   </item>
