@@ -16,15 +16,13 @@
 #+HTML_LINK_HOME: https://science-gateway.unidata.ucar.edu/
 #+RSS_IMAGE_URL: https://avatars2.githubusercontent.com/u/613345?s=200&amp;v=4
 
-* 01/30/2024, AMS 2024
+* 12/17/2024, AMS 2025
   :PROPERTIES:
-  :RSS_TITLE:  AMS 2024
-  :PUBDATE: <2024-01-30 Tue>
-  :RSS_PERMALINK: index.html#h-37ACD03C
-  :CUSTOM_ID: h-37ACD03C
-  :ID:       5159A3A4-5347-4CEE-BA34-BBC9B66C70BE
+  :RSS_TITLE:  AMS 2025
+  :PUBDATE: <2024-12-17 Tue>
+  :RSS_PERMALINK: index.html#h-A38D3F37
+  :ID:       06CFCB9E-2103-444E-B255-199EEA67C465
+  :CUSTOM_ID: h-A38D3F37
   :END:
 
-We will be presenting an e-poster entitled [[https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Paper/439732][Advancing Atmospheric Science Education: Customized PyAOS JupyterHubs via the Unidata Science Gateway]]
-
-
+We will be delivering a presentation at the AMS 2025 meeting in New Orleans entitled [[https://ams.confex.com/ams/105ANNUAL/meetingapp.cgi/Paper/457067][Expanding Access to Advanced Scientific Workflows: The NSF Unidata Science Gateway Leverages Innovative Capabilities of the NSF Jetstream2 Cloud for Atmospheric Science Education]].
