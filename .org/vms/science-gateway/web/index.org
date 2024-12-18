@@ -193,13 +193,20 @@ The IDV Jetstream plugin allows easy access to Jetstream installations of the TD
     - [[https://www.ametsoc.org/index.cfm/ams/education-careers/careers/professional-development/short-courses1/metpy-for-your-data-analyzing-meteorological-observations-in-python/][MetPy for your Data: Analyzing Meteorological Observations in Python]]
     - [[https://ams.confex.com/ams/103ANNUAL/meetingapp.cgi/Session/64609][Student Python Workshop]]
     - LROSE Workshop
+- 2024 AMS Annual Meeting | January 28–February 1, 2024 – Baltimore, MD USA
+  - [[https://doi.org/10.6084/m9.figshare.25251655.v1][Advancing Atmospheric Science Education: Customized PyAOS JupyterHubs via the Unidata Science Gateway]]
+  - In addition, we supported these workshops:
+    - [[https://ams.confex.com/ams/104ANNUAL/meetingapp.cgi/Session/67535][Student Python Workshop]]
+    - [[https://www.ametsoc.org/index.cfm/ams/education-careers/careers/professional-development/short-courses/metpy-creating-meteorological-python-workflows-from-scratch/][MetPy: Creating Meteorological Python Workflows from Scratch]]
+- [[https://doi.org/10.5281/zenodo.13869914][Gateways 2024 | October 8–10, 2024 – Bozeman, MT USA]]
 
 ** Forthcoming Presentations
    :PROPERTIES:
    :CUSTOM_ID: h-BD0797EC
    :END:
 
-TBA
+- 2025 AMS Annual Meeting | January 13–16, 2025 – New Orleans, LA USA
+  - [[https://ams.confex.com/ams/105ANNUAL/meetingapp.cgi/Paper/457067][Expanding Access to Advanced Scientific Workflows: The NSF Unidata Science Gateway Leverages Innovative Capabilities of the NSF Jetstream2 Cloud for Atmospheric Science Education]]
 
 * {Source Code}
   :PROPERTIES:
