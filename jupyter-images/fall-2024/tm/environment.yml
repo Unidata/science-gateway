@@ -3,7 +3,7 @@ channels:
  - conda-forge
 dependencies:
   # Required by JupyterLab
-  - 'python<3.13'
+  - 'python<3.11'
   - nb_conda_kernels
   - ipykernel
   # User requested packages
@@ -22,8 +22,8 @@ dependencies:
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
     # when it is not found in the conda repos
-    # See: https://github.com/ecmwf-lab/ai-models-graphcast?tab=readme-ov-file#installation
-    - ai-models-graphcast
-    - jax[cuda12_pip]
-    - -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-    - git+https://github.com/deepmind/graphcast.git
+    - git+https://github.com/NVIDIA/earth2mip
+    - torch
+    - torchvision
+    - torchaudio
+    - --extra-index-url https://download.pytorch.org/whl/cu121
