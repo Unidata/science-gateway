@@ -684,6 +684,13 @@ cat /tmp/pvc-orphaned.out | \
    echo "PVC {} is NOT present in the cluster."'
 ```
 
+You can do additional additional forensics with:
+
+```sh
+xargs -I {} -a /tmp/pvc-orphaned.out bash -c \
+      'echo "{} $(openstack volume show {} -f value -c created_at)"'
+```
+
 You can now delete the orphaned volumes with a script the looks like this. Again, think before you type as you are about to delete a number of OpenStack volumes.
 
 ```sh
