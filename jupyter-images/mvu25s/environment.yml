@@ -29,3 +29,5 @@ dependencies:
     # It is recommended to install a package using pip as a last resort, i.e.
     # when it is not found in the conda repos
     - palmerpenguins
+variables:
+  ARTS_DATA_PATH: /share/ESCI345/arts-data/
