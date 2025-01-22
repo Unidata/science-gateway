@@ -1,0 +1,33 @@
+name: fit25s-era5
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - 'python<3.13'
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - arm_pyart
+  - boto3
+  - botocore
+  - cartopy
+  - cf_xarray
+  - era5cli
+  - geopandas
+  - ipywidgets
+  - keras
+  - matplotlib
+  - metpy
+  - netCDF4
+  - numpy
+  - pandas
+  - pint
+  - pip
+  - python-awips
+  - scikit-learn
+  - scipy
+  - seaborn
+  - siphon
+  - tensorflow
+  - xarray
+  - xesmf
