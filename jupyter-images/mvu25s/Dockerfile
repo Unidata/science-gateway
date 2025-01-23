@@ -150,7 +150,7 @@ RUN set -x && \
 # Heavily borrowed from docker-stacks/minimal-notebook/
 # https://github.com/jupyter/docker-stacks/blob/main/minimal-notebook/Dockerfile
 
-FROM jupyter/minimal-notebook
+FROM quay.io/jupyter/minimal-notebook
 
 ENV DEFAULT_ENV_NAME=mvu25s EDITOR=nano VISUAL=nano
 
@@ -173,11 +173,11 @@ RUN mamba install --quiet --yes \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
-    mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
+    mamba env create --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \
-    npm cache clean --force && \
+    #npm cache clean --force && \
     rm -rf /home/$NB_USER/.cache/yarn && \
     rm -rf /home/$NB_USER/.node-gyp && \
     fix-permissions $CONDA_DIR && \
