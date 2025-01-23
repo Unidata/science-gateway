@@ -1,7 +1,7 @@
 # Heavily borrowed from docker-stacks/minimal-notebook/
 # https://github.com/jupyter/docker-stacks/blob/main/minimal-notebook/Dockerfile
 
-ARG BASE_CONTAINER=jupyter/minimal-notebook
+ARG BASE_CONTAINER=quay.io/jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
 ENV DEFAULT_ENV_NAME=unidata-standard EDITOR=nano VISUAL=nano
@@ -19,7 +19,9 @@ USER $NB_UID
 
 ADD environment.yml /tmp
 
-RUN mamba install --quiet --yes \
+RUN mamba create --name $DEFAULT_ENV_NAME --quiet --yes && \
+    mamba install --quiet --yes \
+      'conda-forge::nodejs' \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
