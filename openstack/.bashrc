@@ -45,3 +45,5 @@ worker ()
   kubectl get nodes -o wide
  fi
 }
+
+export PS1='\[\e[1;32m\]❯\[\e[1;31m\] ($CLUSTER) \[\e[1;34m\]\w\[\e[0m\] ➜ '
