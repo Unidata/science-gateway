@@ -100,13 +100,33 @@
         </SSLHostConfig>
     </Connector>
     -->
-    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol" maxThreads="150" enableLookups="false" disableUploadTimeout="true" acceptCount="100" scheme="https" secure="true" SSLEnabled="true" defaultSSLHostConfigName="_default_">
-      <SSLHostConfig honorCipherOrder="true" hostName="_default_" clientAuth="false" ciphers="TLS_AES_256_GCM_SHA384,TLS_AES_128_GCM_SHA256,TLS_AES_128_CCM_8_SHA256,TLS_AES_128_CCM_SHA256,DHE-RSA-AES256-GCM-SHA384,DHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384,ECDHE-ECDSA-CHACHA20-POLY1305,!ECDHE-RSA-CHACHA20-POLY1305,!TLS_CHACHA20_POLY1305_SHA256" sslProtocol="TLSv1.2,TLSv1.3" disableSessionTickets="true">
-        <Certificate certificateKeystoreFile="${catalina.base}/conf/keystore.jks" certificateKeystorePassword="xxx" certificateKeyAlias="tds-nexrad.scigw.unidata.ucar.edu"/>
-      </SSLHostConfig>
-      <SSLHostConfig honorCipherOrder="true" hostName="thredds-aws.unidata.ucar.edu" clientAuth="false" ciphers="TLS_AES_256_GCM_SHA384,TLS_AES_128_GCM_SHA256,TLS_AES_128_CCM_8_SHA256,TLS_AES_128_CCM_SHA256,DHE-RSA-AES256-GCM-SHA384,DHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384,ECDHE-ECDSA-CHACHA20-POLY1305,!ECDHE-RSA-CHACHA20-POLY1305,!TLS_CHACHA20_POLY1305_SHA256" sslProtocol="TLSv1.2,TLSv1.3" disableSessionTickets="true">
-        <Certificate certificateKeystoreFile="${catalina.base}/conf/keystore.jks" certificateKeystorePassword="xxx" certificateKeyAlias="thredds-aws.unidata.ucar.edu"/>
-      </SSLHostConfig>
+    <Connector port="8443"
+               protocol="org.apache.coyote.http11.Http11NioProtocol"
+               SSLEnabled="true"
+               maxThreads="150"
+               enableLookups="false"
+               disableUploadTimeout="true"
+               acceptCount="100"
+               scheme="https"
+               secure="true">
+
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="${catalina.base}/conf/keystore.jks"
+                         certificateKeystorePassword="${keystore.password}"
+                         type="RSA"
+                         keyAlias="${keystore.alias}" />
+
+            <Protocols>
+                <Protocol>TLSv1.2</Protocol>
+                <Protocol>TLSv1.3</Protocol>
+            </Protocols>
+
+            <Ciphers>
+                <Cipher>default</Cipher>
+            </Ciphers>
+
+            <SSLHostConfigProtocols honorCipherOrder="true" disableSessionTickets="true" />
+        </SSLHostConfig>
     </Connector>
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <!--
@@ -141,11 +161,7 @@
           <CredentialHandler className="org.apache.catalina.realm.MessageDigestCredentialHandler" algorithm="sha-512"/>
         </Realm>
       </Realm>
-      <Host name="thredds-aws.unidata.ucar.edu" appBase="webapps" createDirs="false" unpackWARs="true" autoDeploy="true">
-        <Valve className="org.apache.catalina.valves.rewrite.RewriteValve"/>
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="access" suffix=".log" pattern="aws %h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D %{Location}o"/>
-      </Host>
-      <Host name="tds-nexrad.scigw.unidata.ucar.edu" appBase="webapps" createDirs="false" unpackWARs="true" autoDeploy="true">
+      <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->
         <!--
@@ -154,15 +170,7 @@
         <!-- Access log processes all example.
              Documentation at: /docs/config/valve.html
              Note: The pattern used is equivalent to using pattern="common" -->
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="access" suffix=".log" pattern="nexrad %h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D %{Location}o"/>
-        <!-- <Valve className="org.apache.catalina.valves.AccessLogValve" -->
-        <!--        directory="logs" -->
-        <!--        prefix="access" -->
-        <!--        suffix=".log" -->
-        <!--        pattern="%h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D" /> -->
-      </Host>
-      <Host name="localhost" appBase="webapps" createDirs="false" unpackWARs="true" autoDeploy="true">
-        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="access" suffix=".log" pattern="localhost %h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D %{Location}o"/>
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="access" suffix=".log" pattern="%h %l %u %t &quot;%r&quot; %s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; %D"/>
       </Host>
     </Engine>
   </Service>
