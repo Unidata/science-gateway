@@ -54,14 +54,14 @@ We configure your JupyterHub to make your kernel the default kernel for any exis
 <details>
     <summary>Kernel in a New Notebook</summary>
     <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/new-launcher.png" width="751" height="380" alt="The new launcher button is found on the top of the left sidebar"></img>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/launcher-select-kernel.png" width="751" height="380" alt="Create a new notebook by selecting the appropriate kernel"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/launcher-select-kernel.png" width="751" height="380" alt="Create a new notebook by selecting the appropriate kernel"></img>
 </details>
 
 <details>
     <summary>Kernel in an Existing Notebook</summary>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/notebook-switch-kernel.png" width="751" height="380" alt="In The JupyterLab toolbar, click 'Kernel --> Change Kernel...'"></img>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/notebook-select-kernel.png" width="751" height="380" alt="A popup window with a dropdown kernel select menu"></img>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/notebook-kernel-dropdown.png" width="751" height="380" alt="Select the desired kernel from the dropdown menu"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/notebook-switch-kernel.png" width="751" height="380" alt="In The JupyterLab toolbar, click 'Kernel --> Change Kernel...'"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/notebook-select-kernel.png" width="751" height="380" alt="A popup window with a dropdown kernel select menu"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/notebook-kernel-dropdown.png" width="751" height="380" alt="Select the desired kernel from the dropdown menu"></img>
 </details>
 
 [[Back to Top]](#Table-of-Contents)
@@ -133,8 +133,8 @@ Access the admin page by appending `/hub/admin` to your JupyterHub's URL. For ex
 
 <details>
     <summary>Accessing the Admin Page</summary>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/hub-control-panel.png" align="top" width="400" height="500" alt="Select 'File --> Hub Control Panel' from the JupyterLab toolbar"></img>
-    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/admin-link.png" align="top" width="750" height="380" alt="Select 'File --> Hub Control Panel' from the JupyterLab toolbar"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/hub-control-panel.png" align="top" width="400" height="500" alt="Select 'File --> Hub Control Panel' from the JupyterLab toolbar"></img>
+    <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/admin-link.png" align="top" width="750" height="380" alt="Select 'File --> Hub Control Panel' from the JupyterLab toolbar"></img>
 </details>
 
 [[Back to Top]](#Table-of-Contents)
@@ -164,10 +164,10 @@ After accessing the Admin page, simply click the "Add Users" button located on t
 <details>
     <summary>Read More</summary>
     <p>To add users, first <a href="#How-can-I-access-the-Admin-page?">access the admin panel.</a> Then:</p>
-        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/admin-page.png" align="top" width="" height="" alt="Click on the 'Add Users' button at the top left of the users list"></img>
-        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/add-users-text-area.png" align="top" width="" height="" alt="Add new user's GitHub user names in the text area, one on each line"></img>
-        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/add-new-users.png" align="top" width="" height="" alt="Click the 'Add Users' button to confirm"></img>
-        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/images/add-new-admins.png" align="top" width="" height="" alt="Optionally, check the 'Admin' checkbox to give the new users admin permissions"></img>
+        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/admin-page.png" align="top" width="" height="" alt="Click on the 'Add Users' button at the top left of the users list"></img>
+        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/add-users-text-area.png" align="top" width="" height="" alt="Add new user's GitHub user names in the text area, one on each line"></img>
+        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/add-new-users.png" align="top" width="" height="" alt="Click the 'Add Users' button to confirm"></img>
+        <img src="https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/user-docs/images/add-new-admins.png" align="top" width="" height="" alt="Optionally, check the 'Admin' checkbox to give the new users admin permissions"></img>
 </details>
 
 [[Back to Top]](#Table-of-Contents)
