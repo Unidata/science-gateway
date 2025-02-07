@@ -1,7 +1,7 @@
 # Heavily borrowed from docker-stacks/minimal-notebook/
 # https://github.com/jupyter/docker-stacks/blob/main/minimal-notebook/Dockerfile
 
-ARG BASE_CONTAINER=jupyter/tensorflow-notebook
+ARG BASE_CONTAINER=jupyter/minimal-notebook
 FROM $BASE_CONTAINER
 
 ENV DEFAULT_ENV_NAME=tm-fall-2024 EDITOR=nano VISUAL=nano
