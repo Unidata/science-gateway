@@ -48,6 +48,7 @@
     - [Renew Expired K8s Certificates](#h-60D08FB6)
       - [Background](#h-01F8D10F)
       - [Resolution](#h-0A5DF245)
+    - [Renew kube-api Certificates](#h-905108EF)
     - [Evicted Pods Due to Node Pressure](#h-CEF2540C)
     - [Updating Openstack Credentials for Kubernetes](#h-FABFCED0)
       - [Creating New Credentials](#h-6F9D771F)
@@ -1079,6 +1080,37 @@ server: https://127.0.0.1:6443
 ```
 
 You should now be able to run `kubectl` commands, fire up new user servers, and run `helm` upgrades.
+
+
+<a id="h-905108EF"></a>
+
+### Renew kube-api Certificates
+
+For JupyterHubs that have been running for a long time, when interacting with `kubectl` you may see a message like this:
+
+```shell
+kubectl  get pods -A
+E0206 23:20:40.715494     643 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
+error: You must be logged in to the server (the server has asked for the client to provide credentials)
+```
+
+This message is probably the result of an expired certificate in `~/.kube/config`. You can verify this fact with the following command:
+
+```shell
+kubectl config view --raw -o jsonpath='{.users[?(@.name=="kubernetes-admin-cluster.local")].user.client-certificate-data}' | base64 -d | openssl x509 -noout -enddate
+```
+
+At this point, simply grab `apiserver-kubelet-client.key` and `apiserver-kubelet-client.crt` the from the Kubernetes control plane located at `/etc/kubernetes/pki/` and put them along side `~/.kube/config`. Now modify `~/.kube/config` in the following manner:
+
+```yaml
+  users:
+- name: kubernetes-admin-cluster.local
+  user:
+    client-certificate: apiserver-kubelet-client.crt
+    client-key: apiserver-kubelet-client.key
+```
+
+At this point, `kubectl get pods -A` should work as expected.
 
 
 <a id="h-CEF2540C"></a>
