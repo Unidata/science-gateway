@@ -5,7 +5,7 @@ mkdir -p ~/etc
 cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
 
 mkdir -p ~/tdsconfig/ ~/etc/TDS
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/thredds/config.zip -O ~/tdsconfig/config.zip
+wget https://artifacts.unidata.ucar.edu/repository/downloads-tds-config/thredds/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 cp -r ~/tdsconfig/pqacts/* ~/etc/TDS
 

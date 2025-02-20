@@ -1,5 +1,5 @@
 mkdir -p ~/tdsconfig/
-wget http://unidata-tds.s3.amazonaws.com/tdsConfig/awsL2/config.zip -O ~/tdsconfig/config.zip
+wget  https://artifacts.unidata.ucar.edu/repository/downloads-tds-config/awsL2/config.zip -O ~/tdsconfig/config.zip
 unzip ~/tdsconfig/config.zip -d ~/tdsconfig/
 
 mkdir -p /logs/tds-tomcat/
