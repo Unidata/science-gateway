@@ -52,6 +52,7 @@
 #  X1    2048x2048   Antarctic IRS Composite
 #  X2    2048x2048   Antarctic IRL Composite
 #
+#
 #  UL    2176x2176   Arctic  VIS    Composite
 #  UN    2176x2176   Arctic  3.8 um Composite
 #  UG    2176x2176   Arctic  6.7 um Composite
@@ -182,6 +183,51 @@ UNIWISC	^pnga2area Q. ([EU][^ACXY13]) (.*) (.*)_IMG (.*)um (.*) (........) (....
 	/data/ldm/pub/decoded/gempak/areas/\3/\5/\4/\6/\4_\6_\7
 
 #
+# 20180830 - GOES-16 imagery
+#
+#  pnga2area Q5 FDC02 1235 GOES-16_IMG 0.64um 4.0km 20180830 170037
+#  pnga2area Q5 FDC09 1235 GOES-16_IMG 6.93um 4.0km 20180830 170037
+#  pnga2area Q5 FDC13 1235 GOES-16_IMG 10.3um 4.0km 20180830 170037
+#  pnga2area Q7 CNC02 1234 GOES-16_IMG 0.64um 0.5km 20180830 165719
+#  pnga2area Q7 CNC09 1234 GOES-16_IMG 6.93um 2.0km 20180830 165719
+#  pnga2area Q7 CNC13 1234 GOES-16_IMG 10.3um 2.0km 20180830 165719
+#  pnga2area Q8 M1C02 1236 GOES-16_IMG 0.64um 0.5km 20180830 165627
+#  pnga2area Q8 M1C09 1236 GOES-16_IMG 6.93um 2.0km 20180830 165627
+#  pnga2area Q8 M1C13 1236 GOES-16_IMG 10.3um 2.0km 20180830 165627
+#  pnga2area Q8 M2C02 1237 GOES-16_IMG 0.64um 0.5km 20180830 165657
+#  pnga2area Q8 M2C09 1237 GOES-16_IMG 6.93um 2.0km 20180830 165657
+#  pnga2area Q8 M2C13 1237 GOES-16_IMG 10.3um 2.0km 20180830 165657
+#
+UNIWISC	^pnga2area Q. ([EU][^ACXY13]) (.*) (.*)_IMG (.*)um (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/\5/\4/\6/\4_\6_\7
+
+UNIWISC	^pnga2area Q. (CNC..) (.*) (.*)_IMG (.*)um (.*) (........) (......)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/CONUS/\5/\4/\6/\4_\6_\7
+
+UNIWISC	^pnga2area Q. (FDC..) (.*) (.*)_IMG (.*)um (.*) (........) (......)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/FullDisk/\5/\4/\6/\4_\6_\7
+
+UNIWISC	^pnga2area Q. (M1C..) (.*) (.*)_IMG (.*)um (.*) (........) (......)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/Mesoscale-1/\5/\4/\6/\4_\6_\7
+
+UNIWISC	^pnga2area Q. (M2C..) (.*) (.*)_IMG (.*)um (.*) (........) (......)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/Mesoscale-2/\5/\4/\6/\4_\6_\7
+
+# GOES-16/17 East/West composites
+# pnga2area Q5 NCC02 1235 GOES-16_IMG 0.64um 4.0km 20180924 201637
+# pnga2area Q5 NCC08 1235 GOES-16_IMG 6.17um 4.0km 20181002 201537
+# pnga2area Q5 NCC13 1235 GOES-16_IMG 10.3um 4.0km 20181002 201537
+#
+UNIWISC	^pnga2area Q. (NCC..) (.*) (.*)_IMG (.*)um (.*) (........) (......)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\3/GEWCOMP/\5/\4/\6/\4_\6_\7
+
+#
 # --------------- Educational Floaters (obsolete) ---------------
 #
 
@@ -267,44 +313,41 @@ UNIWISC	^pnga2area Q. (UX) (.*) (.*)_IMG (.*)um (.*) (........) (....)
 # ------------------ AMRC Antarctic Composites ------------------
 #
 
-# 20151112 - changed VIS (UJ), PCOL (UK), WV (UF) and IR (U1)
-#              actions to match updated Product IDs
-#            added IRS (X1) and IRL (X2 actions
-
 #
 # Antarctic VIS Composite
-# pnga2area Q0 UJ 1260 SP_COMP 0.65um 1km 20151112 1700
 UNIWISC	^pnga2area Q. (UJ) (.*) (.*) (.*) (.*) (........) (....)
 	PIPE	-close	sh etc/TDS/util/ldmfile.sh
 	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/VIS/\6/VIS_\6_\7
 
 #
 # Antarctic Shortwave IR Composite
-# pnga2area Q0 X1 1290 SP_COMP 3.8um 1km 20151112 1701
 UNIWISC	^pnga2area Q. (X1) (.*) (.*) (.*) (.*) (........) (....)
 	PIPE	-close	sh etc/TDS/util/ldmfile.sh
 	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IRS/\6/IRS_\6_\7
 
 #
 # Antarctic WV Composite
-# pnga2area Q0 UF 180 SP_COMP 6.7um 1km 20151112 1701
 UNIWISC	^pnga2area Q. (UF) (.*) (.*) (.*) (.*) (........) (....)
 	PIPE	-close	sh etc/TDS/util/ldmfile.sh
 	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/WV/\6/WV_\6_\7
 
 #
 # Antarctic Composite IR
-# pnga2area Q0 U1 190 SP_COMP 11.0um 1km 20151112 1700
 UNIWISC	^pnga2area Q. (U1) (.*) (.*) (.*) (.*) (........) (....)
 	PIPE	-close	sh etc/TDS/util/ldmfile.sh
 	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IR/\6/IR_\6_\7
 
 #
 # Antarctic Longwave IR Composite
-# pnga2area Q0 X2 1290 SP_COMP 12.0um 1km 20151112 1701
 UNIWISC	^pnga2area Q. (X2) (.*) (.*) (.*) (.*) (........) (....)
 	PIPE	-close	sh etc/TDS/util/ldmfile.sh
 	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/IRL/\6/IRL_\6_\7
+
+#
+# Antarctic PCOL Composite
+UNIWISC	^pnga2area Q. (UK) (.*) (.*) (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/ANTARCTIC/4km/PCOL/\6/PCOL_\6_\7
 
 #
 # -------------------- AMRC Arctic Composites --------------------
@@ -408,6 +451,59 @@ UNIWISC	^pnga2area Q0 CH (.*) (.*) (.*) (.*) (........) (....)
 	/data/ldm/pub/decoded/gempak/areas/SOUNDER/\3/FIRESSH/\4/FIRESSH_\4_\5
 
 #
+# ---------------- GOES-R L2 Products -----------------
+#
+#
+# pnga2area Q7 CNCAPE 3520 GOES-16_PRD L2:DSI 10km 20200123 222113
+# pnga2area Q7 CNCTPR 3490 GOES-16_PRD L2:CTP 10km 20200123 222613
+# pnga2area Q7 CNLI 3510 GOES-16_PRD L2:DSI 10km 20200123 222113
+# pnga2area Q7 CNTPW 3720 GOES-16_PRD L2:TPW 10km 20200123 222113
+# pnga2area Q0 FDSST 3711 GOES-16_PRD L2:SST 2km 20200123 210016
+# pnga2area Q6 FDRRQPE 3701 GOES-16_PRD L2:RRQP 2km 20200123 221016
+
+#
+# Cloud Top Pressure
+# pnga2area Q7 CNCTPR 3490 GOES-16_PRD L2:CTP 10km 20200123 193613
+UNIWISC	^pnga2area Q. (..)CTPR .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/CTP/\5/CTP_\5_\6
+
+#
+# Lifted Index - Derived Stability Indicies Band 8
+# pnga2area Q7 CNLI 3510 GOES-16_PRD L2:DSI 10km 20200123 193613
+UNIWISC	^pnga2area Q. (..)LI .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/LI/\5/LI_\5_\6
+
+#
+# CAPE - Derived Stability Indicies Band 9
+# pnga2area Q7 CNCAPE 3520 GOES-16_PRD L2:DSI 10km 20200123 193613
+UNIWISC	^pnga2area Q. (..)CAPE .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/CAPE/\5/CAPE_\5_\6
+
+#
+# Total Precipitable Water
+# pnga2area Q7 CNTPW 3720 GOES-16_PRD L2:TPW 10km 20200123 193113
+UNIWISC	^pnga2area Q. (..)TPW .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/PW/\5/PW_\5_\6
+
+#
+# RRQPE
+UNIWISC	^pnga2area Q. (..)RRQPE .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/RRQPE/\5/RRQPE_\5_\6
+
+#
+# Sea Surface Temperature
+# pnga2area Q0 FDSST 3711 GOES-16_PRD L2:SST 2km 20200123 180016
+UNIWISC	^pnga2area Q. (..)SST .... (.*)_PRD (.*) (.*) (........) (....)
+	PIPE	-close	sh etc/TDS/util/ldmfile.sh
+	/data/ldm/pub/decoded/gempak/areas/\2/Products/\1/\4/SST/\5/SST_\5_\6
+
+#
+#
 # ---------- FNEXRAD Nexrad Level III composite images ----------
 #
 
@@ -469,15 +565,25 @@ FSL2	^FSL\.NetCDF\.NOAAnet\.windprofiler\.06min
 
 #
 # NLDN data (UCAR only):
-#LIGHTNING	^([12][0-9][0-9][0-9]|[0-9][0-9])([0-3][0-9][0-9])([0-2][0-9])([0-5][0-9])([0-5][0-9])
-#	PIPE	-close
-#	decoders/lgt2md -l logs/ldm-mcidas.log
-#	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/NLDN
-#	70 NLDN DIALPROD=LD \1\2 \3\400 DEV=CCN
+LIGHTNING	^([12][0-9][0-9][0-9]|[0-9][0-9])([0-3][0-9][0-9])([0-2][0-9])([0-5][0-9])([0-5][0-9])
+	PIPE	-close
+	decoders/lgt2md -l logs/ldm-mcidas.log
+	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/NLDN
+	70 NLDN DIALPROD=LD \1\2 \3\400 DEV=CCN
 
 #
-# USPLN North America lightning product
-#LIGHTNING	N1.*-(....)_(..)_(..)_(..)_(..)_..\.dat$
+# USPLN Global lightning product
+#       GLN1-ltg-2017_06_21_15_51_00.dat
+#       LIGHTNING-GLN1,2017-10-02T00:10:00,2017-10-02T00:09:00
+#       150690294015069030002017-10-02T00:07:33.459,42.5200762,-98.860873,-66.80,0.75,0.25,42
+#       2017-10-02T00:08:24.427,28.9950649,-85.4178286,-60.30,0.75,0.25,46
+
+LIGHTNING	GLN1-ltg-(....)_(..)_(..)_(..)_(..)_..\.dat$
+	PIPE	-close
+	decoders/lgt2md -l logs/ldm-mcidas.log
+	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/USPLN
+	120 NLDN DIALPROD=LP X X DEV=CCN
+#LIGHTNING	(....)-(..)-(..)T(..):(..).(...)
 #	PIPE	-close
 #	decoders/lgt2md -l logs/ldm-mcidas.log
 #	-d /data/ldm/ucar_only/decoded/mcidas/RTPTSRC/USPLN

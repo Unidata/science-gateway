@@ -1,0 +1,24 @@
+#
+# LDM/IDD NIMAGE feed of GOES-R/S ABI imagery and other Level 2 products
+#
+
+# Example Product IDs for Level 2 products:
+#
+# /data/ldm/pub/native/satellite/GOES/GOES17/Products/CloudAndMoistureImagery/CONUS/Channel15/20190411/OR_ABI-L2-CMIPC-M6C15_G17_s20191011706190_e20191011706190_c20191011706190.nc
+# /data/ldm/pub/native/satellite/GOES/GOES17/Products/CloudAndMoistureImagery/CONUS/Channel14/20190411/OR_ABI-L2-CMIPC-M6C14_G17_s20191011706190_e20191011706190_c20191011706190.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/AerosolDetection/FullDisk/20180114/OR_ABI-L2-ADPF-M3_G16_s20180141930422_e20180141941189_c20180141941453.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/FireHotSpot/CONUS/20190227/OR_ABI-L2-FDCC-M3_G16_s20190582142135_e20190582144508_c20190582145071.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/DerivedStabilityIndices/Mesoscale-2/20190227/OR_ABI-L2-DSIM2-M3_G16_s20190582144514_e20190582144572_c20190582145379.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/DerivedStabilityIndices/Mesoscale-1/20190227/OR_ABI-L2-DSIM1-M3_G16_s20190582145214_e20190582145271_c20190582145518.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/DerivedStabilityIndices/CONUS/20190227/OR_ABI-L2-DSIC-M3_G16_s20190582142135_e20190582144508_c20190582146079.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/TotalPrecipitableWater/CONUS/20190227/OR_ABI-L2-TPWC-M3_G16_s20190582142135_e20190582144508_c20190582146079.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/TotalPrecipitableWater/Mesoscale-1/20190227/OR_ABI-L2-TPWM1-M3_G16_s20190582145214_e20190582145271_c20190582145518.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/TotalPrecipitableWater/Mesoscale-2/20190227/OR_ABI-L2-TPWM2-M3_G16_s20190582145514_e20190582145571_c20190582146350.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/CloudParticleSize/CONUS/20190227/OR_ABI-L2-CPSC-M3_G16_s20190582142135_e20190582144508_c20190582145584.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/CloudParticleSize/Mesoscale-2/20190227/OR_ABI-L2-CPSM2-M3_G16_s20190582144514_e20190582144572_c20190582146075.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/DerivedMotionWinds/Mesoscale-1/Channel08/20190227/OR_ABI-L2-DMWM1-M3C08_G16_s20190582140214_e20190582140271_c20190582146211.nc
+# /data/ldm/pub/native/satellite/GOES/GOES16/Products/DerivedMotionWinds/Mesoscale-1/Channel14/20190227/OR_ABI-L2-DMWM1-M3C14_G16_s20190582140214_e20190582140271_c20190582146218.nc
+
+NIMAGE	^(.*)/GOES(1.)/(Products)/(.*)/((CONUS|FullDisk|Mesoscale-1|Mesoscale-2|PuertoRico|Alaska|Hawaii).*)/(20......)/(OR_...-L[23].*.nc)
+	PIPE	-close
+	/home/ldm/etc/util/L2ProdFile.sh \1 GRB\2 \3 \4 \5 \7 \8 logs/L2ProdFile.log

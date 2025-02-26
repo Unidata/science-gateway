@@ -9,7 +9,7 @@
     <limit>10</limit>
     <warn-if-disabled>1</warn-if-disabled>
     <ntpdate>
-      <command>ntpdate</command>
+      <command>/usr/sbin/chronyd</command>
       <servers>ntp.ucsd.edu ntp1.cs.wisc.edu ntppub.tamu.edu otc1.psu.edu timeserver.unidata.ucar.edu</servers>
       <timeout>5</timeout>
     </ntpdate>
@@ -23,7 +23,7 @@
     <count>4</count>
     <file>/home/ldm/var/logs/metrics.txt</file>
     <files>/home/ldm/var/logs/metrics.txt*</files>
-    <netstat-command>true</netstat-command>
+    <netstat-command>/usr/bin/netstat -A inet -t -n</netstat-command>
     <top-command>/usr/bin/top -b -n 1</top-command>
   </metrics>
   <pqact>
