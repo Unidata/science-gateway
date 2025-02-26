@@ -83,7 +83,7 @@ cp ~/science-gateway/vms/idd-archiver/etc/* ~/etc/
 You may have to tailor the `ldmd.conf` to your data feed requirements. In addition, change the following request line
 
 ```shell
-REQUEST ANY ".*" 10.0.0.21
+REQUEST ANY ".*" 10.0.0.233
 ```
 
 to point the local IDD relay **10.0 address**.
@@ -91,11 +91,11 @@ to point the local IDD relay **10.0 address**.
 or something like
 
 ```shell
-REQUEST CONDUIT ".*" 10.0.0.21
-REQUEST NGRID ".*" 10.0.0.21
-REQUEST NOTHER ".*" 10.0.0.21
-REQUEST NEXRAD3 ".*" 10.0.0.21
-REQUEST ANY-NEXRAD3-NOTHER-NGRID-CONDUIT ".*" 10.0.0.21
+REQUEST CONDUIT ".*" 10.0.0.233
+REQUEST NGRID ".*" 10.0.0.233
+REQUEST NOTHER ".*" 10.0.0.233
+REQUEST NEXRAD3 ".*" 10.0.0.233
+REQUEST ANY-NEXRAD3-NOTHER-NGRID-CONDUIT ".*" 10.0.0.233
 ```
 
 to break apart the requests.
