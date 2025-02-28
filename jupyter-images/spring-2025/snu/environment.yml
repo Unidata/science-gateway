@@ -1,0 +1,29 @@
+name: unidata-standard
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - 'python<3.13'
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - cartopy
+  - folium
+  - ipywidgets
+  - iris
+  - matplotlib
+  - metpy
+  - numpy
+  - pandas
+  - pip
+  - pyproj
+  - python-awips
+  - rasterio
+  - scikit-learn
+  - seaborn
+  - siphon
+  - xarray
+  - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - palmerpenguins
