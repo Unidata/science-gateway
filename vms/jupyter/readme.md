@@ -306,7 +306,7 @@ singleuser:
 
 ### JupyterHub Profiles
 
-A JupyterHub may be configured to give users different [profile options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment) when logging in. This can be useful when, for example, a faculty member is using JupyterHub for multiple courses and wants to keep them seperate. Another use case is for creating "high power" or "low power" environments, which are allocated varying levels of computational resources, i.e., RAM and CPU. This can be applied in an undergraduate research setting where an instructor and their students use the low power environments during synchronous instruction and the high power environment for asynchronous workflows.
+A JupyterHub may be configured to give users different [profile options](https://z2jh.jupyter.org/en/stable/jupyterhub/customizing/user-environment.html#using-multiple-profiles-to-let-users-select-their-environment) when logging in. This can be useful when, for example, a faculty member is using JupyterHub for multiple courses and wants to keep them separate. Another use case is for creating "high power" or "low power" environments, which are allocated varying levels of computational resources, i.e., RAM and CPU. This can be applied in an undergraduate research setting where an instructor and their students use the low power environments during synchronous instruction and the high power environment for asynchronous workflows.
 
 An example of high and low power environments is shown below.
 
@@ -363,6 +363,30 @@ singleuser:
 ```
 
 See [this](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1242#issuecomment-484895216) GitHub issue for a description of the discrepancy, and the [Kubespawner docs](https://jupyterhub-kubespawner.readthedocs.io/en/latest/spawner.html) for the appropriate names to use for the various options when creating profiles.
+
+You can programmatically determine which profile you are currently in with:
+
+```python
+def get_runtime_limits():
+    try:
+        # Read CPU limit
+        with open("/sys/fs/cgroup/cpu.max") as f:
+            cpu_quota, cpu_period = map(int, f.read().strip().split())
+            cpu_limit = "Unlimited" if cpu_quota == -1 else cpu_quota / cpu_period  # Convert to cores
+
+        # Read memory limit
+        with open("/sys/fs/cgroup/memory.max") as f:
+            mem_limit_bytes = int(f.read().strip())
+            mem_limit_gb = "Unlimited" if mem_limit_bytes == -1 else mem_limit_bytes / 1e9  # Convert bytes to GB
+
+        return cpu_limit, mem_limit_gb
+    except FileNotFoundError:
+        return "Unknown", "Unknown"
+
+cpu, memory = get_runtime_limits()
+print(f"CPU Limit: {cpu} cores")
+print(f"Memory Limit: {memory:.2f} GB")
+```
 
 
 <a id="h-84D4CA51"></a>
