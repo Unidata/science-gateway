@@ -811,12 +811,12 @@ cd ~/jetstream_kubespray
 sh k8s_remove_node.sh k8s-unidata-k8s-node-nf-2
 ```
 
-***NOTE***:
-> The above will "reset" the node, i.e. remove all Kubernetes/Kubespray components and then remove it from the K8s cluster. The reset step is unnecessary if you are planning to teardown the node immediately after. To speed up the node removal procedure, edit `k8s_remove_node.sh` to include `-e reset_nodes=false`, as outlined in the [Kubespray docs](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/operations/nodes.md#3-remove-an-old-node-with-remove-nodeyml) as such:
-> ```
-> # k8s_remove_node.sh
-> ansible-playbook ... -e reset_nodes=false
-> ```
+**NOTE**: The above will "reset" the node, i.e., remove all Kubernetes/Kubespray components and then remove it from the K8s cluster. The reset step is unnecessary if you are planning to teardown the node immediately after. To speed up the node removal procedure, edit `k8s_remove_node.sh` to include `-e reset_nodes=false`, as outlined in the [Kubespray docs](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/operations/nodes.md#3-remove-an-old-node-with-remove-nodeyml) as such:
+
+```sh
+# k8s_remove_node.sh
+ansible-playbook ... -e reset_nodes=false
+```
 
 followed by running:
 
