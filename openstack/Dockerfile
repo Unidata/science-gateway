@@ -59,7 +59,8 @@ RUN pip3 install --upgrade pip
 
 RUN pip3 install -r $HOME/jetstream_kubespray/requirements.txt
 
-RUN pip3 install --upgrade "python-openstackclient<7" python-designateclient --ignore-installed
+RUN pip3 install --upgrade "python-openstackclient<7" python-magnumclient \
+    python-designateclient --ignore-installed
 
 RUN mkdir $HOME/.kube
 
