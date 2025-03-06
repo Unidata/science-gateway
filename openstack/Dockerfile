@@ -26,42 +26,33 @@ RUN yum install -y findutils vim telnet openssh openssh-clients git vi less \
 
 ENV TERRAFORM_VERSION=0.14.4
 
-RUN  wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin/
 
 ###
 # Set up openstack account and create bin directory
 ###
-
-RUN useradd -ms /bin/bash openstack
-
-RUN echo "openstack ALL=NOPASSWD: ALL" >> /etc/sudoers
-
-RUN echo 'openstack:docker' | chpasswd
-
 ENV HOME /home/openstack
-
-RUN mkdir -p $HOME/bin
-
 ENV PATH=$HOME/bin:$PATH
+
+RUN useradd -ms /bin/bash openstack && \
+    echo "openstack ALL=NOPASSWD: ALL" >> /etc/sudoers && \
+    echo 'openstack:docker' | chpasswd && \
+    mkdir -p $HOME/bin
+
 
 ###
 # Clone kubespray
 ###
 
 RUN git clone https://github.com/zonca/jetstream_kubespray \
-    $HOME/jetstream_kubespray -b branch_v2.21.0
-
-RUN git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream  \
-    $HOME/jupyterhub-deploy-kubernetes-jetstream
-
-RUN pip3 install --upgrade pip
-
-RUN pip3 install -r $HOME/jetstream_kubespray/requirements.txt
-
-RUN pip3 install --upgrade "python-openstackclient<7" python-designateclient python-magnumclient --ignore-installed
-
-RUN mkdir $HOME/.kube
+      $HOME/jetstream_kubespray -b branch_v2.21.0 && \
+    git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream \
+      $HOME/jupyterhub-deploy-kubernetes-jetstream && \
+    pip3 install --upgrade pip && \
+    pip3 install -r $HOME/jetstream_kubespray/requirements.txt && \
+    pip3 install --upgrade "python-openstackclient<7" python-designateclient python-magnumclient --ignore-installed && \
+    mkdir $HOME/.kube
 
 ###
 # Install helm
@@ -69,13 +60,13 @@ RUN mkdir $HOME/.kube
 
 ENV HELM_VERSION=3.8.2
 
-RUN cd /home \
-	&& curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz \
-	&& tar -xvf helm.tar.gz \
-	&& rm helm.tar.gz \
-	&& mv linux-amd64/helm /usr/local/bin/helm \
-	&& chmod +x /usr/local/bin/helm \
-	&& cd
+RUN cd /home && \
+    curl https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm.tar.gz && \
+    tar -xvf helm.tar.gz && \
+    rm helm.tar.gz && \
+    mv linux-amd64/helm /usr/local/bin/helm && \
+    chmod +x /usr/local/bin/helm && \
+    cd
 
 ###
 # Add various utilities
