@@ -25,7 +25,7 @@ RUN mamba create --name $DEFAULT_ENV_NAME --quiet --yes && \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
       'conda-forge::ipywidgets' && \
-    mamba env create --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
+    mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
     pip install --no-cache-dir nbgitpuller && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \
