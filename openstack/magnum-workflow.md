@@ -20,6 +20,7 @@
     - [Scheduling the Core Pods](#Scheduling-the-Core-Pods)
     - [Scheduling the Single User Pods](#Scheduling-the-Single-User-Pods)
     - [Installing JupyterHub](#Installing-JupyterHub)
+- [Cluster Teardown](#Cluster-Teardown)
 
 ## Intro
 
@@ -120,6 +121,7 @@ Here you'll find the `create_cluster.sh` script. Before running it, we must:
     - See NOTE below
 5) If this cluster is *not* intended to auto-scale, remove the `--labels
    auto_scaling_enabled=true` line
+6) Add the keypair argument `--keypair jupyter-ctrl-k8s`
 
 > NOTE:
 > We leave the number of default worker nodes to 1, as we plan on using this
@@ -156,8 +158,8 @@ An ingress resource allows traffic into the cluster and in necessary for HTTPS.
 Install it using `helm` as described in [Andrea's
 tutorial](https://www.zonca.dev/posts/2024-12-11-jetstream_kubernetes_magnum#install-nginx-controller)
 with one modification. Namely, we specify that we require the nginx Pod to run
-on the `default-worker` node with the `--set` flag:
 
+on the `default-worker` node with the `--set` flag:
 ```bash
 helm upgrade --install ingress-nginx ingress-nginx \
     --repo https://kubernetes.github.io/ingress-nginx \
@@ -217,7 +219,7 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 Apply the cluster issuer manifest:
 
 ```bash
-kubectl apply -f https_cluster_issuer
+kubectl apply -f https_cluster_issuer.yml
 ```
 
 Your cluster should now be ready to request and obtain a certificate.
@@ -406,4 +408,50 @@ status of the certificate and certificate request with:
 ```bash
 kubectl get certificate -n jhub
 kubectl get certificaterequest -n jhub
+```
+
+## Cluster Teardown
+
+Tearing down the cluster is made simple by Magnum.
+
+Previously with the Kubespray workflow, it was necessary to delete the `jhub`
+namespace before tearing down the cluster so as to not "orphan" any openstack
+volumes that were created as PVCs. With Magnum, this step can be skipped. If you
+wanted to confirm that these volumes are destroyed with the rest of the cluster,
+first get a list of PVCs:
+
+```bash
+kubectl get pv -A | tail -n +2 | cut -f 1 -d " " > /tmp/pv.out
+```
+
+You can see the volumes via openstack with:
+
+```bash
+openstack volume list | grep -f /tmp/pv.out
+```
+
+Now, destroy the cluster with the
+`~/jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum/delete_cluster.sh`
+script:
+
+```bash
+echo $K8S_CLUSTER_NAME # Ensure you're deleting the right cluster
+cd ~/jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum
+bash delete_cluster.sh
+```
+
+The script will provide a status for the cluster deletion.
+
+Once it's been deleted, ensure the PVs have been deleted along with the cluster:
+
+```bash
+openstack volume list | grep -f /tmp/pv.out
+```
+
+Finally, we delete the A record that was created to point to the load balancer
+IP:
+
+```bash
+openstack recordset list ees220002.projects.jetstream-cloud.org. -c name -c id | grep $K8S_CLUSTER_NAME
+openstack recordset delete ees220002.projects.jetstream-cloud.org. $K8S_CLUSTER_NAME.ees220002.projects.jetstream-cloud.org.
 ```
