@@ -30,6 +30,14 @@ RUN apt-get update && \
     git clone https://github.com/novnc/novnc --depth=1 ${NOVNC_DIR} && \
     chown -R 1000:100 ${NOVNC_DIR}
 
+COPY IDV.desktop /usr/local/share/applications/
+COPY copy-idv-desktop-icon.sh /usr/local/bin/before-notebook.d/
+
+RUN curl -SL \
+  https://ramadda.scigw.unidata.ucar.edu/repository/entry/get/IDV_6.3.tar.bz2?entryid=c3ffcffc-c50c-4e19-95e1-9a913e486182 \
+    -o /IDV.tar.bz2 && tar xvfj /IDV.tar.bz2 -C / && \
+    chmod +x /usr/local/share/applications/IDV.desktop
+
 USER $NB_UID
 
 ADD environment.yml /tmp
