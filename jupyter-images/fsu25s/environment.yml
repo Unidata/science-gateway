@@ -1,25 +1,56 @@
 name: fsu25s
 channels:
- - conda-forge
+  - conda-forge
 dependencies:
   # Required by JupyterLab
-  - 'python<3.13'
   - nb_conda_kernels
   - ipykernel
-  # User requested packages
+  # Python executables
+  - python>=3.10 
+  - ipython
+  - jupyterlab
+  - jupyterlab-widgets
+  # Numerical and statistical
   - numpy
+  - libblas
+  - numba
+  - scipy
+  - statsmodels
+  - sympy
+  - flox
+  # Data visualization
   - matplotlib
   - cartopy
-  - metpy
-  - siphon
-  - pandas
-  - pip
-  - xarray
-  - ipywidgets
-  - python-awips
-  - scikit-learn
+  - hvplot
+  - geoviews
+  - owslib
+  - shapely
+  - bokeh
+  - plotly
   - seaborn
-  - pip:
-    # It is recommended to install a package using pip as a last resort, i.e.
-    # when it is not found in the conda repos
-    - palmerpenguins
+  - acgc
+  # Data analysis
+  - pandas
+  - xarray
+  - metpy
+  - nc-time-axis
+  # File access
+  - netcdf4
+  - h5netcdf
+  - h5pyd
+  - cftime
+  - cfgrib
+  - yaml
+  - s3fs
+  - zarr
+  - openpyxl
+  - siphon
+  # Other
+  - pip
+  - tabulate
+  # Optional
+  - gdal
+  - geopandas
+  - rasterio
+  - fiona
+  - scikit-learn
