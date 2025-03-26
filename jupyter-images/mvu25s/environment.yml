@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python<3.12
+  - python=3.12
   - numpy
   - matplotlib
   - pandas
@@ -21,18 +21,20 @@ dependencies:
   - statsmodels
   - pip
   - cfgrib
+  - setuptools
   - climlab
   - climlab-rrtmg
   - typhon
   - ipympl
   - pint-xarray
   - pyarts
+  - ipython=8
   - nb_conda_kernels
   - ipykernel
+  - xwrf
   - pip:
     - miepython
-    - wrf-python
-    - git+https://github.com/lukelbd/proplot
+    - git+https://github.com/proplot-dev/proplot.git@refs/pull/459/head
 variables:
   ARTS_DATA_PATH: /share/ESCI345/arts-data/arts-cat-data-2.6.12/
-  ARTS_XML_ATMO: /share/ESCI345/arts-data/arts-xml-data-2.6.12/
+  ARTS_XML_ATMO: /home/jovyan/esci345/atmospheres/
