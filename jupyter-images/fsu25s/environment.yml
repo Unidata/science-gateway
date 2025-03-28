@@ -9,7 +9,8 @@ dependencies:
   - python>=3.10 
   - ipython
   - jupyterlab
-  - jupyterlab-widgets
+  - jupyterlab_widgets
+  - ipywidgets
   # Numerical and statistical
   - numpy
   - libblas
