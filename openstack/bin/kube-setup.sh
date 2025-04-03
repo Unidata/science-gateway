@@ -11,7 +11,7 @@ sed -i "s/# k8s_master_fips/k8s_master_fips/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" cluster.tfvars
 sed -i "s/number_of_k8s_nodes = 1/number_of_k8s_nodes = 0/g" cluster.tfvars
 sed -i "s/number_of_k8s_nodes_no_floating_ip = 0/number_of_k8s_nodes_no_floating_ip = 1/g" cluster.tfvars
-sed -i "s/k8s_allowed_remote_ips = \[\"0.0.0.0\/0\"\]/k8s_allowed_remote_ips =  \[\"128.117.144.0\/23\",\"128.117.164.80\/28\",\"128.117.165.80\/28\",\"149.165.152.95\"\]/g" cluster.tfvars
+sed -i "s/k8s_allowed_remote_ips = \[\"0.0.0.0\/0\"\]/k8s_allowed_remote_ips =  \[\"128.117.144.0\/23\",\"149.165.152.95\"\]/g" cluster.tfvars
 sed -i "s/149.xxx.xxx.xxx/"$IP"/g" group_vars/k8s_cluster/k8s-cluster.yml
 # https://www.zonca.dev/posts/2024-05-07-ubuntu22-minimal-image-jetstream
 sed -i "s/kube_proxy_mode: ipvs/kube_proxy_mode: iptables/g" group_vars/k8s_cluster/k8s-cluster.yml
