@@ -2,7 +2,7 @@
 Version=6.3
 Type=Application
 Name=IDV
-Exec=/IDV_6.3/runIDV
-Icon=/IDV_6.3/idv.gif
+Exec=/opt/IDV/runIDV
+Icon=/opt/IDV/idv.gif
 Terminal=false
 Categories=Utility;
