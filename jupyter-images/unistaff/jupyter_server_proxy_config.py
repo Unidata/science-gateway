@@ -4,15 +4,16 @@
 
 c.ServerProxy.servers = {
     "Virtual-Desktop": {
-        "port": 6080,  # Port exposed by the sidecar container
+        "command": [],  # Unmanaged mode, since you're launching it elsewhere
+        "port": 6080,
         "launcher_entry": {
-            "title": "Virtual Desktop",
-            "path_info": "Virtual-Desktop/vnc.html"
-            # Optional: add an icon if desired
-            # "icon_path": "/usr/local/share/icons/xfce.png"
+            "title": "NSF Unidata Desktop for IDV and AWIPS CAVE",
+            "path_info": "proxy/6080/vnc.html?resize=scale",
+            "icon_path": "/usr/local/share/icons/monitor.svg"
         }
     }
 }
+
 
 ######
 # End Jupyter Server Proxy Config

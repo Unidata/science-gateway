@@ -15,9 +15,15 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY copy-idv-desktop-icon.sh /usr/local/bin/before-notebook.d/
+COPY setup-unidata-desktop.sh /usr/local/bin/before-notebook.d/
 COPY IDV.desktop /usr/local/share/applications/
-RUN chmod +x /usr/local/share/applications/IDV.desktop
+COPY cave.desktop /usr/local/share/applications/
+RUN chmod +x /usr/local/share/applications/IDV.desktop && \
+    chmod +x /usr/local/share/applications/cave.desktop
+
+RUN mkdir -p /usr/local/share/icons
+
+COPY monitor.svg /usr/local/share/icons
 
 USER $NB_UID
 
