@@ -9,7 +9,7 @@ c.ServerProxy.servers = {
         "launcher_entry": {
             "title": "NSF Unidata Desktop for IDV and AWIPS CAVE",
             "path_info": "proxy/6080/vnc.html?resize=scale",
-            "icon_path": "/usr/local/share/icons/monitor.svg"
+            "icon_path": "/usr/local/share/icons/unidata.svg"
         }
     }
 }

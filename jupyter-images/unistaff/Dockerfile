@@ -23,7 +23,7 @@ RUN chmod +x /usr/local/share/applications/IDV.desktop && \
 
 RUN mkdir -p /usr/local/share/icons
 
-COPY monitor.svg /usr/local/share/icons
+COPY unidata.svg /usr/local/share/icons
 
 USER $NB_UID
 
