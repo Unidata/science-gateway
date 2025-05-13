@@ -20,6 +20,8 @@
     - [Scheduling the Core Pods](#Scheduling-the-Core-Pods)
     - [Scheduling the Single User Pods](#Scheduling-the-Single-User-Pods)
     - [Installing JupyterHub](#Installing-JupyterHub)
+- [Cluster Management](#Cluster-Management)
+    - [Using the User Placeholder to Apply a Buffer](Using-the-User-Placeholder-to-Apply-a-Buffer)
 - [Cluster Teardown](#Cluster-Teardown)
 
 ## Intro
@@ -409,6 +411,69 @@ status of the certificate and certificate request with:
 kubectl get certificate -n jhub
 kubectl get certificaterequest -n jhub
 ```
+
+## Cluster Management
+
+### Using the User Placeholder to Apply a Buffer
+
+When a user logs in to the JupyterHub, there may not be a node available for
+their single user Pod. The cluster auto-scaler will then trigger, starting a new
+node, attaching it to the cluster, and pulling relevant container images. This
+procedure could take up to 5 minutes or longer, depending on the size of the
+single user server JupyterLab image. This can lead to longer than expected wait
+times.
+
+JupyterHub has a built-in solution to this, "user-placeholders", that is
+documented in the
+[Optimizations](https://z2jh.jupyter.org/en/stable/administrator/optimization.html#scaling-up-in-time-user-placeholders)
+section of the JupyterHub with K8s docs.
+
+User-placeholders are Pods running as part of a
+[StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/),
+which is similar to a Deployment or ReplicaSet and can be scaled to a desired
+number of Pods and will set aside resources in anticipation for users who may
+log in.
+
+In combination with low
+[PodPriority](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/),
+the user-placeholder Pods will be "evicted" in favor of the higher priority
+single user JupyterLab Pods. Kubernetes will then try to reschedule the evicted
+Pod(s), triggering the auto-scaler if necessary.
+
+This feature is easily enabled with the following configuration:
+
+```yaml
+scheduling:
+  podPriority:
+    enabled: true
+  userPlaceholder:
+    # Specify four dummy user pods will be used as placeholders
+    replicas: 4
+```
+
+For a full list of default values, see
+[here](https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/main/jupyterhub/values.yaml).
+
+See also the [configuration
+reference](https://z2jh.jupyter.org/en/stable/resources/reference.html#scheduling-userplaceholder).
+
+In the above `yaml` snippet, we specified 4 user-placeholder Pods. The
+user-placeholder StatefulSet can be scaled to include more or fewer Pods using
+the following commands:
+
+```bash
+kubectl get sts -n jhub # see the current # of replicas
+NAME               READY   AGE
+user-placeholder   4/4     39d
+
+kubectl scale sts -n jhub user-placeholder --replicas=<new-number-of-replicas>
+```
+
+In addition to holding a buffer in anticipation for arriving users in an
+asynchronous setting, this can be used to easily trigger a scale up and prepare
+a cluster for a large amount of users in, for example, a workshop scenario.
+Simply update your nodegroup to the desired number of `max_node_count` and scale
+the StatefulSet to the desired number of users.
 
 ## Cluster Teardown
 
