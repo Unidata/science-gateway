@@ -21,7 +21,7 @@ repo_gpgcheck=1\n\
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key\n' \
     > /etc/yum.repos.d/kubernetes.repo && \
     yum install -y findutils vim telnet openssh openssh-clients git vi less \
-    nano wget unzip kubectl openssl sudo python3 procps pip rsync && \
+    nano wget unzip kubectl openssl sudo python3 procps pip rsync jq && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
