@@ -1,0 +1,57 @@
+name: fsu25s
+channels:
+  - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - nb_conda_kernels
+  - ipykernel
+  # Python executables
+  - python>=3.10 
+  - ipython
+  - jupyterlab
+  - jupyterlab_widgets
+  - ipywidgets
+  # Numerical and statistical
+  - numpy
+  - libblas
+  - numba
+  - scipy
+  - statsmodels
+  - sympy
+  - flox
+  # Data visualization
+  - matplotlib
+  - cartopy
+  - hvplot
+  - geoviews
+  - owslib
+  - shapely
+  - bokeh
+  - plotly
+  - seaborn
+  - acgc
+  # Data analysis
+  - pandas
+  - xarray
+  - metpy
+  - nc-time-axis
+  # File access
+  - netcdf4
+  - h5netcdf
+  - h5pyd
+  - cftime
+  - cfgrib
+  - yaml
+  - s3fs
+  - zarr
+  - openpyxl
+  - siphon
+  # Other
+  - pip
+  - tabulate
+  # Optional
+  - gdal
+  - geopandas
+  - rasterio
+  - fiona
+  - scikit-learn
