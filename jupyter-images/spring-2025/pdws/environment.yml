@@ -1,0 +1,16 @@
+name: pdws-spring-2025
+channels:
+ - conda-forge
+dependencies:
+ - python<3.13
+ - cartopy
+ - jupyterlab
+ - matplotlib
+ - metpy
+ - netcdf4
+ - numpy
+ - pandas<2
+ - pint
+ - scipy
+ - siphon
+ - xarray
