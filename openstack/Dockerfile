@@ -38,8 +38,8 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key\n' \
         /home/openstack/jupyterhub-deploy-kubernetes-jetstream && \
     pip3 install --upgrade pip && \
     pip3 install -r /home/openstack/jetstream_kubespray/requirements.txt && \
-    pip3 install --upgrade 'python-openstackclient<7' python-designateclient \
-        --ignore-installed && \
+    pip3 install --upgrade 'python-openstackclient<7' python-designateclient  \
+        python-magnumclient python-octaviaclient --ignore-installed && \
     chown -R openstack:openstack /home/openstack && \
     chmod +x /home/openstack/bin/*.sh
 
