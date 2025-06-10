@@ -6,14 +6,22 @@ ARG HELM_VERSION=3.8.1
 ENV HOME=/home/openstack \
     PATH=/home/openstack/bin:$PATH
 
-RUN mkdir -p /home/openstack/bin
+RUN mkdir -p /home/openstack/bin /home/openstack/.config/nushell
 
 COPY ansible/*.yml /
 COPY bin/*.sh /home/openstack/bin/
+COPY bin/*.nu /home/openstack/bin/
 COPY .bashrc /home/openstack/
+COPY nu/ /home/openstack/.config/nushell/
 
 RUN set -euxo pipefail && \
-    printf '[kubernetes]\n\
+printf "[gemfury-nushell] \n\
+name=Gemfury Nushell Repo \n\
+baseurl=https://yum.fury.io/nushell/ \n\
+enabled=1 \n\
+gpgcheck=0 \n\
+gpgkey=https://yum.fury.io/nushell/gpg.key" | tee /etc/yum.repos.d/fury-nushell.repo &&  \
+printf '[kubernetes]\n\
 name=Kubernetes\n\
 baseurl=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/\n\
 enabled=1\n\
@@ -24,7 +32,7 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/repodata/repomd.xml.key\n' \
     dnf upgrade -y && \
     dnf install -y epel-release && \
     dnf install -y \
-        less kubectl pip rsync jq python3 && \
+        less kubectl pip rsync jq python3 nushell && \
     dnf clean all && rm -rf /var/cache/dnf && \
     wget -q https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin && \
