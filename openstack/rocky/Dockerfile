@@ -1,14 +1,13 @@
 FROM rockylinux:9.3.20231119
 
-###
-# Update the system. Install stuff.
-###
+# Update system and install EPEL repository
+RUN dnf upgrade -y && dnf install -y epel-release
 
-# Install repo: Extra Packages for Enterprise Linux
-RUN yum upgrade -y && yum install -y epel-release
+# Install desired packages
+RUN dnf install -y \
+    sudo man man-pages vim nano git wget unzip ncurses procps-ng \
+    htop python3 telnet openssh openssh-clients openssl findutils diffutils && \
+    dnf clean all
 
-# Desired packages for basic use
-RUN yum install -y sudo man man-pages vim nano git wget unzip ncurses procps \
-	htop python3 telnet openssh openssh-clients openssl findutils diffutils
-
-CMD echo 'Build successful! For interactive mode, run as "docker run -it unidata/rocky /bin/bash"'
+# Default command uses JSON array syntax for signal-safe execution
+CMD ["/bin/echo", "Build successful! For interactive mode, run as: docker run -it unidata/rockylinux /bin/bash"]
