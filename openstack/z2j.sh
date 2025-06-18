@@ -148,5 +148,6 @@ docker run -it  --name  ${INVENTORY} \
        -v ${HELM}:/home/openstack/.helm \
        -v ${SECRETS}:/home/openstack/jupyterhub-deploy-kubernetes-jetstream/secrets.yaml \
        -e CLUSTER=${INVENTORY} \
+       -e K8S_CLUSTER_NAME=${INVENTORY} \
        -e IP=${IP} \
        unidata/science-gateway /bin/bash
