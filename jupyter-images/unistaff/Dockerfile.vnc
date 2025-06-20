@@ -1,0 +1,125 @@
+FROM rockylinux:8
+
+LABEL maintainer="Unidata <support-gateway@unidata.ucar.edu>"
+
+ENV DISPLAY=:1 \
+    NOVNC_DIR=/opt/novnc \
+    DESKTOP_ENVIRONMENT=xfce \
+    GOSU_VERSION="1.17" \
+    LIBGL_ALWAYS_SOFTWARE=1 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
+
+# Enable PowerTools and EPEL repos
+RUN dnf -y install epel-release && \
+    dnf config-manager --set-enabled powertools && \
+    dnf -y update
+
+# Installing fonts to make CAVE happy, hopefully
+RUN dnf -y install \
+      google-droid-sans-fonts \
+      google-droid-sans-mono-fonts \
+      google-noto-sans-fonts \
+      google-noto-mono-fonts \
+      dejavu-sans-fonts \
+      dejavu-sans-mono-fonts \
+      liberation-fonts \
+      liberation-mono-fonts \
+      terminus-fonts \
+      xorg-x11-fonts-Type1 \
+      xorg-x11-fonts-misc \
+      fontconfig && \
+    dnf clean all
+
+# Install desktop + GL + OpenGL diagnostic tools
+RUN dnf -y install --allowerasing \
+      git \
+      nano \
+      curl \
+      wget \
+      gnupg2 \
+      procps-ng \
+      bzip2 \
+      shadow-utils \
+      xorg-x11-server-Xvfb \
+      x11vnc \
+      xinit \
+      xfce4-panel \
+      xfce4-session \
+      xfce4-settings \
+      xfdesktop \
+      thunar \
+      xfce4-terminal \
+      mousepad \
+      dbus-x11 \
+      glibc-all-langpacks \
+      libXext \
+      libXrender \
+      libXtst \
+      libXi \
+      mesa-dri-drivers \
+      mesa-libGL \
+      mesa-libGLU \
+      mesa-vdpau-drivers \
+      glx-utils \
+      xorg-x11-utils && \
+    dnf clean all
+
+# Install gosu
+RUN set -eux; \
+    rpmArch="$(rpm --query --queryformat='%{ARCH}' rpm)"; \
+    case "$rpmArch" in \
+        aarch64) dpkgArch='arm64' ;; \
+        armv[67]*) dpkgArch='armhf' ;; \
+        i[3456]86) dpkgArch='i386' ;; \
+        ppc64le) dpkgArch='ppc64el' ;; \
+        riscv64 | s390x) dpkgArch="$rpmArch" ;; \
+        x86_64) dpkgArch='amd64' ;; \
+        *) echo >&2 "error: unknown/unsupported architecture '$rpmArch'"; exit 1 ;; \
+    esac; \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+    export GNUPGHOME="$(mktemp -d)"; \
+    gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+    gpgconf --kill all; \
+    rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+    chmod +x /usr/local/bin/gosu
+
+# Clone noVNC
+RUN git clone https://github.com/novnc/novnc --depth=1 ${NOVNC_DIR} && \
+    chown -R 1000:100 ${NOVNC_DIR}
+
+# Install IDV
+RUN curl -SL \
+  "https://ramadda.scigw.unidata.ucar.edu/repository/entry/get/IDV_6.3.tar.bz2?entryid=c3ffcffc-c50c-4e19-95e1-9a913e486182" \
+  -o /tmp/IDV.tar.bz2 && \
+  mkdir -p /opt && \
+  tar xvfj /tmp/IDV.tar.bz2 -C /opt && \
+  rm -f /tmp/IDV.tar.bz2 && \
+  ln -s /opt/IDV_6.3 /opt/IDV && \
+  chown -R 1000:100 /opt/IDV
+
+# Download and install CAVE to /opt/cave
+RUN useradd -u 1001 -g 100 -M -N fxalpha && \
+    useradd -u 1002 -g 100 -M -N awips && \
+    curl -o /tmp/awips_install-v23.sh https://downloads.unidata.ucar.edu/awips2/23.4.1/linux/awips_install-v23.sh && \
+    chmod 755 /tmp/awips_install-v23.sh && \
+    /tmp/awips_install-v23.sh --cave && \
+    rm -rf /tmp/awips_install-v23.sh && \
+    mkdir -p /opt/cave/ && \
+    ln -s /awips2/cave/cave.sh /opt/cave/cave.sh && \
+    chown -R 1000:100 /opt/cave
+
+# Disable XFCE PolicyKit agent to avoid desktop error in container
+RUN rm -f /etc/xdg/autostart/*polkit*.desktop
+
+# Copy entrypoint scripts
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+COPY launch-vnc.sh /usr/local/bin/launch-vnc.sh
+RUN chmod +x /usr/local/bin/launch-vnc.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
