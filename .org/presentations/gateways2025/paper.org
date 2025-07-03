@@ -1,0 +1,202 @@
+#+title: Integrating Scientific GUI Applications into Autoscaled Science Gateway Environments
+
+#+bibliography: gateways2025.bib
+
+#+author: Julien Chastang
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+
+#+latex_class: IEEEtran
+#+latex_class_options: [conference]
+#+latex_header: \IEEEoverridecommandlockouts
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{cite}
+#+latex_header: \usepackage{amsmath,amssymb,amsfonts}
+#+latex_header: \usepackage{algorithmic}
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{textcomp}
+#+latex_header: \usepackage{xcolor}
+
+#+cite_export: csl ieee.csl
+
+* Preamble                                            :noexport:
+:PROPERTIES:
+:CUSTOM_ID: h-EDCDB8D7
+:END:
+
+Below is an org mode file that can be exported to ~tex~ format via ::`org-latex-export-to-latex` that will conform to the [[https://www.ieee.org/conferences/publishing/templates.html][Gateways2025 conference requirements for paper submissions]]. When the ~tex~ file is generated, it unfortunately needs a few small modifications to make the export to PDF work so you have to invoke the ::`jc/ieee` command below within the body of the ~tex~. This is really not ideal, but will do as a stop gap measure while trying to find a better solution.
+
+#+begin_src emacs-lisp :results silent :exports none
+  (setq org-confirm-babel-evaluate nil)
+#+end_src
+
+#+begin_src emacs-lisp :eval no :results silent :exports none
+  (defalias 'jc/ieee
+    (kmacro "M-< C-s t i t C-a C-k C-k C-s m a k e t C-a C-k C-s s e c t C-a C-k C-k C-k C-x C-s"))
+#+end_src
+
+#+TBLNAME: authors-table
+| Rank | Order | Given Name | Surname  | Department Name                       | City    | Country | Email Address or ORCID                |
+|------+-------+------------+----------+---------------------------------------+---------+---------+---------------------------------------|
+|    1 | st    | Julien     | Chastang | NSF Unidata Program Center, UCP, UCAR | Boulder | CO USA  | https://orcid.org/0000-0003-2482-3565 |
+|    2 | nd    | Ana        | Espinoza | NSF Unidata Program Center, UCP, UCAR | Boulder | CO USA  | https://orcid.org/0000-0002-6292-073X |
+
+* 
+:PROPERTIES:
+:CUSTOM_ID: h-E655108A
+:END:
+
+#+begin_export latex
+\title{Integrating Scientific GUI Applications into Autoscaled Science Gateway Environments}
+#+end_export
+
+#+BEGIN_SRC emacs-lisp :var data=authors-table :exports results :results replace latex :eval no
+  (setq result-string "\\author{")
+
+  (mapc
+   (lambda (row)
+     (setq result-string
+           (concat result-string
+                   (format "\\IEEEauthorblockN{%s\\textsuperscript{%s} %s %s}\n\\IEEEauthorblockA{\\textit{%s} \\\\\n%s, %s \\\\\n%s}\n\\and\n"
+                           (nth 0 row) (nth 1 row) (nth 2 row) (nth 3 row)
+                           (nth 4 row) (nth 5 row) (nth 6 row) (nth 7 row)))))
+   data)
+
+  ;; Remove the last "\and" from the string
+  (setq result-string (substring result-string 0 (- (length result-string) 6)))
+
+  (concat result-string "\n}")
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\author{\IEEEauthorblockN{1\textsuperscript{st} Julien Chastang}
+\IEEEauthorblockA{\textit{NSF Unidata Program Center, UCP, UCAR} \\
+Boulder, CO USA \\
+https://orcid.org/0000-0003-2482-3565}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Ana Espinoza}
+\IEEEauthorblockA{\textit{NSF Unidata Program Center, UCP, UCAR} \\
+Boulder, CO USA \\
+https://orcid.org/0000-0002-6292-073X}
+}
+#+end_export
+
+#+begin_export latex
+\maketitle
+#+end_export
+
+#+name: abstract
+#+BEGIN_SRC org :exports none
+We present an application of a new capability on the NSF Jetstream2 cloud that enables scalable access to established scientific desktop applications in the atmospheric sciences, including the Unidata Integrated Data Viewer (IDV), the AWIPS CAVE client, and the LROSE Hawkeye tool. By leveraging OpenStack Magnum's Kubernetes autoscaling clusters-as-a-service, in combination with JupyterHub and VNC technology, the NSF Unidata Science Gateway dynamically provisions server resources to meet user demand, allowing these desktop applications to run efficiently in a cloud environment. This approach makes it feasible to support resource-intensive GUI tools in scenarios where static provisioning is costly or infeasible. We describe our deployment strategy, emphasizing that this model offers a workflow for integrating desktop applications with notebook-based gateway features and applicable to other domains with similar needs.
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :var text=abstract :exports none :results replace raw :eval no
+(format "#+latex: \\begin{abstract}\n%s\n#+latex: \\end{abstract}" text)
+#+END_SRC
+
+#+RESULTS:
+#+latex: \begin{abstract}
+We present an application of a new capability on the NSF Jetstream2 cloud that enables scalable access to established scientific desktop applications in the atmospheric sciences, including the Unidata Integrated Data Viewer (IDV), the AWIPS CAVE client, and the LROSE Hawkeye tool. By leveraging OpenStack Magnum's Kubernetes autoscaling clusters-as-a-service, in combination with JupyterHub and VNC technology, the NSF Unidata Science Gateway dynamically provisions server resources to meet user demand, allowing these desktop applications to run efficiently in a cloud environment. This approach makes it feasible to support resource-intensive GUI tools in scenarios where static provisioning is costly or infeasible. We describe our deployment strategy, emphasizing that this model offers a workflow for integrating desktop applications with notebook-based gateway features and applicable to other domains with similar needs.
+#+latex: \end{abstract}
+
+#+name: keywords
+#+BEGIN_SRC org :exports none
+AWIPS CAVE, Atmospheric Science, Autoscaling, Data Visualization, IDV, Jetstream2, JupyterHub, Kubernetes, NSF Unidata, OpenStack Magnum, Scientific GUI Applications, VNC Virtual Desktop
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :var text=keywords :exports none :results replace raw :eval no
+  (format "#+latex: \\begin{IEEEkeywords}\n%s\n#+latex: \\end{IEEEkeywords}" text)
+#+END_SRC
+
+#+RESULTS:
+#+latex: \begin{IEEEkeywords}
+AWIPS CAVE, Atmospheric Science, Autoscaling, Data Visualization, IDV, Jetstream2, JupyterHub, Kubernetes, NSF Unidata, OpenStack Magnum, Scientific GUI Applications, VNC Virtual Desktop
+#+latex: \end{IEEEkeywords}
+
+* Introduction
+:PROPERTIES:
+:CUSTOM_ID: h-4A56348C
+:END:
+
+Traditionally-deployed desktop graphical user interface (GUI) applications continue to play a vital role in atmospheric science, supporting complex data analysis and visualization workflows. Tools such as the IDV [cite: @Murray1997idv], a 2D and 3D visualization and analysis tool for geoscience data, NSF Unidata's implementation of the AWIPS CAVE client [cite: @Meyer2024awips], an operational meteorology workstation for viewing and analyzing real-time weather, and the Lidar Radar Open Software Environment (LROSE) Hawkeye tool [cite: @Dixon2016lrose], a GUI for inspecting lidar and radar observations, remain essential for analyzing and visualizing model and observational geoscience data. These mature, feature-rich applications are widely used in their domains, yet incorporating them into cloud and web-based scientific environments remains challenging.
+
+Earlier attempts to adapt these types of applications for the cloud revealed significant limitations, mainly due to a lack of scalability [cite: @Fisher2016cloud] and cumbersome user experience. Tools like IDV and CAVE can require multiple CPUs and substantial memory per user instance, making it impractical to pre-provision enough resources for every potential user. Without a dynamic provisioning mechanism, enabling multi-user access to such desktop applications in a shared cloud environment becomes technically infeasible and cost-prohibitive.
+
+To address this challenge of scaling GUI tools, the NSF Unidata Science Gateway [cite: @Chastang2017sciencegateway] employs a new capability on the Jetstream2 cloud [cite: @Hancock2021jetstream2], using OpenStack Magnum [cite: @OpenStack2025magnum] to provision Kubernetes-based autoscaling clusters-as-a-service. Combined with JupyterHub [cite: @Jupyter2025z2jh] and VNC (Virtual Network Computing) web-desktop technology, this architecture allows each user to launch a dedicated environment on demand, with sufficient compute and memory to run their GUI applications. Once the user completes their session, the underlying infrastructure is automatically deprovisioned, ensuring efficient resource utilization. This strategy enables integrating desktop applications into modern science gateways, aligning them with notebook-driven workflows and eliminating the need for local software installations.
+
+While our effort targets atmospheric science, this approach offers a generalizable solution for incorporating traditionally-deployed scientific GUI applications into modern, web-based, science gateway workflows. Other domains with GUI-based science applications can potentially benefit from this approach. This paper presents the design and implementation for our system, including deployment methodologies.
+
+* Methodology
+:PROPERTIES:
+:CUSTOM_ID: h-054C5E26
+:END:
+
+#+NAME: K8S-Mag
+#+CAPTION: /Architecture of the Kubernetes cluster deployed via OpenStack Magnum on Jetstream2. Each autoscaling worker node hosts one or more user pods. Each pod contains two containers: a notebook container with PyAOS tools such as MetPy, and a sidecar container running GUI-based desktop applications (e.g., IDV, CAVE, Hawkeye) in a virtual desktop environment. A shared volume allows seamless data exchange between the containers. The stacked representation of worker nodes and pods indicates that multiple instances may coexist within the cluster./
+#+ATTR_LATEX: :float t :width 0.48\textwidth
+file:k8sMag.png
+
+Our deployment leverages OpenStack Magnum's Kubernetes-as-a-Service capabilities in combination with JupyterHub and VNC-based virtual desktops to deliver GUI-based scientific applications in a scalable cloud setting. The Kubernetes cluster is provisioned on Jetstream2 using the OpenStack Magnum API [cite: @Zonca2024magnum]. During cluster creation, the number and size of control-plane and worker nodes, as well as autoscaling parameters, including minimum and maximum worker node counts, are defined via the *~openstack coe cluster create~* command. Additionally, cluster administrators may configure autoscaling node groups which are pools of nodes with varying virtual machine specifications to accommodate different resource requirements. By assigning specific cluster components to designated node groups, administrators can isolate workloads, align resource allocation with functional roles, and expose higher performance nodes to gateway users through hardware profiles which users can select. This strategy tailors clusters to gateway needs.
+
+Following cluster creation, a JupyterHub instance is deployed using the Helm package manager and the official JupyterHub Helm chart [cite: @Jupyter2025z2jh]. Each user environment is instantiated from a customized Docker image preloaded with PyAOS (Python for Atmosphere and Ocean Science) packages such as NSF Unidata's MetPy [cite: @May2022metpy]. In addition to the Jupyter notebook server, each user Kubernetes pod includes a sidecar container provisioned with sufficient resources for GUI applications (e.g., IDV and CAVE). These applications run inside an Xfce remote desktop and are accessed by users through the browser using VNC-over-websocket streaming. A virtual framebuffer (Xvfb) provides graphical output, which is streamed via x11vnc to a noVNC proxy exposed through Jupyter Server Proxy [cite: @Jupyter2025vncproxy]. This virtual desktop is then made available through a Desktop button in the JupyterLab interface. Upon JupyterLab login, two hardware profiles are made available to users, allowing selection between a standard configuration and a high-memory option suited for GUI-intensive workloads. Finally, as both JupyterLab and the virtual desktop are deployed in the same Pod, they are configured to mount the same volumes, letting users switch between data analysis in JupyterLab and visualization in the virtual desktop.
+
+To accommodate varying user demand, when cluster workload exceeds available resources, Kubernetes marks pods as Pending. The Kubernetes Cluster Autoscaler detects this condition and increases the replica count of the worker node group [cite:@CAPIAutoscalingDocs]. This action triggers the Kubernetes Cluster API (CAPI) to provision new virtual machine instances [cite:@OpenstackMagnumCAPIDriver2025]. These instances join the cluster as worker nodes, allowing the Pending pods to be scheduled onto them. Conversely, when nodes remain underutilized, the Cluster Autoscaler reduces the replica count and evicts pods, prompting CAPI to delete the associated node definition, which cascades to OpenStack, terminating the virtual machines and their attached resources, ensuring true elasticity with no idle capacity retained [cite:@OpenStackMagnumCAPIHelm2024].
+
+A similar approach has been taken in the LROSE Gateway [cite:@DeHart2025lrosegateway], which shares technical staff with the Unidata Science Gateway but differs in scope and scientific focus. Both gateways employ OpenStack Magnum autoscaling on Jetstream2 to provision high-capacity virtual machines on demand and scale them down when idle. The LROSE Gateway is specialized for lidar and radar workflows, offering LROSE command-line tools, notebooks equipped for lidar and radar meteorology, and Hawkeye within a customized JupyterHub. In contrast, the Unidata Science Gateway not only provides zero-install access to GUI meteorological applications such as IDV and AWIPS CAVE, but also extends to customized PyAOS environments tailored to the objectives of workshops or classroom settings.
+
+* Results and Discussion
+:PROPERTIES:
+:CUSTOM_ID: h-E4239ABF
+:END:
+
+#+NAME: CAVE
+#+CAPTION: /A web-accessible virtual desktop session showing the IDV and AWIPS CAVE launch icons, with the AWIPS CAVE client actively running and displaying GOES satellite imagery in the CONUS region./
+#+ATTR_LATEX: :float t :width 0.48\textwidth
+file:idv-cave-desktop.png
+
+This deployment methodology represents a new capability for the NSF Unidata Science Gateway ecosystem. While user-facing deployments are only just beginning, this approach has undergone validation through internal testing and is ready for integration into future Unidata PyAOS JupyterHub deployments. Since early 2020, NSF Unidata has provided JupyterHub-based scientific computing environments targeting atmospheric science to approximately 2,300 researchers, educators, and students across 28 institutions, workshops, and training events [cite: @Chastang2024pyaos]. This new virtual desktop offering delivers IDV, AWIPS CAVE, and LROSE Hawkeye via VNC. This expands the gateway's capabilities by offering zero-install access to GUI applications.
+
+Internal testing has verified that the architectural approach performs as intended. IDV and CAVE were successfully launched via the VNC virtual desktop inside the JupyterLab interface of the JupyterHub, and users could interact with rich 2D and 3D visualization products such as satellite, radar, and multi-dataset displays with low latency. Importantly, the autoscaler behaved as expected: new nodes were provisioned as concurrent users increased in number, and unused resources were deprovisioned following session culling. One LROSE Hawkeye expert informally evaluated the system and reported a positive experience. No critical failures or performance bottlenecks were observed.
+
+Notably, the responsiveness of the VNC experience exceeded expectations. Despite the GUI tools being richly interactive, the virtual desktop remains fluid, aided in part by Jetstream2's access to Internet2 for rapid data retrieval from remote servers. The only minor user experience quirk was clipboard handling; copy and paste operations between the user desktop and the virtual desktop involve an intermediate clipboard that may be unfamiliar to users.
+
+During Fall 2025, the Magnum-based deployments supported 147 users across six institutions. Login latency for a JupyterLab session was typically 1–2 minutes when a worker node was already available and 5–10 minutes when the autoscaler had to provision a new node. For IDV/CAVE workflows, users selected the high-capacity profile (6 vCPUs, 21 GiB RAM per pod), which in practice yields a 1:1 mapping between active users and ~m3.medium~ worker nodes.
+
+As a brief case study, an AWIPS CAVE workshop held on September 15, 2025 at Millersville University enrolled 32 participants, with up to 26 concurrently active on the Hub. User feedback was predominantly positive while occasional reports of lag were more consistent with client-side network conditions than server-side constraints though this warrants further investigation.
+
+Architecturally, the use of Kubernetes sidecar containers proved essential. GUI applications were isolated in a dedicated container running Rocky Linux, which is required for the AWIPS CAVE client. While IDV and LROSE Hawkeye do not depend on a specific operating system, separating the GUI environment from the main Jupyter container simplifies dependency management given the complex requirements of VNC and desktop environments. Integrating the VNC display server with the jupyter-server-proxy in the primary container required nontrivial configuration, but this challenge is resolved and documented [fn:1] in version control [cite: @Chastang2025clouddesktop].
+
+Compared to earlier deployments based on the Kubespray workflow [cite: @Zonca2023kubespray], OpenStack Magnum offers improvements not only in autoscaling but also in provisioning speed, operational flexibility, and customization. Cluster creation typically completes in approximately 10 minutes, and autoscaling node groups enable horizontal cloud elasticity, allowing the system to dynamically scale resources in response to user demand without requiring manual intervention.
+
+At present, this deployment approach maintains a non-zero baseline even in the absence of active users. Specifically, the cluster keeps one ~m3.quad~ control-plane node, one ~m3.quad~ default worker, and one ~m3.medium~ worker online at all times. This amounts to 16 service units (SUs) per hour, or ~140,000 SUs if maintained continuously for an entire year. In practice, clusters are not kept alive for that duration: they are typically deployed only for the length of a semester (on the order of four months) or for much shorter periods when supporting a workshop. This configuration reflects a hard limit in Jetstream2's current OpenStack implementation: worker node groups cannot scale below one. We acknowledge that this results in ongoing costs when utilization is low. Future work may revisit this topic if Jetstream2 introduces support for scale-to-zero worker groups.
+
+This deployment strategy addresses the scalability limitations noted in the Introduction. Tools such as IDV, CAVE, and Hawkeye are computationally demanding, making static pre-provisioning of sufficient resources prohibitively costly. With autoscaling, user sessions map 1:1 onto ~m3.medium~ nodes that are created on demand and released when sessions end. For a representative 30-student class meeting two hours per week over a 14-week semester, this model consumes ~6,700 SUs of compute time, compared to ~564,000 SUs if the same nodes were kept continuously provisioned. Excluding baseline costs common to both approaches, this represents an ~84× reduction. Beyond lowering cost, autoscaling provides elasticity, enabling the gateway to handle fluctuating workshop or classroom demand without over-provisioning in advance.
+
+Although broader deployments are in the early stages and user feedback is still forthcoming, this work demonstrates it is now technically feasible to support established GUI applications alongside modern workflows within autoscaled science gateway environments. Moreover, while the GUI capability itself was not employed during the American Meteorological Society 2025 LROSE workshop [cite: @LROSE2025workshop], the underlying infrastructure, specifically the Magnum-provisioned, autoscaling JupyterHub, was successfully deployed and used by participants for the execution of resource-intensive command line applications. This workshop deployment reinforces the core architecture on real-world workloads [cite: @DeHart2025lrosegateway]. In sum, we believe this approach is broadly applicable to other scientific domains that rely on traditionally-deployed desktop applications, and we plan to incorporate this capability into the majority of NSF Unidata's hosted Hubs in the near future.
+
+[fn:1] https://github.com/julienchastang/gateways2025-cloud-desktop
+* Conclusion and Future Work
+:PROPERTIES:
+:CUSTOM_ID: h-621997F8
+:END:
+
+This work represents a significant step toward a long-standing objective within the NSF Unidata program of making traditionally-deployed geoscience applications such as IDV and CAVE accessible through a zero-install, web-based interface. Earlier efforts were hindered by the lack of dynamic, per-user resource provisioning. By leveraging OpenStack Magnum's autoscaling capabilities on Jetstream2, combined with JupyterHub and VNC-based virtual desktops, we now have a viable, robust architecture for delivering these tools within modern science gateways.
+
+Our immediate next steps include field deployment and community validation. A pilot installation is currently underway at the Florida Institute of Technology, where an atmospheric science professor is evaluating IDV in an educational setting using this new desktop-in-the-cloud model. We are planning broader rollouts across NSF Unidata's community Hubs during the upcoming academic year, with a focus on gathering user feedback and refining the deployment strategy. These efforts also support the goal of sustaining NSF Unidata's GUI-based technologies in web-centric scientific workflows.
+
+Beyond our specific use cases, we believe this architectural model has broader applicability. Scientific domains using GUI tools may benefit from this methodology for integrating those applications into cloud-native environments. Finally, this work underscores the potential of OpenStack Magnum to enable scalable, on-demand scientific computing via web interfaces, and we hope it will catalyze broader adoption of this technology on Jetstream2 for cloud-based research workflows.
+
+* Acknowledgments
+:PROPERTIES:
+:CUSTOM_ID: h-AD101238
+:END:
+
+NSF Unidata, part of UCAR's Community Programs, is funded by NSF (AGS-2403649). This work used Jetstream2 via ACCESS allocation EES200002, supported by NSF grants 2138259, 2138286, 2138307, 2137603, and 2138296. Additional support came from NSF-NCAR/EOL base funding.
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-D6EA4919
+:END:
+
+#+print_bibliography:
