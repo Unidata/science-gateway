@@ -1,0 +1,72 @@
+#+title: Progress Report
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+#+startup: content
+
+#+cite_export: csl ieee.csl
+
+#+latex_class: article
+
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+#+latex_header: \usepackage{mathptmx}
+#+latex_header: \usepackage{wrapfig}
+#+latex_header: \usepackage{graphicx}
+
+* Summary
+:PROPERTIES:
+:CUSTOM_ID: h-133395BE
+:END:
+- NSF Unidata supported 563 students across 17 institutions with customized PyAOS JupyterHub servers on Jetstream2, including five new institutions.
+- NSF Unidata is collaborating with Jetstream2 staff to test OpenStack Magnum for launching scalable JupyterHub clusters.
+- A new workflow employing Magnum enables on-demand GUI desktops equipped with IDV and CAVE.
+- AI-NWP models FourCastNet and Pangu-Weather were successfully tested on Jetstream2 GPUs using the ~earth2mip~ package.
+- NSF Unidata continues to support AWIPS on Jetstream2 for real-time meteorological data access.
+
+* Customized JupyterHub Resources for Atmospheric Science Education
+:PROPERTIES:
+:CUSTOM_ID: h-2E686DEC
+:END:
+NSF Unidata is employing our Jetstream2 resource allocation for the benefit of students in the atmospheric science community by providing access to customized PyAOS (Python for Atmosphere and Ocean Science) JupyterHub servers at a steady pace [cite:@Chastang2025a]. NSF Unidata tailors these servers to the requirements of the instructors so they can accomplish their Earth Systems Science teaching objectives. Since August 2024, which marks the beginning of this reporting period, 563 students at 17 academic institutions and various workshops have used NSF Unidata JupyterHub servers running on Jetstream2. Five of these institutions are new for the current allocation period [cite:@unidatastatus2025]. Notably, we also deployed a Dask-enabled JupyterHub cluster at the University of Wisconsin-Madison to support parallel computing workloads in an Earth System Science course, and provisioned a JupyterHub environment at Millersville University equipped with the Weather Research and Forecasting (WRF) model, including an idealized single-column configuration for instructional use [cite:@Espinoza2023a].
+
+* OpenStack Magnum and Jetstream2 Collaboration
+:PROPERTIES:
+:CUSTOM_ID: h-D32DFFED
+:END:
+In collaboration with Jetstream2 staff (Julian Pistorius, Andrea Zonca), we are testing and validating the use of the OpenStack Magnum API to launch scalable JupyterHub clusters. We have provided feedback via GitHub issues. /We anticipate that Magnum-based JupyterHub deployments could significantly reduce our service unit usage in the next allocation cycle as we migrate away from the older Kubespray approach, obviating the need to pre-provision enough resources for every potential user./
+
+Additionally, we have developed a new workflow that enables on-demand access to GUI-based applications such as the NSF Unidata IDV (Integrated Data Viewer) and AWIPS (Advanced Weather Interactive Processing System) CAVE (Common AWIPS Visualization Environment). This approach leverages Magnum's autoscaling capabilities coupled with VNC-based virtual desktops to deliver per-user environments alongside notebook workflows, eliminating the need for costly static provisioning for every anticipated user. A pilot deployment is underway at the Florida Institute of Technology, with a broader rollout planned across Unidata community Hubs. A presentation based on this GUI desktop work has been submitted for consideration at the Gateways 2025 conference, titled "Integrating Scientific GUI Applications into Autoscaled Science Gateway Environments" [cite:@Chastang2025b].
+
+* Earth2mip Pilot Study with Jetstream2 GPUs
+:PROPERTIES:
+:CUSTOM_ID: h-AAB6F72B
+:END:
+
+NSF Unidata staff successfully tested several pre-trained AI-based Numerical Weather Prediction (AI-NWP) models, including FourCastNet and Pangu-Weather, on Jetstream2 GPU instances (e.g., ~g3.large~ with 20 GB VRAM) using the NVIDIA ~earth2mip~ package. These experiments demonstrated that state-of-the-art AI-NWP models can run on standard Jetstream2 hardware, avoiding the need for the supercomputing resources typically required by traditional NWP. Scripts and implementation notes were shared via GitHub[fn:1] to support community experimentation and evaluation. A summary of this work is available in the blog post, "Running Pretrained AI-NWP Models: Our Experience at NSF Unidata on Jetstream2"[fn:2]
+
+* AWIPS
+:PROPERTIES:
+:CUSTOM_ID: h-347B56F9
+:END:
+
+The NSF Unidata team has provided ongoing support for the deployment and maintenance of AWIPS on Jetstream2. These high-performance servers ingest, process, and disseminate real-time meteorological data, enabling hundreds of researchers, educators, and operational users to access vital atmospheric information for forecasting, analysis, and education.
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-27278249
+:END:
+
+\setlength{\parindent}{0pt}
+
+#+print_bibliography:
+
+* Footnotes
+:PROPERTIES:
+:CUSTOM_ID: h-A67808EB
+:END:
+
+[fn:1]https://github.com/Unidata/MLscratchpad/tree/main/aiNWP
+[fn:2]https://www.unidata.ucar.edu/blogs/news/entry/running-pretrainined-ai-nwp-models
