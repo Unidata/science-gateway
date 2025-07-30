@@ -6,15 +6,8 @@ ARG HELM_VERSION=3.8.1
 ENV HOME=/home/openstack \
     PATH=/home/openstack/bin:$PATH
 
-RUN mkdir -p /home/openstack/bin /home/openstack/.config/nushell
-
-COPY ansible/*.yml /
-COPY bin/*.sh /home/openstack/bin/
-COPY bin/*.nu /home/openstack/bin/
-COPY .bashrc /home/openstack/
-COPY nu/ /home/openstack/.config/nushell/
-
 RUN set -euxo pipefail && \
+mkdir -p /home/openstack/bin /home/openstack/.config/nushell && \
 printf "[gemfury-nushell] \n\
 name=Gemfury Nushell Repo \n\
 baseurl=https://yum.fury.io/nushell/ \n\
@@ -53,8 +46,15 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/repodata/repomd.xml.key\n' \
         'python-magnumclient==4.8.1' \
         'python-octaviaclient==3.11.0' \
         'python-designateclient==6.3.0' --ignore-installed && \
-    chown -R openstack:openstack /home/openstack && \
-    chmod +x /home/openstack/bin/*.sh
+    chown -R openstack:openstack /home/openstack
+
+COPY ansible/*.yml /
+COPY bin/*.sh /home/openstack/bin/
+COPY bin/*.nu /home/openstack/bin/
+COPY .bashrc /home/openstack/
+COPY nu/ /home/openstack/.config/nushell/
+
+RUN chmod +x /home/openstack/bin/*.sh
 
 WORKDIR /home/openstack
 USER openstack
