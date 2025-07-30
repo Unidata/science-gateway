@@ -52,7 +52,7 @@ COPY ansible/*.yml /
 COPY bin/*.sh /home/openstack/bin/
 COPY bin/*.nu /home/openstack/bin/
 COPY .bashrc /home/openstack/
-COPY nu/ /home/openstack/.config/nushell/
+COPY --chown=openstack nu/ /home/openstack/.config/nushell/
 
 RUN chmod +x /home/openstack/bin/*.sh
 
