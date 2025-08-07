@@ -109,7 +109,7 @@ Here you'll find the `create_cluster.sh` script. Before running it, we must:
     - `MASTER_FLAVOR`: the flavor of the control-plane nodes
         - Recommended at least `m3.quad`
     - `N_MASTER`: the number of control-plane nodes
-        - Recommned 1
+        - Recommend 1
     - `N_NODES`: the number of worker nodes
         - Recommend to leave as 1
         - See NOTE below
@@ -118,7 +118,7 @@ Here you'll find the `create_cluster.sh` script. Before running it, we must:
     - This ensures the newly created cluster will be on the same network/subnet
       as our `fluentbit` machine which will gather logs
     - Without this, Magnum would create a new set of network resources, which
-      may be undesireable
+      may be undesirable
 4) Edit the `max_node_count` label to equal 1
     - See NOTE below
 5) If this cluster is *not* intended to auto-scale, remove the `--labels
@@ -229,7 +229,7 @@ Your cluster should now be ready to request and obtain a certificate.
 ### Nodegroups
 
 [Nodegroups](https://docs.openstack.org/magnum/latest/user/#node-groups) allow
-cluster administors to "create heterogenous clusters", i.e. clusters made of
+cluster administers to "create heterogeneous clusters", i.e. clusters made of
 different flavors of nodes created for specific purposes.
 
 As described in the NOTE above when discussing the cluster creation, we will
@@ -404,7 +404,7 @@ Install JupyterHub:
 
 Navigate to your cluster's URL and verify that the connection is secure (HTTPS
 in working) and that you can login with your GitHub credentials. This may take a
-moment as cert manager requests and aquires the certificate. You can see the
+moment as cert manager requests and acquires the certificate. You can see the
 status of the certificate and certificate request with:
 
 ```bash
