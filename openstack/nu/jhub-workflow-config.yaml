@@ -1,0 +1,50 @@
+cluster:
+  name:
+  template: kubernetes-1-30-jammy 
+  autoscaling: true
+  master:
+    count: 1
+    flavor: m3.quad
+  worker:
+    count: 1
+    flavor: m3.quad
+  timeout: 20min
+  started: false
+  creation_time:
+  ready: false
+
+kubectl_cfg:
+  timeout: 2min
+  started: false
+  creation_time:
+  ready: false
+
+nodegroup:
+  name:
+  flavor:
+  max_nodes:
+  timeout: 20min
+  started: false
+  creation_time:
+  ready: false
+
+ingress:
+  ip:
+  timeout: 5min
+  started: false
+  creation_time:
+  ready: false
+
+arecord:
+  zone_name: ees220002.projects.jetstream-cloud.org.
+  dns:
+  timeout: 5min
+  started: false
+  creation_time:
+  ready: false
+
+cert_manager:
+  timeout: 5min
+  started: false
+  creation_time:
+  ready: false
