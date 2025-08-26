@@ -1,0 +1,62 @@
+name: uw-fall-2025
+channels:
+  - defaults
+  - conda-forge
+  - anaconda-fusion
+dependencies:
+  # Required by JupyterLab
+  - ipykernel
+  - nb_conda_kernels
+  - python=3.11
+  # User requested packages
+  - arm_pyart
+  - argopy
+  - bokeh
+  - build
+  - cartopy
+  - celluloid
+  - cfgrib
+  - cmocean
+  - dask
+  - datashader
+  - distributed
+  - fsspec
+  - geoviews
+  - gsw
+  - h5netcdf
+  - h5py
+  - hatchling
+  - hvplot
+  - ipykernel
+  - ipympl
+  - ipywidgets
+  - jupyterlab
+  - matplotlib
+  - matplotlib-inline
+  - metpy
+  - nbdime
+  - nc-time-axis
+  - netcdf-fortran
+  - netcdf4
+  - nodejs
+  - numcodecs
+  - numpy
+  - pandas
+  - plotly
+  - plotnine
+  - pyresample
+  - pytest
+  - python
+  - python-graphviz
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - seaborn
+  - setuptools
+  - siphon
+  - statsmodels
+  - twine
+  - xarray
+  - xesmf
+  - xgcm
+  - zarr
