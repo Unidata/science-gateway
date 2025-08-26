@@ -1,0 +1,15 @@
+name: uw-geopandas-fall-2025
+channels:
+ - conda-forge
+ - defaults
+dependencies:
+  # Required by JupyterLab
+  - ipykernel
+  - nb_conda_kernels
+  - python=3.11
+  # User requested packages
+  - geopandas
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
