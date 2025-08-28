@@ -1,0 +1,24 @@
+ name: vsu25f
+ channels:
+   - conda-forge
+ dependencies:
+  # Required by JupyterLab
+  - python>=3.6,<3.8
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - numpy
+  - matplotlib
+  - cartopy
+  - metpy
+  - siphon
+  - pandas<1.1.0
+  - pip
+  - xarray
+  - ipywidgets
+  - ffmpeg
+  - boto3
+  - botocore
+  - python-awips
+  - scipy
+  - netcdf4
