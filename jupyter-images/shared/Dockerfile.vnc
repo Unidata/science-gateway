@@ -122,4 +122,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 COPY launch-vnc.sh /usr/local/bin/launch-vnc.sh
 RUN chmod +x /usr/local/bin/launch-vnc.sh
 
+COPY runIDV /opt/IDV/runIDV
+RUN chmod +x /opt/IDV/runIDV
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
