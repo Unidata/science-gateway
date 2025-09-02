@@ -197,6 +197,12 @@ ingress' service resource:
 openstack recordset create  ees220002.projects.jetstream-cloud.org. $K8S_CLUSTER_NAME --type A --record $IP --ttl 3600
 ```
 
+To check the status with the `id` that was just supplied:
+
+```bash
+openstack recordset show ees220002.projects.jetstream-cloud.org. <id>
+```
+
 You should now be able to access
 `$K8S_CLUSTER_NAME.ees220002.projects.jetstream-cloud.org`. At this stage,
 you'll see a blank nginx page, since we haven't set up any services, such as
