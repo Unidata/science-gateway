@@ -399,13 +399,13 @@ First, navigate to `~/jupyterhub-deploy-kubernetes-jetstream` and configure
 `helm` to pull from the JupyterHub repo:
 
 ```bash
-./configure_helm_jupyterhub.sh
+bash configure_helm_jupyterhub.sh
 ```
 
 Install JupyterHub:
 
 ```bash
-./install_jhub.sh`
+bash install_jhub.sh
 ```
 
 Navigate to your cluster's URL and verify that the connection is secure (HTTPS
