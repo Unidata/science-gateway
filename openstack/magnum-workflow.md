@@ -178,6 +178,10 @@ kubectl get svc -n ingress-nginx
 Take note of the public IP address that was created for you, as this will be
 used below to create an "A record".
 
+```bash
+export IP="<IP from last command>"
+```
+
 ### Create an A Record
 
 Create an "A record", i.e. a subdomain name, for users to access the cluster.
