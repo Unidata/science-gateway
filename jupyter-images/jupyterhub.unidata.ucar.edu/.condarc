@@ -1,2 +1,2 @@
 envs_dirs:
-  - /home/jovyan/my-conda-envs
+  - /home/jovyan/additional-envs
