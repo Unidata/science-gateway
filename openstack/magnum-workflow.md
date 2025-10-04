@@ -169,7 +169,9 @@ helm upgrade --install ingress-nginx ingress-nginx \
     --set 'controller.nodeSelector.capi\.stackhpc\.com/node-group=default-worker'
 ```
 
-After some time, you should see the ingress' service resource with a:
+If you have a specific IP you are working with, you can supply this additional argument `--set controller.service.loadBalancerIP=<IP> \`
+
+After some time, you should see the ingress service resource with a:
 
 ```bash
 kubectl get svc -n ingress-nginx
