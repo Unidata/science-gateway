@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=6.3
+Type=Application
+Name=IDV
+Exec=/opt/IDV/runIDV
+Icon=/opt/IDV/idv.gif
+Terminal=false
+Categories=Utility;
