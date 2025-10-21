@@ -1,0 +1,21 @@
+# values-nfs.yaml
+fullnameOverride: ""
+nfsServer:
+  enableClientAllowlist: false
+quotaEnforcer:
+  enabled: true
+  config:
+    QuotaManager:
+      hard_quota: 10
+      uid: 1000
+      gid: 100
+      paths: ["/export"]
+prometheusExporter:
+  enabled: true
+
+# openstack volume create --size 500 unidata-jupyterhub-nfs-homedirs
+# openstack volume show hub-nfs-homedirs -f value -c id
+# note the volume id
+openstack:
+  enabled: true
+  volumeId: "<volume id>"

@@ -1,0 +1,65 @@
+{% extends "templates/login.html" %}
+
+{% block login_container %}
+
+<style>
+  <!-- If nedded  -->
+</style>
+
+<div class="container my-4">
+  <div class="row g-4 align-items-start">
+    <!-- LEFT COLUMN -->
+    <div class="col-md-5">
+      <div class="card shadow-sm rounded-3 p-4">
+        <a role="button"
+           class="btn btn-jupyter btn-lg w-100 mb-3"
+           href="{{ authenticator_login_url | safe }}">
+          Sign in with {{ login_service }}
+        </a>
+        <ul class="text-muted small ps-3 mb-0">
+          <li>Sign in with your institutional account via CILogon.</li>
+          <li>If your institution is not listed:
+            <ul class="mt-2 ps-3">
+              <li><a href="mailto:support-gateway@unidata.ucar.edu">Ask</a> that your institution be added.</li>
+              <li>Use an <a href="https://operations.access-ci.org/identity/new-user" target="_blank" rel="noopener noreferrer">NSF ACCESS account</a> and select “ACCESS CI (XSEDE)”.</li>
+              <li>Or use ORCID or GitHub — allow-listing required (<a href="mailto:support-gateway@unidata.ucar.edu">contact support</a>).</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-7">
+      <img src="https://www.unidata.ucar.edu/sites/default/files/styles/extra_large/public/2025-09/NSF-Unidata_lockup_vertical_2024.png"
+           alt="Unidata Logo"
+           class="mb-3"
+           style="width:200px; height:auto;">
+      <h1 class="h4 fw-bold mb-3">Welcome to the NSF Unidata Science Gateway</h1>
+
+      <p class="text-muted mb-3">
+        Access cloud-hosted Python for Atmosphere and Ocean Science Jupyter notebooks and desktop tools such as
+        <strong>IDV</strong> and <strong>AWIPS CAVE</strong> directly in your browser.
+      </p>
+
+      <div class="text-muted small">
+        <p><strong>Save your work</strong>: Your data may persist between sessions, but this is <em>not guaranteed</em>.</p>
+        <ul class="ps-3 mb-2">
+          <li>For important items, make a local copy.</li>
+        </ul>
+        <p><strong>JupyterLab — download a file:</strong></p>
+        <ol class="ps-3 mb-3">
+          <li>In the File Browser, right-click the file.</li>
+          <li>Click <em>Download</em> to save it to your computer.</li>
+        </ol>
+      </div>
+
+      <p class="text-muted small">
+        Find out more about the
+        <a href="https://www.unidata.ucar.edu/science-gateway" target="_blank">NSF Unidata Science Gateway</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
