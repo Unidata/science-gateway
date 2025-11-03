@@ -1,4 +1,4 @@
-name: uw-satpy-fall-2025
+name: uw-geopandas-fall-2025
 channels:
  - conda-forge
  - defaults
@@ -8,12 +8,8 @@ dependencies:
   - nb_conda_kernels
   - python=3.11
   # User requested packages
-  - cartopy
-  - dask
-  - distributed
-  - goes2go
-  - imageio
-  - imageio-ffmpeg
+  - geopandas
   - matplotlib
-  - satpy
-  - xarray
+  - numpy
+  - pandas
+  - scipy
