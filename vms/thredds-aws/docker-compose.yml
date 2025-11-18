@@ -5,7 +5,7 @@ version: '3'
 
 services:
   thredds-production:
-    image: unidata/thredds-docker:5.5-SNAPSHOT
+    image: unidata/thredds-docker:5.8
     container_name: thredds
     restart: always
     ports:
