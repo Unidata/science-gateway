@@ -29,7 +29,7 @@ services:
   # TDM
   ###
   tdm:
-    image: unidata/tdm-docker:latest
+    image: unidata/tdm-docker:5.8
     container_name: tdm
     # restart: always
     volumes:
