@@ -1,0 +1,324 @@
+hub:
+  extraConfig:
+    20-normalize-usernames.py: |
+      import re
+      from jupyterhub.auth import Authenticator as _A
+      _orig = _A.normalize_username
+      def _wrapped(self, username):
+          u = _orig(self, username)
+          if "orcid.org/" in u:
+              u = f"orcid-{u.rsplit('/', 1)[-1]}"
+              u = re.sub(r'[^a-z0-9._-]+', '-', u)
+          return u
+      _A.normalize_username = _wrapped
+
+  config:
+    CILogonOAuthenticator:
+      scope:
+        - "openid"
+        - "email"
+        - "org.cilogon.userinfo"
+      allowed_idps:
+
+        # NSF ACCESS
+        "https://access-ci.org/idp":
+          default: true
+          allow_all: true
+          username_derivation:
+            username_claim: eppn
+
+        # GitHub
+        "http://github.com/login/oauth/authorize":
+          allow_all: false
+          username_derivation:
+            username_claim: oidc
+            action: prefix
+            prefix: github
+
+        # ORC ID
+        "http://orcid.org/oauth/authorize":
+          allow_all: false
+          username_derivation:
+            username_claim: oidc
+
+        # Ball State University
+        "http://federate.bsu.edu/sso":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Central Michigan University
+        "https://shibboleth.cmich.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Cornell University
+        "https://shibidp.cit.cornell.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Drexel University
+        "https://connect.drexel.edu/idp":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Georgia Institute of Technology
+        "https://idp.gatech.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Harvard University
+        "https://fed.huit.harvard.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Iowa State University
+        "https://idp.iastate.edu/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Massachusetts Institute of Technology
+        "urn:mace:incommon:mit.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Millersville University
+        "https://idp.millersville.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Mississippi State University
+        "https://shibboleth.its.msstate.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Naval Postgraduate School
+        "https://id.nps.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # North Carolina State University
+        "urn:mace:incommon:ncsu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Northern Illinois University
+        "https://idp.niu.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Old Dominion University
+        "urn:mace:incommon:odu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Princeton University
+        "https://idp.princeton.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Rutgers, The State University of New Jersey
+        "urn:mace:incommon:rutgers.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # San Francisco State University
+        "https://idp.sfsu.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # San Jose State University
+        "https://idp01.sjsu.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Stanford University
+        "urn:mace:incommon:stanford.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # State University of New York Albany
+        "https://weblogin.albany.edu/shibboleth/idp2":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Texas A & M University
+        "urn:mace:incommon:tamu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Texas Tech University
+        "https://idp.shibboleth.ttu.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # The Johns Hopkins University
+        "urn:mace:incommon:johnshopkins.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # The Ohio State University
+        "urn:mace:incommon:osu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Alabama in Huntsville
+        "https://sso.uah.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Arizona
+        "urn:mace:incommon:asu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of California, Davis
+        "urn:mace:incommon:ucdavis.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Chicago
+        "urn:mace:incommon:uchicago.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Colorado at Boulder
+        "https://fedauth.colorado.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Denver
+        "https://idp.du.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Hawaii
+        "https://idp.hawaii.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Illinois at Urbana-Champaign
+        "urn:mace:incommon:uiuc.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Massachusetts-Lowell
+        "https://sso.uml.edu/idp":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Missouri
+        "https://shib-idp.umsystem.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Nebraska, Lincoln
+        "https://shib.unl.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of North Dakota
+        "https://idp.ndsu.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Northern Colorado
+        "https://sso.unco.edu/idp":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Utah
+        "urn:mace:incommon:utah.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Washington
+        "urn:mace:incommon:washington.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Wisconsin-Madison
+        "https://login.wisc.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Wisconsin-Milwaukee
+        "https://idp.uwm.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Wyoming
+        "https://shibboleth.uwyo.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # U Utah
+        "urn:mace:incommon:utah.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Purdue University
+        "https://idp.purdue.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Alaska
+        "urn:mace:incommon:alaska.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # Virginia Polytechnic Institute and State University
+        "urn:mace:incommon:vt.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
+        # University of Oklahoma
+        "https://shibboleth.ou.edu/idp/shibboleth":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
