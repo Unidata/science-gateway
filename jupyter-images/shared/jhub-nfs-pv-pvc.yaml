@@ -1,0 +1,36 @@
+# PV (cluster-scoped)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jupyterhub-home-nfs
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes: [ReadWriteMany]
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - vers=4.1
+    - proto=tcp
+    - rsize=1048576
+    - wsize=1048576
+    - timeo=600
+    - hard
+    - retrans=2
+    - noresvport
+  nfs:
+    server: <NFS ClusterIP>
+    path: /
+---
+# PVC (namespace-scoped)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-nfs
+  namespace: jhub
+spec:
+  accessModes: [ReadWriteMany]
+  volumeName: jupyterhub-home-nfs
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Mi
