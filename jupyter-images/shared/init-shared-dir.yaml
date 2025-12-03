@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-home-nfs-shared
+  namespace: jhub
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: init
+          image: busybox:1.36
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -eu
+              mkdir -p /mnt/_shared
+              chown 1000:100 /mnt/_shared
+              chmod 0775 /mnt/_shared
+              # Set the setgid bit on the directory so that all new files and
+              # subdirectories inherit the directory's group (gid 100). This
+              # keeps group ownership consistent for collaborative use.
+              chmod g+s /mnt/_shared
+              ls -ld /mnt/_shared
+          volumeMounts:
+            - name: home-nfs
+              mountPath: /mnt
+      volumes:
+        - name: home-nfs
+          persistentVolumeClaim:
+            claimName: home-nfs

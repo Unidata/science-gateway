@@ -1,0 +1,20 @@
+# values-nfs.yaml
+fullnameOverride: ""
+nfsServer:
+  enableClientAllowlist: false
+quotaEnforcer:
+  enabled: true
+  config:
+    QuotaManager:
+      # per-user hard quota in GiB
+      hard_quota: 10
+      uid: 1000
+      gid: 100
+      paths: ["/export"]
+prometheusExporter:
+  enabled: true
+
+# Use OpenStack Cinder volume created above
+openstack:
+  enabled: true
+  volumeId: "<volume_id>"

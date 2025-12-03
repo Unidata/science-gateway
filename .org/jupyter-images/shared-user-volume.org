@@ -1,0 +1,161 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil expand-links:t f:t inline:t num:t p:nil pri:nil prop:nil
+#+options: stat:t tags:t tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+title: readme
+#+date: <2025-12-03 Wed>
+#+author: chastang@ucar.edu
+#+email: chastang@ucar.edu
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 30.2 (Org mode 9.7.37)
+#+options: auto-id:t
+#+options: H:6
+#+startup: content
+
+* Setting Up a Shared User Volume (Home Directories)
+:PROPERTIES:
+:CUSTOM_ID: h-FDDAB6AE
+:END:
+
+Setting up a single shared volume for all JupyterHub users offers a more robust user experience in a couple respects:
+1. Fewer points of failure and avoiding volume attachment problems.
+2. Quicker login experience as the user does not have to wait for the disk attachment.
+
+We are using the solution from the ~2i2c-org/jupyterhub-home-nfs~ project to achieve this outcome. These instructions were created based on the [[https://github.com/2i2c-org/jupyterhub-home-nfs][jupyterhub-home-nfs]] repository ~README~.
+
+*** Create an OpenStack Volume
+:PROPERTIES:
+:CUSTOM_ID: h-707BF30E
+:END:
+
+Adjust the size based on number of users and their expected quota expectations. Note the ID. You will need that next.
+
+#+begin_src sh
+  openstack volume create --size 500 $CLUSTER-nfs-homedirs
+  openstack volume show unidata-jupyterhub-nfs-homedirs -f value -c id
+#+end_src
+
+* Deploy the In-Cluster NFS Server
+:PROPERTIES:
+:CUSTOM_ID: h-B7E2C274
+:END:
+
+Adjust ~values-nfs.yaml~ according the volume ID (see ~volumeId~).
+
+#+INCLUDE: "../../jupyter-images/shared/values-nfs.yaml" src yaml
+
+* Install the Chart
+:PROPERTIES:
+:CUSTOM_ID: h-54D69357
+:END:
+
+#+begin_src sh
+  helm upgrade --install jupyterhub-home-nfs \
+    oci://ghcr.io/2i2c-org/jupyterhub-home-nfs/jupyterhub-home-nfs \
+    --namespace jupyterhub-home-nfs --create-namespace \
+    --values values-nfs.yaml
+#+end_src
+
+Next record the NFS ClusterIP because you will need it next:
+
+#+begin_src sh
+  kubectl get svc -n jupyterhub-home-nfs
+#+end_src
+
+* Create the PV and PVC for JupyterHub
+:PROPERTIES:
+:CUSTOM_ID: h-B5E67651
+:END:
+
+Adjust ~jhub-nfs-pv-pvc.yaml~ according the NFS ClusterIP.
+
+#+INCLUDE: "../../jupyter-images/shared/jhub-nfs-pv-pvc.yaml" src yaml
+
+And now apply it:
+
+#+begin_src sh
+  kubectl apply -f jhub-nfs-pv-pvc.yaml
+#+end_src
+
+* Mount the Shared Volume in Single-User Pods
+:PROPERTIES:
+:CUSTOM_ID: h-28C3E0B3
+:END:
+
+For example:
+
+#+begin_src yaml
+  singleuser:
+    storage:
+      type: none
+      extraVolumes:
+        - name: home-nfs
+          persistentVolumeClaim:
+            claimName: home-nfs
+      extraVolumeMounts:
+        - name: home-nfs
+          mountPath: /home/jovyan
+          subPath: "{username}"
+#+end_src
+
+* Shared Data Volume for All Users
+:PROPERTIES:
+:CUSTOM_ID: h-3ACFA39D
+:END:
+
+This approach reuses the existing ~jupyterhub-home-nfs~ in-cluster NFS server used for user home directories, and adds a single shared directory that is mounted into every user pod. No additional NFS server or volume is required.
+
+** One-Time: Create the Shared Directory
+:PROPERTIES:
+:CUSTOM_ID: h-8DDD5A67
+:END:
+
+Create a Kubernetes Job with ~init-shared-dir.yaml~ to initialize the shared directory on the NFS volume. The PV is rooted at =/=, so the directory is created at the filesystem root.
+
+#+INCLUDE: "../../jupyter-images/shared/init-shared-dir.yaml" src yaml
+
+Apply and remove the Job:
+
+#+begin_src sh
+  kubectl apply -f init-shared-dir.yaml
+  kubectl logs -n jhub job/init-home-nfs-shared
+  kubectl delete -n jhub job/init-home-nfs-shared
+#+end_src
+
+** Mount Shared and Home Directories in JupyterHub
+:PROPERTIES:
+:CUSTOM_ID: h-57660687
+:END:
+
+Mount both per-user homes and the shared directory from the same PVC.
+
+#+begin_src yaml
+singleuser:
+  storage:
+    type: none
+    extraVolumes:
+      - name: home-nfs
+        persistentVolumeClaim:
+          claimName: home-nfs
+    extraVolumeMounts:
+      - name: home-nfs
+        mountPath: /home/jovyan
+        subPath: "{username}"
+
+      - name: home-nfs
+        mountPath: /share
+        subPath: "_shared"
+#+end_src
+
+* Install or Upgrade JupyterHub
+:PROPERTIES:
+:CUSTOM_ID: h-D64BF7AF
+:END:
+
+Upgrade or install JupyterHub as usual.
+
+#+begin_src sh
+  bash install_jhub.sh
+#+end_src
