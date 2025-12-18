@@ -191,6 +191,9 @@ spec:
               mkdir -p /mnt/_shared
               chown 1000:100 /mnt/_shared
               chmod 0775 /mnt/_shared
+              # Set the setgid bit on the directory so that all new files and
+              # subdirectories inherit the directory's group (gid 100). This
+              # keeps group ownership consistent for collaborative use.
               chmod g+s /mnt/_shared
               ls -ld /mnt/_shared
           volumeMounts:
