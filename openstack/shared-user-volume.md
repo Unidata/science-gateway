@@ -31,7 +31,7 @@ Adjust the size based on number of users and their expected quota expectations. 
 
 ```sh
 openstack volume create --size 500 $CLUSTER-nfs-homedirs
-openstack volume show unidata-jupyterhub-nfs-homedirs -f value -c id
+openstack volume show $CLUSTER-nfs-homedirs -f value -c id
 ```
 
 
