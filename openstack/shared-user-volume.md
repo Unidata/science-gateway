@@ -1,7 +1,7 @@
 - [Setting Up a Shared User Volume (Home Directories)](#h-FDDAB6AE)
     - [Create an OpenStack Volume](#h-707BF30E)
 - [Deploy the In-Cluster NFS Server](#h-B7E2C274)
-- [Install the Chart](#h-54D69357)
+- [Install the Helm Chart](#h-54D69357)
 - [Create the PV and PVC for JupyterHub](#h-B5E67651)
 - [Mount the Shared Volume in Single-User Pods](#h-28C3E0B3)
 - [Shared Data Volume for All Users](#h-3ACFA39D)
@@ -27,7 +27,7 @@ We are using the solution from the `2i2c-org/jupyterhub-home-nfs` project to ach
 
 ### Create an OpenStack Volume
 
-Adjust the size based on number of users and their expected quota expectations. Note the ID. You will need that next.
+Adjust the size based on number of users and their quota expectations as well as the [shared space](#h-3ACFA39D), if one was requested. Note the ID. You will need that next.
 
 ```sh
 openstack volume create --size 500 $CLUSTER-nfs-homedirs
@@ -56,7 +56,7 @@ quotaEnforcer:
       gid: 100
       paths: ["/export"]
 prometheusExporter:
-  enabled: true
+  enabled: true # Expose NFS and quota metrics for Prometheus scraping
 
 # Use OpenStack Cinder volume created above
 openstack:
@@ -67,7 +67,7 @@ openstack:
 
 <a id="h-54D69357"></a>
 
-# Install the Chart
+# Install the Helm Chart
 
 ```sh
 helm upgrade --install jupyterhub-home-nfs \

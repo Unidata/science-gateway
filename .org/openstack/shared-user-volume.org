@@ -30,7 +30,7 @@ We are using the solution from the ~2i2c-org/jupyterhub-home-nfs~ project to ach
 :CUSTOM_ID: h-707BF30E
 :END:
 
-Adjust the size based on number of users and their expected quota expectations. Note the ID. You will need that next.
+Adjust the size based on number of users and their quota expectations as well as the [[#h-3ACFA39D][shared space]], if one was requested. Note the ID. You will need that next.
 
 #+begin_src sh
   openstack volume create --size 500 $CLUSTER-nfs-homedirs
@@ -46,7 +46,7 @@ Adjust ~values-nfs.yaml~ according the volume ID (see ~volumeId~).
 
 #+INCLUDE: "../../jupyter-images/shared/values-nfs.yaml" src yaml
 
-* Install the Chart
+* Install the Helm Chart
 :PROPERTIES:
 :CUSTOM_ID: h-54D69357
 :END:

@@ -12,7 +12,7 @@ quotaEnforcer:
       gid: 100
       paths: ["/export"]
 prometheusExporter:
-  enabled: true
+  enabled: true # Expose NFS and quota metrics for Prometheus scraping
 
 # Use OpenStack Cinder volume created above
 openstack:
