@@ -48,7 +48,7 @@ RUN mamba create --name $DEFAULT_ENV_NAME --quiet --yes && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-COPY Acknowledgements.ipynb update_material.ipynb /
+COPY Acknowledgements.ipynb update_material.ipynb default_kernel.py /
 
 ARG JUPYTER_SETTINGS_DIR=/opt/conda/share/jupyter/lab/settings/
 COPY overrides.json $JUPYTER_SETTINGS_DIR
