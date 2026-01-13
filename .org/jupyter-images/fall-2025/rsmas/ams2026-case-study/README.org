@@ -1,0 +1,42 @@
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline author:t
+#+options: broken-links:nil c:nil creator:nil d:(not "LOGBOOK") date:t e:t
+#+options: email:nil expand-links:t f:t inline:t num:t p:nil pri:nil prop:nil
+#+options: stat:t tags:t tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
+#+options: auto-id:t
+#+options: H:6
+
+#+title: README
+#+date: <2026-01-15 Thu>
+#+author: Julien Chastang
+#+email: chastang@ucar.edu
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 30.2 (Org mode 9.7.39)
+
+* AMS 2026 Case Study
+:PROPERTIES:
+:CUSTOM_ID: h-CF586FCF
+:END:
+
+** Introduction
+:PROPERTIES:
+:CUSTOM_ID: h-0F8FBAA8
+:END:
+
+This case study builds on work by Professor Brian Mapes done during the fall semester of 2025 for an Weather Analysis class at the University of Miami. Brian used a dedicated PyAOS JupyterHub environment provided by UCAR/NSF Unidata to develop a workflow in which atmospheric data are accessed and diagnostic fields are computed programmatically in a Jupyter notebook. The resulting NetCDF files are then visualized using the cloud-hosted IDV desktop running within the same JupyterHub environment. Together, the notebook and IDV bundle illustrate a unified workflow that integrates data access, diagnostic computation, and interactive visualization in a browser-based setting. The following sections describe the two files involved.
+
+** Relevant Files and Python Environment
+:PROPERTIES:
+:CUSTOM_ID: h-FEB28187
+:END:
+
+Two files are included in this directory:
+
+1. ~gfs_200hpa_helmholtz_decomposition.ipynb~
+   This notebook demonstrates a workflow for computing a [[https://en.wikipedia.org/wiki/Helmholtz_decomposition][Helmholtz decomposition]] of global atmospheric wind fields. GFS wind data are accessed from Unidata’s THREDDS catalog via OPeNDAP, subset by time and pressure level, and processed using the [[https://ajdawson.github.io/windspharm/][Windspharm]] Python package to compute streamfunction and velocity potential. The resulting diagnostic fields are written to NetCDF for subsequent visualization. The Python ~environment.yml~ required to run this notebook is found one directory level up.
+
+#+INCLUDE: "../../../../../jupyter-images/fall-2025/rsmas/environment.yml" src yaml
+
+2. ~gfs_200hpa_helmholtz_decomposition.xidv~
+   This IDV bundle reads the NetCDF output produced by the notebook and visualizes the derived fields in combination with infrared satellite imagery corresponding to the same time step. The data are displayed using a Mollweide projection.
