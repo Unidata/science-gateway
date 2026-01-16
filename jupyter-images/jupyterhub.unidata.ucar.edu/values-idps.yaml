@@ -125,6 +125,12 @@ hub:
           username_derivation:
             username_claim: "eppn"
 
+        # Penn State University
+        "urn:mace:incommon:psu.edu":
+          allow_all: true
+          username_derivation:
+            username_claim: "eppn"
+
         # Princeton University
         "https://idp.princeton.edu/idp/shibboleth":
           allow_all: true
