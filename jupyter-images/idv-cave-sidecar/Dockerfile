@@ -92,12 +92,12 @@ RUN git clone https://github.com/novnc/novnc --depth=1 ${NOVNC_DIR} && \
 
 # Install IDV
 RUN curl -SL \
-  "https://ramadda.scigw.unidata.ucar.edu/repository/entry/get/IDV_6.3.tar.bz2?entryid=c3ffcffc-c50c-4e19-95e1-9a913e486182" \
+  "https://ramadda.scigw.unidata.ucar.edu/repository/entry/get/IDV_7.0u1.tar.bz2?entryid=7d66263f-e7ee-487e-b901-274ec5c2eb3a" \
   -o /tmp/IDV.tar.bz2 && \
   mkdir -p /opt && \
   tar xvfj /tmp/IDV.tar.bz2 -C /opt && \
   rm -f /tmp/IDV.tar.bz2 && \
-  ln -s /opt/IDV_6.3 /opt/IDV && \
+  ln -s /opt/IDV_7.0u1 /opt/IDV && \
   chown -R 1000:100 /opt/IDV
 
 # Download and install CAVE to /opt/cave

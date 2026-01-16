@@ -70,4 +70,4 @@ if test -z ${idv_memory}; then
 fi
 
 # memory fixed at value below
-${java} -Xmx5120m  -XX:+DisableExplicitGC -Didv.enableStereo=false -jar ${dirname}/idv.jar $*
+${java} -Xmx5120m  -XX:+DisableExplicitGC -Didv.enableStereo=false --add-exports java.desktop/sun.awt=ALL-UNNAMED --add-exports java.desktop/sun.swing=ALL-UNNAMED -jar ${dirname}/idv.jar $*
