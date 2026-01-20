@@ -57,6 +57,6 @@ $env.jupyterhub.jhub = {
     },
   ]
   user_placeholders: 4, # Change to `null` to disable user_placeholders
-  desired_profiles: [Low Medium IDV] # Choose from: [Low Standard Medium High IDV]
-  default_profile: "Low" # Choose from the list in "desired_profiles" above
+  desired_profiles: [Standard Medium IDV] # Choose from: [Low Standard Medium High IDV]
+  default_profile: "Standard" # Choose from the list in "desired_profiles" above
 }
