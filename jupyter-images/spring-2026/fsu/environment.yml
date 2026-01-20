@@ -50,6 +50,7 @@ dependencies:
   - siphon
   - pooch
   - pytest
+  - nbconvert-webpdf
   # Optional
   - gdal
   - geopandas
