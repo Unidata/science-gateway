@@ -59,3 +59,4 @@ alias hist = history
 
 source ./nos.nu
 source ./kn.nu
+source ./jhub.nu
