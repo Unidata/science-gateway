@@ -1,0 +1,17 @@
+# https://github.com/ProjectPythia/metpy-cookbook/blob/main/environment.yml
+name: metpy-cookbook
+channels:
+  - conda-forge
+dependencies:
+  - cartopy
+  - geopandas
+  - jupyterlab
+  - jupyterlab-myst
+  - matplotlib
+  - metpy
+  - mystmd
+  - numpy
+  - pandas
+  - scipy
+  - siphon
+  - xarray

@@ -1,25 +1,44 @@
 name: sunyo26s
 channels:
- - conda-forge
+- conda-forge
 dependencies:
-  # Required by JupyterLab
-  - 'python<3.13'
-  - nb_conda_kernels
-  - ipykernel
-  # User requested packages
-  - numpy
-  - matplotlib
-  - cartopy
-  - metpy
-  - siphon
-  - pandas
-  - pip
-  - xarray
-  - ipywidgets
-  - python-awips
-  - scikit-learn
-  - seaborn
-  - pip:
-    # It is recommended to install a package using pip as a last resort, i.e.
-    # when it is not found in the conda repos
-    - palmerpenguins
+- cartopy
+- ffmpeg
+- geopandas
+- h5py
+- ipykernel
+- ipywidgets
+- jupyter
+- jupyter-book
+- jupyterlab
+- jupyterlab-myst
+- matplotlib
+- metpy
+- mystmd
+- nb_conda_kernels
+- nbconvert>=4.1
+- netcdf4
+- nodejs
+- nomkl
+- notebook
+- numpy
+- owslib
+- pandas
+- pint
+- pip
+- pyarrow
+- pytest
+- python-awips
+- python<3.13
+- scikit-learn
+- scipy
+- seaborn
+- shapely
+- siphon
+- six
+- sphinx>=1.3
+- sphinx_rtd_theme
+- urllib3
+- voila
+- xarray
+- xgboost

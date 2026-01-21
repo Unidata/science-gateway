@@ -1,0 +1,26 @@
+# https://github.com/kgoebber/metpy_thebook/blob/main/environment.yml
+# Create full conda environment that are used in the book notebooks
+name: metpy_book
+channels:
+  - conda-forge
+dependencies:
+  - python<=3.11
+  - numpy
+  - shapely
+  - matplotlib
+  - scipy
+  - pint
+  - netcdf4
+  - jupyter
+  - jupyterlab
+  - jupyter-book
+  - cartopy
+  - siphon
+  - metpy
+  - mystmd
+  - xarray
+  - urllib3
+  - pandas
+  - geopandas
+  - nodejs
+  - notebook

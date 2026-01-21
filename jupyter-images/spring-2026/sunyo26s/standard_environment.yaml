@@ -1,0 +1,21 @@
+name: sunyo26s
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - 'python<3.13'
+  - nb_conda_kernels
+  - ipykernel
+  # User requested packages
+  - numpy
+  - matplotlib
+  - cartopy
+  - metpy
+  - siphon
+  - pandas
+  - pip
+  - xarray
+  - ipywidgets
+  - python-awips
+  - scikit-learn
+  - seaborn
