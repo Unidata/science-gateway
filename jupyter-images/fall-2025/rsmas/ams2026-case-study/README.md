@@ -25,7 +25,7 @@ The resulting diagnostic fields are written to NetCDF and visualized using the c
 
 Two files are included in this directory:
 
-1.  `gfs_200hpa_helmholtz_decomposition.ipynb` This notebook demonstrates a workflow for computing a Helmholtz decomposition of global atmospheric wind fields. GFS wind data are accessed from Unidata's THREDDS catalog via OPeNDAP, subset by time and pressure level, and processed using Windspharm to compute streamfunction and velocity potential. The resulting diagnostic fields are written to NetCDF for subsequent visualization. The Python `environment.yml` required to run this notebook is found one directory level up.
+1.  `gfs_200hpa_helmholtz_decomposition.ipynb` This notebook demonstrates a workflow for computing a Helmholtz decomposition of global atmospheric wind fields. GFS wind data are accessed from Unidata's THREDDS catalog via OPeNDAP, subset by time and pressure level, and processed using Windspharm to compute streamfunction and velocity potential. The resulting diagnostic fields are written to NetCDF for subsequent visualization. The Python `environment.yml` required to run this notebook is co-located alongside these two files.
 2.  `gfs_200hpa_helmholtz_decomposition.xidv` This IDV bundle reads the NetCDF output produced by the notebook and visualizes the derived fields in combination with infrared satellite imagery corresponding to the same time step. The data are displayed using a Mollweide projection.
 
 
@@ -34,14 +34,15 @@ Two files are included in this directory:
 ## How to Run
 
 1.  Go to <https://jupyterhub.unidata.ucar.edu> and log in using CILogon.
-2.  In JupyterLab, open a Terminal (File → New → Terminal) and run the following commands to download the required files:
-    -   `wget https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/jupyter-images/fall-2025/rsmas/environment.yml`
+2.  When prompted for the server option, select "Standard Power" ("Medium Power" not needed here).
+3.  In JupyterLab, open a Terminal (File → New → Terminal) and run the following commands to download the required files:
+    -   `wget https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/jupyter-images/fall-2025/rsmas/ams2026-case-study/environment.yml`
     -   `wget https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/jupyter-images/fall-2025/rsmas/ams2026-case-study/gfs_200hpa_helmholtz_decomposition.ipynb`
     -   `wget https://raw.githubusercontent.com/Unidata/science-gateway/refs/heads/master/jupyter-images/fall-2025/rsmas/ams2026-case-study/gfs_200hpa_helmholtz_decomposition.xidv`
-3.  In the same Terminal, create the conda environment:
+4.  In the same Terminal, create the conda environment:
 
     -   `mamba env create -f environment.yml`
 
     This step may take a few minutes to complete.
-4.  Open `gfs_200hpa_helmholtz_decomposition.ipynb` in JupyterLab. From the top menu, select Kernel → Change Kernel, choose `rsmas25f`, and then run all cells in the notebook. This produces a NetCDF output file containing the results of the analysis.
-5.  From the JupyterLab launcher, start the Unidata Desktop (IDV) and open the `gfs_200hpa_helmholtz_decomposition.xidv` bundle to visualize the results.
+5.  Open `gfs_200hpa_helmholtz_decomposition.ipynb` in JupyterLab. From the top menu, select Kernel → Change Kernel, choose `windspharm-gfs`, and then run all cells in the notebook. This produces a NetCDF output file containing the results of the analysis.
+6.  From the JupyterLab launcher, start the Unidata Desktop (IDV) and open the `gfs_200hpa_helmholtz_decomposition.xidv` bundle to visualize the results.
