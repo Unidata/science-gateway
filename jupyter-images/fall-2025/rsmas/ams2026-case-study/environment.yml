@@ -1,0 +1,14 @@
+name: windspharm-gfs
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.12
+  - dask
+  - ipykernel
+  - matplotlib
+  - nb_conda_kernels
+  - netcdf4
+  - numpy
+  - siphon
+  - windspharm
+  - xarray
