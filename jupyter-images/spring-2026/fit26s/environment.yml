@@ -3,7 +3,7 @@ channels:
 - conda-forge
 dependencies:
 # Required dependencies
-- python<3.13
+- python
 - nb_conda_kernels
 - ipykernel
 # User requested packages
@@ -26,7 +26,7 @@ dependencies:
 - pygrib
 - metpy
 - siphon
-- pyart
+- arm_pyart
 - satpy
 - eccodes
 - pydap
@@ -43,10 +43,6 @@ dependencies:
 - folium
 - ipywidgets
 - ipympl
-- notebook
-- jupyterlab
-- jupyterlab-git
-- jupyterlab-spellchecker
 - osmnx
 - rioxarray
 - earthengine-api

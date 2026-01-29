@@ -39,6 +39,7 @@ RUN mamba create --name $DEFAULT_ENV_NAME --quiet --yes && \
       'conda-forge::nodejs' \
       'conda-forge::nb_conda_kernels' \
       'conda-forge::jupyterlab-git' \
+      'conda-forge::jupyterlab-spellchecker' \
       'conda-forge::ipywidgets' \
       'conda-forge::jupyter-server-proxy' && \
     mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
