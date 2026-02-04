@@ -7,19 +7,26 @@ dependencies:
   - nb_conda_kernels
   - ipykernel
   # User requested packages
-  - numpy
-  - matplotlib
-  - cartopy
-  - metpy
-  - siphon
-  - pandas
-  - pip
-  - xarray
-  - ipywidgets
-  - python-awips
-  - scikit-learn
-  - seaborn
+  - numpy            # Fast mathematical operations on ndarrays 
+  - matplotlib       # Plotting and visualization in python
+  - cartopy          # Produce maps and other geospatial data analyses
+  - metpy            # NSF Unidata: read, visualize, and perform calculations on weather data
+  - siphon           # NSF Unidata: Python interface to NSF Unidata's THREDDS Data Server
+  - pandas           # Data analysis and manipulation tool; data frames; varying data formats
+  - xarray           # Labeled ndarrays for intuitive scientific computing
+  - ipywidgets       # Interactive Python widgets for Jupyter notebooks
+  - python-awips     # NSF Unidata: Access data from an AWIPS EDEX data server
+  - scikit-learn     # Machine learning library in Python
+  - seaborn          # Statistical data visualization library
+  - netcdf4          # NSF Unidata: Python interface to the netCDF C library
+  - scipy            # Mathematical algorithms and convenience functions built on NumPy
+  - geopandas        # Support for geographic data on top of Pandas objects
+  - arm_pyart        # Weather radar algorithms and utilities
+  - cfgrib           # Map GRIB files to netCDF
+  - statsmodels      # Statistical models and statistical data exploration
+  - plotly           # Interactive visualizations
+  - pip              # Package Installer for Python
   - pip:
     # It is recommended to install a package using pip as a last resort, i.e.
     # when it is not found in the conda repos
-    - palmerpenguins
+    - palmerpenguins # Example data set for data exploration and visualization
