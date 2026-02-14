@@ -16,12 +16,14 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY jupyter_server_proxy_config.py /etc/jupyter/jupyter_server_proxy_config.py
+COPY jupyter_server_nbgallery_config.py /etc/jupyter/jupyter_server_nbgallery_config.py
 COPY setup-unidata-desktop.sh /usr/local/bin/before-notebook.d/
 COPY IDV.desktop /usr/local/share/applications/
 COPY cave.desktop /usr/local/share/applications/
 RUN chmod +x /usr/local/share/applications/IDV.desktop && \
     chmod +x /usr/local/share/applications/cave.desktop && \
-    cat /etc/jupyter/jupyter_server_proxy_config.py >> /etc/jupyter/jupyter_server_config.py
+    cat /etc/jupyter/jupyter_server_proxy_config.py >> /etc/jupyter/jupyter_server_config.py && \
+    cat /etc/jupyter/jupyter_server_nbgallery_config.py >> /etc/jupyter/jupyter_server_config.py
 
 RUN mkdir -p /usr/local/share/icons
 
@@ -39,7 +41,9 @@ RUN mamba create --name $DEFAULT_ENV_NAME --quiet --yes && \
       'conda-forge::ipywidgets' \
       'conda-forge::jupyter-server-proxy' && \
     mamba env update --name $DEFAULT_ENV_NAME -f /tmp/environment.yml && \
-    pip install --no-cache-dir nbgitpuller && \
+    pip install --no-cache-dir nbgitpuller jupyter-nbgallery jupyterlab-nbgallery && \
+    jupyter server extension enable --sys-prefix --py jupyter_nbgallery && \
+    jupyter server extension enable --sys-prefix --py jupyterlab_nbgallery && \
     mamba clean --all -f -y && \
     jupyter lab clean -y && \
     npm cache clean --force && \
