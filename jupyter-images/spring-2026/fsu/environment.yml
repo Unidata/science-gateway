@@ -30,6 +30,7 @@ dependencies:
   - seaborn
   - acgc
   # Data analysis
+  - dask
   - pandas
   - xarray
   - metpy
