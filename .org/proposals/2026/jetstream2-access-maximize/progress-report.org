@@ -1,0 +1,58 @@
+#+title: Progress Report [2026 Placeholder]
+
+#+bibliography: jetstream.bib
+
+#+options: toc:nil num:t date:nil author:nil auto-id:t
+#+startup: content
+
+#+cite_export: csl ieee.csl
+
+#+latex_class: article
+
+#+latex_header: \hypersetup{hidelinks}
+#+latex_header: \usepackage{geometry}
+#+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+#+latex_header: \usepackage{mathptmx}
+#+latex_header: \usepackage{wrapfig}
+#+latex_header: \usepackage{graphicx}
+
+* Summary
+:PROPERTIES:
+:CUSTOM_ID: h-59B1064F
+:END:
+
+Lorem ipsum dolor sit amet. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
+
+
+* Lorem ipsum 1
+:PROPERTIES:
+:CUSTOM_ID: h-BAE2B39B
+:END:
+
+Lorem ipsum [cite:@Meyer2021a] dolor sit amet. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
+
+
+* Lore Ipsum 2
+:PROPERTIES:
+:CUSTOM_ID: h-30A3899C
+:END:
+
+Lorem ipsum dolor sit amet [fn:1]. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
+
+
+* References
+:PROPERTIES:
+:CUSTOM_ID: h-1DB3A62A
+:END:
+
+\setlength{\parindent}{0pt}
+
+#+print_bibliography:
+
+* Footnotes
+:PROPERTIES:
+:CUSTOM_ID: h-A67808EB
+:END:
+
+[fn:1]https://github.com/Unidata/MLscratchpad/tree/main/aiNWP
+
