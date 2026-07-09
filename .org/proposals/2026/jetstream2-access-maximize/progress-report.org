@@ -1,4 +1,4 @@
-#+title: Progress Report [2026 Placeholder]
+#+title: Progress Report
 
 #+bibliography: jetstream.bib
 
@@ -21,24 +21,23 @@
 :CUSTOM_ID: h-59B1064F
 :END:
 
-Lorem ipsum dolor sit amet. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
+TODO
 
-
-* Lorem ipsum 1
+* Customized JupyterHub Resources for Atmospheric Science Education
 :PROPERTIES:
 :CUSTOM_ID: h-BAE2B39B
 :END:
 
-Lorem ipsum [cite:@Meyer2021a] dolor sit amet. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
+NSF Unidata is using its Jetstream2 resource allocation to support atmospheric science education by providing customized PyAOS (Python for Atmosphere and Ocean Science) JupyterHub servers [cite:@Arms2020b]. NSF Unidata staff tailors these cloud-based environments to the instructional requirements of individual university courses, enabling instructors to meet their Earth system science teaching objectives. During the reporting period, NSF Unidata served 430 students at 12 academic institutions and workshops on NSF Unidata JupyterHub servers running on Jetstream2 [cite:@unidatastatus2026].
 
+A notable advancement during the past year has been the integration of streaming cloud desktop technology that provides browser-based access to the Unidata Integrated Data Viewer (IDV) and the Advanced Weather Interactive Processing System (AWIPS) Common AWIPS Visualization Environment (CAVE), the operational weather visualization workstation used by National Weather Service (NWS) forecast offices[cite:@Chastang2025b] [cite:@Chastang2026a]. This approach makes sophisticated desktop visualization software available to students without requiring local installation or high-performance hardware. During the fall 2025 semester, Professor Brian Mapes (University of Miami) successfully incorporated the IDV streaming desktop capability into a graduate-level atmospheric science course. Students used a Jupyter notebook to compute Global Forecast System (GFS) derived wind fields with WindsPharm, a Python package for atmospheric wind analysis, and wrote the results to netCDF, a self-describing scientific data format developed by Unidata. These results were then visualized in the IDV alongside infrared satellite imagery, all within a single integrated cloud environment. Students performed the complete workflow, from numerical analysis in a Jupyter notebook to interactive visualization in IDV, without leaving the browser.
 
 * Lore Ipsum 2
 :PROPERTIES:
-:CUSTOM_ID: h-30A3899C
+:CUSTOM_ID: h-662CAE73
 :END:
 
 Lorem ipsum dolor sit amet [fn:1]. Est voluptas aspernatur ut voluptate aliquid non dolor inventore in harum dicta ut fugit aliquam. Est repudiandae doloremque vel consequuntur numquam qui commodi dolorem sit nihil consequuntur est sequi possimus.
-
 
 * References
 :PROPERTIES:
