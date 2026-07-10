@@ -19,7 +19,13 @@
 :CUSTOM_ID: h-59B1064F
 :END:
 
-TODO
+- Supported atmospheric science education by providing customized PyAOS JupyterHub environments on Jetstream2 to 430 students across 12 universities and workshops.
+- Expanded educational capabilities by integrating browser-based streaming desktops for IDV and AWIPS CAVE, enabling cloud-based analysis and visualization workflows without local software installation.
+- Continued operation of the public AWIPS EDEX server on Jetstream2, serving up to 300 daily users, while supporting classroom instruction and the 2026 AMS Student Workshop.
+- Migrated NSF Unidata's JupyterHub infrastructure from Kubespray/Terraform/Ansible to OpenStack Magnum, enabling autoscaling Kubernetes clusters that improve resource utilization.
+- Deployed 19 production Magnum clusters (plus additional test clusters), gaining experience that led to numerous improvements benefiting both NSF Unidata and Jetstream2 community.
+- Collaborated with the Jetstream2 team to improve Magnum reliability, security, and functionality through work on ingress migration, cluster lifecycle management, persistent storage, shared home directories, GPU support, and Dask-enabled deployments.
+- Developed a prototype workflow for publishing NOAA MRMS data as cloud-native Zarr/Icechunk datasets on the Jetstream2 Object Store enabling access through the Unidata THREDDS Data Server, with production deployment planned for the next allocation period.
 
 * Educational Impact
 :PROPERTIES:
@@ -40,7 +46,7 @@ A notable advancement during the past year has been the integration of streaming
 :CUSTOM_ID: h-F26DB5F8
 :END:
 
-During this reporting period, NSF Unidata continued to host its public AWIPS EDEX server on Jetstream2, providing real-time weather data services to as many as 300 daily users while maintaining separate production and development virtual machines on Jetstream2[cite:@unidatastatus2026]. More than 60 students participated in the 2026 American Meteorological Society Student Workshop, where they were demonstrated how to use AWIPS for data exploration and visualization. During the Fall 2025 semester, the AWIPS team conducted a remote demonstration of AWIPS CAVE for Millersville University. Using the streaming desktop capability described above, students accessed the same operational weather visualization software used by National Weather Service forecast offices directly through their web browsers.
+During this reporting period, NSF Unidata continued to host its public AWIPS EDEX server on Jetstream2, providing real-time weather data services to as many as 300 daily users while maintaining separate production and development virtual machines on Jetstream2[cite:@unidatastatus2026]. More than 60 students participated in the 2026 American Meteorological Society Student Workshop where they were demonstrated how to use AWIPS for data exploration and visualization. During the Fall 2025 semester, the AWIPS team conducted a remote demonstration of AWIPS CAVE for Millersville University. Using the streaming desktop capability described above, students accessed the same operational weather visualization software used by National Weather Service forecast offices directly through their web browsers.
 
 * Infrastructure Improvements
 :PROPERTIES:
