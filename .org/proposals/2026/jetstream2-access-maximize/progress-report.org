@@ -26,9 +26,22 @@ TODO
 :CUSTOM_ID: h-BAE2B39B
 :END:
 
+** PyAOS JupyterHubs
+:PROPERTIES:
+:CUSTOM_ID: h-E0B9E04B
+:END:
+
 NSF Unidata is using its Jetstream2 resource allocation to support atmospheric science education by providing customized PyAOS (Python for Atmosphere and Ocean Science) JupyterHub servers [cite:@Arms2020b]. NSF Unidata staff tailors these cloud-based environments to the instructional requirements of individual university courses, enabling instructors to meet their Earth system science teaching objectives. During the reporting period, NSF Unidata served 430 students at 12 academic institutions and workshops on NSF Unidata JupyterHub servers running on Jetstream2 [cite:@unidatastatus2026].
 
 A notable advancement during the past year has been the integration of streaming cloud desktop technology that provides browser-based access to the Unidata Integrated Data Viewer (IDV) and the Advanced Weather Interactive Processing System (AWIPS) Common AWIPS Visualization Environment (CAVE), the operational weather visualization workstation used by National Weather Service (NWS) forecast offices[cite:@Chastang2025bPaper] [cite:@Chastang2025bSlides] [cite:@Chastang2026a]. This approach makes sophisticated desktop visualization software available to students without requiring local installation or high-performance hardware. During the fall 2025 semester, Professor Brian Mapes (University of Miami) successfully incorporated the IDV streaming desktop capability into a graduate-level atmospheric science course. Students used a Jupyter notebook to compute Global Forecast System (GFS) derived wind fields with WindsPharm, a Python package for atmospheric wind analysis, and wrote the results to netCDF, a self-describing scientific data format developed by Unidata. These results were then visualized in the IDV alongside infrared satellite imagery, all within a single integrated cloud environment. Students performed the complete workflow, from numerical analysis in a Jupyter notebook to interactive visualization in IDV, without leaving the browser.
+
+** AWIPS
+:PROPERTIES:
+:CUSTOM_ID: h-F26DB5F8
+:END:
+
+
+TODO
 
 * Infrastructure Improvements
 :PROPERTIES:
@@ -49,7 +62,14 @@ During this reporting period, the NSF Unidata science gateway team transitioned 
 
 Over the course of this work, NSF Unidata deployed 19 OpenStack Magnum clusters, along with additional test clusters to support JupyterHub environments for university courses and workshops. Operating Magnum at this scale has allowed NSF Unidata to gain operational knowhow with the service. This experience has enabled us to identify a number of problems and to work with the Jetstream2 team to improve Magnum for the broader community.
 
-Through this collaboration, the NSF Unidata Science gateway team helped identify and resolve a number of issues affecting OpenStack Magnum deployments on Jetstream2. These contributions included testing and validating the migration of NGINX ingress controller to Traefik[fn:1], investigating Magnum cluster lifecycle issues[fn:2] (including cluster creation, delete and persistent volume cleanup), identifying and helping resolve security vulnerabilities[fn:3] [fn:4], adopting a shared NSF home directory architecture based on the 2i2c JupyterHub model[cite:@Zonca2026SharedNFS], and working with Jetstream2 staff to support GPU[fn:5] [fn:6] and Dask-enabled[cite:@Zonca2025DaskOperator] JupyterHub deployments. In sum, these improvements attained through this collaboration have increased the reliability and security of Magnum on Jetstream2.
+Through this collaboration, the NSF Unidata Science gateway team helped identify and resolve a number of issues affecting OpenStack Magnum deployments on Jetstream2. These contributions included testing and validating the migration of NGINX ingress controller to Træfik[fn:1], investigating Magnum cluster lifecycle issues[fn:2] (including cluster creation, delete and persistent volume cleanup), identifying and helping resolve security vulnerabilities[fn:3] [fn:4], adopting a shared NSF home directory architecture based on the 2i2c JupyterHub model[cite:@Zonca2026SharedNFS], and working with Jetstream2 staff to support GPU[fn:5] [fn:6] and Dask-enabled[cite:@Zonca2025DaskOperator] JupyterHub deployments. In sum, these improvements attained through this collaboration have increased the reliability and security of Magnum on Jetstream2.
+
+* Jetstream2 Object Store Experimentation
+:PROPERTIES:
+:CUSTOM_ID: h-02C59FF2
+:END:
+
+Unidata staff developed an experimental workflow for publishing Multi-Radar/Multi-Sensor (MRMS) analysis data as cloud-native Zarr datasets, an object storage format optimized for large multidimensional scientific datasets, backed by Icechunk, a versioned storage layer for Zarr data, and hosted on the Jetstream2 Object Store. The workflow ingests MRMS data produced by the National Oceanic and Atmospheric Administration (NOAA), uses NSF Unidata's Local Data Manager (LDM) to transfer and transform the data, and stores the resulting datasets on the Jetstream2 object store. The data are then served through the standard interfaces of the NSF Unidata THREDDS Data Server (TDS) allowing users to leverage existing TDS workflows. We plan to transition this workflow into production during the next allocation cycle.
 
 * References
 :PROPERTIES:
