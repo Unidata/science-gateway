@@ -49,7 +49,7 @@ During this reporting period, the NSF Unidata science gateway team transitioned 
 
 Over the course of this work, NSF Unidata deployed 19 OpenStack Magnum clusters, along with additional test clusters to support JupyterHub environments for university courses and workshops. Operating Magnum at this scale has allowed NSF Unidata to gain operational knowhow with the service. This experience has enabled us to identify a number of problems and to work with the Jetstream2 team to improve Magnum for the broader community.
 
-Through this collaboration, the NSF Unidata Science gateway team helped identify and resolve a number of issues affecting OpenStack Magnum deployments on Jetstream2. These contributions included testing and validating the migration of NGINX ingress controller to Traefik[fn:1], investigating Magnum cluster lifecycle issues[fn:2] (including cluster creation, delete and persistent volume cleanup), identifying and helping resolve security vulnerabilities[fn:3] [fn:4], adopting a shared NSF home directory architecture based on the 2i2c JupyterHub model, and working with Jetstream2 staff to import support for GPU-enabled and Dask-enabled JupyterHub deployments. In sum, these improvements attained through this collaboration have increased the reliability and security of Magnum on Jetstream2.
+Through this collaboration, the NSF Unidata Science gateway team helped identify and resolve a number of issues affecting OpenStack Magnum deployments on Jetstream2. These contributions included testing and validating the migration of NGINX ingress controller to Traefik[fn:1], investigating Magnum cluster lifecycle issues[fn:2] (including cluster creation, delete and persistent volume cleanup), identifying and helping resolve security vulnerabilities[fn:3] [fn:4], adopting a shared NSF home directory architecture based on the 2i2c JupyterHub model[cite:@Zonca2026SharedNFS], and working with Jetstream2 staff to support GPU[fn:5] [fn:6] and Dask-enabled[cite:@Zonca2025DaskOperator] JupyterHub deployments. In sum, these improvements attained through this collaboration have increased the reliability and security of Magnum on Jetstream2.
 
 * References
 :PROPERTIES:
@@ -69,4 +69,5 @@ Through this collaboration, the NSF Unidata Science gateway team helped identify
 [fn:2]https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/93
 [fn:3]https://access-ci.atlassian.net/servicedesk/customer/portal/2/ATS-27848
 [fn:4]https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/pull/103
-
+[fn:5]https://access-ci.atlassian.net/servicedesk/customer/portal/2/ATS-28555
+[fn:6]https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/94
