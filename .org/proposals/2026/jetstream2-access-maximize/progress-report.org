@@ -42,13 +42,17 @@ A notable advancement during the past year has been the integration of streaming
 :CUSTOM_ID: h-CE3BC665
 :END:
 
-During this reporting period, the NSF Unidata science gateway team transitioned its customized PyAOS JupyterHub deployments to Jetstream2's Magnum service which provides OpenStack managed Kubernetes clusters with built-in autoscaling. NSF Unidata employs the "JupyterHub with Kubernetes" project to deploy these environments. For the past several years, our Kubernetes clusters had been provisioned with Kubespray, Terraform and Ansible [cite:@Zonca2018a]. Because these clusters had to be sized for peak anticipated demand, computing resources were underutilized during quieter periods such as outside classroom times. With Magnum's autoscaling capabilities, clusters now expand and contract automatically in response to actual usage thereby dramatically improving resource utilization while still supporting peak workloads[cite:@zonca2024magnum].
+During this reporting period, the NSF Unidata science gateway team transitioned its customized PyAOS JupyterHub deployments to Jetstream2's Magnum service which provides OpenStack managed Kubernetes clusters with built-in autoscaling. NSF Unidata employs the "JupyterHub with Kubernetes" project to deploy these environments. For the past several years, our Kubernetes clusters had been provisioned with Kubespray, Terraform and Ansible [cite:@Zonca2018a]. Because these clusters had to be sized for peak anticipated demand, computing resources were underutilized during quieter periods such as outside classroom times. With Magnum's autoscaling capabilities [cite:@zonca2024magnum], clusters now expand and contract automatically in response to actual usage thereby dramatically improving resource utilization while still supporting peak workloads.
 
 ** NSF Unidata and Jetstream2 Collaboration
 :PROPERTIES:
 :CUSTOM_ID: h-F7A3F9E0
 :END:
 
+Over the course of this work, NSF Unidata deployed 19 OpenStack Magnum clusters, along with additional test clusters to support JupyterHub environments for university courses and workshops. Operating Magnum at this scale has allowed NSF Unidata to gain operational knowhow with the service. This experience has enabled us to identify a number of issues and to work closely with the Jetstream2 team to improve Magnum for the broader community.
+
+Through this collaboration, the NSF Unidata Science gateway team helped identify and resolve a number of issues affecting OpenStack Magnum deployments on Jetstream2. These contributions included testing and validating the migration of NGINX ingress controller to Traefik, investigating Magnum cluster lifecycle issues (including cluster creation, delete and persistent volume cleanup), identifying and helping resolve security vulnerabilities, adopting a shared NSF home directory architecture based on the 2i2c JupyterHub model, and working with Jetstream2 staff to import support for GPU-enabled and Dask-enabled JupyterHub deployments. In sum, these improvements attained through this collaboration have increased the reliability and security of Magnum on Jestream2.
+-
 
 * References
 :PROPERTIES:
