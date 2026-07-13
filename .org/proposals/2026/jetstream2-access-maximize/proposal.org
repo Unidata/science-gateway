@@ -13,9 +13,7 @@
 #+latex_header: \hypersetup{hidelinks}
 #+latex_header: \usepackage{geometry}
 #+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
-#+latex_header: \usepackage{mathptmx}
-#+latex_header: \usepackage{wrapfig}
-#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{newtxtext,newtxmath}
 
 * Scientific Background and Support
 :PROPERTIES:
@@ -26,9 +24,9 @@
 :CUSTOM_ID: h-431AE939
 :END:
 
-NSF Unidata (NSF Award No. 2403649 [cite:@nsfaward2403649]) is a community data facility serving the atmospheric and related sciences. It was established in 1984 by U.S. universities with support from the National Science Foundation. The NSF Unidata Program Center (UPC), the program office and operational hub for NSF Unidata, is managed by the University Corporation for Atmospheric Research (UCAR), a consortium of 131 member universities and academic affiliates committed to advancing science in service to society [cite:@ucarmembers2025].
+NSF Unidata (NSF Award No. 2403649 [cite:@nsfaward2403649]) is a community data facility serving the atmospheric and related sciences. It was established in 1984 by U.S. universities with support from the National Science Foundation. The NSF Unidata Program Center (UPC), the program office and operational hub for NSF Unidata, is managed by the University Corporation for Atmospheric Research (UCAR), a consortium of 129 member universities and academic affiliates committed to advancing science in service to society [cite:@ucarmembers2026].
 
-NSF Unidata exists to engage and support researchers and educators working to advance the frontiers of Earth System Sciences (ESS). The program aims to transform the practice of research and education in atmospheric and related sciences by providing integrated, end-to-end data services and tools. NSF Unidata's offerings address many stages of the scientific data lifecycle, from locating and retrieving data, to analyzing and visualizing them locally or remotely, to curating and sharing the results. Specifically, NSF Unidata:
+NSF Unidata exists to engage and support researchers and educators working to advance the frontiers of Earth System Sciences (ESS). The program aims to transform the practice of research and education in atmospheric and related sciences by providing integrated, end-to-end data services and tools. NSF Unidata's offerings address many stages of the scientific data life cycle, from locating and retrieving data, to analyzing and visualizing them locally or remotely, to curating and sharing the results. Specifically, NSF Unidata:
 
 - Acquires, distributes, and provides remote access to meteorological data in near real-time.
 - Develops software for accessing, managing, analyzing, visualizing, and effectively using ESS data.
@@ -39,28 +37,27 @@ NSF Unidata exists to engage and support researchers and educators working to ad
 
 NSF Unidata's core community consists of faculty, students, and researchers in atmospheric science departments at U.S. universities. Beyond this core, the program provides tools and data to scientists and secondary-level educators across a range of disciplines in ESS, supporting the hydrology, oceanography, and solid Earth communities, among others, both in the U.S. and internationally.
 
-To give a sense of the scale of NSF Unidata's services to the ESS community [cite:@unidatastatus2024]:
+To give a sense of the scale of NSF Unidata's services to the ESS community [cite:@unidatastatus2026]:
 
-- Using the NSF Unidata Local Data Manager (LDM) [cite:@emmerson1994ldm], the UPC coordinates the Internet Data Distribution (IDD) system , through which hundreds of universities collaborate to disseminate near real-time Earth observations over the Internet. As of May 2024, the IDD includes 545 machines at 176 unique institutions; these sites collectively receive approximately 69 terabytes of ESS data daily.
+- [TODO:] Using the NSF Unidata Local Data Manager (LDM) [cite:@emmerson1994ldm], the UPC coordinates the Internet Data Distribution (IDD) system , through which hundreds of universities collaborate to disseminate near real-time Earth observations over the Internet. As of May 2024, the IDD includes 545 machines at 176 unique institutions; these sites collectively receive approximately 69 terabytes of ESS data daily.
 - NSF Unidata software packages, including netCDF [cite:@rew1989netcdf], MetPy [cite:@may2016metpy], Advanced Weather Interactive Processing System (AWIPS) [cite:@meyer2024awips], Integrated Data Viewer (IDV) [cite:@murray1997unidataidv], LDM [cite:@emmerson1994ldm], Thematic Real-Time Environmental Distributed Data Services (THREDDS) [cite:@caron1997thredds], and Unidata Units Library (UDUNITS) [cite:@emmerson2007udunits], provide ESS researchers, educators, and students with professional tools for data management, analysis, and visualization. All NSF Unidata software is open source and freely available.
-- NSF Unidata's Science Gateway [cite:@ramamurthy2017sciencegateway] has leveraged Jetstream and Jetstream2 resources to deliver cloud-based JupyterHub environments for "Python for Atmosphere and Ocean Science" (PyAOS). Since 2020, these JupyterHubs have supported more than 2,300 students across 28 universities [cite:@unidatastatus2025], as well as regional workshops, American Meteorological Society (AMS) workshops [cite:@Arms2020b], and the UCAR Significant Opportunities in Atmospheric Research and Science (SOARS) program [cite:@Chastang2022a].
-- NSF Unidata provides a version of the National Weather Service's AWIPS for university-level education. This tailored release prioritizes ease of use for educators rather than operational forecasters, resulting in a significantly smaller footprint. Using Jetstream2 resources, NSF Unidata also operates a publicly available AWIPS Environmental Data EXchange (EDEX) server, allowing students and instructors to explore AWIPS's visualization and analysis tools without managing their own data server. The public EDEX server delivers an average of 1.5 terabytes of data per day.
+- NSF Unidata's Science Gateway [cite:@ramamurthy2017sciencegateway] has leveraged Jetstream and Jetstream2 resources to deliver cloud-based JupyterHub environments for "Python for Atmosphere and Ocean Science" (PyAOS) as well as browser-based access to desktop applications such as IDV and AWIPS CAVE. Since 2020, these JupyterHubs have supported more than 2,600 students across 29 universities [cite:@unidatastatus2026], as well as regional workshops, American Meteorological Society (AMS) workshops [cite:@Arms2020b], and the UCAR Significant Opportunities in Atmospheric Research and Science (SOARS) program [cite:@Chastang2022a].
+- NSF Unidata provides a version of the National Weather Service's AWIPS for university-level education. This tailored release prioritizes ease of use for educators rather than operational forecasters, resulting in a significantly smaller footprint. Using Jetstream2 resources, NSF Unidata also operates a publicly available AWIPS Environmental Data EXchange (EDEX) server, allowing students and instructors to explore AWIPS's visualization and analysis tools without managing their own data server. This server supported the community serving up to 300 users per day [cite:@unidatastatus2026].
 
-NSF Unidata's data distribution software packages are particularly well suited for cloud-computing environments [cite:@Chastang2016]. Four applications that we will continue to emphasize in this request are:
+NSF Unidata's data distribution and data-serving technologies are particularly well suited for cloud-computing environments [cite:@Chastang2016]. Three core technologies that we will continue to emphasize in this request are:
 
 - *Local Data Manager (LDM)* is a peer-to-peer data distribution system well suited for transferring large ESS datasets across computer networks in real-time.
-- *Thematic Real-Time Environmental Distributed Data Services (THREDDS)* provides metadata and data access for scientific datasets using a variety of remote data access protocols, including OPeNDAP.
-- *Repository for Archiving, Managing and Accessing Diverse DAta (RAMADDA)* [cite:@mcwhirter2024ramadda], originally developed at NSF Unidata and now maintained by Geode Systems, is a content management system for ESS data. It integrates well with the NSF Unidata Integrated Data Viewer (IDV).
-- *AWIPS Environmental Data EXchange (EDEX)* is a data server that enables visualization and analysis components to efficiently display and analyze a wide range of datasets.
+- *Thematic Real-Time Environmental Distributed Data Services (THREDDS)* provides metadata and data access for scientific datasets using a standard scientific data access protocols, including OPeNDAP.
+- *AWIPS Environmental Data EXchange (EDEX)* is a data server that enables visualization and analysis components to efficiently retrieve, display, and analyze a wide range of datasets.
 
-LDM, THREDDS, RAMADDA, and AWIPS are proven, robust technologies that have matured through years of development and use by academic and broader ESS communities. They support the distribution of large volumes of forecast model output, climate datasets, satellite and radar imagery, lightning data, surface and upper-air observations, textual weather bulletins, and other ESS data types in near real-time.
+LDM, THREDDS, and AWIPS are proven, robust technologies that have matured through years of development and use by academic and broader ESS communities. They support the distribution of large volumes of forecast model output, climate datasets, satellite and radar imagery, lightning data, surface and upper-air observations, textual weather bulletins, and other ESS data types in near real-time.
 
 In addition to data distribution and serving technologies, NSF Unidata supports data analysis and visualization through a suite of tools:
 
-- *IDV*, offers capabilities for three-dimensional analysis and visualization of heterogeneous datasets.
-- *AWIPS CAVE*, the data rendering and visualization client used by the U.S. National Weather Service and many university programs, enables users to work with meteorological data served by AWIPS EDEX.
+- *IDV* offers capabilities for three-dimensional analysis and visualization of heterogeneous datasets.
+- *AWIPS CAVE* the data rendering and visualization client used by the U.S. National Weather Service and many university programs, enables users to work with meteorological data served by AWIPS EDEX.
 - ~python-awips~, a Python package that provides a data access framework for retrieving meteorological and related datasets from AWIPS EDEX.
-- *MetPy* [cite:@may2016metpy][cite:@metpy], a Python library offering tools for reading, visualizing, and performing calculations with weather data.
+- *MetPy* [cite:@may2016metpy; @metpy], a Python library offering tools for reading, visualizing, and performing calculations with weather data.
 
 ** NSF Unidata Cloud Services on Jetstream (2015-present)
 :PROPERTIES:
@@ -73,7 +70,7 @@ In addition to data distribution and serving technologies, NSF Unidata supports 
 
 The cloud computing era of the past two decades has enabled access to powerful, scalable computing resources and large scientific datasets, facilitating big data analysis and visualization [cite:@ansari2018]. The launch of Jetstream [cite:@10.1145/2792745.2792774] in 2015 provided NSF Unidata with a unique opportunity to leverage cloud computing capabilities not readily available through commercial providers, due to prohibitive costs or the short-term nature of grants that lacked continuity. At that time, NSF Unidata applied for a Startup allocation through XSEDE [cite:@10.1109/MCSE.2014.80] to explore Jetstream's features.
 
-NSF Unidata began its cloud computing investigations on Jetstream by containerizing its traditional software and experimenting with deployments. We developed containerized versions of LDM, THREDDS, and RAMADDA to serve large volumes of observational and forecast model ESS data [cite:@Chastang2016]. With support from a subsequent, larger XSEDE Research allocation, we used Jetstream as both a demonstration server and a testing platform to ensure that NSF Unidata's containerized applications were functioning properly for community use. These efforts were enabled by container registries such as DockerHub.
+NSF Unidata began its cloud computing investigations on Jetstream by containerizing its traditional software and experimenting with deployments. We developed containerized versions of LDM and THREDDS to serve large volumes of observational and forecast model ESS data [cite:@Chastang2016]. With support from a subsequent, larger XSEDE Research allocation, we used Jetstream as both a demonstration server and a testing platform to ensure that NSF Unidata's containerized applications were functioning properly for community use. These efforts were enabled by container registries such as DockerHub.
 
 In collaboration with the NOAA Big Data Project and Amazon Web Services (AWS), NSF Unidata later deployed a THREDDS AWS NEXRAD server on the Jetstream cloud[fn:1]. The server provides access to more than twenty years of NEXRAD Level II radar data. While the data reside on AWS, they are served by a THREDDS Data Server running on Jetstream2, supported by an Internet2 connection between the two cloud environments.
 
