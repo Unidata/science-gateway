@@ -95,22 +95,22 @@ To date, we have provided customized Jupyter notebook environments to more than 
 :CUSTOM_ID: h-65BA7DE0
 :END:
 
-AWIPS (Advanced Weather Interactive Processing System) is a weather forecasting display and analysis package developed for the National Weather Service by Raytheon Technologies Corporation. It comprises three main components: the CAVE (Common AWIPS Visualization Environment) visualization tool, the EDEX (Environmental Data Exchange) backend server, and ~python-awips~, a programmatic data access API. NSF Unidata develops, customizes, repackages, and redistributes AWIPS for academic research and education.
+AWIPS (Advanced Weather Interactive Processing System) is the operational weather analysis and visualization system used by the U.S. National Weather Service and developed by Raytheon Technologies Corporation. It comprises three main components: the CAVE (Common AWIPS Visualization Environment) visualization workstation, the EDEX (Environmental Data Exchange) backend server, and ~python-awips~, a Python package for programmatic access to AWIPS EDEX data. NSF Unidata develops, customizes, repackages, and redistributes AWIPS for academic research and education.
 
 #+NAME: AWIPS
-#+CAPTION: /2023 EDEX Users in the Academic Atmospheric Science Community [cite:@Meyer2023a]/
+#+CAPTION: /Daily AWIPS Users/
 #+ATTR_LATEX: width=\textwidth
 file:awips.png
 
-Since 2017, NSF Unidata has operated a publicly accessible EDEX server on Jetstream. In response to increasing data volumes, the system has been expanded to a full EDEX deployment consisting of three machines that work together to ingest, process, and serve a wide array of data in real-time. In 2020, a second EDEX system was established for development purposes and as a live backup to the production system. Both systems are positioned behind a load balancer acting as a DNS relay, enabling redirection and high availability.
+Since 2017, NSF Unidata has operated a publicly accessible EDEX server on Jetstream. In response to increasing data volumes, the system has been expanded to a full EDEX deployment consisting of a multi-node architecture that works together to ingest, process, and serve a wide array of data in real-time. In 2020, a second EDEX system was established for development purposes and as a live backup to the production system. The pair of systems have a load balancer in front of the them to ensure high availability for users.
 
-In summer 2022, these servers were rebuilt and migrated to the Jetstream2 platform. Following this transition, the AWIPS team deployed a third set of EDEX systems to support development of a newer version of AWIPS.
+In 2022, these servers were rebuilt and migrated to the Jetstream2 platform. Following this transition, the AWIPS team deployed a third set of EDEX systems to support development of a newer version of AWIPS.
 
-At the end of 2023, a new set of EDEX machines was deployed on a different operating system, migrating from CentOS 7 to Rocky Linux 8. Anticipating further deployments, the Unidata team created a default Rocky 8 system image preconfigured with required packages, RPMs, user accounts, configurations, and mounts. This image streamlines the creation of new EDEX instances and has been thoroughly documented for future use.
+At the end of 2023, a new set of EDEX machines was deployed on a different operating system, migrating from CentOS 7 to Rocky Linux 8. Anticipating further deployments, the Unidata team created a default Rocky 8 system image preconfigured with required packages, RPMs, user accounts, configurations, and mounts. This image streamlines the creation of new EDEX instances and is now used to provision new EDEX deployments.
 
-The ability to maintain separate operating systems and development versus production environments on Jetstream has enabled the NSF Unidata AWIPS team to test new features efficiently and transition between AWIPS builds without downtime. More than 80 academic institutions use Unidata's EDEX servers with both CAVE and ~python-awips~. These servers provide real-time weather data for classroom instruction and research.
+Jetstream2 enables the AWIPS team to maintain parallel production and development environments, allowing new operating systems and AWIPS releases to be evaluated before deployment while minimizing service interruptions for the community. More than [TODO: check if this number is still current] 80 academic institutions use NSF Unidata's EDEX servers with both CAVE and ~python-awips~. These servers provide real-time weather data for classroom instruction and research.
 
-In 2020, NSF Unidata released an asynchronous eLearning course introducing the fundamentals of CAVE. Designed for new users, including undergraduate meteorology students, the course includes demonstrations, tutorials, activities, assessments, and guided challenges that make use of CAVE's capabilities while connected to Unidata's public EDEX server on Jetstream2. In 2022, a similar but more concise eLearning course was developed to introduce users to the basics of ~python-awips~. This course also relies on Unidata's Jetstream2-based EDEX infrastructure.
+NSF Unidata also maintains two self-paced eLearning courses. The first course introduces the fundamentals of CAVE. Designed for new users, including undergraduate meteorology students, the course includes demonstrations, tutorials, activities, assessments, and guided challenges that make use of CAVE's capabilities. The second more concise course introduces users to the basics of ~python-awips~. These courses rely on NSF Unidata's Jetstream2-based EDEX infrastructure.
 
 *** NSF Unidata Science Gateway
 :PROPERTIES:
