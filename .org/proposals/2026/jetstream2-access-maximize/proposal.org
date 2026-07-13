@@ -68,11 +68,13 @@ In addition to data distribution and serving technologies, NSF Unidata supports 
 :CUSTOM_ID: h-8FAC8AAC
 :END:
 
-The cloud computing era of the past two decades has enabled access to powerful, scalable computing resources and large scientific datasets, facilitating big data analysis and visualization [cite:@ansari2018]. The launch of Jetstream [cite:@10.1145/2792745.2792774] in 2015 provided NSF Unidata with a unique opportunity to leverage cloud computing capabilities not readily available through commercial providers, due to prohibitive costs or the short-term nature of grants that lacked continuity. At that time, NSF Unidata applied for a Startup allocation through XSEDE [cite:@10.1109/MCSE.2014.80] to explore Jetstream's features.
+Over the past two decades, cloud computing has transformed access to scalable computing resources and large scientific datasets, enabling new approaches to scientific data analysis and visualization [cite:@ansari2018]. The launch of Jetstream [cite:@10.1145/2792745.2792774] in 2015 provided NSF Unidata with a unique opportunity to leverage cloud computing capabilities that were often impractical to obtain from commercial cloud providers because of cost and the limited duration of typical in-kind grants. At that time, NSF Unidata applied for a Startup allocation through XSEDE [cite:@10.1109/MCSE.2014.80] to explore Jetstream's features.
 
 NSF Unidata began its cloud computing investigations on Jetstream by containerizing its traditional software and experimenting with deployments. We developed containerized versions of LDM and THREDDS to serve large volumes of observational and forecast model ESS data [cite:@Chastang2016]. With support from a subsequent, larger XSEDE Research allocation, we used Jetstream as both a demonstration server and a testing platform to ensure that NSF Unidata's containerized applications were functioning properly for community use. These efforts were enabled by container registries such as DockerHub.
 
 In collaboration with the NOAA Big Data Project and Amazon Web Services (AWS), NSF Unidata later deployed a THREDDS AWS NEXRAD server on the Jetstream cloud[fn:1]. The server provides access to more than twenty years of NEXRAD Level II radar data. While the data reside on AWS, they are served by a THREDDS Data Server running on Jetstream2, supported by an Internet2 connection between the two cloud environments.
+
+These early XSEDE allocations evolved into successive ACCESS allocations that continue to support NSF Unidata's cloud computing activities today.
 
 *** Evolution and Impact of JupyterHub Technology in NSF Unidata Community: From Inception to Present
 :PROPERTIES:
