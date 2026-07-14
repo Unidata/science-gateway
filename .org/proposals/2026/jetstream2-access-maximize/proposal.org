@@ -112,24 +112,23 @@ Jetstream2 enables the AWIPS team to maintain parallel production and developmen
 
 NSF Unidata also maintains two self-paced eLearning courses. The first course introduces the fundamentals of CAVE. Designed for new users, including undergraduate meteorology students, the course includes demonstrations, tutorials, activities, assessments, and guided challenges that make use of CAVE's capabilities. The second more concise course introduces users to the basics of ~python-awips~. These courses rely on NSF Unidata's Jetstream2-based EDEX infrastructure.
 
-*** NSF Unidata Science Gateway
+*** NSF Unidata Science Gateway Evolution
 :PROPERTIES:
 :CUSTOM_ID: h-EC45EDE5
 :END:
 
-- *Purpose, Establishment, and Initial Services (2017)*: The NSF Unidata Science Gateway concept and platform [cite:@Chastang2017e] was launched to provide a unified access point for services offered on Jetstream, including customized PyAOS JupyterHub servers and ESS data distribution via LDM, THREDDS, RAMADDA, and AWIPS EDEX servers.
+- *Purpose, Establishment, and Initial Services (2017)*: The NSF Unidata Science Gateway concept and platform [cite:@Chastang2017e] was launched to provide a unified access point for services offered on Jetstream, including customized PyAOS JupyterHub servers and ESS data distribution via LDM, THREDDS, and AWIPS EDEX servers.
 - *AWIPS EDEX Server (2017)*: NSF Unidata deployed a publicly accessible AWIPS EDEX server on Jetstream, enabling real-time weather data access for over 80 academic institutions and supporting the use of AWIPS in atmospheric science education.
-- *NEXRAD AWS Radar Server (2017)*: In collaboration with NOAA and AWS, NSF Unidata launched a THREDDS-based radar data server on Jetstream, providing access to a radar data archive dating back to 1991.
-- *Expanded Use During COVID-19 (2019–2021)*: During the shift to online learning, demand surged for PyAOS JupyterHub servers supporting classroom instruction and workshops. NSF Unidata served 650 students at 16 universities during this period.
-- *Introduction to Advanced Workflows (2023)*: NSF Unidata expanded its technology offerings to better support the atmospheric science community [cite:@Chastang2025a]:
-  - *AI/ML Integration*: Leveraging Jetstream2's GPU resources, NSF Unidata made machine learning tools available through specialized PyAOS JupyterHub servers [cite:@zonca2024kubernetesgpu].
+- *NEXRAD AWS Radar Server (2017)*: In collaboration with NOAA and AWS, NSF Unidata launched a THREDDS-based radar data server on Jetstream, providing more than three decades of NEXRAD Level II radar observations.
+- *Expanded Use During COVID-19 (2019–2021)*: The transition to remote instruction accelerated adoption of NSF Unidata's cloud-hosted PyAOS JupyterHub environments supporting classroom instruction and workshops. NSF Unidata served 650 students at 16 universities during this period.
+- *Expansion into Advanced Scientific Computing (2023–Present)*: NSF Unidata expanded its technology offerings to better support the atmospheric science community [cite:@Chastang2025a]:
+  - *AI/ML Integration*: Leveraging Jetstream2's GPU resources, NSF Unidata made GPU-enabled Jupyterhubs available through specialized PyAOS deployments [cite:@zonca2024kubernetesgpu].
   - *Dask Clusters*: NSF Unidata began offering Dask-enabled PyAOS JupyterHub servers, enabling scalable parallel computing on distributed Jetstream2 virtual machines [cite:@zonca2023daskgateway].
   - *WRF Model Integration*: JupyterHub servers configured with the Weather Research and Forecasting (WRF) model were deployed to support numerical weather prediction (NWP) education [cite:@Espinoza2023a].
-  - *Lidar Radar Open Software Environment (LROSE)*: A specialized JupyterHub server equipped with LROSE software was launched, combining command-line scientific tools with modern Python-based data analysis and visualization capabilities. The LROSE JupyterHub deployment has since evolved into a standalone project [cite:@DeHart2024].
+- *Lidar Radar Open Software Environment (LROSE)*: A specialized JupyterHub server equipped with LROSE software was launched, combining command-line scientific tools with modern Python-based data analysis and visualization capabilities. The LROSE JupyterHub deployment has matured into an independently managed project serving the radar meteorology community [cite:@DeHart2024].
+  - *Scientific Desktop Applications*: NSF Unidata integrated browser-based virtual desktop technology into the Science Gateway, allowing users to launch desktop applications such as IDV and AWIPS CAVE directly from JupyterHub without local installation [cite:@Chastang2025bPaper;@Chastang2025bSlides;@Chastang2026a].
 
-NSF Unidata Science Gateway components are often used together in practice. At the University of Oklahoma, for example, NSF REU (Research Experiences for Undergraduates) students work with a JupyterHub server that accesses data uploaded by their instructor to a co-located RAMADDA server on the science gateway [cite:@paredes2021tropical].
-
-Development of the Science Gateway emphasizes technology reuse and the minimization of technical debt. We apply open-source software carpentry practices and a DevOps methodology to deliver these capabilities [cite:@Chastang2017c].
+Science Gateway services are designed to work together. For example, in a graduate atmospheric science course, students may use JupyterLab for Python analysis while launching IDV from the same browser session to visualize model output and observational datasets [cite:@Chastang2026a]. In sum, these services provide an integrated cloud environment in which users can retrieve, analyze, and visualize atmospheric science data without installing or maintaining complex software on their local computers.
 
 * Research Objectives
 :PROPERTIES:
