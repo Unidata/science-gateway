@@ -153,11 +153,14 @@ Science Gateway services are designed to work together. For example, in a gradua
 :PROPERTIES:
 :CUSTOM_ID: h-5641AEDC
 :END:
-- NSF Unidata will migrate most PyAOS JupyterHub deployments to autoscaling clusters managed by OpenStack Magnum, improving resource efficiency and scalability.
-- These Magnum-based deployments will support per-user access to GUI-based cloud desktops running IDV and AWIPS CAVE, eliminating the need for local software installation.
-- Jetstream2's OpenStack Swift object store is being evaluated for hosting real-time model and observational datasets using cloud-optimized formats such as Zarr and Icechunk.
-- Ongoing use of AWIPS EDEX and LDM-backed data services requires sustained CPU allocations to maintain reliability and performance.
-- A modest GPU allocation is requested to support exploratory AI/ML workflows within JupyterHub environments, including evaluation of GPU resource-sharing strategies.
+- Maintain and expand autoscaling NSF Unidata Science Gateway deployments on OpenStack Magnum, providing cloud-hosted JupyterHub environments for education, research, and workshops.
+- Promote browser-based scientific desktop environments, including IDV and AWIPS CAVE, integrated with JupyterHub to support complete cloud-based scientific workflows.  
+- Expand a prototype of on-demand notebook environments that can be launched directly from a notebook gallery, allowing instructors and researchers to easily discover, share, and execute scientific notebooks through the open-source nbgallery project.  
+- In support of on-demand notebook environments, deploy shared Conda environments using conda-store to improve software reproducibility while enabling instructors and researchers to share, discover, and reuse computing environments across Science Gateway deployments.
+- Continue operating LDM data distribution nodes together with THREDDS and AWIPS EDEX services to provide reliable, real-time access to ESS data for the community.
+- Evaluate Jetstream2's object store for hosting real-time NOAA MRMS datasets using cloud-optimized formats and storage technologies such as Zarr and Icechunk, with THREDDS providing standards-based data access services for the community.
+- Utilize a focused GPU allocation to support AI-enabled Science Gateway services, including GPU-enabled JupyterHub environments and evaluation of vLLM inference services for applications such as IDV.
+
 ** Modernizing PyAOS JupyterHub Deployments with OpenStack Magnum and Cloud Desktops
 :PROPERTIES:
 :CUSTOM_ID: h-65811F1F
