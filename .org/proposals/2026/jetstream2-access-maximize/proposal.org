@@ -187,15 +187,28 @@ To promote the discovery, sharing, and reuse of scientific notebooks and workflo
 :CUSTOM_ID: h-6C6CB8DC
 :END:
 
-Jetstream2 continues to provide the computing resources required to operate NSF Unidata's community data services, which deliver real-time and near-term archived Earth system science data to researchers, educators, and operational users. We will continue operating Local Data Manager (LDM) nodes to ingest, relay, and distribute meteorological model output and observational data that support multiple downstream services hosted on Jetstream2.
+Jetstream2 continues to provide the computing resources required to operate NSF Unidata's community data services, which deliver real-time and near-term archived Earth system science data to researchers, educators, and operational users. We will continue operating LDM nodes to ingest, relay, and distribute meteorological model output and observational data that support multiple downstream services hosted on Jetstream2.
 
 These data streams underpin our AWIPS EDEX servers, which ingest, process, and distribute real-time meteorological data for use with the AWIPS CAVE client at numerous academic institutions. They also support our THREDDS Data Server, which provides standards-based access to real-time and near-term archived datasets for the broader Earth system science community. In sum, these operational services require dedicated virtual machines for continuous data ingestion, processing, archiving, and distribution, making a sustained CPU allocation essential for reliable operational use.
-** Next-generation capabilities
+
+** Next-Generation Capabilities
 :PROPERTIES:
 :CUSTOM_ID: h-C603FF80
 :END:
 
+*** Jetstream2 Object Store
+:PROPERTIES:
+:CUSTOM_ID: h-18752A82
+:END:
 
+We will continue evaluating Jetstream2's object store as the storage backend for real-time NOAA Multi-Radar/Multi-Sensor (MRMS) datasets using cloud-native technologies such as Zarr and Icechunk. Our prototype workflow ingests MRMS data through the LDM, transforms it into the Zarr format, and stores the resulting datasets in the Jetstream2 object store. These datasets are then published through the NSF Unidata THREDDS Data Server (TDS), allowing TDS clients and workflows to access cloud-native data through standards-based interfaces. During the next allocation period, we will continue evaluating this approach and if successful, transition it toward operational deployment.
+
+*** Jetstream2 GPUs
+:PROPERTIES:
+:CUSTOM_ID: h-C11C47D3
+:END:
+
+To support AI-enabled scientific workflows, we request a focused GPU allocation for both GPU-enabled PyAOS JupyterHub environments and evaluation of a shared vLLM inference service. We have periodically received requests for GPU-backed JupyterHub deployments and expect this demand to continue, including a forthcoming request currently in the planning phase. These environments will enable educators and researchers to apply machine learning techniques to atmospheric science datasets within familiar notebook-based workflows. In parallel, we will evaluate a shared vLLM inference service to support applications such as the IDV in exploring large language model capabilities for tasks including meteorological image analysis. We also plan to investigate GPU resource-sharing technologies in collaboration with the Jetstream2 team.
 * Justifying Allocation Amounts
 :PROPERTIES:
 :CUSTOM_ID: h-083443E4
