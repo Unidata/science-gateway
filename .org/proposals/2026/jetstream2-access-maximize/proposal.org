@@ -159,46 +159,36 @@ Science Gateway services are designed to work together. For example, in a gradua
 - In support of on-demand notebook environments, deploy shared Conda environments using conda-store to improve software reproducibility while enabling instructors and researchers to share, discover, and reuse computing environments across Science Gateway deployments.
 - Continue operating LDM data distribution nodes together with THREDDS and AWIPS EDEX services to provide reliable, real-time access to ESS data for the community.
 - Evaluate Jetstream2's object store for hosting real-time NOAA MRMS datasets using cloud-optimized formats and storage technologies such as Zarr and Icechunk, with THREDDS providing standards-based data access services for the community.
-- Utilize a focused GPU allocation to support AI-enabled Science Gateway services, including GPU-enabled JupyterHub environments and evaluation of vLLM inference services for applications such as IDV.
+- Utilize a focused GPU allocation to support AI-enabled Science Gateway services, including GPU-enabled JupyterHub environments and evaluation of vLLM
 
-** Modernizing PyAOS JupyterHub Deployments with OpenStack Magnum and Cloud Desktops
+** Infrastructure (end extensive contributions back to team jetstream)
 :PROPERTIES:
-:CUSTOM_ID: h-5CC7E286
+:CUSTOM_ID: h-A5DB2441
 :END:
 
-During the upcoming allocation cycle, NSF Unidata plans to transition the majority of its PyAOS JupyterHub servers from Kubespray deployments to autoscaling clusters launched via the OpenStack Magnum API. This change is motivated by the efficiency gains made possible by Magnum's autoscaling capabilities, which eliminate the need to pre-provision resources for every potential user. Most of these JupyterHub deployments support semester-long university courses, with additional use in workshop settings such as the AMS Student Conference. Based on our expected usage patterns and the improved resource elasticity, we are requesting fewer CPU service units than in past allocation cycles.
+We will continue to refine our OpenStack Magnum deployment workflow to improve efficiency, reproducibility and maintainability of customized PyAOS JupyterHub deployments. Our Nushell-based automation scripts support rapid deployments of customized Kubernetes clusters by capturing the cluster configuration, including virtual machine size and flavors, autoscaling parameters, node groups, ingress configuration, DNS records, TLS certificates, and shared persistent storage following the 2i2c model. This workflow deploys a configured JupyterHub environment tailored to the users requirements including CPU and memory limits, authentication, browser-based IDV and AWIPS CAVE environments and customized PyAOS software.
 
-This transition has been carried out in close collaboration with Jetstream2 staff, particularly Julian Pistorius and Andrea Zonca. Our team has contributed testing feedback to improve Magnum support for multi-user JupyterHub deployments. In addition to improved resource utilization, the Magnum architecture also enables new capabilities: most autoscaled Hubs will support per-user access to GUI-based applications such as IDV and AWIPS CAVE via VNC-powered cloud desktops. This enhancement extends the reach of traditional NSF Unidata desktop tools without requiring local installation, making them more accessible to students and instructors alike.
+Beyond supporting our own deployments, we will continue collaborating closely with Jetstream2  to improve the Magnum ecosystem for the broader Jetstream2 community. To date, this collaboration has led to improvements in areas surrounding Magnum (life cycle issues), Kubernetes (shared disk, ingress) and security.
 
-** OpenStack Swift Resources
+One area of planned focus is the maintenance of Magnum virtual images. Because these images are not updated on a regular schedule, we have developed an workflow for building and securing the images to meet security and cluster requirements. We plan to continue working with the Jetstream2 team to disseminate this workflow so that the broader Jetstream2 community can benefit from more secure and consistently maintained images.
+** Scientific computing environments
 :PROPERTIES:
-:CUSTOM_ID: h-519F3B10
+:CUSTOM_ID: h-7BA94DE1
 :END:
 
-NSF Unidata is exploring the use of Jetstream2's OpenStack Swift object store to evaluate cloud-native data formats, such as Zarr and Icechunk, for management and access of near-real-time atmospheric model output and satellite data. The goal of this effort is to assess the viability of storing and accessing multidimensional scientific datasets using formats optimized for key-value object storage, in conjunction with the current and next generation THREDDS Data Server (TDS), to build expertise in cloud-native data services. This exploratory work represents an early-stage evaluation of the capabilities of cloud object storage for supporting scientific workflows that rely on near-real-time data.
-
-** AWIPS EDEX
+** Reproducible workflows
 :PROPERTIES:
-:CUSTOM_ID: h-0F96CF4F
+:CUSTOM_ID: h-81E03874
+:END:
+** Community data services
+:PROPERTIES:
+:CUSTOM_ID: h-6C6CB8DC
+:END:
+** Next-generation capabilities
+:PROPERTIES:
+:CUSTOM_ID: h-C603FF80
 :END:
 
-The utilization of AWIPS EDEX servers within the NSF Unidata community has significantly increased [cite:@Meyer2023a]. These systems hosted on Jetstream2 with ~m3.large~ VMs or larger demand considerable CPU resources to effectively ingest, process, and distribute extensive amounts of meteorological data in real-time. To meet this escalated demand while also ensuring high-speed, reliable service, a substantial allocation of CPU SUs for the EDEX system is required.
-
-** NSF Unidata Data Servers With the LDM
-:PROPERTIES:
-:CUSTOM_ID: h-417573A0
-:END:
-
-Ensuring continuity for our THREDDS, THREDDS Nexrad archive and AWIPS EDEX data servers remains a priority. Coupled with LDM relay and archiver VMs, these servers underpin our data management and distribution capabilities, enabling real-time and short term archived data to be accessible to the NSF Unidata community and the broader geosciences. Sufficient CPU resources are essential to handle the complex tasks of data ingestion, processing, cataloging, and dissemination without interruption.
-
-** Artificial Intelligence and Machine Learning with GPUs
-:PROPERTIES:
-:CUSTOM_ID: h-15060BAA
-:END:
-
-While NSF Unidata currently has no in-house AI/ML expert due to recent staffing changes, we are requesting a modest GPU allocation as a buffer to support potential community use. In the past, we have received requests from educators and researchers interested in GPU-enabled JupyterHub environments for AI/ML workflows. To accommodate such needs, we plan to continue advertising the availability of GPU-backed JupyterHub instances to our user community during the next allocation period. As a demonstration of responsible stewardship, we voluntarily returned a portion of our unused GPU allocation to the ACCESS program during this cycle, once it became clear that full utilization would not be possible due to staffing limitations and a temporary furlough caused by frozen NSF funds.
-
-Looking ahead, we plan to experiment with emerging features such as GPU resource sharing (e.g., time slicing or multi-instance GPUs), as suggested by Julian Pistorius and the Jetstream2 team, to evaluate whether such capabilities could further improve the efficiency of GPU-backed JupyterHub environments. We intend to share our findings and provide feedback to Jetstream2 staff based on these experiments.
 
 * Justifying Allocation Amounts
 :PROPERTIES:
