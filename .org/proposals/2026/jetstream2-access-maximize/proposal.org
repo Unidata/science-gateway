@@ -154,12 +154,12 @@ Science Gateway services are designed to work together. For example, in a gradua
 :CUSTOM_ID: h-DBD9DBD1
 :END:
 - Maintain and expand autoscaling NSF Unidata Science Gateway deployments on OpenStack Magnum, providing cloud-hosted JupyterHub environments for education, research, and workshops.
-- Promote browser-based scientific desktop environments, including IDV and AWIPS CAVE, integrated with JupyterHub to support complete cloud-based scientific workflows.  
-- Expand a prototype of on-demand notebook environments that can be launched directly from a notebook gallery, allowing instructors and researchers to easily discover, share, and execute scientific notebooks through the open-source nbgallery project.  
+- Promote browser-based scientific desktop environments, including IDV and AWIPS CAVE, integrated with JupyterHub to support cloud-based scientific workflows.
+- Expand a prototype of on-demand notebook environments that can be launched directly from a notebook gallery, allowing instructors and researchers to easily discover, share, and execute scientific notebooks through the open-source nbgallery project.
 - In support of on-demand notebook environments, deploy shared Conda environments using conda-store to improve software reproducibility while enabling instructors and researchers to share, discover, and reuse computing environments across Science Gateway deployments.
 - Continue operating LDM data distribution nodes together with THREDDS and AWIPS EDEX services to provide reliable, real-time access to ESS data for the community.
 - Evaluate Jetstream2's object store for hosting real-time NOAA MRMS datasets using cloud-optimized formats and storage technologies such as Zarr and Icechunk, with THREDDS providing standards-based data access services for the community.
-- Utilize a focused GPU allocation to support AI-enabled Science Gateway services, including GPU-enabled JupyterHub environments and evaluation of vLLM
+- Utilize a focused GPU allocation to support AI-enabled Science Gateway services, including GPU-enabled JupyterHub environments and evaluation of vLLM inference service.
 
 ** Science Gateway Infrastructure and Jetstream2 Collaboration
 :PROPERTIES:
@@ -172,7 +172,7 @@ Beyond supporting our own deployments, we will continue collaborating with the J
 
 One area of future work is the maintenance of Magnum virtual machine images. Because these images are not updated on a regular schedule, we have developed a workflow for building, validating, and securing these images. We plan to continue working with the Jetstream2 team to disseminate this workflow so that the broader Jetstream2 community can benefit from more secure and consistently maintained images.
 
-** Scientific computing environments
+** Scientific Computing Environments
 :PROPERTIES:
 :CUSTOM_ID: h-7BA94DE1
 :END:
@@ -193,14 +193,14 @@ One area of future work is the maintenance of Magnum virtual machine images. Bec
 
 * Justifying Allocation Amounts
 :PROPERTIES:
-:CUSTOM_ID: h-25DCCB86
+:CUSTOM_ID: h-083443E4
 :END:
 
-The requested allocation amounts for Jetstream2 (CPU and GPU) Service Units (SUs) have been calculated based on an analysis of our historical usage and projected needs and the current costs of resource usage as detailed in the Code Performance and Resource Cost document. These calculations ensure usage of NSF Unidata's presence on Jetstream2 through October 1, 2026 to provide high-quality support to our community without pause or interruption.
+The requested allocation amounts for Jetstream2 (CPU and GPU) Service Units (SUs) have been calculated based on an analysis of our historical usage and projected needs and the current costs of resource usage as detailed in the Code Performance and Resource Cost document. These calculations ensure usage of NSF Unidata's presence on Jetstream2 through October 1, 2027 to provide high-quality support to our community without pause or interruption.
 
 ** Resource Calculations
 :PROPERTIES:
-:CUSTOM_ID: h-ED048779
+:CUSTOM_ID: h-E94E9541
 :END:
 
 - *Jetstream2 Persistent Services CPU (648,240 SUs/year)*: This allocation supports continuous operational needs for data servers that provide real-time data to the NSF Unidata community. The calculation is based on the uptime of these services.
