@@ -164,7 +164,13 @@ NSF Unidata currently operates a limited number of local Linux servers which pro
 :CUSTOM_ID: h-631B0672
 :END:
 
-TODO:
+NSF Unidata requests a continued allocation on Jetstream2 to operate and expand the NSF Unidata Science Gateway, a production platform supporting education, research, and community data services for the Earth system sciences. Jetstream2 provides the cloud infrastructure required to operate scalable JupyterHub environments, browser-based scientific desktop applications, real-time data distribution services, and community data systems used by students, educators, and researchers.
+
+During the next allocation period, we will continue enhancing these production services while expanding capabilities in cloud-native data management, GPU-enabled scientific computing, and AI-assisted workflows. Planned work includes enhancing autoscaling JupyterHub deployments, expanding browser-based IDV and AWIPS CAVE environments, improving notebook discovery and reproducibility through nbgallery and conda-store, evaluating Jetstream2 object storage for cloud-native Earth system science datasets, and deploying GPU-enabled services to support machine learning and large language model workflows.
+
+These activities build upon NSF Unidata's long-standing role as a provider of community software, data services, and scientific infrastructure, leveraging Jetstream2 as a flexible, scalable platform for delivering reliable services while evaluating emerging technologies for the Earth system science community.
+
+These activities build upon NSF Unidata's long-standing role as a provider of community software, data services, and scientific infrastructure, leveraging Jetstream2 as a flexible, scalable platform for delivering reliable services while evaluating emerging technologies for the Earth system science community.
 
 \newpage
 
