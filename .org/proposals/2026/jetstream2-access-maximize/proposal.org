@@ -14,6 +14,7 @@
 #+latex_header: \usepackage{geometry}
 #+latex_header: \geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
 #+latex_header: \usepackage{newtxtext,newtxmath}
+#+latex_header: \usepackage{placeins}
 
 * Scientific Background and Support
 :PROPERTIES:
@@ -42,7 +43,6 @@ The gateway combines several mature NSF Unidata technologies to provide these ca
 Scientific analysis and instruction is performed through customized JupyterHub environments that provide Python for Atmosphere and Ocean Science (PyAOS) together with domain-specific software including MetPy [cite:@may2016metpy], while interactive visualization is available through browser-based deployments of the Unidata Integrated Data Viewer (IDV) [cite:@murray1997unidataidv] and the Advanced Weather Interactive Processing System Common AWIPS Visualization Environment (AWIPS CAVE) [cite:@meyer2024awips]. These services are deployed on an autoscaling Kubernetes applications on Jetstream2 using OpenStack Magnum, allowing computing resources to scale dynamically with instructional demand while minimizing idle resource consumption. Recent enhancements include Dask-enabled JupyterHub environments and browser-based scientific desktop applications. We are also evaluating cloud-native data formats and object storage to support data-intensive workflows.
 
 The NSF Unidata Science Gateway has become a vital component of NSF Unidata's educational and research cyberinfrastructure. Since 2020, the platform has supported more than 2,600 students across 29 universities, regional workshops, American Meteorological Society (AMS) training events, and the UCAR Significant Opportunities in Atmospheric Research and Science (SOARS) program [cite:@Arms2020b; @Chastang2022a; @unidatastatus2026]. The gateway also provides operational services for the broader Earth system science community through publicly accessible data servers and scientific applications, demonstrating NSF Unidata's ability to operate sustainable, scalable cloud services for the Earth system science community.
-
 * Research Objectives
 :PROPERTIES:
 :CUSTOM_ID: h-597284D6
@@ -61,11 +61,11 @@ The NSF Unidata Science Gateway has become a vital component of NSF Unidata's ed
 :PROPERTIES:
 :CUSTOM_ID: h-E2409815
 :END:
-
 ** Overview
 :PROPERTIES:
 :CUSTOM_ID: h-DBD9DBD1
 :END:
+
 - Maintain and expand autoscaling NSF Unidata Science Gateway deployments on OpenStack Magnum, providing cloud-hosted JupyterHub environments for education, research, and workshops.
 - Promote browser-based scientific desktop environments, including IDV and AWIPS CAVE, integrated with JupyterHub to support cloud-based scientific workflows.
 - Expand a prototype of on-demand notebook environments that can be launched directly from a notebook gallery, allowing instructors and researchers to easily discover, share, and execute scientific notebooks through the open-source nbgallery project.
@@ -93,6 +93,7 @@ One area of future work is the maintenance of Magnum virtual machine images. Bec
 Building on our mature JupyterHub platform, we will continue developing end-to-end scientific computing environments for atmospheric science that combine interactive notebooks with Unidata desktop applications. Leveraging the data services described in previous sections, these environments provide researchers, educators, and students with cloud-based workflows that require only a web browser, eliminating the need to install and maintain specialized scientific software on local systems. We will continue supporting browser-based access to IDV and AWIPS CAVE, enabling users to seamlessly transition between notebook-based analysis and interactive visualization. This integrated workflow has already been successfully demonstrated in graduate coursework.
 
 To promote the discovery, sharing, and reuse of scientific notebooks and workflows, we will expand our prototype notebook gallery based on the open-source nbgallery project. This capability allows instructors and researchers to browse, share, and launch notebooks directly from a curated gallery. Our prototype, which combines nbgallery with an internally developed notebook launcher, has already demonstrated the feasibility of this approach. Complementing this effort, we will deploy conda-store to manage shared, vetted software environments that support these curated notebooks, improving reproducibility while simplifying the distribution of scientific software stacks. As these capabilities mature, we plan to broaden access to our production JupyterHub service (jupyterhub.unidata.ucar.edu) through CILogon authentication, making these scientific computing environments available to a wider community of educators and researchers.
+
 ** Community Data Services
 :PROPERTIES:
 :CUSTOM_ID: h-6C6CB8DC
@@ -100,7 +101,14 @@ To promote the discovery, sharing, and reuse of scientific notebooks and workflo
 
 Jetstream2 continues to provide the computing resources required to operate NSF Unidata's community data services which deliver real-time and near-term archived Earth system science data to researchers, educators, and operational users. We will continue operating LDM nodes to ingest, relay, and distribute meteorological model output and observational data that support multiple downstream services hosted on Jetstream2.
 
+#+NAME: AWIPS
+#+CAPTION: /Daily AWIPS Users Connected to EDEX (Jul 1, 2025-Jun 30, 2026)/
+#+ATTR_LATEX: width=\textwidth
+file:awips.png
+
 These data streams underpin our AWIPS EDEX servers, which ingest, process, and distribute real-time meteorological data for use with the AWIPS CAVE client at numerous academic institutions. They also support our THREDDS Data Server, which provides standards-based access to real-time and near-term archived datasets for the Earth system science community. In sum, these operational services require dedicated virtual machines for continuous data ingestion, processing, archiving, and distribution, making a sustained CPU allocation essential for reliable operational use.
+
+\FloatBarrier
 
 ** Next-Generation Capabilities
 :PROPERTIES:
