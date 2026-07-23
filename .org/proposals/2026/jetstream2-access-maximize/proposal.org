@@ -141,11 +141,15 @@ The requested Jetstream2 CPU and GPU Service Unit (SU) allocations are based on 
 :CUSTOM_ID: h-E94E9541
 :END:
 
-- *Jetstream2 Persistent Services CPU (648,240 SUs/year)*: This allocation supports continuous operational needs for data servers that provide real-time data to the NSF Unidata community. The calculation is based on the uptime of these services.
-- *Jetstream2 EDEX Services CPU (1,979,760 SUs/year)*: The allocation is justified by the need to run two distinct sets of EDEX servers, which handle real-time data ingestion and dissemination. This requirement stems from the need for redundancy to ensure service continuity and reliability.
-- *Jetstream2 On-demand CPU (2,371,255 SUs/year)*: This significant allocation is for our PyAOS JupyterHub operations, which support a large number of educational activities. Usage patterns from previous academic years help justify this request.
-- *Jetstream2 GPU (467,282 SUs/year)*: The demand for GPU resources has increased notably with the introduction of machine learning and advanced data analysis courses. The allocation is based on past usage and expected increases in demand.
-- *Storage Needs (40TB)*: The request for this storage capacity is based on the necessity to manage large atmospheric science datasets essential for real-time and archival purposes. The need for 10TB dedicated to the EDEX servers and an additional 30TB for other data servers, Openstack Swift explorations, and miscellaneous storage is vital for maintaining and advancing the services we offer to our community.
+- *Jetstream2 Persistent Services CPU (648,240 SUs/year)*: This allocation supports continuously operating production services that provide data access, infrastructure, and operational support for the NSF Unidata community. These include IDD/LDM data distribution nodes, THREDDS data servers, centralized logging for JupyterHub deployments, and supporting operational infrastructure. The request is based on year-round operation of these essential services.
+
+- *Jetstream2 EDEX Services CPU (1,979,760 SUs/year)*: This allocation supports two redundant AWIPS EDEX production stacks that provide real-time ingest, processing, and dissemination of meteorological data. Redundant EDEX servers ensure high availability and uninterrupted community access.
+
+- *Jetstream2 On-demand CPU (2,608,380 SUs/year)*: This allocation supports autoscaling JupyterHub clusters used for university courses, workshops, and short courses, together with continuously operating production and development clusters. The request is based on observed usage from recent academic years, expected instructional demand, and includes a 10% operational margin to accommodate variability in cluster demand and day-to-day operations.
+
+- *Jetstream2 GPU (30,252 SUs/year)*: This allocations supports a focused set of GPU-enabled AI/ML activities using GPU-enabled JupyterHub deployments and evaluation of emerging AI services such as vLLM. GPU resources are also used for software builds, testing, and validation.
+
+- *Storage Needs (40 TB)*:  This request supports operational datasets required for real-time community services, including AWIPS EDEX, THREDDS, IDD object storage services, and associated scientific data services.
 
 * Resource Appropriateness
 :PROPERTIES:
