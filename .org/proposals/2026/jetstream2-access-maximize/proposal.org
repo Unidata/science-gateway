@@ -147,23 +147,23 @@ The requested Jetstream2 CPU and GPU Service Unit (SU) allocations are based on 
 
 - *Jetstream2 On-demand CPU (2,608,380 SUs/year)*: This allocation supports autoscaling JupyterHub clusters used for university courses, workshops, and short courses, together with continuously operating production and development clusters. The request is based on observed usage from recent academic years, expected instructional demand, and includes a 10% operational margin to accommodate variability in cluster demand and day-to-day operations.
 
-- *Jetstream2 GPU (30,252 SUs/year)*: This allocations supports a focused set of GPU-enabled AI/ML activities using GPU-enabled JupyterHub deployments and evaluation of emerging AI services such as vLLM. GPU resources are also used for software builds, testing, and validation.
+- *Jetstream2 GPU (30,252 SUs/year)*: This allocation supports a focused set of GPU-enabled AI/ML activities using GPU-enabled JupyterHub deployments and evaluation of emerging AI services such as vLLM. GPU resources are also used for software builds, testing, and validation.
 
-- *Storage Needs (40 TB)*:  This request supports operational datasets required for real-time community services, including AWIPS EDEX, THREDDS, IDD object storage services, and associated scientific data services.
+- *Storage Needs (40TB)*:  This allocation supports operational datasets required for real-time community services, including AWIPS EDEX, THREDDS, IDD object storage services, and associated scientific data services.
 
 * Resource Appropriateness
 :PROPERTIES:
 :CUSTOM_ID: h-A284668E
 :END:
 
-In the context of the ACCESS program, Jetstream2 stands out as a unique general-purpose facility with capabilities to deploy CPU and GPU Linux virtual machines across a spectrum of sizes and flavors through both a graphical user interface (Exosphere) and OpenStack command line. This versatility makes it an invaluable asset for utilizing cloud technologies like Kubernetes and Docker, which allows NSF Unidata to swiftly deploy scalable NSF Unidata services in response to community needs. These offerings not only enhance our ability to provide high-quality, reliable services but also eliminate the burden with managing physical, on-premises hardware. The broad range of functionalities provided by Jetstream2 bolsters our ongoing efforts to provide comprehensive and innovative solutions to the educational and research challenges faced by our community.
+In the context of the ACCESS program, Jetstream2 stands out as a unique general-purpose facility with capabilities to deploy CPU and GPU Linux virtual machines across a spectrum of sizes and flavors through both a graphical user interface (Exosphere) and OpenStack command line. This versatility makes it an invaluable asset for utilizing cloud technologies like Kubernetes and Docker, which allows NSF Unidata to swiftly deploy scalable NSF Unidata services in response to community needs. These offerings not only enhance our ability to provide high-quality, reliable services but also eliminate the burden of managing physical, on-premises hardware. The broad range of functionalities provided by Jetstream2 bolsters our ongoing efforts to provide comprehensive and innovative solutions to the educational and research challenges faced by our community.
 
 * Disclosure of Access to Other Compute Resources
 :PROPERTIES:
 :CUSTOM_ID: h-73485F02
 :END:
 
-NSF Unidata currently operates a limited number of local Linux servers which provide computing support for various internal and external facing functions. While these local servers are essential to our daily operations, they do not offer the expansive capabilities or specialized hardware available on Jetstream2. Specifically, Jetstream2's infrastructure provides access to a wide range of CPU and GPU virtual machines of various sizes and Linux distributions conveniently accessible through the OpenStack command line and Exosphere web interface. This spectrum of offerings is essential for conducting advanced ESS education and research and is not replicable with our existing computer hardware.
+NSF Unidata currently operates a limited number of local Linux servers which provide computing support for various internal and external-facing functions. While these local servers are essential to our daily operations, they do not offer the expansive capabilities or specialized hardware available on Jetstream2. Specifically, Jetstream2's infrastructure provides access to a wide range of CPU and GPU virtual machines of various sizes and Linux distributions conveniently accessible through the OpenStack command line and Exosphere web interface. This spectrum of offerings is essential for conducting advanced ESS education and research and is not replicable with our existing computer hardware.
 
 * Summary
 :PROPERTIES:
@@ -196,4 +196,4 @@ These activities build upon NSF Unidata's long-standing role as a provider of co
 [fn:1]https://tds-nexrad.scigw.unidata.ucar.edu/thredds/catalog/catalog.html
 [fn:2]https://github.com/nbgallery/nbgallery
 [fn:3]https://github.com/Unidata/usg-devops/tree/main/jhub
-[fn:4]https:jupyterhub.unidata.ucar.edu
+[fn:4]https://jupyterhub.unidata.ucar.edu
