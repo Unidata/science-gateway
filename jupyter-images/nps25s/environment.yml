@@ -1,0 +1,46 @@
+name: nps25s
+channels:
+ - conda-forge
+dependencies:
+  # Required by JupyterLab
+  - 'python<3.13'
+  - nb_conda_kernels
+  - ipykernel
+  # Standard packages
+  - numpy
+  - matplotlib
+  - cartopy
+  - metpy
+  - siphon
+  - pandas
+  - pip
+  - xarray
+  - ipywidgets
+  - python-awips
+  - scikit-learn
+  - seaborn
+  # User requested packages
+  - netcdf4
+  - cfgrib
+  - plotly
+  # begin holoviz packages
+  - panel
+  - hvplot
+  - holoviews
+  - geoviews
+  - datashader
+  - lumen
+  - param
+  - colorcet
+  # end holoviz packages
+  - bokeh
+  - awscli
+  - s3fs
+  - siphon
+  - jupyter-book
+  - voila
+  - ipympl
+  - pip:
+    # It is recommended to install a package using pip as a last resort, i.e.
+    # when it is not found in the conda repos
+    - palmerpenguins
