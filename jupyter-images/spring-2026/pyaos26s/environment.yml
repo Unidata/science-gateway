@@ -1,0 +1,21 @@
+name: 2026-ams-studentconference
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - jupyter-resource-usage >=1.2.0,<1.3
+  - jupyterlab >=4.5.3,<4.6
+  - jupyterlab-git >=0.51.4,<0.52
+  - jupyterlab-myst >=2.6.0,<2.7
+  - boto3 >=1.42.33,<1.43
+  - cartopy >=0.25.0,<0.26
+  - ipykernel >=7.1.0,<7.2
+  - metpy >=1.7.1,<1.8
+  - matplotlib >=3.10.8,<3.11
+  - netcdf4 >=1.7.4,<1.8
+  - python-awips >=23.1.1,<23.2
+  - siphon >=0.10.0,<0.11
+  - xarray >=2025.12.0,<2025.13
+  - geopandas >=1.1.2,<1.2
+  - python >=3.12
+  - nb_conda_kernels

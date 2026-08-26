@@ -1,0 +1,20 @@
+# Custom login stuff
+hub:
+  extraVolumes:
+    - name: custom-templates
+      configMap:
+        name: jhub-custom-templates
+  extraVolumeMounts:
+    - name: custom-templates
+      mountPath: /usr/local/share/jupyterhub/custom-templates
+      readOnly: true
+  extraConfig:
+    10-custom-template-path.py: |
+      # Tell JupyterHub to look in the mounted template directory first
+      c.JupyterHub.template_paths = [
+          "/usr/local/share/jupyterhub/custom-templates"
+      ]
+
+cull:
+  every: 0 # Don't cull on inactivity
+  maxAge: 28800 # Cull every 8 hours; regardless of activity
