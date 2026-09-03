@@ -76,7 +76,7 @@ openstack server create "$VM_NAME" \
   --flavor "$VM_SIZE" \
   --image "$IMAGE_NAME" \
   --key-name "$KEY_NAME" \
-  --nic net-id=$"$NETWORK_ID" \
+  --nic net-id="$NETWORK_ID" \
   --user-data "$SECURITY_SCRIPT"
 
 # give chance for VM to fire up
